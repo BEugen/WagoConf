@@ -1,0 +1,8 @@
+﻿Internal command
+
+0 - channel unmount
+1 - channel mount
+2 - change module
+3 - change group settings
+4 - change set channel (type, scaling ...)
+

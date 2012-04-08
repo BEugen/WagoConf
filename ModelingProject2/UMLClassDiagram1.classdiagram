@@ -1,0 +1,626 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="18b59178-f3c4-4c80-aa7d-bcc345ed7779" name="UMLClassDiagram1" linkedPackageId="50af359c-31ed-4a52-ae5a-0b0e54469188" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="acf06f55-8451-40be-a651-bf75de93d049" name="RtpModuls" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="8ec9111c-70dc-4b15-aae2-2fabb01fc0b8" />
+        <targetEnds>
+          <association Id="26fd35f8-af3c-4cb1-a799-1beceede4d8e" isDerived="false" sourceEndRoleName="Rtp3Moduls" targetEndRoleName="ChanelType" isLeaf="false" name="typeid" isAbstract="false">
+            <classMoniker Id="8c52e462-9df5-4762-a55f-b6bf1000ffb8" LastKnownName="ChannelType" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7bd70d4d-df12-46e1-8ed2-a0f2b4f11076" name="Rtp3Moduls" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="9afbf486-1711-4e6a-9299-8cdb0048f268" name="Lower" value="modultype">
+                      <elementDefinition Id="676f14e4-593d-4edb-9c28-e60af13b337c" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="0db68c73-65bd-4473-9dc9-e9b87dbd93d3" name="Upper" value="modultype">
+                      <elementDefinition Id="21832caf-cd29-41bb-8ac4-22193f16f07f" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="eec3b81c-915e-4429-b9e3-bf74eb7773cd" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1df90653-2f0b-4852-a4b9-b7cf7b1f45b3" name="ChanelType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <lowerValueInternal>
+                    <literalString Id="7a30b715-fa27-4224-9ce4-9d846b88c509" name="Lower" value="typeid">
+                      <elementDefinition Id="d3251eca-cf82-45e1-8f72-1e80d9aed7d4" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="9e46b78f-25b5-4025-9e46-9bc33927bb50" name="Upper" value="typeid">
+                      <elementDefinition Id="5487b1fc-0b5a-4095-9f14-83833a38ec4c" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="bbdbc226-08d9-4886-896e-7fc51f3c8c15" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="bd7d456e-9049-444a-89dd-5683e2ac2834" />
+          </association>
+          <association Id="04a5db97-afbb-4824-b4a7-542c63b669ce" isDerived="false" sourceEndRoleName="Rtp3Moduls" targetEndRoleName="Rtp3Channel" isLeaf="false" name="modulnumber" isAbstract="false">
+            <classMoniker Id="9eb7edff-6e54-4a7b-99b7-67843004bdd9" LastKnownName="RtpChannel" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="41f50d8f-2245-4c4a-950c-5d6e46ee55b4" name="Rtp3Moduls" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="2b3c8063-ef25-439a-a840-6595f3d081f3" name="Lower" value="modulnumber">
+                      <elementDefinition Id="9e98eb31-6675-4461-b755-2be3c8f13067" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="d674c4b9-536e-4667-97e2-db428f620616" name="Upper" value="modulnumber">
+                      <elementDefinition Id="e608bcd5-6e0c-464e-84f1-e097d29eb216" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="64cc99d3-f0d5-42f9-aa5d-c3ca44e3448f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="37c8b965-6c4b-439c-abef-67069ea78a45" name="Rtp3Channel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="d3d0c799-6a89-41d7-ac57-3a026dc8fb23" name="Lower" value="modulnumber">
+                      <elementDefinition Id="61d403c3-e7be-4019-85d4-0cdd58eb06d4" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="758114c9-da25-4b3c-b588-2e21ab107a07" name="Upper" value="modulnumber">
+                      <elementDefinition Id="74a00a20-a603-4e48-9982-f951d41cb10e" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="88395389-ac9b-4ece-b2a5-102a590369fc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="e77c5132-1ab7-44c7-80ba-ad6d4387a4e7" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="abc02c01-de19-4b3c-a189-6b6da759fbc4" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b95f0b77-644c-476d-b00a-b97bb8187a79" />
+          </property>
+          <property Id="1e067b81-a258-4b84-b774-b616a23914f8" name="modulnumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="0e5c10c8-a230-4551-b567-3b169f272bdd" />
+          </property>
+          <property Id="64fcb595-9594-4d9e-b518-417f5a7b6309" name="modultype" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="209d9b4c-2e5b-492e-b719-5648da7e055e" />
+          </property>
+          <property Id="ab125cc2-ac34-435b-ab09-c721fb314ab1" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="64bf3cd5-fc9c-4911-8516-83e73872c574" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="8c52e462-9df5-4762-a55f-b6bf1000ffb8" name="ChannelType" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="61c27320-3dcd-4779-b401-a7b1a9bfe0d4" />
+        <targetEnds>
+          <association Id="42284de8-998a-483e-92a2-041ff04d6a1c" isDerived="false" sourceEndRoleName="ChanelType" targetEndRoleName="Rtp3Channel" isLeaf="false" isAbstract="false">
+            <classMoniker Id="9eb7edff-6e54-4a7b-99b7-67843004bdd9" LastKnownName="RtpChannel" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="fdba0084-d204-4800-a436-18a0e50df5f8" name="ChanelType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="0c3a445e-30bc-4a26-a2e8-12c22762c4ec" name="Lower" value="typeid">
+                      <elementDefinition Id="6f234b6a-a5b2-487d-bf71-00e65deae5e3" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="c240b51a-1d39-419e-a356-38f2b4d0fa36" name="Upper" value="typeid">
+                      <elementDefinition Id="1695c41a-6dca-4e27-aec6-7949e2f159bf" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="3f0a462e-7db6-49a8-87b1-12da1dab307e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5db4005c-626d-4a2f-a031-4c118a78b5d3" name="Rtp3Channel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="66efed9b-ac45-4d4d-a854-e9a9ff76e205" name="Lower" value="chaneltype">
+                      <elementDefinition Id="e97480e0-3b98-4dbe-8b5e-193b721f0d95" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="c480afe1-7d4f-4eb0-b7fd-dbd13d1bebf7" name="Upper" value="chaneltype">
+                      <elementDefinition Id="3732b4b0-7932-4471-8b02-6a735c241d0e" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="929a4e82-02f8-45c4-b813-489342ce847f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="9ea181f1-64ff-4388-b5f3-d41bf0cdf223" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="b2f3df75-13d4-41e9-9a0a-20c8071e48b0" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e2d82583-3a64-4d0b-8dc5-5c8cf4f0aa97" />
+          </property>
+          <property Id="7f7aa767-227e-4153-97a1-d41acfcece35" name="description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5b3078ac-7e4a-4430-9a1c-3f0ffa5c2419" />
+          </property>
+          <property Id="b57bb586-bf9f-4717-bf45-6f6735540dee" name="typeid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5df90e62-42ac-4927-b3eb-8df4039d8493" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="9eb7edff-6e54-4a7b-99b7-67843004bdd9" name="RtpChannel" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9f9414af-f6c0-4590-9d26-48fdf27aeb9b" />
+        <targetEnds>
+          <association Id="574fc0eb-e644-4551-b734-bc62b06834d1" isDerived="false" sourceEndRoleName="Rtp3Channel" targetEndRoleName="Rtp3Chibers" isLeaf="false" isAbstract="false">
+            <classMoniker Id="b2bdce00-24df-41aa-97ec-8e3ba2137bef" LastKnownName="RtpShibers" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e2a1214d-41c2-48fd-a7a6-a1e0494e0533" name="Rtp3Channel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="5e1281cc-21ad-482a-b30d-031700645738" name="Lower" value="shiberid">
+                      <elementDefinition Id="b1fd855d-f54c-4556-998f-c6c01ef0c60c" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="4a9fa30d-6767-4183-b8ee-0792d2138104" name="Upper" value="shiberid">
+                      <elementDefinition Id="68c91a70-9404-49ba-93e1-46d140f33bf0" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="a9330489-c0e8-44e5-bcec-7812df062ef8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7c7675ee-6e06-4ed1-ad0f-52017f7f360a" name="Rtp3Chibers" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="93925c8c-368c-4922-8e31-9bc382be8ba1" name="Lower" value="id">
+                      <elementDefinition Id="014d36c4-6083-46b0-885b-1b9002b0b41b" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="efa9a938-5d9d-4a5b-b2d0-51933c706b17" name="Upper" value="id">
+                      <elementDefinition Id="eff9bea4-9956-45f2-910d-b12387582a78" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="a229e935-165c-4af7-9fc0-f538e7cb92c3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="6b8a7760-dd52-442e-96a0-3bd1d3718032" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="08985dd9-3fbd-4e08-836d-370494944474" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c03368c2-3ab4-4e8a-90ba-4332f23b02fa" />
+          </property>
+          <property Id="0737eeea-2240-418e-a0f8-1d84bfdbfbd8" name="modulnumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="99a83db2-b857-46c1-8ba7-5727f243cf93" />
+          </property>
+          <property Id="d9154157-bd91-4095-969d-a6f082529ec5" name="channelnumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="889df122-ca2b-4971-8be3-f991ae296ed3" />
+          </property>
+          <property Id="3fee46da-c27e-428f-9c8d-8dec4dbe809f" name="channeltype" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1de597a8-60a3-4ad8-877d-dd822b479256" />
+          </property>
+          <property Id="52d199c8-7ff8-4f16-bed2-a9e0b3dc9404" name="shiberid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e7698116-9768-4ee9-b12b-1ad3d5472cbc" />
+          </property>
+          <property Id="e92c5ee5-87e6-4eb4-adfc-191b15cb97f5" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="8a30d01d-8482-46ba-914d-449f5102329b" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="b2bdce00-24df-41aa-97ec-8e3ba2137bef" name="RtpShibers" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="3e1ee4a0-e72c-4e54-94ff-92876c101691" />
+        <targetEnds>
+          <association Id="0c394f94-f067-467c-8b11-5274791c0f18" isDerived="false" sourceEndRoleName="Rtp3Chibers" targetEndRoleName="ShiberDescription" isLeaf="false" isAbstract="false">
+            <classMoniker Id="4e640370-086e-4a92-9cac-c7d1c1f2ba3e" LastKnownName="RtpSignalsGroup" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9a6f0957-93f1-444f-91f7-505eb53a992c" name="Rtp3Chibers" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="76fe3348-ea67-4705-a6cc-b32536e7e266" name="Lower" value="signalgrouid">
+                      <elementDefinition Id="a989719d-c5bd-4227-8b20-71c27e83ab1f" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="8012332a-90cf-4bbb-9e6e-9f6522caa9a3" name="Upper" value="signalgrouid">
+                      <elementDefinition Id="f8837cfa-ef89-4c38-821f-dcfc7c659732" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="66909be8-b9ce-4552-94a9-c8b49a67297e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="10ba9072-8f8d-4de5-9f5b-e4252e659a5a" name="ShiberDescription" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="bc9557b6-f74d-4644-9cc5-363c1fc84351" name="Lower" value="id">
+                      <elementDefinition Id="56baf62f-2523-4030-8432-cf62e5359d24" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="eaf34e02-911c-4011-9fdd-30405fb3f77e" name="Upper" value="id">
+                      <elementDefinition Id="d0fa30c5-69b9-464c-b3f0-1dbaf3c521fa" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="cb55d493-0acc-4e78-87e3-29e265f8970d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="58da6be1-2d76-4325-a5fd-a2ff30104f1b" />
+          </association>
+          <association Id="e8d2eb6d-1399-4d1f-915b-e1976323f96c" isDerived="false" sourceEndRoleName="Rtp3Chibers" targetEndRoleName="ShiberSignals" isLeaf="false" isAbstract="false">
+            <classMoniker Id="0f36d188-413a-4ee3-8416-6f9f4d89a827" LastKnownName="RtpSignals" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="002ba2ad-1453-42de-bea3-4528ad37f137" name="Rtp3Chibers" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="abb5682f-9052-4d53-b3a3-221d796fd9ee" name="Lower" value="signaltype">
+                      <elementDefinition Id="e1931d39-8159-49bd-92e9-bcb038afb039" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="e92296d8-3dff-4385-b607-da808478e1f7" name="Upper" value="signaltype">
+                      <elementDefinition Id="3e317c3d-0b86-4e99-906c-a2fd75543f0f" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="dfed8c07-8fd2-4580-9d20-a4878e247962" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ea283763-7fdd-48c8-ad45-f1b916a77053" name="ShiberSignals" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="e1fc1dc5-f93e-4ac8-a380-884d7f4fafcb" name="Lower" value="id">
+                      <elementDefinition Id="f9daf224-247f-4975-aace-27247112455b" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="119d6398-46c8-431c-badc-e98008dedbd3" name="Upper" value="id">
+                      <elementDefinition Id="11da0b54-d65f-4c05-ac8b-c2374f5c7426" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="31009ae0-637f-4a98-be52-8eba03e32fb8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7b55e312-7154-4d18-827a-4ec64e89dd88" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="a87817f7-abd6-47c2-a40a-634087186113" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e4216717-fe89-4b3b-9b43-40105b119312" />
+          </property>
+          <property Id="3b05c68f-8bee-4662-b744-b0fbd19f02f9" name="shibernumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9512559f-d6b2-45c4-9bc6-0bc4d911435d" />
+          </property>
+          <property Id="b0514938-8990-486d-81f8-c0eeaa0a181e" name="signaltype" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c3009b75-d8b5-4c98-a31e-5e77c8e73823" />
+          </property>
+          <property Id="e6e1a02e-f0b5-4dec-9cc3-48e9a18b9b0f" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="88dea974-a94f-44a9-854c-adf8e7e4dd83" />
+          </property>
+          <property Id="130f534c-dae4-4469-8cef-6386abd7d9ee" name="signalgroupid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d7a68640-de90-428e-9c98-fe71eacfd782" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="4e640370-086e-4a92-9cac-c7d1c1f2ba3e" name="RtpSignalsGroup" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="6f19d683-821b-42ef-a980-170ca13f0d7d" />
+        <targetEnds>
+          <association Id="cd14e2fc-2be2-46f4-9a40-a63d7e5550fe" isDerived="false" sourceEndRoleName="RtpSiganalsGroup" targetEndRoleName="RtpSignals" isLeaf="false" isAbstract="false">
+            <classMoniker Id="0f36d188-413a-4ee3-8416-6f9f4d89a827" LastKnownName="RtpSignals" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f6969e0d-f08e-4e2d-aaf0-8a14e4df190d" name="RtpSiganalsGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="6dd76d41-e0ae-46fa-8161-82aee196e4e5" name="Lower" value="signalgroup">
+                      <elementDefinition Id="bd5e0ec0-bf84-487b-b1ce-a81f9862a6da" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="6fe37393-3629-44ea-8585-05be6adb5919" name="Upper" value="signalgroup">
+                      <elementDefinition Id="27efca72-de58-401c-b3dc-b612d3d93a5d" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="85be79ff-5fe9-43f0-a1d9-aecfbd9852b3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="302953c2-0614-4677-90b8-a063326c6297" name="RtpSignals" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <lowerValueInternal>
+                    <literalString Id="d193d833-5e61-4666-b0e2-2661f01a1362" name="Lower" value="signalgroup">
+                      <elementDefinition Id="da2bf30b-5b24-4a5d-b4ae-38283da64d30" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="38f0b3d4-a036-4d71-9fa4-fdc323d7505b" name="Upper" value="signalgroup">
+                      <elementDefinition Id="f08383d4-0551-4025-9382-5e45d96fc97b" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="effbb27d-d179-4f11-87b1-e50e9dae3e63" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="e9d2cdd4-6f0d-40dd-a49e-cc9b52ca605c" />
+          </association>
+          <association Id="44016eab-a917-4a47-8291-167ea917aef1" isDerived="false" sourceEndRoleName="RtpSignalsGroup" targetEndRoleName="RtpCommand" isLeaf="false" isAbstract="false">
+            <classMoniker Id="0eb334e8-3fb1-4ef1-88be-3302b63897bb" LastKnownName="RtpCommand" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="36f73fd7-448c-4bbd-8eb0-a7343da84a83" name="RtpSignalsGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="4a646114-508f-4d01-9535-d061a13ae868" name="Lower" value="sighalgroup">
+                      <elementDefinition Id="58f6b690-288e-4d53-809c-bfd08fe1879d" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="1b23c49e-bbd7-47f5-a288-d5c760a65034" name="Upper" value="sighalgroup">
+                      <elementDefinition Id="6bd15779-78a6-4922-9528-a3b6f184b1b3" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="df1c3e0a-e766-4750-b00a-8a5b57495d77" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c58f9b0e-36c6-4679-88f4-19537167260a" name="RtpCommand" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="c63bb6bd-ea66-40d5-838c-4ad1ca6d523c" name="Lower" value="signalgroup">
+                      <elementDefinition Id="0b9eddf8-11f3-438a-9c3c-c222c69a969d" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="b8226b3b-b4ab-48a9-9914-b40af9971d76" name="Upper" value="signalgroup">
+                      <elementDefinition Id="877b4d12-0235-45cb-9291-4e1a26e6610e" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="01cc0b22-c253-415a-983f-9fe779acda9f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="22c5a9cc-3724-4d70-bf55-eb8f83f969ca" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="0d0feddb-2406-4e1b-bfc1-f13dde8a11cb" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6d236e64-c18c-4494-87c5-85290b59c13f" />
+          </property>
+          <property Id="cd81c11d-648b-4f48-90bf-5fc5621f27e2" name="signalgroupdescription" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="cddacdf8-73dd-4a7a-a409-b3230348c450" />
+          </property>
+          <property Id="8b7f0d72-1397-4ac8-8a9f-604808b144e8" name="signalattrnumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f9477bb2-1783-46d2-b832-98bca7c531a7" />
+          </property>
+          <property Id="7e9f88f7-e78d-4c4a-b9f9-cf60c40be63c" name="signalgroup" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="09ed00f2-4089-4513-8881-8f32bcc7ff3f" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0f36d188-413a-4ee3-8416-6f9f4d89a827" name="RtpSignals" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="026a786e-644e-4eee-aeb2-c5822c1f4ce8" />
+        <targetEnds>
+          <association Id="98c36fc1-b8d9-48c2-aee9-e2d29c4dd3a8" isDerived="false" sourceEndRoleName="ShiberSignals" targetEndRoleName="ChanelType" isLeaf="false" isAbstract="false">
+            <classMoniker Id="8c52e462-9df5-4762-a55f-b6bf1000ffb8" LastKnownName="ChannelType" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="dfd776e3-6833-4def-8552-429121059f36" name="ShiberSignals" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="0d135a59-4ad0-4586-b550-afe02e7f2e89" name="Lower" value="signalcontrain">
+                      <elementDefinition Id="6fcaf4d1-b0e6-495a-8659-1482c060e169" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="d8e196b5-56da-4bcc-80cb-15ab1e91ee3d" name="Upper" value="signalcontrain">
+                      <elementDefinition Id="11603388-3bf2-4c69-a500-920722041020" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="4494555c-cad3-41b8-8233-2512289c4682" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d92385f3-0cf9-4c42-b3a5-88959b55ff6b" name="ChanelType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="4c756335-7e17-4372-8a1e-3eaaa71a7b01" name="Lower" value="typeid">
+                      <elementDefinition Id="c78e789b-e657-4b92-900f-b78d1f683cfd" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="df8491ca-40a6-445e-aeda-a19657e60698" name="Upper" value="typeid">
+                      <elementDefinition Id="594d1954-0d25-48a1-83e1-892d662c4496" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="9f41402c-a0bc-452a-a583-00e50b228c5e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5d87cfbe-5c19-475b-9dd5-5730dbc98150" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="2c752825-7f66-4632-b2ab-717b45a2f52d" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="30b4eacc-fde0-48d4-ae92-908f1dfa793a" />
+          </property>
+          <property Id="52e1d5ab-626f-42fb-b011-b1d7fd1936f0" name="signaldescr" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="8c811f95-078c-4235-8893-7042a07733de" />
+          </property>
+          <property Id="9af67ace-98dc-45b0-bedf-864adbd39f0b" name="signaltype" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="20b4ff66-d673-4179-bec6-d2f2b3c88b76" />
+          </property>
+          <property Id="3c531639-3145-42b8-9592-a489a32fc7c1" name="signalcontrain" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="eafd732b-173e-4614-b096-6f10aa8f63bb" />
+          </property>
+          <property Id="36e546d2-e949-458c-8130-9c9801113017" name="signalgroup" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5ea9908e-4c17-4b29-b9aa-c8ef4b71304c" />
+          </property>
+          <property Id="ba4d1d3c-ff5d-4932-99d5-148a24cd918d" name="signalattribute" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="60be2ac0-1bb6-485a-91b3-3d02ca3b7cd3" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="2726a488-92fe-4ec5-96ab-649e27902ea2" name="RtpName" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="09aa4299-78eb-4a06-b1a1-84855455d6d7" />
+        <targetEnds>
+          <association Id="203a5281-7c68-42f2-8451-06a8c168d7ef" isDerived="false" sourceEndRoleName="RtpName" targetEndRoleName="Rtp3Moduls" isLeaf="false" isAbstract="false">
+            <classMoniker Id="acf06f55-8451-40be-a651-bf75de93d049" LastKnownName="RtpModuls" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="67e31119-d443-4bf9-9daa-9fd5676ad375" name="RtpName" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="a9429df9-9726-47b2-8ade-0f67d38b1bc2" name="Lower" value="rtpid">
+                      <elementDefinition Id="8fb7f43e-aedf-439c-a892-ac7ccbb96305" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="2680528c-6ee9-438e-beda-928a145189a8" name="Upper" value="rtpid">
+                      <elementDefinition Id="51b7f75f-7979-46b4-8177-b24c9c32ebc5" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="920d63d7-8eb9-416c-835f-f2ea148df9eb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b54121a3-a827-4329-b410-b33cc0553530" name="Rtp3Moduls" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="82b2c7b5-5f48-4ae1-869c-38e923af9338" name="Lower" value="rtpid">
+                      <elementDefinition Id="0e4a8598-2631-44bd-9acd-ae000b4a7e46" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="8a8ec66b-1b3b-41fc-a16a-9cc4ec0bee85" name="Upper" value="rtpid">
+                      <elementDefinition Id="c550ddb2-f83a-4ea8-81cf-246ee07baadd" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="2accb672-de37-49bd-98ac-4da67fc9b6ee" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="46f57510-0745-4c28-b8d8-ebfa911dee5d" />
+          </association>
+          <association Id="86508a0d-3102-42a8-bbd7-d47d7273add1" isDerived="false" sourceEndRoleName="RtpName" targetEndRoleName="Rtp3Channel" isLeaf="false" isAbstract="false">
+            <classMoniker Id="9eb7edff-6e54-4a7b-99b7-67843004bdd9" LastKnownName="RtpChannel" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0a0bfa70-b05e-45c4-8545-a742acedf174" name="RtpName" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="64e97a15-a8c7-490a-b9de-68104749dbec" name="Lower" value="rtpid">
+                      <elementDefinition Id="a295fc99-f65c-452e-85a1-0f386b497165" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="9c28e029-923f-4a7f-b995-09aa40088428" name="Upper" value="rtpid">
+                      <elementDefinition Id="35c331d3-fa02-44f2-a61e-0bef3b7c0c5e" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="9c2f29e7-f702-495f-811e-a30467377705" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="aa4ee7fd-cdc7-4cef-91a7-a8d28ec1d397" name="Rtp3Channel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="f5ff14fc-05fe-4d06-b6a5-2abe11725ef9" name="Lower" value="rtpid">
+                      <elementDefinition Id="47e1ceeb-f91e-40b4-bb5b-21e7544c2fed" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="154fc0a3-276b-4302-a3d2-40ba24c8852d" name="Upper" value="rtpid">
+                      <elementDefinition Id="1bd415cf-f5c9-4537-9da7-0c9a31df756c" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="4a578837-6a40-4e02-954c-847de578b06c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="e5dced51-cbcb-41cb-97e9-696de682503a" />
+          </association>
+          <association Id="7410a714-2f28-43d0-a33f-b8d548c5dcf7" isDerived="false" sourceEndRoleName="RtpName" targetEndRoleName="Rtp3Chibers" isLeaf="false" isAbstract="false">
+            <classMoniker Id="b2bdce00-24df-41aa-97ec-8e3ba2137bef" LastKnownName="RtpShibers" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="297b0633-c385-4d4f-8676-77b57b0f93f7" name="RtpName" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="804da57e-74da-42b3-990b-7adb77e6a54e" name="Lower" value="rtpid">
+                      <elementDefinition Id="a72484ff-9f37-43d6-a335-e6c091309fc0" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="cea6544d-6d7a-41eb-8d0c-8ae9e938b225" name="Upper" value="rtpid">
+                      <elementDefinition Id="cf08845e-1d3b-4ff6-bcf7-bd920b7d1733" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="4b77614b-0901-4a58-ade0-ad3fd779736b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="dc143649-f02a-4392-9e20-56ec84cf1dbb" name="Rtp3Chibers" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="c7b62c2e-e61c-4bc3-9074-eabb63616a94" name="Lower" value="rtpid">
+                      <elementDefinition Id="158890bf-719e-40ab-8140-9ef26a940f79" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="14eff483-1bc1-4665-a45c-c492c84e7378" name="Upper" value="rtpid">
+                      <elementDefinition Id="fd67a249-e6f8-4910-916a-c5659dfccd47" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="cbc7adee-46cc-478d-aaed-d8ded941cf82" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="edc11352-be20-43dc-ab25-7cf2d823e03a" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="5d0a73b1-b97f-480b-b47e-eac9ad9629d7" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="335442ce-ec6c-4278-b7cd-ebf8ea2ebbb7" />
+          </property>
+          <property Id="98d893a1-6701-4a1b-917c-81073a865bdf" name="rtpdescr" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a23fb895-f1ac-41bb-b643-fb89db7fd60b" />
+          </property>
+          <property Id="b1fb4f47-d766-481b-a769-959a32625fc3" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="679cf5bd-2c42-452b-9cc9-a8679a3b047f" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0eb334e8-3fb1-4ef1-88be-3302b63897bb" name="RtpCommand" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="3820ba3a-bcf1-47b1-9382-8105a35dda97" />
+        <ownedAttributesInternal>
+          <property Id="9dd8d2c7-1013-4934-bb02-8a134874cfea" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6815d616-e13b-480a-8ec8-202428ca4c20" />
+          </property>
+          <property Id="09d95a42-895e-4e73-8248-e74eb7cc4a22" name="signalgroup" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2dc4aac5-8d6d-4758-8f33-41f0cd20326d" />
+          </property>
+          <property Id="2cfffcd8-ccb3-445d-94e4-c02804acb24e" name="commandid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="24c71a62-7551-4582-a702-5bbcfdd69e0b" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="50af359c-31ed-4a52-ae5a-0b0e54469188" name="ModelingProject2">
+    <elementDefinition Id="da90372f-aae7-4687-abee-04aaa87191cf" />
+    <profileInstances>
+      <packageHasProfileInstances Id="e51a9c21-5051-4395-afe6-6cc38b45cfd8">
+        <profileInstance Id="f7dbf3d8-2592-41e6-bee6-59f72d397ee8" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="53e92c40-3a77-44f8-85a9-e7a3d55e0ddb">
+        <profileInstance Id="9f438d72-8940-41a0-bcf3-01f6308a2dfc" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

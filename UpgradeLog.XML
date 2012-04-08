@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Config_PLC_SIEMENS">
+</Property><Property Name="Solution File" Value="C:\Users\Eugen\documents\visual studio 2010\Projects\Config_PLC_SIEMENS\Config_PLC_SIEMENS.sln">
+</Property><Property Name="Date" Value="15 сентября 2010 г.">
+</Property><Property Name="Time" Value="10:46:17">
+</Property></Properties><Event ErrorLevel="0" Project="WPFScada" Source="WPFScada\WPFScada\WPFScada.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="WPFScada" Source="WPFScada\WPFScada\WPFScada.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="WPFScada" Source="WPFScada\WPFScada\WPFScada.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

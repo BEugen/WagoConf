@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- You don't need to worry about anything in this file unless you're
+     using registration-free COM.
+     There should be an appropriate <clrclass> section for every ActiveX
+     control defined in the project -->
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1"
+  manifestVersion="1.0">
+  <assemblyIdentity
+              type="win32"
+              name="Config_PLC_SIEMENS"
+              version="1.0.0.0" />
+  <clrClass
+              clsid="{DDBFAC4B-2024-4A48-B929-97AA484FE19D}"
+              progid="Config_PLC_SIEMENS.ConfigPLC_S7"
+              threadingModel="Both"
+              name="Config_PLC_SIEMENS.ConfigPLC_S7" >
+  </clrClass>
+</assembly>

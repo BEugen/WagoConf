@@ -1,0 +1,22 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Config_PLC_SIEMENS.valControl" Height="84.706" Width="434.546">
+
+	<Grid x:Name="LayoutRoot" Background="{x:Null}" Height="32.778">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Canvas Margin="0,0,-0.635,0" Background="{x:Null}" x:Name="dCanvas" VerticalAlignment="Top" Height="32.514">
+			<Rectangle Height="31.037" Width="431" Canvas.Left="2" Canvas.Top="1" Fill="#0DE01F1F" Stroke="#FF9D2D2D" RadiusX="5" RadiusY="5" StrokeThickness="2" x:Name="anPane"/>
+			<TextBox Text="100,0" TextWrapping="Wrap" Height="27.963" HorizontalAlignment="Center" x:Name="valText" VerticalAlignment="Center" Width="87.815" Background="#FFC2C2C2" BorderBrush="#FF000000" BorderThickness="3,3,3,3" FontFamily="Arial" FontSize="18" FontWeight="Bold" Canvas.Left="341.921" Canvas.Top="2.67" IsReadOnly="True" TextAlignment="Right" Padding="1,1,2,1"/>
+			<TextBlock Height="20.963" Width="341.111" Text="TextBlock" TextWrapping="Wrap" FontFamily="Arial" TextAlignment="Right" x:Name="nametext" Foreground="#FFF1F1F1" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Canvas.Top="6.296"/>
+		</Canvas>
+	</Grid>
+</UserControl>

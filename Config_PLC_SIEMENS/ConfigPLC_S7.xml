@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+  <ConfigAChannel>
+    <ac id="0" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="0" namePLC="A1" nameSCADA="A1" address="0" fTime="0" regID="-1">PID_1 уровень</ac>
+    <ac id="1" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="0" namePLC="A2" nameSCADA="A2" address="2"  fTime="0" regID="-1"></ac>
+    <ac id="2" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="0" namePLC="A3" nameSCADA="A3" address="4" fTime="0" regID="-1"></ac>
+    <ac id="3" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="0" namePLC="A4" nameSCADA="A4" address="6" fTime="0" regID="-1"></ac>
+    <ac id="4" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="10" namePLC="A5" nameSCADA="A5" address="8" fTime="0" regID="-1">PID_1_KL клапан</ac>
+    <ac id="5" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="10" namePLC="A6" nameSCADA="A6" address="10" fTime="0" regID="-1"></ac>
+    <ac id="6" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="-1" namePLC="A7" nameSCADA="A7" address="-1" fTime="0" regID="-1">PID_1_ZAD задание</ac>
+    <ac id="7" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="-1" namePLC="A8" nameSCADA="A8" address="-1" fTime="0" regID="-1">PID_1_KL_MANUAL ручное управление клапаном</ac>
+    <ac id="8" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="-1" namePLC="A9" nameSCADA="A9" address="-1" fTime="0" regID="-1"></ac>
+    <ac id="9" rawMIN="0" rawMAX="32768" minEU="0" maxEU="100" type="-1" namePLC="A10" nameSCADA="A10" address="-1" fTime="0" regID="-1"></ac>
+  </ConfigAChannel>
+  <ConfigAModul PLC_NAME="Test" PLC_TYPE="315-2DP" PLC_NUMBER="1">
+    <m channelcount="4" type="0" mid="0">
+      <adr address="0" cid="0" use_code="1">0</adr>
+      <adr address="2" cid="1" use_code="0">1</adr>
+      <adr address="4" cid="2" use_code="0">2</adr>
+      <adr address="6" cid="3" use_code="0">3</adr>
+    </m>
+    <m channelcount="4" type="1" mid="1">
+      <adr address="8" cid="0" use_code="0">4</adr>
+      <adr address="10" cid="1" use_code="0">5</adr>
+      <adr address="" cid="2" use_code="0">-1</adr>
+      <adr address="" cid="3" use_code="0">-1</adr>
+    </m>
+    <m channelcount="4" type="0" mid="2">
+      <adr address="" cid="0" use_code="0">-1</adr>
+      <adr address="" cid="1" use_code="0">-1</adr>
+      <adr address="" cid="2" use_code="0">-1</adr>
+      <adr address="" cid="3" use_code="0">-1</adr>
+    </m>
+    <m channelcount="4" type="0" mid="3">
+      <adr address="" cid="0" use_code="0">-1</adr>
+      <adr address="" cid="1" use_code="0">-1</adr>
+      <adr address="" cid="2" use_code="0">-1</adr>
+      <adr address="" cid="3" use_code="0">-1</adr>
+    </m>
+  </ConfigAModul>
+  <PID_reg>
+    <rPID id="0" namePID="PID_1" PV="0" SP="6" CV="4" CV_MANUAL="7" T0_n="0" Kp="0" Ti="0" Td="0" N="0" Us_min="0" Us_max="0"
+          E_min="0" E_max="0" TempUst="0" TempOut="0" O_Min="0" O_Max="0" PID_Mode="129"></rPID>
+    <rPID id="1" namePID="PID_2" PV="-1" SP="-1" CV="-1" CV_MANUAL="-1" T0_n="0" Kp="0" Ti="0" Td="0" N="0" Us_min="0" Us_max="0"
+          E_min="0" E_max="0" TempUst="0" TempOut="0" O_Min="0" O_Max="0" PID_Mode="129"></rPID>
+    <rPID id="2" namePID="PID_3" PV="-1" SP="-1" CV="-1" CV_MANUAL="-1" T0_n="0" Kp="0" Ti="0" Td="0" N="0" Us_min="0" Us_max="0"
+          E_min="0" E_max="0" TempUst="0" TempOut="0" O_Min="0" O_Max="0" PID_Mode="129"></rPID>
+  </PID_reg>
+  <ConfigNode>
+    <pathStaticCode count_dynamic="0" count_static="0" data="01.01.1900 0:00:00" time_out="60" time_update="1" time_interval="300"
+    >E:\Мои документы\Visual Studio 2010\Projects\Config_PLC_SIEMENS\testActiveX\bin\Debug\PLC_Code</pathStaticCode>
+  </ConfigNode>
+</Config>

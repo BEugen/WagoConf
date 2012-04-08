@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.GetModule" Method="GetModule">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetModuleResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="modulnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="descript" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetRtpSignalGroups" Method="GetRtpSignalGroups">
+    <ElementType Name="GetRtpSignalGroupsResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalattrnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalgroup" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetRtpSignals" Method="GetRtpSignals">
+    <Parameter Name="groupid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="channeltype" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetRtpSignalsResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="signalattribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetModulType" Method="GetModulType">
+    <ElementType Name="GetModulTypeResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="descript" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AddNewModul" Method="AddNewModul">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="channelcount" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modultype" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetSignalsIdForGroupId" Method="GetSignalsIdForGroupId">
+    <Parameter Name="signalgroupid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="channeltype" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetSignalsIdForGroupIdResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="signalattribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetChannel" Method="GetChannel">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetChannelResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="channelnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="channeltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shiberid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="groupid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="signalid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetChannelCurrentShbers" Method="GetChannelCurrentShbers">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="chanelid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="groupid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="signalid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetChannelCurrentShbersResult">
+      <Column Name="signaltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="modulnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="channelnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="commandid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="signalcontrain" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.CheckMountChannel" Method="CheckMountChannel">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="channelnumber" Type="System.Int32" DbType="Int" />
+    <ElementType Name="CheckMountChannelResult">
+      <Column Name="signaltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="modulnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="channelnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="commandid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="signalcontrain" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ChangeModulType" Method="ChangeModulType">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modultype" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
