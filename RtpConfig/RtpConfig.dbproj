@@ -40,7 +40,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=HM\MSQL;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=WKZP85824;Integrated Security=True;Pooling=False</TargetConnectionString>
     <TargetDatabase>
     </TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -189,11 +189,9 @@
     <Build Include="Scripts\CheckMountChannel.proc.sql">
       <SubType>Code</SubType>
     </Build>
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Scripts\Post-Deployment\​​Script.PostDeployment.sql">
-      <SubType>NotInBuild</SubType>
-    </PostDeploy>
+    <Build Include="ChangeCountChannel.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Scripts\Post-Deployment\AddChannelType.sql">
@@ -209,6 +207,9 @@
       <SubType>NotInBuild</SubType>
     </NotInBuild>
     <NotInBuild Include="Scripts\Post-Deployment\AddRtpCommandId.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Post-Deployment\Script.PostDeployment.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
   </ItemGroup>

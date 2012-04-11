@@ -44,6 +44,18 @@ namespace Config_PLC_SIEMENS
             public int CommandNumber;
             public int[] Values;
         }
+
+        protected enum CommandName 
+        {
+            SetupTimeShibers = 1,
+            SetupReopenShibers = 2,
+            MountChannel = 3,
+            MountModul = 4,
+            MountGenericSignals = 5,
+            MountShiberToOneSequency = 6,
+            MountShiberToGroupSequency = 7,
+            MountShiberNumberToGroupSequency = 8         
+        }
         string _oldAddress = "";
         int _internalCmd = -1;  
         object _valueForCommandStore;
@@ -434,52 +446,27 @@ namespace Config_PLC_SIEMENS
 
         private void SetBModulParamOkClick(object sender, EventArgs e)
         {
-
+            RtpConfigDataContext data = new RtpConfigDataContext();
             if (set_treeview_mount.SelectedNode.Tag == null)
             {
                 MessageBox.Show("Не выбран модуль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (set_nd_channel_count.Value > set_dgv_channel_mount.Rows.Count )
-            { 
-                
-               List<string> cbCell = GetChannelForMount();
-                while (set_nd_channel_count.Value > set_dgv_channel_mount.Rows.Count)
-                {                  
-                
-                    int rnumber = set_dgv_channel_mount.Rows.Add();
-                    set_dgv_channel_mount.Rows[rnumber].Cells[0].Value = (rnumber + 1).ToString();
-                    set_dgv_channel_mount.Rows[rnumber].Cells[1].Value = "";
-                    ((DataGridViewComboBoxCell)set_dgv_channel_mount.Rows[rnumber].Cells[2]).Items.AddRange(cbCell.ToArray());
-                    set_dgv_channel_mount.Rows[rnumber].Cells[2].Value = "";
-                    set_dgv_channel_mount.Rows[rnumber].Cells[3].Value = false;
-                    set_dgv_channel_mount.Rows[rnumber].Cells[4].Value = "Применить";
-                    set_dgv_channel_mount.Rows[rnumber].Cells[5].Value = rnumber;
-                    Channel channel = new Channel(rnumber)
-                                          {
-                                              parentID = (int) set_treeview_mount.SelectedNode.Tag
-                                          };
-                    if (configClass.SaveChannel(channel)) continue;
-                    MessageBox.Show("Ошибка добавления канала", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            if (set_nd_channel_count.Value < set_dgv_channel_mount.Rows.Count || set_ddl_type_modul.SelectedIndex != (int)set_ddl_type_modul.Tag)
+            if(set_nd_channel_count.Tag != null)
             {
-
-                Modul m = configClass.GetModul(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
-                m.typeModul = set_ddl_type_modul.SelectedIndex;
-                if (set_ddl_type_modul.Tag != null)
+                int result = data.ChangeCountChannel(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
+                                                     (int) set_nd_channel_count.Value);
+                if(result != 0)
                 {
-                    int[] callBack = new[]{set_ddl_type_modul.SelectedIndex != (int)set_ddl_type_modul.Tag ? 1 : 0,
-                                               (int)set_nd_channel_count.Value, 0, -1};
-                    InternalCommand(2, m, callBack);
+                    MessageBox.Show("Ошибка изменения числа каналов", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
-
+            LoadChannelMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
         }
 
         private void SetBModulParamCancelClick(object sender, EventArgs e)
-        {
+        { 
             LoadChannelMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
         }
 
@@ -497,49 +484,113 @@ namespace Config_PLC_SIEMENS
                                     , "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                RtpConfigDataContext data = new RtpConfigDataContext();
-                int[] paramset1 = new int[6];
-                int[] paramset2 = new int[6];
-                var mount = data.GetChannelCurrentShbers(_rtpid, set_dgv_channel_mount.Rows[e.RowIndex].Cells[0].Value == null ? -1: Convert.ToInt32(set_dgv_channel_mount.Rows[e.RowIndex].Cells[0].Value),
-                                                         set_dgv_channel_mount.Rows[e.RowIndex].Cells[5].Value == null ? -1: Convert.ToInt32(set_dgv_channel_mount.Rows[e.RowIndex].Cells[5].Value),
-                                                      set_dgv_channel_mount.Rows[e.RowIndex].Cells[6].Value == null ? -1: Convert.ToInt32(set_dgv_channel_mount.Rows[e.RowIndex].Cells[6].Value)).ToList();
-                var commandOne = new CommandToPlc();
-                if (mount.Count > 0  && mount.First().commandid == 3)
-                {
-                    for (int i = 0; i < mount.Count; i++)
-                    {
-                        if (mount[i].signaltype < paramset1.Length)
-                        {
-                            paramset1[mount[i].signaltype] = mount[i].channelnumber == null
-                                                                 ? 0
-                                                                 : mount[i].channelnumber.Value;
-
-                            paramset2[mount[i].signaltype] = mount[i].modulnumber == null
-                                                                 ? 0
-                                                                 : mount[i].modulnumber.Value;
-                        }
-                    }
-                    commandOne.CommandNumber = 3;
-                    commandOne.Values = paramset1;
-                    var commandTwo = new CommandToPlc();
-                    commandTwo.CommandNumber = 4;
-                    commandTwo.Values = paramset2;
-                    commandToPlc.Push(commandTwo);
-                    commandToPlc.Push(commandOne);
-
-                }
-                if (mount.Count > 0 && mount.First().commandid == 5)
-                {
-                    var paramset = mount.First();
-                    paramset1[0] = paramset.signaltype;
-                    paramset1[1] = paramset.channelnumber == null? 0 : paramset.channelnumber.Value;
-                    paramset1[2] = paramset.signalcontrain;
-                    paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value;
-
-                }
+                CheckOldMount(e.RowIndex);
+                NewMount(e.RowIndex);
                 CommandForPlc();
             }
             set_dgv_channel_mount.RefreshEdit();
+        }
+
+        private void CheckOldMount(int rowIndex)
+        {
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            int[] paramset1 = new int[6];
+            int[] paramset2 = new int[6];
+
+            var mount = data.CheckMountChannel(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
+                                                  Convert.ToInt32(
+                                                      set_dgv_channel_mount.Rows[rowIndex].Cells[1].Value)).ToList();
+
+            var commandOne = new CommandToPlc();
+            if (mount.Count > 0 && mount.First().commandid.Value == (int)CommandName.MountChannel)
+            {
+                var shibernumber = mount.First().shibernumber;
+                if (shibernumber != null) paramset1[0] = shibernumber.Value;
+                for (int i = 0; i < mount.Count && i < 4; i++)
+                {
+                    if (mount[i].signaltype < paramset1.Length)
+                    {
+                        paramset1[mount[i].signaltype + 1] = mount[i].channelnumber == null
+                                                             ? 0
+                                                             : mount[i].channelnumber.Value -1;
+
+                        paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                                                             ? 0
+                                                             : mount[i].modulnumber.Value -1;
+                    }
+                }
+                commandOne.CommandNumber = (int)CommandName.MountChannel;
+                commandOne.Values = paramset1;
+                var commandTwo = new CommandToPlc();
+                commandTwo.CommandNumber = (int)CommandName.MountModul;
+                commandTwo.Values = paramset2;
+                commandToPlc.Push(commandTwo);
+                commandToPlc.Push(commandOne);
+
+            }
+            if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
+            {
+                var paramset = mount.First();
+                paramset1[0] = paramset.signaltype;
+                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value -1;
+                paramset1[2] = paramset.signalcontrain;
+                paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
+                commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
+                commandOne.Values = paramset1;
+                commandToPlc.Push(commandOne);
+
+            }
+        }
+
+        private void NewMount(int rowIndex)
+        {
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            int[] paramset1 = new int[6];
+            int[] paramset2 = new int[6];
+
+            var mount = data.GetChannelCurrentShbers(_rtpid, set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value),
+                                                         set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value),
+                                                      set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value)).ToList();
+
+            var commandOne = new CommandToPlc();
+            if (mount.Count > 0 && mount.First().commandid.Value == (int)CommandName.MountChannel)
+            {
+                var shibernumber = mount.First().shibernumber;
+                if (shibernumber != null) paramset1[0] = shibernumber.Value;
+                for (int i = 0; i < mount.Count && i < 4; i++)
+                {
+                    if (mount[i].signaltype < paramset1.Length)
+                    {
+                        paramset1[mount[i].signaltype + 1] = mount[i].channelnumber == null
+                                                             ? 0
+                                                             : mount[i].channelnumber.Value - 1;
+
+                        paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                                                             ? 0
+                                                             : mount[i].modulnumber.Value - 1;
+                    }
+                }
+                commandOne.CommandNumber = (int)CommandName.MountChannel;
+                commandOne.Values = paramset1;
+                var commandTwo = new CommandToPlc();
+                commandTwo.CommandNumber = (int)CommandName.MountModul;
+                commandTwo.Values = paramset2;
+                commandToPlc.Push(commandTwo);
+                commandToPlc.Push(commandOne);
+
+            }
+            if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
+            {
+                var paramset = mount.First();
+                paramset1[0] = paramset.signaltype;
+                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value  - 1;
+                paramset1[2] = paramset.signalcontrain;
+                paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
+                commandOne.CommandNumber = (int)CommandName.MountGenericSignals;
+                commandOne.Values = paramset1;
+                commandToPlc.Push(commandOne);
+
+            }
         }
 
         private void CommandForPlc()
@@ -1221,6 +1272,8 @@ namespace Config_PLC_SIEMENS
                     set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
                         selectedgroup.id;
                     var signals = data.GetRtpSignals(selectedgroup.signalgroup, set_ddl_type_modul.SelectedIndex);
+                    ((DataGridViewComboBoxCell)
+                         set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Clear();
                     foreach (var signal in signals)
                     {
                         ((DataGridViewComboBoxCell)

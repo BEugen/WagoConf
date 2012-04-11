@@ -15,7 +15,8 @@ namespace Config_PLC_SIEMENS
         {
             InitializeComponent();          
             GetTypeChannel();
-            set_frm_ddl_type_modul.SelectedIndex = 0;
+            if(set_frm_ddl_type_modul.Items.Count > 0)
+                set_frm_ddl_type_modul.SelectedIndex = 0;
         }
         public int CountChannel
         {
