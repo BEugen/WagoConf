@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WKZP85824;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString" Provider="System.Data.SqlClient" />
   <Function Name="dbo.GetModule" Method="GetModule">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetModuleResult">
@@ -102,5 +102,10 @@
       <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="signalattribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteModule" Method="DeleteModule">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

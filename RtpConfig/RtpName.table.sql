@@ -3,6 +3,7 @@
 	id int identity (1,1) not null, 
 	rtpdescr nvarchar(50) not null,
 	rtpid int not null,
+	changehardware int,
 CONSTRAINT [PK_RtpName] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

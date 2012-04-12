@@ -18,10 +18,22 @@ AS
 
 	while @channelstart <= @channelcount
 	  begin
-	    insert into RtpChannel(channelnumber, modulnumber, rtpid, channeltype)
+		insert into RtpChannel(channelnumber, modulnumber, rtpid, channeltype)
 		values(@channelstart, @modulcount, @rtpid, @modultype)
 		set @channelstart = @channelstart + 1
 	  end
 
-   COMMIT TRANSACTION InsertModule
+	  UPDATE RtpName
+	  SET changehardware = 1
+
+	  IF @@ERROR <> 0
+	   BEGIN
+		 ROLLBACK TRANSACTION InsertModule
+		 RETURN -1
+	   END
+	  ELSE
+	   BEGIN
+		 COMMIT TRANSACTION InsertModule	
+	   END
+
 RETURN 0
