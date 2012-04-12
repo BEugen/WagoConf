@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config_PLC_SIEMENS", "Config_PLC_SIEMENS\Config_PLC_SIEMENS.csproj", "{8194356C-870B-4ADD-8436-6698C4EB48A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigWagoRtp", "Config_PLC_SIEMENS\ConfigWagoRtp.csproj", "{8194356C-870B-4ADD-8436-6698C4EB48A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testActiveX", "testActiveX\testActiveX.csproj", "{EEAC099F-95D2-4DB6-8487-1D5D5546B659}"
 EndProject

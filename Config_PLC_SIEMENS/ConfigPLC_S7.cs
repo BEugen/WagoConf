@@ -10,22 +10,9 @@ using System.Security.Permissions;
 
 namespace Config_PLC_SIEMENS
 {
-    //[Guid("2B6B0F74-77D5-4F52-90E5-7D379988F854")]
-    //[InterfaceType(ComInterfaceType.InterfaceIsDual)]
-    //public interface ICommand
-    //{
-    //   int Command { get; set; }
-    //   int Address { get; set; }
-    //   int Accept { get; set; }
-    //   int P1 { get; set;}
-    //   int P2 { get; set; }
-    //   int P3 { get; set; }
-    //   int P4 { get; set; }
-    //   double P5 { get; set; }
-    //   double P6 { get; set; }
-    //}
+   
  
-    [ProgId("Config_PLC_SIEMENS")]
+    [ProgId("ConfigWagoRtp")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof(IScadaInterfaceEvent))]
     [Guid("DDBFAC4B-2024-4A48-B929-97AA484FE19D")]
@@ -74,7 +61,7 @@ namespace Config_PLC_SIEMENS
         delegate void Ui(bool eDwait);
         delegate void Ui1(int tagId);
         Stack<InternalCommandStackParam> intrenalCommandStack;
-        private Stack<CommandToPlc> commandToPlc;
+        private Queue<CommandToPlc> commandToPlc;
         ConfigPLCStore configClass;
         private StaticConfig _parametrsConfig;
         readonly System.Timers.Timer _tmrElapsedCmd;
@@ -91,7 +78,7 @@ namespace Config_PLC_SIEMENS
             _tmrElapsedCmd = new System.Timers.Timer {Interval = 1000*5 /*_parametrsConfig.TimeOut*/};
             _tmrElapsedCmd.Elapsed += TmrElapsedCmdElapsed;
             intrenalCommandStack = new Stack<InternalCommandStackParam>();
-            commandToPlc = new Stack<CommandToPlc>();
+            commandToPlc = new Queue<CommandToPlc>();
             _accept = _command =  0;
             _params = new []{0, 0, 0, 0, 0, 0};
             // For the Click event that is re-defined.
@@ -100,15 +87,19 @@ namespace Config_PLC_SIEMENS
             // These functions are used to handle Tab-stops for the ActiveX 
             // control (including its child controls) when the control is 
             // hosted in a container.
-            this.LostFocus += new EventHandler(ActiveXCtrlLostFocus);
-            this.ControlAdded += new ControlEventHandler(
-                ActiveXCtrlControlAdded);
+            LostFocus += ActiveXCtrlLostFocus;
+            ControlAdded += ActiveXCtrlControlAdded;
 
             // Raise custom Load event
-            this.OnCreateControl(); 
+            OnCreateControl(); 
 
         }
-  
+
+        protected override sealed void OnCreateControl()
+        {
+            base.OnCreateControl();
+        }
+
 
         void TmrElapsedCmdElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -277,6 +268,7 @@ namespace Config_PLC_SIEMENS
                 int rnumber = set_dgv_channel_mount.Rows.Add();
                 set_dgv_channel_mount.Rows[rnumber].Cells[0].Value = channel.id;
                 set_dgv_channel_mount.Rows[rnumber].Cells[1].Value = channel.channelnumber;
+                ((DataGridViewComboBoxCell) set_dgv_channel_mount.Rows[rnumber].Cells[2]).Items.Clear();
                 foreach (var signalGroup in signalGroups)
                 {
                     ((DataGridViewComboBoxCell) set_dgv_channel_mount.Rows[rnumber].Cells[2]).Items.Add(
@@ -294,6 +286,7 @@ namespace Config_PLC_SIEMENS
                     set_dgv_channel_mount.Rows[rnumber].Cells[2].Value =
                         signalGroups[channel.groupid.Value].signalgroupdescription;
                     var signals = data.GetRtpSignals(channel.groupid, channel.channeltype).ToArray();
+                    ((DataGridViewComboBoxCell) set_dgv_channel_mount.Rows[rnumber].Cells[3]).Items.Clear();
                     foreach (var signal in signals)
                     {
                         ((DataGridViewComboBoxCell) set_dgv_channel_mount.Rows[rnumber].Cells[3]).Items.Add(
@@ -465,11 +458,6 @@ namespace Config_PLC_SIEMENS
             LoadChannelMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
         }
 
-        private void SetBModulParamCancelClick(object sender, EventArgs e)
-        { 
-            LoadChannelMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
-        }
-
 
         private void SetDgvChannelMountCellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -484,39 +472,50 @@ namespace Config_PLC_SIEMENS
                                     , "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                CheckOldMount(e.RowIndex);
+                CheckOldMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag), Convert.ToInt32(set_dgv_channel_mount.Rows[e.RowIndex].Cells[1].Value));
                 NewMount(e.RowIndex);
                 CommandForPlc();
             }
             set_dgv_channel_mount.RefreshEdit();
         }
 
-        private void CheckOldMount(int rowIndex)
+        private void CheckOldMount(int modulnumber, int channelnumber)
         {
             RtpConfigDataContext data = new RtpConfigDataContext();
             int[] paramset1 = new int[6];
             int[] paramset2 = new int[6];
 
-            var mount = data.CheckMountChannel(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
-                                                  Convert.ToInt32(
-                                                      set_dgv_channel_mount.Rows[rowIndex].Cells[1].Value)).ToList();
+            var mount = data.CheckMountChannel(_rtpid, modulnumber, channelnumber).ToList();
 
             var commandOne = new CommandToPlc();
-            if (mount.Count > 0 && mount.First().commandid.Value == (int)CommandName.MountChannel)
+            if (mount.Count > 0 && mount.First().commandid !=null && mount.First().commandid.Value == (int)CommandName.MountChannel)
             {
                 var shibernumber = mount.First().shibernumber;
-                if (shibernumber != null) paramset1[0] = shibernumber.Value;
+                if (shibernumber != null)
+                {
+                    paramset1[0] = shibernumber.Value;
+                    paramset2[0] = shibernumber.Value;
+                }
                 for (int i = 0; i < mount.Count && i < 4; i++)
                 {
                     if (mount[i].signaltype < paramset1.Length)
                     {
-                        paramset1[mount[i].signaltype + 1] = mount[i].channelnumber == null
-                                                             ? 0
-                                                             : mount[i].channelnumber.Value -1;
+                        paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
+                                                                 ? 0
+                                                                 : mount[i].offsetChannel.Value;
 
-                        paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                        if (mount[i].channelnumber != null && mount[i].channelnumber.Value == channelnumber &&
+                            mount[i].modulnumber != null && mount[i].modulnumber.Value == modulnumber)
+                        {
+                            paramset2[mount[i].signaltype + 1] = -1;
+                        }
+                        else
+                        {
+                           paramset2[mount[i].signaltype + 1] = mount[i].offsetModul == null
                                                              ? 0
-                                                             : mount[i].modulnumber.Value -1;
+                                                             : mount[i].offsetModul.Value; 
+                        }
+                        
                     }
                 }
                 commandOne.CommandNumber = (int)CommandName.MountChannel;
@@ -524,8 +523,8 @@ namespace Config_PLC_SIEMENS
                 var commandTwo = new CommandToPlc();
                 commandTwo.CommandNumber = (int)CommandName.MountModul;
                 commandTwo.Values = paramset2;
-                commandToPlc.Push(commandTwo);
-                commandToPlc.Push(commandOne);
+                commandToPlc.Enqueue(commandTwo);
+                commandToPlc.Enqueue(commandOne);
 
             }
             if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
@@ -537,7 +536,7 @@ namespace Config_PLC_SIEMENS
                 paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
                 commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
                 commandOne.Values = paramset1;
-                commandToPlc.Push(commandOne);
+                commandToPlc.Enqueue(commandOne);
 
             }
         }
@@ -548,7 +547,7 @@ namespace Config_PLC_SIEMENS
             int[] paramset1 = new int[6];
             int[] paramset2 = new int[6];
 
-            var mount = data.GetChannelCurrentShbers(_rtpid, set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value),
+            var mount = data.GetChannelCurrentShibers(_rtpid, set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value),
                                                          set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value),
                                                       set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value)).ToList();
 
@@ -556,18 +555,21 @@ namespace Config_PLC_SIEMENS
             if (mount.Count > 0 && mount.First().commandid.Value == (int)CommandName.MountChannel)
             {
                 var shibernumber = mount.First().shibernumber;
-                if (shibernumber != null) paramset1[0] = shibernumber.Value;
+                if (shibernumber != null)
+                {paramset1[0] = shibernumber.Value;
+                 paramset2[0] = shibernumber.Value;
+                }
                 for (int i = 0; i < mount.Count && i < 4; i++)
                 {
                     if (mount[i].signaltype < paramset1.Length)
                     {
-                        paramset1[mount[i].signaltype + 1] = mount[i].channelnumber == null
-                                                             ? 0
-                                                             : mount[i].channelnumber.Value - 1;
+                        paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
+                                                                 ? 0
+                                                                 : mount[i].offsetChannel.Value;
 
-                        paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                        paramset2[mount[i].signaltype + 1] = mount[i].offsetModul == null
                                                              ? 0
-                                                             : mount[i].modulnumber.Value - 1;
+                                                             : mount[i].offsetModul.Value;
                     }
                 }
                 commandOne.CommandNumber = (int)CommandName.MountChannel;
@@ -575,8 +577,8 @@ namespace Config_PLC_SIEMENS
                 var commandTwo = new CommandToPlc();
                 commandTwo.CommandNumber = (int)CommandName.MountModul;
                 commandTwo.Values = paramset2;
-                commandToPlc.Push(commandTwo);
-                commandToPlc.Push(commandOne);
+                commandToPlc.Enqueue(commandTwo);
+                commandToPlc.Enqueue(commandOne);
 
             }
             if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
@@ -588,7 +590,7 @@ namespace Config_PLC_SIEMENS
                 paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
                 commandOne.CommandNumber = (int)CommandName.MountGenericSignals;
                 commandOne.Values = paramset1;
-                commandToPlc.Push(commandOne);
+                commandToPlc.Enqueue(commandOne);
 
             }
         }
@@ -596,7 +598,7 @@ namespace Config_PLC_SIEMENS
         private void CommandForPlc()
         {
             _tmrElapsedCmd.Start();
-            var comandAndParam = commandToPlc.Pop();
+            var comandAndParam = commandToPlc.Dequeue();
             _command = comandAndParam.CommandNumber;
             _params = comandAndParam.Values;
 
@@ -963,24 +965,6 @@ namespace Config_PLC_SIEMENS
             ChangeEnableButtons(tabConfigPLC_S7.SelectedIndex);
         }
 
-        private int SetTypeAIAO_forTag(bool filter, bool inversion, int typeAiAoTag)
-        {
-            int result = 0;
-            if (inversion)
-                result = 1;
-            if (filter)
-                result = result | (1 << 1);
-            if (typeAiAoTag >= 10)
-                result += 10;
-            if (typeAiAoTag == -1)
-                result = -1;
-            return result;
-        }
-
-        private void set_inp_rawMIN_TextChanged(object sender, EventArgs e)
-        {
-            ((TextBox)sender).BackColor = System.Drawing.SystemColors.Window;
-        }
 
         private void DelTagClick(object sender, EventArgs e)
         {
@@ -1157,11 +1141,7 @@ namespace Config_PLC_SIEMENS
 
         private void ExportHardwareConfigClick(object sender, EventArgs e)
         {
-            bool NewConfig = false;
-            if (MessageBox.Show("Экспортировать конфигуранцию с заменой существующей?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                NewConfig = true;
-            }
+            bool NewConfig = MessageBox.Show("Экспортировать конфигуранцию с заменой существующей?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
             openConfigDialog.FileName = "";
             if (openConfigDialog.ShowDialog() == DialogResult.OK && openConfigDialog.FileName !="")
             {
@@ -1260,6 +1240,7 @@ namespace Config_PLC_SIEMENS
         void SbSelectedIndexChanged(object sender, EventArgs e)
         {
             DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl)sender;
+            int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
             RtpConfigDataContext data = new RtpConfigDataContext();
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2)
             {
@@ -1268,7 +1249,7 @@ namespace Config_PLC_SIEMENS
                 var signalgroup = data.GetRtpSignalGroups().ToList();
                 if (signalgroup.Count > 0)
                 {
-                    var selectedgroup = signalgroup[dataGridViewComboBoxCell.SelectedIndex];
+                    var selectedgroup = signalgroup[selecedIndex];
                     set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
                         selectedgroup.id;
                     var signals = data.GetRtpSignals(selectedgroup.signalgroup, set_ddl_type_modul.SelectedIndex);
@@ -1289,12 +1270,12 @@ namespace Config_PLC_SIEMENS
                 set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value  != null)
             {
                 var signalForSelect =
-                    data.GetSignalsIdForGroupId(
+                    data.GetRtpSignals(
                         (int)set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value,
                         set_ddl_type_modul.SelectedIndex).ToList();
                 if (signalForSelect.Count > 0)
                 {
-                    var selectedsignals = signalForSelect[dataGridViewComboBoxCell.SelectedIndex];
+                    var selectedsignals = signalForSelect[selecedIndex];
 
                     set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value =
                         selectedsignals.id;

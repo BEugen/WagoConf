@@ -19,7 +19,7 @@ namespace Config_PLC_SIEMENS
             try
             {
                 xDoc = XDocument.Load(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath) +
-                   "\\ConfigPLC_S7.xml");
+                   "\\ConfigWagoRtp.xml");
                 return true;
             }
             catch
@@ -803,7 +803,7 @@ namespace Config_PLC_SIEMENS
             int count = Convert.ToInt32(xEl.Attribute("count_dynamic").Value);
             xEl.Attribute("count_dynamic").Value = (++count).ToString();
             xDoc.Save(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath) +
-                   "\\ConfigPLC_S7.xml");
+                   "\\ConfigWagoRtp.xml");
         }
         //добавляет новую переменную
         private bool AddTag(ref XDocument xDoc, ATag tag)

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetChannelCurrentShbers]
+﻿CREATE PROCEDURE [dbo].[GetChannelCurrentShibers]
 	@rtpid int = 0,
 	@chanelid int,
 	@groupid int, 
@@ -52,15 +52,36 @@ AS
 		  from RtpSignalsGroup
 		  where RtpSignalsGroup.id = @groupid
 
-	      select @shiberid= RtpChannel.shiberid
-		  from RtpChannel
-		  where RtpChannel.id = @chanelid and RtpChannel.rtpid = @rtpid
+	      select @shiberid= RtpShibers.id
+		  from RtpShibers
+		  where RtpShibers.shibernumber = @shibernumber and RtpShibers.rtpid = @rtpid
+
 		    IF  @shiberid IS NOT NULL
 			  BEGIN
+
+			  BEGIN TRANSACTION DELSHIBERSMOUNT
+			    UPDATE RtpChannel
+			    SET shiberid = NULL
+			    WHERE RtpChannel.shiberid = @shiberid AND RtpChannel.rtpid = @rtpid
+			    
+			    UPDATE RtpChannel
+			    SET shiberid = @shiberid
+			    WHERE RtpChannel.id = @chanelid AND RtpChannel.rtpid = @rtpid
+			  
 			    UPDATE RtpShibers
 				SET RtpShibers.signalgroupid =@groupid,  RtpShibers.signaltype = @signalid,
 				    RtpShibers.shibernumber = @shibernumber
 				where RtpShibers.id = @shiberid
+				
+			    IF @@ERROR <> 0
+			      BEGIN
+			       ROLLBACK TRANSACTION DELSHIBERSMOUNT
+				   RETURN -1
+		          END
+			    ELSE
+			      BEGIN
+			        COMMIT TRANSACTION DELSHIBERSMOUNT 
+				  END
 			  END
 		    ELSE
 			  BEGIN
@@ -78,13 +99,14 @@ AS
 		      END
 			  ELSE
 			   BEGIN
-			    COMMIT TRANSACTION DELSHIBERSMOUNT 
-				
+			    COMMIT TRANSACTION DELSHIBERSMOUNT 				
 			  END
 			END 
 	   END
 
-select RtpSignals.signaltype, RtpChannel.modulnumber, RtpChannel.channelnumber, RtpCommand.commandid, RtpSignals.signalcontrain, @shibernumber as shibernumber
+select RtpSignals.signaltype, RtpChannel.modulnumber, RtpChannel.channelnumber, RtpCommand.commandid, RtpSignals.signalcontrain, @shibernumber as shibernumber,
+ dbo.GetOffsetChannel(@rtpid, RtpChannel.modulnumber, RtpChannel.channelnumber, RtpSignals.signalcontrain) as offsetChannel,
+ dbo.GetOffsetModule(@rtpid, RtpChannel.modulnumber, RtpChannel.channelnumber,  RtpSignals.signalcontrain) as offsetModul
 from ((RtpSignals LEFT OUTER JOIN (select  RtpShibers.id, RtpShibers.shibernumber, 
 RtpShibers.signalgroupid,  RtpShibers.signaltype, RtpShibers.rtpid FROM RtpShibers 
 where RtpShibers.rtpid = @rtpid and RtpShibers.shibernumber = @shibernumber) as t ON RtpSignals.id = t.signaltype) LEFT OUTER JOIN RtpChannel ON t.id = RtpChannel.shiberid)
@@ -92,3 +114,4 @@ where RtpShibers.rtpid = @rtpid and RtpShibers.shibernumber = @shibernumber) as 
 where RtpSignals.signalgroup = @signalgroup
 order by RtpSignals.signaltype
 RETURN 0
+

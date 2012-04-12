@@ -5,7 +5,8 @@
 AS
 	 BEGIN TRANSACTION CHANGEMODUL
 	  DELETE RtpShibers
-	  where RtpShibers.id = (select RtpChannel.shiberid from RtpChannel where RtpChannel.modulnumber = @modulnumber and RtpChannel.rtpid = @rtpid)
+	  WHERE RtpShibers.rtpid = @rtpid and RtpShibers.id = 
+			(select RtpChannel.shiberid from RtpChannel where RtpChannel.shiberid = RtpShibers.id)
 
 	  update RtpChannel
 	  set RtpChannel.shiberid = NULL, RtpChannel.channeltype = @modultype

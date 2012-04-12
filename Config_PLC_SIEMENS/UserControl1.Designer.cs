@@ -983,14 +983,14 @@
             // 
             this.folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // ConfigPLC_S7
+            // ConfigWagoRtp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tabConfigPLC_S7);
             this.Controls.Add(this.set_menu);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "ConfigPLC_S7";
+            this.Name = "ConfigWagoRtp";
             this.Size = new System.Drawing.Size(819, 614);
             this.Load += new System.EventHandler(this.ConfigPlcS7Load);
             this.set_conmenu.ResumeLayout(false);

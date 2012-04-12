@@ -177,7 +177,7 @@
     <Build Include="Scripts\GetSignalsForGroupId.proc.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Scripts\GetChannelCurrentShbers.proc.sql">
+    <Build Include="Scripts\GetChannelCurrentShibers.proc.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Scripts\RtpCommand.table.sql">
@@ -190,6 +190,12 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="ChangeCountChannel.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="GetOffsetModule.function.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="GetOffsetChannel.function.sql">
       <SubType>Code</SubType>
     </Build>
   </ItemGroup>
@@ -209,8 +215,8 @@
     <NotInBuild Include="Scripts\Post-Deployment\AddRtpCommandId.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
-    <NotInBuild Include="Scripts\Post-Deployment\Script.PostDeployment.sql">
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql">
       <SubType>NotInBuild</SubType>
-    </NotInBuild>
+    </PostDeploy>
   </ItemGroup>
 </Project>

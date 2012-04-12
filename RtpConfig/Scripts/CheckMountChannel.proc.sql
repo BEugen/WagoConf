@@ -15,7 +15,9 @@ AS
 		        LEFT JOIN RtpSignalsGroup ON RtpShibers.signalgroupid = RtpSignalsGroup.id
 		  where RtpChannel.channelnumber = @channelnumber and RtpChannel.rtpid = @rtpid and RtpChannel.modulnumber = @modulnumber
 
-		  select RtpSignals.signaltype, RtpChannel.modulnumber, RtpChannel.channelnumber, RtpCommand.commandid, RtpSignals.signalcontrain, @shibernumber as shibernumber
+		  select RtpSignals.signaltype, RtpChannel.modulnumber, RtpChannel.channelnumber, RtpCommand.commandid, RtpSignals.signalcontrain, @shibernumber as shibernumber,
+		  dbo.GetOffsetChannel(@rtpid, RtpChannel.modulnumber, RtpChannel.channelnumber, RtpSignals.signalcontrain) as offsetChannel,
+          dbo.GetOffsetModule(@rtpid, RtpChannel.modulnumber, RtpChannel.channelnumber, RtpSignals.signalcontrain) as offsetModul
           from ((RtpSignals LEFT OUTER JOIN (select  RtpShibers.id, RtpShibers.shibernumber, 
           RtpShibers.signalgroupid,  RtpShibers.signaltype, RtpShibers.rtpid FROM RtpShibers 
           where RtpShibers.rtpid = @rtpid and RtpShibers.shibernumber = @shibernumber) as t ON RtpSignals.id = t.signaltype) LEFT OUTER JOIN RtpChannel ON t.id = RtpChannel.shiberid)

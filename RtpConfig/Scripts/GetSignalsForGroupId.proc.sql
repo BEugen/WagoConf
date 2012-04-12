@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetRtpSignals]
+﻿CREATE PROCEDURE [dbo].[GetSignalsIdForGroupId]
 	@groupid int = 1,
 	@channeltype int
 AS

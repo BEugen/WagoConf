@@ -76,13 +76,6 @@ namespace Config_PLC_SIEMENS
 			return ((ISingleResult<GetRtpSignalGroupsResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRtpSignals")]
-		public ISingleResult<GetRtpSignalsResult> GetRtpSignals([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> groupid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> channeltype)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupid, channeltype);
-			return ((ISingleResult<GetRtpSignalsResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetModulType")]
 		public ISingleResult<GetModulTypeResult> GetModulType()
 		{
@@ -97,32 +90,11 @@ namespace Config_PLC_SIEMENS
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSignalsIdForGroupId")]
-		public ISingleResult<GetSignalsIdForGroupIdResult> GetSignalsIdForGroupId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> signalgroupid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> channeltype)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), signalgroupid, channeltype);
-			return ((ISingleResult<GetSignalsIdForGroupIdResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetChannel")]
 		public ISingleResult<GetChannelResult> GetChannel([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> modulnumber)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, modulnumber);
 			return ((ISingleResult<GetChannelResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetChannelCurrentShbers")]
-		public ISingleResult<GetChannelCurrentShbersResult> GetChannelCurrentShbers([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> chanelid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> groupid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> signalid)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, chanelid, groupid, signalid);
-			return ((ISingleResult<GetChannelCurrentShbersResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CheckMountChannel")]
-		public ISingleResult<CheckMountChannelResult> CheckMountChannel([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> modulnumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> channelnumber)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, modulnumber, channelnumber);
-			return ((ISingleResult<CheckMountChannelResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ChangeModulType")]
@@ -137,6 +109,34 @@ namespace Config_PLC_SIEMENS
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, modulnumber, channelcount);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CheckMountChannel")]
+		public ISingleResult<CheckMountChannelResult> CheckMountChannel([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> modulnumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> channelnumber)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, modulnumber, channelnumber);
+			return ((ISingleResult<CheckMountChannelResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetChannelCurrentShibers")]
+		public ISingleResult<GetChannelCurrentShibersResult> GetChannelCurrentShibers([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> chanelid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> groupid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> signalid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, chanelid, groupid, signalid);
+			return ((ISingleResult<GetChannelCurrentShibersResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetRtpSignals")]
+		public ISingleResult<GetRtpSignalsResult> GetRtpSignals([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> signalgroupid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> channeltype)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), signalgroupid, channeltype);
+			return ((ISingleResult<GetRtpSignalsResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSignalsIdForGroupId")]
+		public ISingleResult<GetSignalsIdForGroupIdResult> GetSignalsIdForGroupId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> groupid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> channeltype)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupid, channeltype);
+			return ((ISingleResult<GetSignalsIdForGroupIdResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -282,68 +282,6 @@ namespace Config_PLC_SIEMENS
 		}
 	}
 	
-	public partial class GetRtpSignalsResult
-	{
-		
-		private int _id;
-		
-		private string _signaldescription;
-		
-		private int _signalattribute;
-		
-		public GetRtpSignalsResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signaldescription", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string signaldescription
-		{
-			get
-			{
-				return this._signaldescription;
-			}
-			set
-			{
-				if ((this._signaldescription != value))
-				{
-					this._signaldescription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalattribute", DbType="Int NOT NULL")]
-		public int signalattribute
-		{
-			get
-			{
-				return this._signalattribute;
-			}
-			set
-			{
-				if ((this._signalattribute != value))
-				{
-					this._signalattribute = value;
-				}
-			}
-		}
-	}
-	
 	public partial class GetModulTypeResult
 	{
 		
@@ -383,68 +321,6 @@ namespace Config_PLC_SIEMENS
 				if ((this._descript != value))
 				{
 					this._descript = value;
-				}
-			}
-		}
-	}
-	
-	public partial class GetSignalsIdForGroupIdResult
-	{
-		
-		private int _id;
-		
-		private string _signaldescription;
-		
-		private int _signalattribute;
-		
-		public GetSignalsIdForGroupIdResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signaldescription", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string signaldescription
-		{
-			get
-			{
-				return this._signaldescription;
-			}
-			set
-			{
-				if ((this._signaldescription != value))
-				{
-					this._signaldescription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalattribute", DbType="Int NOT NULL")]
-		public int signalattribute
-		{
-			get
-			{
-				return this._signalattribute;
-			}
-			set
-			{
-				if ((this._signalattribute != value))
-				{
-					this._signalattribute = value;
 				}
 			}
 		}
@@ -602,122 +478,6 @@ namespace Config_PLC_SIEMENS
 		}
 	}
 	
-	public partial class GetChannelCurrentShbersResult
-	{
-		
-		private int _signaltype;
-		
-		private System.Nullable<int> _modulnumber;
-		
-		private System.Nullable<int> _channelnumber;
-		
-		private System.Nullable<int> _commandid;
-		
-		private int _signalcontrain;
-		
-		private System.Nullable<int> _shibernumber;
-		
-		public GetChannelCurrentShbersResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signaltype", DbType="Int NOT NULL")]
-		public int signaltype
-		{
-			get
-			{
-				return this._signaltype;
-			}
-			set
-			{
-				if ((this._signaltype != value))
-				{
-					this._signaltype = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_modulnumber", DbType="Int")]
-		public System.Nullable<int> modulnumber
-		{
-			get
-			{
-				return this._modulnumber;
-			}
-			set
-			{
-				if ((this._modulnumber != value))
-				{
-					this._modulnumber = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_channelnumber", DbType="Int")]
-		public System.Nullable<int> channelnumber
-		{
-			get
-			{
-				return this._channelnumber;
-			}
-			set
-			{
-				if ((this._channelnumber != value))
-				{
-					this._channelnumber = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commandid", DbType="Int")]
-		public System.Nullable<int> commandid
-		{
-			get
-			{
-				return this._commandid;
-			}
-			set
-			{
-				if ((this._commandid != value))
-				{
-					this._commandid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalcontrain", DbType="Int NOT NULL")]
-		public int signalcontrain
-		{
-			get
-			{
-				return this._signalcontrain;
-			}
-			set
-			{
-				if ((this._signalcontrain != value))
-				{
-					this._signalcontrain = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shibernumber", DbType="Int")]
-		public System.Nullable<int> shibernumber
-		{
-			get
-			{
-				return this._shibernumber;
-			}
-			set
-			{
-				if ((this._shibernumber != value))
-				{
-					this._shibernumber = value;
-				}
-			}
-		}
-	}
-	
 	public partial class CheckMountChannelResult
 	{
 		
@@ -732,6 +492,10 @@ namespace Config_PLC_SIEMENS
 		private int _signalcontrain;
 		
 		private System.Nullable<int> _shibernumber;
+		
+		private System.Nullable<int> _offsetChannel;
+		
+		private System.Nullable<int> _offsetModul;
 		
 		public CheckMountChannelResult()
 		{
@@ -829,6 +593,314 @@ namespace Config_PLC_SIEMENS
 				if ((this._shibernumber != value))
 				{
 					this._shibernumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_offsetChannel", DbType="Int")]
+		public System.Nullable<int> offsetChannel
+		{
+			get
+			{
+				return this._offsetChannel;
+			}
+			set
+			{
+				if ((this._offsetChannel != value))
+				{
+					this._offsetChannel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_offsetModul", DbType="Int")]
+		public System.Nullable<int> offsetModul
+		{
+			get
+			{
+				return this._offsetModul;
+			}
+			set
+			{
+				if ((this._offsetModul != value))
+				{
+					this._offsetModul = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetChannelCurrentShibersResult
+	{
+		
+		private int _signaltype;
+		
+		private System.Nullable<int> _modulnumber;
+		
+		private System.Nullable<int> _channelnumber;
+		
+		private System.Nullable<int> _commandid;
+		
+		private int _signalcontrain;
+		
+		private System.Nullable<int> _shibernumber;
+		
+		private System.Nullable<int> _offsetChannel;
+		
+		private System.Nullable<int> _offsetModul;
+		
+		public GetChannelCurrentShibersResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signaltype", DbType="Int NOT NULL")]
+		public int signaltype
+		{
+			get
+			{
+				return this._signaltype;
+			}
+			set
+			{
+				if ((this._signaltype != value))
+				{
+					this._signaltype = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_modulnumber", DbType="Int")]
+		public System.Nullable<int> modulnumber
+		{
+			get
+			{
+				return this._modulnumber;
+			}
+			set
+			{
+				if ((this._modulnumber != value))
+				{
+					this._modulnumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_channelnumber", DbType="Int")]
+		public System.Nullable<int> channelnumber
+		{
+			get
+			{
+				return this._channelnumber;
+			}
+			set
+			{
+				if ((this._channelnumber != value))
+				{
+					this._channelnumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_commandid", DbType="Int")]
+		public System.Nullable<int> commandid
+		{
+			get
+			{
+				return this._commandid;
+			}
+			set
+			{
+				if ((this._commandid != value))
+				{
+					this._commandid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalcontrain", DbType="Int NOT NULL")]
+		public int signalcontrain
+		{
+			get
+			{
+				return this._signalcontrain;
+			}
+			set
+			{
+				if ((this._signalcontrain != value))
+				{
+					this._signalcontrain = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shibernumber", DbType="Int")]
+		public System.Nullable<int> shibernumber
+		{
+			get
+			{
+				return this._shibernumber;
+			}
+			set
+			{
+				if ((this._shibernumber != value))
+				{
+					this._shibernumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_offsetChannel", DbType="Int")]
+		public System.Nullable<int> offsetChannel
+		{
+			get
+			{
+				return this._offsetChannel;
+			}
+			set
+			{
+				if ((this._offsetChannel != value))
+				{
+					this._offsetChannel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_offsetModul", DbType="Int")]
+		public System.Nullable<int> offsetModul
+		{
+			get
+			{
+				return this._offsetModul;
+			}
+			set
+			{
+				if ((this._offsetModul != value))
+				{
+					this._offsetModul = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetRtpSignalsResult
+	{
+		
+		private int _id;
+		
+		private string _signaldescription;
+		
+		private int _signalattribute;
+		
+		public GetRtpSignalsResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signaldescription", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string signaldescription
+		{
+			get
+			{
+				return this._signaldescription;
+			}
+			set
+			{
+				if ((this._signaldescription != value))
+				{
+					this._signaldescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalattribute", DbType="Int NOT NULL")]
+		public int signalattribute
+		{
+			get
+			{
+				return this._signalattribute;
+			}
+			set
+			{
+				if ((this._signalattribute != value))
+				{
+					this._signalattribute = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetSignalsIdForGroupIdResult
+	{
+		
+		private int _id;
+		
+		private string _signaldescription;
+		
+		private int _signalattribute;
+		
+		public GetSignalsIdForGroupIdResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signaldescription", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string signaldescription
+		{
+			get
+			{
+				return this._signaldescription;
+			}
+			set
+			{
+				if ((this._signaldescription != value))
+				{
+					this._signaldescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalattribute", DbType="Int NOT NULL")]
+		public int signalattribute
+		{
+			get
+			{
+				return this._signalattribute;
+			}
+			set
+			{
+				if ((this._signalattribute != value))
+				{
+					this._signalattribute = value;
 				}
 			}
 		}

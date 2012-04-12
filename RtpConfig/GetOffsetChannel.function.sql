@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION [dbo].[GettOffsetChannel]
+﻿CREATE FUNCTION [dbo].[GetOffsetChannel]
 (
 	@rtpid int, 
 	@modulnumber int,

@@ -83,9 +83,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Config_PLC_SIEMENS\Config_PLC_SIEMENS.csproj">
+    <ProjectReference Include="..\Config_PLC_SIEMENS\ConfigWagoRtp.csproj">
       <Project>{8194356C-870B-4ADD-8436-6698C4EB48A6}</Project>
-      <Name>Config_PLC_SIEMENS</Name>
+      <Name>ConfigWagoRtp</Name>
     </ProjectReference>
     <ProjectReference Include="..\GenericClasses\GenericClasses.csproj">
       <Project>{3CF2199A-E959-46E0-9A9C-38B866F6B63C}</Project>
