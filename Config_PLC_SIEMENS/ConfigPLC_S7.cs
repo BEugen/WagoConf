@@ -902,68 +902,6 @@ namespace Config_PLC_SIEMENS
         }
 
 
-        private void DelTagClick(object sender, EventArgs e)
-        {
-            int tagId = -1;
-            switch (tabConfigPLC_S7.SelectedIndex)
-            {
-                case 0:
-                    tagId = Convert.ToInt32(tag_descr.SelectedRows[0].Cells[0].Value);
-                    if (!configClass.RemoveTag(tagId))
-                    {
-                        MessageBox.Show("Ошибка удаления переменной", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    //LoadATags(tabConfigPLC_S7.SelectedIndex);
-                    break;
-                default:
-                    break;
-
-            }
-        }
-
-
-        private void StaticConfigClick(object sender, EventArgs e)
-        {
-           text_tag_wait.Text  = "Выполняется статическая конфигурация кода";
-            WaitMount(true);
-            StaticCodeGen staticCodeGen = new StaticCodeGen();
-            staticCodeGen.CodeGenerateComplete += new StaticCodeGen.CodeGerateCompleteD(StaticCodeGenCodeGenerateComplete);
-            StaticConfig stConfig = configClass.GetStaticConfigParam();
-            if (stConfig.PathStaticConfig == "")
-            {
-                MessageBox.Show("Не указан путь статической конфигурации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            staticCodeGen.GenerateStaticCode(stConfig.PathStaticConfig, stConfig.CountStaticConfig);
-        }
-
-        private void SetMenuSearchClick(object sender, EventArgs e)
-        {
-           // ATag[] atags = configClass.FindTagsByName(set_find_tag.Text);
-           // LoadATags(atags, tabConfigPLC_S7.SelectedIndex);
-        }
-        private void SetFindTagTextChanged(object sender, EventArgs e)
-        {
-            //if (set_find_tag.Text == "")
-            //{
-            //    LoadATags(tabConfigPLC_S7.SelectedIndex);
-            //}
-        }
-
-        void StaticCodeGenCodeGenerateComplete(int ID)
-        {
-            try
-            { 
-                StaticConfig stConf = configClass.GetStaticConfigParam();
-                ++stConf.CountStaticConfig;
-                stConf.DateStaticConfig = DateTime.Now.ToString("d.MM.yyyy HH:mm:00");
-                configClass.SaveStaticConfigParam(stConf);
-                Ui ui = WaitMount;
-                set_treeview_mount.BeginInvoke(ui, new object[] { false });
-            }
-            catch { }
-        }
-
         #region ActiveX Control Registration
 
         // These routines perform the additional COM registration needed by 
@@ -1069,29 +1007,6 @@ namespace Config_PLC_SIEMENS
             ActiveXCtrlHelper.HandleFocus(this);
         }
 
-        private void ExportHardwareConfigClick(object sender, EventArgs e)
-        {
-            bool NewConfig = MessageBox.Show("Экспортировать конфигуранцию с заменой существующей?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-            openConfigDialog.FileName = "";
-            if (openConfigDialog.ShowDialog() == DialogResult.OK && openConfigDialog.FileName !="")
-            {
-                ParseHardwareConfig phc = new ParseHardwareConfig();
-                phc.ParceHarswareConfigComplete += new ParseHardwareConfig.ParceHarswareConfigCompleteD(PhcParceHarswareConfigComplete);
-                WaitMount(true);
-                phc.ParceConfig(openConfigDialog.FileName, NewConfig);
-            }
-        }
-
-        void PhcParceHarswareConfigComplete(object sender, ParceHarswareConfigEventArgs e)
-        {
-            Ui ui = WaitMount;
-            tabConfigPLC_S7.BeginInvoke(ui, new object[] { false });
-            MessageBox.Show("Добавленно модулей: " + e.ModulCount + " Переменных: " + e.TagCreate,
-                "Выполненно", MessageBoxButtons.OK, MessageBoxIcon.Information);
-           // Ui1 ui1 = LoadATags;
-          //  tabConfigPLC_S7.BeginInvoke(ui1, new object[] { _selectedTab });
-        }
-
 
         private void OpenFolderDialogClick(object sender, EventArgs e)
         {
@@ -1167,7 +1082,7 @@ namespace Config_PLC_SIEMENS
                     var selectedgroup = signalgroup[selecedIndex];
                     set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
                         selectedgroup.id;
-                    var signals = data.GetRtpSignals(selectedgroup.signalgroup, set_ddl_type_modul.SelectedIndex);
+                    var signals = data.GetSignalsIdForGroupId(selectedgroup.signalgroup, set_ddl_type_modul.SelectedIndex);
                     ((DataGridViewComboBoxCell)
                          set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Clear();
                     foreach (var signal in signals)
