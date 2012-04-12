@@ -201,6 +201,9 @@
     <Build Include="Scripts\DeleteModule.proc.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="GetAllModuleChannel.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Scripts\Post-Deployment\AddChannelType.sql">

@@ -108,4 +108,14 @@
     <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GetAllModuleChannel" Method="GetAllModuleChannel">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAllModuleChannelResult">
+      <Column Name="descript" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="modulnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="channelnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

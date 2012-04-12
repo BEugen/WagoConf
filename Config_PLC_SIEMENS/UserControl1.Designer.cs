@@ -30,15 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigPLC_S7));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Модуль AI", 1, 1);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("PLC №", 0, 0, new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.set_conmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.set_conmenu_add = new System.Windows.Forms.ToolStripMenuItem();
             this.set_conmenu_del = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,14 +100,15 @@
             this.text_tag_wait = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tag_descr = new System.Windows.Forms.DataGridView();
-            this.dw_tag_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dw_tag_nameplc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dw_tag_namescada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dw_tag_descr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabConfigPLC_S7 = new System.Windows.Forms.TabControl();
             this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.typeWork = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.typechannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modulnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.channelnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupsignal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.signalstype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -229,14 +233,14 @@
             this.dgw_hist_plc_config.AllowUserToAddRows = false;
             this.dgw_hist_plc_config.AllowUserToDeleteRows = false;
             this.dgw_hist_plc_config.AllowUserToResizeRows = false;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgw_hist_plc_config.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgw_hist_plc_config.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgw_hist_plc_config.ColumnHeadersHeight = 50;
             this.dgw_hist_plc_config.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgw_hist_plc_config.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -245,20 +249,20 @@
             this.dataGridViewComboBoxColumn1,
             this.dataGridViewButtonColumn1});
             this.dgw_hist_plc_config.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgw_hist_plc_config.Location = new System.Drawing.Point(2, 32);
+            this.dgw_hist_plc_config.Location = new System.Drawing.Point(2, 33);
             this.dgw_hist_plc_config.Margin = new System.Windows.Forms.Padding(2);
             this.dgw_hist_plc_config.MultiSelect = false;
             this.dgw_hist_plc_config.Name = "dgw_hist_plc_config";
             this.dgw_hist_plc_config.RowHeadersVisible = false;
             this.dgw_hist_plc_config.RowTemplate.Height = 24;
-            this.dgw_hist_plc_config.Size = new System.Drawing.Size(972, 376);
+            this.dgw_hist_plc_config.Size = new System.Drawing.Size(974, 376);
             this.dgw_hist_plc_config.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn4.FillWeight = 25F;
             this.dataGridViewTextBoxColumn4.HeaderText = "Номер";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -267,10 +271,10 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle27.Format = "G";
-            dataGridViewCellStyle27.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = "G";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn5.FillWeight = 45F;
             this.dataGridViewTextBoxColumn5.HeaderText = "Дата создания";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -278,8 +282,8 @@
             // dataGridViewComboBoxColumn1
             // 
             this.dataGridViewComboBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewComboBoxColumn1.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewComboBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewComboBoxColumn1.FillWeight = 55F;
             this.dataGridViewComboBoxColumn1.HeaderText = "Количество изменений";
             this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
@@ -657,14 +661,14 @@
             this.set_dgv_channel_mount.AllowUserToAddRows = false;
             this.set_dgv_channel_mount.AllowUserToDeleteRows = false;
             this.set_dgv_channel_mount.AllowUserToResizeRows = false;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.set_dgv_channel_mount.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.set_dgv_channel_mount.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.set_dgv_channel_mount.ColumnHeadersHeight = 50;
             this.set_dgv_channel_mount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.set_dgv_channel_mount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -744,7 +748,7 @@
             this.tags.Location = new System.Drawing.Point(4, 33);
             this.tags.Margin = new System.Windows.Forms.Padding(2);
             this.tags.Name = "tags";
-            this.tags.Size = new System.Drawing.Size(1016, 699);
+            this.tags.Size = new System.Drawing.Size(1016, 731);
             this.tags.TabIndex = 2;
             this.tags.Text = "Переменные";
             this.tags.UseVisualStyleBackColor = true;
@@ -789,21 +793,22 @@
             this.tag_descr.AllowUserToDeleteRows = false;
             this.tag_descr.AllowUserToResizeColumns = false;
             this.tag_descr.AllowUserToResizeRows = false;
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tag_descr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tag_descr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.tag_descr.ColumnHeadersHeight = 40;
             this.tag_descr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.tag_descr.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dw_tag_id,
-            this.dw_tag_nameplc,
-            this.dw_tag_namescada,
-            this.dw_tag_descr});
+            this.typechannel,
+            this.modulnumber,
+            this.channelnumber,
+            this.groupsignal,
+            this.signalstype});
             this.tag_descr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tag_descr.Location = new System.Drawing.Point(0, 0);
             this.tag_descr.Margin = new System.Windows.Forms.Padding(2);
@@ -812,40 +817,8 @@
             this.tag_descr.RowHeadersVisible = false;
             this.tag_descr.RowTemplate.Height = 25;
             this.tag_descr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tag_descr.Size = new System.Drawing.Size(1016, 699);
+            this.tag_descr.Size = new System.Drawing.Size(1016, 731);
             this.tag_descr.TabIndex = 4;
-            // 
-            // dw_tag_id
-            // 
-            this.dw_tag_id.HeaderText = "id";
-            this.dw_tag_id.Name = "dw_tag_id";
-            this.dw_tag_id.ReadOnly = true;
-            this.dw_tag_id.Visible = false;
-            // 
-            // dw_tag_nameplc
-            // 
-            this.dw_tag_nameplc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dw_tag_nameplc.FillWeight = 170F;
-            this.dw_tag_nameplc.HeaderText = "Имя PLC";
-            this.dw_tag_nameplc.Name = "dw_tag_nameplc";
-            this.dw_tag_nameplc.ReadOnly = true;
-            // 
-            // dw_tag_namescada
-            // 
-            this.dw_tag_namescada.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dw_tag_namescada.FillWeight = 170F;
-            this.dw_tag_namescada.HeaderText = "Имя SCADA";
-            this.dw_tag_namescada.Name = "dw_tag_namescada";
-            this.dw_tag_namescada.ReadOnly = true;
-            // 
-            // dw_tag_descr
-            // 
-            this.dw_tag_descr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dw_tag_descr.FillWeight = 500F;
-            this.dw_tag_descr.HeaderText = "Описание";
-            this.dw_tag_descr.Name = "dw_tag_descr";
-            this.dw_tag_descr.ReadOnly = true;
-            this.dw_tag_descr.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // tabConfigPLC_S7
             // 
@@ -880,6 +853,56 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(71, 29);
             this.toolStripLabel1.Text = "Работа с:";
+            // 
+            // typechannel
+            // 
+            this.typechannel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.typechannel.DefaultCellStyle = dataGridViewCellStyle7;
+            this.typechannel.FillWeight = 80F;
+            this.typechannel.HeaderText = "Тип канала";
+            this.typechannel.Name = "typechannel";
+            this.typechannel.ReadOnly = true;
+            // 
+            // modulnumber
+            // 
+            this.modulnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.modulnumber.DefaultCellStyle = dataGridViewCellStyle8;
+            this.modulnumber.FillWeight = 90F;
+            this.modulnumber.HeaderText = "Номер модуля";
+            this.modulnumber.Name = "modulnumber";
+            this.modulnumber.ReadOnly = true;
+            this.modulnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // channelnumber
+            // 
+            this.channelnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.channelnumber.DefaultCellStyle = dataGridViewCellStyle9;
+            this.channelnumber.FillWeight = 90F;
+            this.channelnumber.HeaderText = "Номер канала";
+            this.channelnumber.Name = "channelnumber";
+            this.channelnumber.ReadOnly = true;
+            this.channelnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // groupsignal
+            // 
+            this.groupsignal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.groupsignal.FillWeight = 250F;
+            this.groupsignal.HeaderText = "Группа сигналов";
+            this.groupsignal.Name = "groupsignal";
+            this.groupsignal.ReadOnly = true;
+            this.groupsignal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // signalstype
+            // 
+            this.signalstype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.signalstype.FillWeight = 180F;
+            this.signalstype.HeaderText = "Сигнал";
+            this.signalstype.Name = "signalstype";
+            this.signalstype.ReadOnly = true;
+            this.signalstype.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // ConfigPLC_S7
             // 
@@ -954,10 +977,6 @@
         private System.Windows.Forms.TextBox text_tag_wait;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView tag_descr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_nameplc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_namescada;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_descr;
         private System.Windows.Forms.TabControl tabConfigPLC_S7;
         private System.Windows.Forms.Label l_samples;
         private System.Windows.Forms.Button open_folder_dialog;
@@ -987,5 +1006,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn signalid;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox typeWork;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typechannel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modulnumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn channelnumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groupsignal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn signalstype;
     }
 }

@@ -328,6 +328,7 @@ namespace Config_PLC_SIEMENS
             switch (tabConfigPLC_S7.SelectedIndex)
             {
                 case 0:
+                    LoadAllModuleChannel();
                     break;
                 case 1:
                     typeWork.SelectedIndex = 1;                  
@@ -343,6 +344,21 @@ namespace Config_PLC_SIEMENS
             ChangeEnableButtons(tabConfigPLC_S7.SelectedIndex);
         }
 
+        private void LoadAllModuleChannel()
+        {
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            var modulchannel = data.GetAllModuleChannel(_rtpid).ToList();
+            tag_descr.Rows.Clear();
+            foreach (var getAllModuleChannelResult in modulchannel)
+            {
+                int rnumber = tag_descr.Rows.Add();
+                tag_descr.Rows[rnumber].Cells[0].Value = getAllModuleChannelResult.descript;
+                tag_descr.Rows[rnumber].Cells[1].Value = getAllModuleChannelResult.modulnumber;
+                tag_descr.Rows[rnumber].Cells[2].Value = getAllModuleChannelResult.channelnumber;
+                tag_descr.Rows[rnumber].Cells[3].Value = getAllModuleChannelResult.signalgroupdescription;
+                tag_descr.Rows[rnumber].Cells[4].Value = getAllModuleChannelResult.signaldescription;
+            }
+        }
         /// <summary>
         /// Изменяет доступность кнопок меню
         /// </summary>
@@ -878,21 +894,10 @@ namespace Config_PLC_SIEMENS
             }    
         }
 
-        private void EditTagClick(object sender, EventArgs e)
-        {
-            switch (tabConfigPLC_S7.SelectedIndex)
-            {
-                case 0:
-                    break;
-                default:
-                    break;
-
-            }    
-        }
 
         private void ConfigPlcS7Load(object sender, EventArgs e)
         {
-           // LoadATags(tabConfigPLC_S7.SelectedIndex);
+            LoadAllModuleChannel();
             ChangeEnableButtons(tabConfigPLC_S7.SelectedIndex);
         }
 
