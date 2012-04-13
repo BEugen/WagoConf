@@ -575,8 +575,8 @@ namespace Config_PLC_SIEMENS
                                                                  ? 0
                                                                  : mount[i].offsetChannel.Value;
 
-                        paramset2[mount[i].signaltype + 1] = mount[i].offsetModul == null
-                                                             ? 0
+                        paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                                                             ? -1
                                                              : mount[i].offsetModul.Value;
                     }
                 }
@@ -730,30 +730,61 @@ namespace Config_PLC_SIEMENS
 
         }
 
-        private void AddTagClick(object sender, EventArgs e)
+        private void LoadHardwareConfig(object sender, EventArgs e)
         {
-        //    switch (tabConfigPLC_S7.SelectedIndex)
-        //    {
-        //        case 0:
-        //        case 1:
-        //            AddEditTag addEditTag = new AddEditTag {Edit = false};
-        //            if (addEditTag.ShowDialog(this) == DialogResult.OK)
-        //            {
-        //                ATag atag = new ATag(-1);
-        //                atag.rawMIN = addEditTag.RAWmin;
-        //                atag.rawMAX = addEditTag.RAWmax;
-        //                atag.EU_MAX = addEditTag.EUmax;
-        //                atag.EU_MIN = addEditTag.EUmin;
-        //                atag.namePLC = addEditTag.NamePLC;
-        //                atag.nameSCADA = addEditTag.NameScada;
-        //                atag.description = addEditTag.Description;
-        //                configClass.SaveTag(atag);
-        //            }
-        //            break;
-        //        default:
-        //            break;
+            int[] paramset1 = new int[6];
+            int[] paramset2 = new int[6];
+            var commandOne = new CommandToPlc();
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            var groupssignal = data.GetRtpSignalGroups().ToList();
+            foreach (var getRtpSignalGroupsResult in groupssignal)
+            {
+                var mount = data.GetMountForSignalsGroup(_rtpid, getRtpSignalGroupsResult.signalattrnumber,
+                                                         getRtpSignalGroupsResult.signalgroup).ToList();
+                if (mount.Count > 0 && mount.First().commandid.Value == (int)CommandName.MountChannel)
+                {
+                    var shibernumber = mount.First().shibernumber;
+                    if (shibernumber != null)
+                    {
+                        paramset1[0] = shibernumber.Value;
+                        paramset2[0] = shibernumber.Value;
+                    }
+                    for (int i = 0; i < mount.Count && i < 4; i++)
+                    {
+                        if (mount[i].signaltype < paramset1.Length)
+                        {
+                            paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
+                                                                     ? 0
+                                                                     : mount[i].offsetChannel.Value;
 
-        //    }    
+                            paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                                                                 ? -1
+                                                                 : mount[i].offsetModul.Value;
+                        }
+                    }
+                    commandOne.CommandNumber = (int)CommandName.MountChannel;
+                    commandOne.Values = paramset1;
+                    var commandTwo = new CommandToPlc();
+                    commandTwo.CommandNumber = (int)CommandName.MountModul;
+                    commandTwo.Values = paramset2;
+                    commandToPlc.Enqueue(commandTwo);
+                    commandToPlc.Enqueue(commandOne);
+
+                }
+                if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
+                {
+                    var paramset = mount.First();
+                    paramset1[0] = paramset.signaltype;
+                    paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
+                    paramset1[2] = paramset.signalcontrain;
+                    paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
+                    commandOne.CommandNumber = (int)CommandName.MountGenericSignals;
+                    commandOne.Values = paramset1;
+                    commandToPlc.Enqueue(commandOne);
+
+                }
+            }
+            CommandForPlc();
         }
 
 

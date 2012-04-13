@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WKZP85824;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString" Provider="System.Data.SqlClient" />
   <Function Name="dbo.GetModule" Method="GetModule">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetModuleResult">
@@ -127,6 +127,21 @@
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetErrorDownloadToPlcResult">
       <Column Name="changehardware" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetMountForSignalsGroup" Method="GetMountForSignalsGroup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="signalgroup" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetMountForSignalsGroupResult">
+      <Column Name="signaltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="modulnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="channelnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="commandid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="signalcontrain" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="offsetChannel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="offsetModul" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

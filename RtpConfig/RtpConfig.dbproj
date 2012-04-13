@@ -40,7 +40,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=WKZP85824;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=HM\MSQL;Integrated Security=True;Pooling=False</TargetConnectionString>
     <TargetDatabase>
     </TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -208,6 +208,9 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Scripts\GetErrorDownloadToPlc.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Scripts\GetMountForSignalsGroup.proc.sql">
       <SubType>Code</SubType>
     </Build>
   </ItemGroup>
