@@ -152,6 +152,7 @@ namespace Config_PLC_SIEMENS
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
 			return ((ISingleResult<GetAllModuleChannelResult>)(result.ReturnValue));
 		}
+<<<<<<< HEAD
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SetErrorDownloadToPlc")]
 		public int SetErrorDownloadToPlc([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> flag)
@@ -166,6 +167,7 @@ namespace Config_PLC_SIEMENS
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
 			return ((ISingleResult<GetErrorDownloadToPlcResult>)(result.ReturnValue));
 		}
+<<<<<<< HEAD
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetMountForSignalsGroup")]
 		public ISingleResult<GetMountForSignalsGroupResult> GetMountForSignalsGroup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> shibernumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> signalgroup)
@@ -173,6 +175,10 @@ namespace Config_PLC_SIEMENS
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, shibernumber, signalgroup);
 			return ((ISingleResult<GetMountForSignalsGroupResult>)(result.ReturnValue));
 		}
+=======
+=======
+>>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
+>>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
 	}
 	
 	public partial class GetModuleResult
@@ -1038,6 +1044,7 @@ namespace Config_PLC_SIEMENS
 			}
 		}
 	}
+<<<<<<< HEAD
 	
 	public partial class GetErrorDownloadToPlcResult
 	{
@@ -1064,6 +1071,7 @@ namespace Config_PLC_SIEMENS
 			}
 		}
 	}
+<<<<<<< HEAD
 	
 	public partial class GetMountForSignalsGroupResult
 	{
@@ -1216,5 +1224,9 @@ namespace Config_PLC_SIEMENS
 			}
 		}
 	}
+=======
+=======
+>>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
+>>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
 }
 #pragma warning restore 1591

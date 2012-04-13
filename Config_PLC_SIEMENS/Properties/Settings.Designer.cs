@@ -23,7 +23,15 @@ namespace Config_PLC_SIEMENS.Properties {
             }
         }
         
+<<<<<<< HEAD
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
+=======
+<<<<<<< HEAD
+      /*  [global::System.Configuration.ApplicationScopedSettingAttribute()]
+=======
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+>>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
+>>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HM\\MSQL;Initial Catalog=RtpConfig;Integrated Security=True")]
@@ -33,7 +41,15 @@ namespace Config_PLC_SIEMENS.Properties {
             }
         }
         
+<<<<<<< HEAD
    /*  [global::System.Configuration.ApplicationScopedSettingAttribute()]
+=======
+<<<<<<< HEAD
+     [global::System.Configuration.ApplicationScopedSettingAttribute()]
+=======
+   /*   [global::System.Configuration.ApplicationScopedSettingAttribute()]
+>>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
+>>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=WKZP85824;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=" +
