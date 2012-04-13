@@ -586,6 +586,9 @@
           <property Id="b1fb4f47-d766-481b-a769-959a32625fc3" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="679cf5bd-2c42-452b-9cc9-a8679a3b047f" />
           </property>
+          <property Id="7519bb6e-156c-40eb-9beb-f8d053e18216" name="changehardware" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7a548c3d-5435-4552-8549-4180489b07b6" />
+          </property>
         </ownedAttributesInternal>
       </class>
     </logicalClassDesignerModelHasTypes>

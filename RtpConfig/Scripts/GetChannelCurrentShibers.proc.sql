@@ -44,7 +44,7 @@ AS
 			  END
 		 END
 	 END
-	 IF @groupid IS NOT NULL AND @signalid IS NOT NULL AND @chanelid IS NOT NULL
+	 IF @groupid IS NOT NULL AND @signalid IS NOT NULL AND @groupid <> -1 AND @signalid <> - 1 AND @chanelid IS NOT NULL
 	   BEGIN
 	       
 

@@ -33,7 +33,7 @@ namespace Config_PLC_SIEMENS
     #endregion
 		
 		public RtpConfigDataContext() : 
-				base(global::Config_PLC_SIEMENS.Properties.Settings.Default.RtpConfigConnectionString1, mappingSource)
+				base(global::Config_PLC_SIEMENS.Properties.Settings.Default.RtpConfigConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -137,6 +137,34 @@ namespace Config_PLC_SIEMENS
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), groupid, channeltype);
 			return ((ISingleResult<GetSignalsIdForGroupIdResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteModule")]
+		public int DeleteModule([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> modulnumber)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, modulnumber);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetAllModuleChannel")]
+		public ISingleResult<GetAllModuleChannelResult> GetAllModuleChannel([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
+			return ((ISingleResult<GetAllModuleChannelResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SetErrorDownloadToPlc")]
+		public int SetErrorDownloadToPlc([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> flag)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, flag);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetErrorDownloadToPlc")]
+		public ISingleResult<GetErrorDownloadToPlcResult> GetErrorDownloadToPlc([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
+			return ((ISingleResult<GetErrorDownloadToPlcResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -901,6 +929,130 @@ namespace Config_PLC_SIEMENS
 				if ((this._signalattribute != value))
 				{
 					this._signalattribute = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetAllModuleChannelResult
+	{
+		
+		private string _descript;
+		
+		private int _modulnumber;
+		
+		private int _channelnumber;
+		
+		private string _signalgroupdescription;
+		
+		private string _signaldescription;
+		
+		public GetAllModuleChannelResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descript", DbType="NVarChar(2)")]
+		public string descript
+		{
+			get
+			{
+				return this._descript;
+			}
+			set
+			{
+				if ((this._descript != value))
+				{
+					this._descript = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_modulnumber", DbType="Int NOT NULL")]
+		public int modulnumber
+		{
+			get
+			{
+				return this._modulnumber;
+			}
+			set
+			{
+				if ((this._modulnumber != value))
+				{
+					this._modulnumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_channelnumber", DbType="Int NOT NULL")]
+		public int channelnumber
+		{
+			get
+			{
+				return this._channelnumber;
+			}
+			set
+			{
+				if ((this._channelnumber != value))
+				{
+					this._channelnumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalgroupdescription", DbType="NVarChar(50)")]
+		public string signalgroupdescription
+		{
+			get
+			{
+				return this._signalgroupdescription;
+			}
+			set
+			{
+				if ((this._signalgroupdescription != value))
+				{
+					this._signalgroupdescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signaldescription", DbType="NVarChar(50)")]
+		public string signaldescription
+		{
+			get
+			{
+				return this._signaldescription;
+			}
+			set
+			{
+				if ((this._signaldescription != value))
+				{
+					this._signaldescription = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetErrorDownloadToPlcResult
+	{
+		
+		private int _changehardware;
+		
+		public GetErrorDownloadToPlcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_changehardware", DbType="Int NOT NULL")]
+		public int changehardware
+		{
+			get
+			{
+				return this._changehardware;
+			}
+			set
+			{
+				if ((this._changehardware != value))
+				{
+					this._changehardware = value;
 				}
 			}
 		}

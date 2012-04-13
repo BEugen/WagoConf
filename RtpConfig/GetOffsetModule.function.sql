@@ -23,7 +23,7 @@ BEGIN
 	  WHERE RtpChannel.rtpid = @rtpid AND RtpChannel.channeltype = @modultype AND RtpChannel.modulnumber < @modulnumber
 	END
 
-	IF @modulnumber = 0 OR @modulnumber = 1
+	IF @modultype = 0 OR @modultype = 1
 	BEGIN
 
 	  SELECT @offsetmod = COUNT(RtpChannel.channelnumber)*2 -- Аналоговый канал занимают 2 байта

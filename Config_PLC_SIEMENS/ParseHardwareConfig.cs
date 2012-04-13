@@ -20,8 +20,6 @@ namespace Config_PLC_SIEMENS
         public event ParceHarswareConfigCompleteD ParceHarswareConfigComplete;
         ConfigPLCStore configClass;
 
-        string _regexp_name_plc = "(?<stantion_name>STATION S\\d* , \"[\\w\\d]*\")";
-        string _regexp_type_plc = "(?<plc_type>\"CPU[ -_\\d\\w]*\")";
         string _regexp_module_rack = "(?<module_rack>RACK [\\d ,]*SLOT[\\d ,]*[\\w\\d\\s\"-]*, \"[\\w/\\]*\"\r\nBEGIN[ ]* \r\n([ ]*[\\w \\d\"]*\r\n)*([ ]+[\\w \\d, ]+\r\n)+([ ]*[\\w \\d\"]*\r\n)*([ ]+[\\w \\d, ]+\r\n)+)";
         string _regexp_module_dp = "(?<module_dp>DPSUBSYSTEM [\\d ,]*DPADDRESS[\\d ,]*SLOT[\\d ,]*\"[\\d\\s-\\w/.]*\", \"[\\w]*\"\r\nBEGIN[ ]*\r\n([ ]*[\\w \\d\"]*\r\n)*[ ]*[\\w ,\\d]*)";
         string _regexp_type_module = "(?<typeModule>( \"AO\\d+\\WAI\\d+)|( \"AI\\d+\\WAO\\d+)|( \"AO\\d*)|( \"\\d*AO)|( \"AI\\d*)|( \"\\d*AI))";

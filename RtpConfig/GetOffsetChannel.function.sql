@@ -17,7 +17,7 @@ BEGIN
 	  SET @offsetch = (@channelnumber - 1) *2
 	END
 
-	IF @modulnumber = 0 OR @modulnumber = 1
+	IF @modultype = 0 OR @modultype = 1
 	BEGIN
 	  SELECT @offsetch = COUNT(a.channelnumber)
 	  FROM RtpChannel a

@@ -34,30 +34,23 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Модуль AI", 1, 1);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("PLC №", 0, 0, new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.set_conmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.set_conmenu_add = new System.Windows.Forms.ToolStripMenuItem();
             this.set_conmenu_del = new System.Windows.Forms.ToolStripMenuItem();
             this.set_images = new System.Windows.Forms.ImageList(this.components);
             this.set_menu = new System.Windows.Forms.ToolStrip();
-            this.addTag = new System.Windows.Forms.ToolStripButton();
-            this.editTag = new System.Windows.Forms.ToolStripButton();
-            this.delTag = new System.Windows.Forms.ToolStripButton();
+            this.downloadConfig = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tunning_pid = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.staticConfig = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.set_menu_label = new System.Windows.Forms.ToolStripLabel();
-            this.set_find_tag = new System.Windows.Forms.ToolStripTextBox();
-            this.set_menu_search = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportHardwareConfig = new System.Windows.Forms.ToolStripButton();
-            this.openConfigDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.typeWork = new System.Windows.Forms.ToolStripComboBox();
             this.set_setting = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgw_hist_plc_config = new System.Windows.Forms.DataGridView();
@@ -84,7 +77,6 @@
             this.set_l_channel_count = new System.Windows.Forms.Label();
             this.set_ddl_type_modul = new System.Windows.Forms.ComboBox();
             this.set_l_type_modul = new System.Windows.Forms.Label();
-            this.set_b_channel_mount_cancel = new System.Windows.Forms.Button();
             this.set_b_channel_mount_ok = new System.Windows.Forms.Button();
             this.set_gb_type_plc = new System.Windows.Forms.GroupBox();
             this.set_b_change_plc = new System.Windows.Forms.Button();
@@ -94,7 +86,6 @@
             this.set_l_number_plc = new System.Windows.Forms.Label();
             this.set_inp_name_plc = new System.Windows.Forms.TextBox();
             this.set_l_name_plc = new System.Windows.Forms.Label();
-            this.set_treeview_mount = new System.Windows.Forms.TreeView();
             this.set_gb_channel_mount = new System.Windows.Forms.GroupBox();
             this.set_dgv_channel_mount = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,17 +95,22 @@
             this.cok = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.signalid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.set_treeview_mount = new System.Windows.Forms.TreeView();
             this.tags = new System.Windows.Forms.TabPage();
             this.pan_tag_wait = new System.Windows.Forms.Panel();
             this.text_tag_wait = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tag_descr = new System.Windows.Forms.DataGridView();
-            this.dw_tag_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dw_tag_nameplc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dw_tag_namescada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dw_tag_descr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typechannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modulnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.channelnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupsignal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.signalstype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabConfigPLC_S7 = new System.Windows.Forms.TabControl();
             this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.checkHardwareIcon = new System.Windows.Forms.ToolStripButton();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -145,7 +141,7 @@
             // 
             this.set_conmenu_add.Image = ((System.Drawing.Image)(resources.GetObject("set_conmenu_add.Image")));
             this.set_conmenu_add.Name = "set_conmenu_add";
-            this.set_conmenu_add.Size = new System.Drawing.Size(200, 24);
+            this.set_conmenu_add.Size = new System.Drawing.Size(170, 22);
             this.set_conmenu_add.Text = "Добавить модуль";
             this.set_conmenu_add.Click += new System.EventHandler(this.SetConmenuAddClick);
             // 
@@ -163,6 +159,8 @@
             this.set_images.TransparentColor = System.Drawing.Color.Transparent;
             this.set_images.Images.SetKeyName(0, "drive-removable-media.png");
             this.set_images.Images.SetKeyName(1, "drive-harddisk.png");
+            this.set_images.Images.SetKeyName(2, "camera_test_2717.png");
+            this.set_images.Images.SetKeyName(3, "error_7949.png");
             // 
             // set_menu
             // 
@@ -170,137 +168,51 @@
             this.set_menu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.set_menu.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.set_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addTag,
-            this.editTag,
-            this.delTag,
+            this.downloadConfig,
             this.toolStripSeparator3,
-            this.tunning_pid,
-            this.toolStripSeparator4,
-            this.staticConfig,
+            this.toolStripLabel1,
+            this.typeWork,
             this.toolStripSeparator1,
-            this.set_menu_label,
-            this.set_find_tag,
-            this.set_menu_search,
-            this.toolStripSeparator2,
-            this.exportHardwareConfig});
-            this.set_menu.Location = new System.Drawing.Point(0, 0);
+            this.toolStripLabel2,
+            this.checkHardwareIcon});
+            this.set_menu.Location = new System.Drawing.Point(2, 2);
             this.set_menu.Name = "set_menu";
-            this.set_menu.Size = new System.Drawing.Size(819, 26);
+            this.set_menu.Size = new System.Drawing.Size(807, 28);
             this.set_menu.TabIndex = 0;
             this.set_menu.Text = "Меню";
             // 
-            // addTag
+            // downloadConfig
             // 
-            this.addTag.AutoSize = false;
-            this.addTag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addTag.Image = ((System.Drawing.Image)(resources.GetObject("addTag.Image")));
-            this.addTag.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addTag.Name = "addTag";
-            this.addTag.Size = new System.Drawing.Size(32, 32);
-            this.addTag.Text = "Добавить переменную";
-            this.addTag.ToolTipText = "Добавить переменную";
-            this.addTag.Click += new System.EventHandler(this.AddTagClick);
-            // 
-            // editTag
-            // 
-            this.editTag.AutoSize = false;
-            this.editTag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editTag.Image = ((System.Drawing.Image)(resources.GetObject("editTag.Image")));
-            this.editTag.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editTag.Name = "editTag";
-            this.editTag.Size = new System.Drawing.Size(32, 32);
-            this.editTag.Text = "Редактировать переменную";
-            this.editTag.Click += new System.EventHandler(this.EditTagClick);
-            // 
-            // delTag
-            // 
-            this.delTag.AutoSize = false;
-            this.delTag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.delTag.Image = ((System.Drawing.Image)(resources.GetObject("delTag.Image")));
-            this.delTag.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.delTag.Name = "delTag";
-            this.delTag.Size = new System.Drawing.Size(32, 32);
-            this.delTag.Text = "Удалить переменную";
-            this.delTag.Click += new System.EventHandler(this.DelTagClick);
+            this.downloadConfig.AutoSize = false;
+            this.downloadConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.downloadConfig.Image = ((System.Drawing.Image)(resources.GetObject("downloadConfig.Image")));
+            this.downloadConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.downloadConfig.Name = "downloadConfig";
+            this.downloadConfig.Size = new System.Drawing.Size(32, 32);
+            this.downloadConfig.Text = "Загрузить конфигурацию";
+            this.downloadConfig.ToolTipText = "Загрузить конфигурацию в контроллер";
+            this.downloadConfig.Click += new System.EventHandler(this.AddTagClick);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
             // 
-            // tunning_pid
+            // toolStripLabel1
             // 
-            this.tunning_pid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tunning_pid.Image = ((System.Drawing.Image)(resources.GetObject("tunning_pid.Image")));
-            this.tunning_pid.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tunning_pid.Name = "tunning_pid";
-            this.tunning_pid.Size = new System.Drawing.Size(36, 23);
-            this.tunning_pid.Text = "Настройка PID регулятора";
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(57, 25);
+            this.toolStripLabel1.Text = "Работа с:";
             // 
-            // toolStripSeparator4
+            // typeWork
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
-            // 
-            // staticConfig
-            // 
-            this.staticConfig.AutoSize = false;
-            this.staticConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.staticConfig.Image = ((System.Drawing.Image)(resources.GetObject("staticConfig.Image")));
-            this.staticConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.staticConfig.Name = "staticConfig";
-            this.staticConfig.Size = new System.Drawing.Size(32, 32);
-            this.staticConfig.Text = "Статическая конфигурация";
-            this.staticConfig.Click += new System.EventHandler(this.StaticConfigClick);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
-            // 
-            // set_menu_label
-            // 
-            this.set_menu_label.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.set_menu_label.Name = "set_menu_label";
-            this.set_menu_label.Size = new System.Drawing.Size(83, 23);
-            this.set_menu_label.Text = "Найти канал";
-            // 
-            // set_find_tag
-            // 
-            this.set_find_tag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.set_find_tag.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.set_find_tag.Name = "set_find_tag";
-            this.set_find_tag.Size = new System.Drawing.Size(120, 26);
-            this.set_find_tag.TextChanged += new System.EventHandler(this.SetFindTagTextChanged);
-            // 
-            // set_menu_search
-            // 
-            this.set_menu_search.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.set_menu_search.Image = ((System.Drawing.Image)(resources.GetObject("set_menu_search.Image")));
-            this.set_menu_search.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.set_menu_search.Name = "set_menu_search";
-            this.set_menu_search.Size = new System.Drawing.Size(45, 23);
-            this.set_menu_search.Text = "Найти";
-            this.set_menu_search.Click += new System.EventHandler(this.SetMenuSearchClick);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
-            // 
-            // exportHardwareConfig
-            // 
-            this.exportHardwareConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.exportHardwareConfig.Image = ((System.Drawing.Image)(resources.GetObject("exportHardwareConfig.Image")));
-            this.exportHardwareConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.exportHardwareConfig.Name = "exportHardwareConfig";
-            this.exportHardwareConfig.Size = new System.Drawing.Size(36, 23);
-            this.exportHardwareConfig.Text = "Экспортировать конфигурацию контроллера";
-            this.exportHardwareConfig.Click += new System.EventHandler(this.ExportHardwareConfigClick);
-            // 
-            // openConfigDialog
-            // 
-            this.openConfigDialog.Filter = "Hardware Config files  * .cfg|*.cfg";
+            this.typeWork.Items.AddRange(new object[] {
+            "Кофигурационной базой",
+            "Контроллером"});
+            this.typeWork.MergeIndex = 1;
+            this.typeWork.Name = "typeWork";
+            this.typeWork.Size = new System.Drawing.Size(177, 28);
+            this.typeWork.SelectedIndexChanged += new System.EventHandler(this.TypeWorkSelectedIndexChanged);
             // 
             // set_setting
             // 
@@ -317,7 +229,7 @@
             this.set_setting.Location = new System.Drawing.Point(4, 29);
             this.set_setting.Margin = new System.Windows.Forms.Padding(2);
             this.set_setting.Name = "set_setting";
-            this.set_setting.Size = new System.Drawing.Size(811, 555);
+            this.set_setting.Size = new System.Drawing.Size(811, 581);
             this.set_setting.TabIndex = 3;
             this.set_setting.Text = "Настройка";
             this.set_setting.UseVisualStyleBackColor = true;
@@ -362,7 +274,7 @@
             this.dgw_hist_plc_config.Name = "dgw_hist_plc_config";
             this.dgw_hist_plc_config.RowHeadersVisible = false;
             this.dgw_hist_plc_config.RowTemplate.Height = 24;
-            this.dgw_hist_plc_config.Size = new System.Drawing.Size(778, 301);
+            this.dgw_hist_plc_config.Size = new System.Drawing.Size(779, 301);
             this.dgw_hist_plc_config.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn4
@@ -505,18 +417,18 @@
             // 
             // set_mount
             // 
+            this.set_mount.Controls.Add(this.set_menu);
             this.set_mount.Controls.Add(this.set_pan_mount_wait);
             this.set_mount.Controls.Add(this.set_gb_type_module);
-            this.set_mount.Controls.Add(this.set_b_channel_mount_cancel);
             this.set_mount.Controls.Add(this.set_b_channel_mount_ok);
             this.set_mount.Controls.Add(this.set_gb_type_plc);
-            this.set_mount.Controls.Add(this.set_treeview_mount);
             this.set_mount.Controls.Add(this.set_gb_channel_mount);
+            this.set_mount.Controls.Add(this.set_treeview_mount);
             this.set_mount.Location = new System.Drawing.Point(4, 29);
             this.set_mount.Margin = new System.Windows.Forms.Padding(2);
             this.set_mount.Name = "set_mount";
             this.set_mount.Padding = new System.Windows.Forms.Padding(2);
-            this.set_mount.Size = new System.Drawing.Size(811, 555);
+            this.set_mount.Size = new System.Drawing.Size(811, 581);
             this.set_mount.TabIndex = 1;
             this.set_mount.Text = "Привязка каналов";
             this.set_mount.UseVisualStyleBackColor = true;
@@ -559,7 +471,7 @@
             this.set_gb_type_module.Controls.Add(this.set_l_channel_count);
             this.set_gb_type_module.Controls.Add(this.set_ddl_type_modul);
             this.set_gb_type_module.Controls.Add(this.set_l_type_modul);
-            this.set_gb_type_module.Location = new System.Drawing.Point(239, 5);
+            this.set_gb_type_module.Location = new System.Drawing.Point(239, 32);
             this.set_gb_type_module.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_type_module.Name = "set_gb_type_module";
             this.set_gb_type_module.Padding = new System.Windows.Forms.Padding(2);
@@ -571,7 +483,7 @@
             // 
             // set_b_modul_param_ok
             // 
-            this.set_b_modul_param_ok.Location = new System.Drawing.Point(370, 77);
+            this.set_b_modul_param_ok.Location = new System.Drawing.Point(414, 69);
             this.set_b_modul_param_ok.Margin = new System.Windows.Forms.Padding(2);
             this.set_b_modul_param_ok.Name = "set_b_modul_param_ok";
             this.set_b_modul_param_ok.Size = new System.Drawing.Size(112, 32);
@@ -630,20 +542,9 @@
             this.set_l_type_modul.TabIndex = 0;
             this.set_l_type_modul.Text = "Тип модуля";
             // 
-            // set_b_channel_mount_cancel
-            // 
-            this.set_b_channel_mount_cancel.Location = new System.Drawing.Point(690, 520);
-            this.set_b_channel_mount_cancel.Margin = new System.Windows.Forms.Padding(2);
-            this.set_b_channel_mount_cancel.Name = "set_b_channel_mount_cancel";
-            this.set_b_channel_mount_cancel.Size = new System.Drawing.Size(112, 32);
-            this.set_b_channel_mount_cancel.TabIndex = 4;
-            this.set_b_channel_mount_cancel.Text = "Отмена";
-            this.set_b_channel_mount_cancel.UseVisualStyleBackColor = true;
-            this.set_b_channel_mount_cancel.Click += new System.EventHandler(this.SetBChannelMountCancelClick);
-            // 
             // set_b_channel_mount_ok
             // 
-            this.set_b_channel_mount_ok.Location = new System.Drawing.Point(563, 520);
+            this.set_b_channel_mount_ok.Location = new System.Drawing.Point(653, 530);
             this.set_b_channel_mount_ok.Margin = new System.Windows.Forms.Padding(2);
             this.set_b_channel_mount_ok.Name = "set_b_channel_mount_ok";
             this.set_b_channel_mount_ok.Size = new System.Drawing.Size(112, 32);
@@ -661,7 +562,7 @@
             this.set_gb_type_plc.Controls.Add(this.set_l_number_plc);
             this.set_gb_type_plc.Controls.Add(this.set_inp_name_plc);
             this.set_gb_type_plc.Controls.Add(this.set_l_name_plc);
-            this.set_gb_type_plc.Location = new System.Drawing.Point(239, 5);
+            this.set_gb_type_plc.Location = new System.Drawing.Point(239, 33);
             this.set_gb_type_plc.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_type_plc.Name = "set_gb_type_plc";
             this.set_gb_type_plc.Padding = new System.Windows.Forms.Padding(2);
@@ -735,39 +636,14 @@
             this.set_l_name_plc.TabIndex = 0;
             this.set_l_name_plc.Text = "Имя PLC";
             // 
-            // set_treeview_mount
-            // 
-            this.set_treeview_mount.Dock = System.Windows.Forms.DockStyle.Left;
-            this.set_treeview_mount.ImageIndex = 0;
-            this.set_treeview_mount.ImageList = this.set_images;
-            this.set_treeview_mount.Location = new System.Drawing.Point(2, 2);
-            this.set_treeview_mount.Margin = new System.Windows.Forms.Padding(2);
-            this.set_treeview_mount.Name = "set_treeview_mount";
-            treeNode1.ContextMenuStrip = this.set_conmenu;
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "modul1";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "Модуль AI";
-            treeNode2.ContextMenuStrip = this.set_conmenu;
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "PLC";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "PLC №";
-            this.set_treeview_mount.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.set_treeview_mount.SelectedImageIndex = 0;
-            this.set_treeview_mount.Size = new System.Drawing.Size(235, 551);
-            this.set_treeview_mount.TabIndex = 0;
-            this.set_treeview_mount.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.SetTreeviewMountNodeMouseClick);
-            // 
             // set_gb_channel_mount
             // 
             this.set_gb_channel_mount.Controls.Add(this.set_dgv_channel_mount);
-            this.set_gb_channel_mount.Location = new System.Drawing.Point(239, 125);
+            this.set_gb_channel_mount.Location = new System.Drawing.Point(239, 152);
             this.set_gb_channel_mount.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_channel_mount.Name = "set_gb_channel_mount";
             this.set_gb_channel_mount.Padding = new System.Windows.Forms.Padding(2);
-            this.set_gb_channel_mount.Size = new System.Drawing.Size(569, 381);
+            this.set_gb_channel_mount.Size = new System.Drawing.Size(569, 354);
             this.set_gb_channel_mount.TabIndex = 2;
             this.set_gb_channel_mount.TabStop = false;
             this.set_gb_channel_mount.Text = "Привязка каналов";
@@ -803,7 +679,7 @@
             this.set_dgv_channel_mount.Name = "set_dgv_channel_mount";
             this.set_dgv_channel_mount.RowHeadersVisible = false;
             this.set_dgv_channel_mount.RowTemplate.Height = 24;
-            this.set_dgv_channel_mount.Size = new System.Drawing.Size(564, 359);
+            this.set_dgv_channel_mount.Size = new System.Drawing.Size(566, 332);
             this.set_dgv_channel_mount.TabIndex = 0;
             this.set_dgv_channel_mount.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SetDgvChannelMountCellContentClick);
             this.set_dgv_channel_mount.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.SetDgvChannelMountEditingControlShowing);
@@ -857,6 +733,30 @@
             this.signalid.Name = "signalid";
             this.signalid.Visible = false;
             // 
+            // set_treeview_mount
+            // 
+            this.set_treeview_mount.ImageIndex = 0;
+            this.set_treeview_mount.ImageList = this.set_images;
+            this.set_treeview_mount.Location = new System.Drawing.Point(2, 29);
+            this.set_treeview_mount.Margin = new System.Windows.Forms.Padding(2);
+            this.set_treeview_mount.Name = "set_treeview_mount";
+            treeNode1.ContextMenuStrip = this.set_conmenu;
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "modul1";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "Модуль AI";
+            treeNode2.ContextMenuStrip = this.set_conmenu;
+            treeNode2.ImageIndex = 0;
+            treeNode2.Name = "PLC";
+            treeNode2.SelectedImageIndex = 0;
+            treeNode2.Text = "PLC №";
+            this.set_treeview_mount.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            this.set_treeview_mount.SelectedImageIndex = 0;
+            this.set_treeview_mount.Size = new System.Drawing.Size(235, 538);
+            this.set_treeview_mount.TabIndex = 0;
+            this.set_treeview_mount.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.SetTreeviewMountNodeMouseClick);
+            // 
             // tags
             // 
             this.tags.Controls.Add(this.pan_tag_wait);
@@ -864,7 +764,7 @@
             this.tags.Location = new System.Drawing.Point(4, 29);
             this.tags.Margin = new System.Windows.Forms.Padding(2);
             this.tags.Name = "tags";
-            this.tags.Size = new System.Drawing.Size(811, 555);
+            this.tags.Size = new System.Drawing.Size(811, 581);
             this.tags.TabIndex = 2;
             this.tags.Text = "Переменные";
             this.tags.UseVisualStyleBackColor = true;
@@ -917,10 +817,11 @@
             this.tag_descr.ColumnHeadersHeight = 40;
             this.tag_descr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.tag_descr.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dw_tag_id,
-            this.dw_tag_nameplc,
-            this.dw_tag_namescada,
-            this.dw_tag_descr});
+            this.typechannel,
+            this.modulnumber,
+            this.channelnumber,
+            this.groupsignal,
+            this.signalstype});
             this.tag_descr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tag_descr.Location = new System.Drawing.Point(0, 0);
             this.tag_descr.Margin = new System.Windows.Forms.Padding(2);
@@ -929,40 +830,58 @@
             this.tag_descr.RowHeadersVisible = false;
             this.tag_descr.RowTemplate.Height = 25;
             this.tag_descr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tag_descr.Size = new System.Drawing.Size(811, 555);
+            this.tag_descr.Size = new System.Drawing.Size(811, 581);
             this.tag_descr.TabIndex = 4;
             // 
-            // dw_tag_id
+            // typechannel
             // 
-            this.dw_tag_id.HeaderText = "id";
-            this.dw_tag_id.Name = "dw_tag_id";
-            this.dw_tag_id.ReadOnly = true;
-            this.dw_tag_id.Visible = false;
+            this.typechannel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.typechannel.DefaultCellStyle = dataGridViewCellStyle7;
+            this.typechannel.FillWeight = 80F;
+            this.typechannel.HeaderText = "Тип канала";
+            this.typechannel.Name = "typechannel";
+            this.typechannel.ReadOnly = true;
             // 
-            // dw_tag_nameplc
+            // modulnumber
             // 
-            this.dw_tag_nameplc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dw_tag_nameplc.FillWeight = 170F;
-            this.dw_tag_nameplc.HeaderText = "Имя PLC";
-            this.dw_tag_nameplc.Name = "dw_tag_nameplc";
-            this.dw_tag_nameplc.ReadOnly = true;
+            this.modulnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.modulnumber.DefaultCellStyle = dataGridViewCellStyle8;
+            this.modulnumber.FillWeight = 90F;
+            this.modulnumber.HeaderText = "Номер модуля";
+            this.modulnumber.Name = "modulnumber";
+            this.modulnumber.ReadOnly = true;
+            this.modulnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dw_tag_namescada
+            // channelnumber
             // 
-            this.dw_tag_namescada.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dw_tag_namescada.FillWeight = 170F;
-            this.dw_tag_namescada.HeaderText = "Имя SCADA";
-            this.dw_tag_namescada.Name = "dw_tag_namescada";
-            this.dw_tag_namescada.ReadOnly = true;
+            this.channelnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.channelnumber.DefaultCellStyle = dataGridViewCellStyle9;
+            this.channelnumber.FillWeight = 90F;
+            this.channelnumber.HeaderText = "Номер канала";
+            this.channelnumber.Name = "channelnumber";
+            this.channelnumber.ReadOnly = true;
+            this.channelnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dw_tag_descr
+            // groupsignal
             // 
-            this.dw_tag_descr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dw_tag_descr.FillWeight = 500F;
-            this.dw_tag_descr.HeaderText = "Описание";
-            this.dw_tag_descr.Name = "dw_tag_descr";
-            this.dw_tag_descr.ReadOnly = true;
-            this.dw_tag_descr.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.groupsignal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.groupsignal.FillWeight = 250F;
+            this.groupsignal.HeaderText = "Группа сигналов";
+            this.groupsignal.Name = "groupsignal";
+            this.groupsignal.ReadOnly = true;
+            this.groupsignal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // signalstype
+            // 
+            this.signalstype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.signalstype.FillWeight = 180F;
+            this.signalstype.HeaderText = "Сигнал";
+            this.signalstype.Name = "signalstype";
+            this.signalstype.ReadOnly = true;
+            this.signalstype.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // tabConfigPLC_S7
             // 
@@ -971,11 +890,11 @@
             this.tabConfigPLC_S7.Controls.Add(this.set_setting);
             this.tabConfigPLC_S7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabConfigPLC_S7.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tabConfigPLC_S7.Location = new System.Drawing.Point(0, 26);
+            this.tabConfigPLC_S7.Location = new System.Drawing.Point(0, 0);
             this.tabConfigPLC_S7.Margin = new System.Windows.Forms.Padding(2);
             this.tabConfigPLC_S7.Name = "tabConfigPLC_S7";
             this.tabConfigPLC_S7.SelectedIndex = 0;
-            this.tabConfigPLC_S7.Size = new System.Drawing.Size(819, 588);
+            this.tabConfigPLC_S7.Size = new System.Drawing.Size(819, 614);
             this.tabConfigPLC_S7.TabIndex = 0;
             this.tabConfigPLC_S7.SelectedIndexChanged += new System.EventHandler(this.TabConfigPlcS7SelectedIndexChanged);
             // 
@@ -983,14 +902,33 @@
             // 
             this.folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // ConfigWagoRtp
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(118, 25);
+            this.toolStripLabel2.Text = "Соотвествие  с ПЛК:";
+            // 
+            // checkHardwareIcon
+            // 
+            this.checkHardwareIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.checkHardwareIcon.Image = ((System.Drawing.Image)(resources.GetObject("checkHardwareIcon.Image")));
+            this.checkHardwareIcon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.checkHardwareIcon.Name = "checkHardwareIcon";
+            this.checkHardwareIcon.Size = new System.Drawing.Size(36, 25);
+            this.checkHardwareIcon.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // ConfigPLC_S7
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tabConfigPLC_S7);
-            this.Controls.Add(this.set_menu);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "ConfigWagoRtp";
+            this.Name = "ConfigPLC_S7";
             this.Size = new System.Drawing.Size(819, 614);
             this.Load += new System.EventHandler(this.ConfigPlcS7Load);
             this.set_conmenu.ResumeLayout(false);
@@ -1022,23 +960,12 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip set_menu;
-        private System.Windows.Forms.ToolStripLabel set_menu_label;
-        private System.Windows.Forms.ToolStripTextBox set_find_tag;
-        private System.Windows.Forms.ToolStripButton set_menu_search;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ImageList set_images;
         private System.Windows.Forms.ContextMenuStrip set_conmenu;
         private System.Windows.Forms.ToolStripMenuItem set_conmenu_add;
         private System.Windows.Forms.ToolStripMenuItem set_conmenu_del;
-        private System.Windows.Forms.ToolStripButton addTag;
-        private System.Windows.Forms.ToolStripButton editTag;
-        private System.Windows.Forms.ToolStripButton delTag;
+        private System.Windows.Forms.ToolStripButton downloadConfig;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton staticConfig;
-        private System.Windows.Forms.ToolStripButton exportHardwareConfig;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.OpenFileDialog openConfigDialog;
         private System.Windows.Forms.TabPage set_setting;
         private System.Windows.Forms.TabPage set_mount;
         private System.Windows.Forms.Panel set_pan_mount_wait;
@@ -1050,7 +977,6 @@
         private System.Windows.Forms.Label set_l_channel_count;
         private System.Windows.Forms.ComboBox set_ddl_type_modul;
         private System.Windows.Forms.Label set_l_type_modul;
-        private System.Windows.Forms.Button set_b_channel_mount_cancel;
         private System.Windows.Forms.Button set_b_channel_mount_ok;
         private System.Windows.Forms.GroupBox set_gb_type_plc;
         private System.Windows.Forms.Button set_b_change_plc;
@@ -1068,12 +994,7 @@
         private System.Windows.Forms.TextBox text_tag_wait;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView tag_descr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_nameplc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_namescada;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dw_tag_descr;
         private System.Windows.Forms.TabControl tabConfigPLC_S7;
-        private System.Windows.Forms.ToolStripButton tunning_pid;
         private System.Windows.Forms.Label l_samples;
         private System.Windows.Forms.Button open_folder_dialog;
         private System.Windows.Forms.TextBox p_plc_config;
@@ -1100,5 +1021,15 @@
         private System.Windows.Forms.DataGridViewButtonColumn cok;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupid;
         private System.Windows.Forms.DataGridViewTextBoxColumn signalid;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox typeWork;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typechannel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modulnumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn channelnumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groupsignal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn signalstype;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripButton checkHardwareIcon;
     }
 }

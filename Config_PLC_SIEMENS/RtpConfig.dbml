@@ -103,4 +103,30 @@
       <Column Name="signalattribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
+  <Function Name="dbo.DeleteModule" Method="DeleteModule">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetAllModuleChannel" Method="GetAllModuleChannel">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAllModuleChannelResult">
+      <Column Name="descript" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="modulnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="channelnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SetErrorDownloadToPlc" Method="SetErrorDownloadToPlc">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="flag" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetErrorDownloadToPlc" Method="GetErrorDownloadToPlc">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetErrorDownloadToPlcResult">
+      <Column Name="changehardware" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>
