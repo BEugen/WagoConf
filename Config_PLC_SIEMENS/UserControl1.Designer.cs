@@ -47,22 +47,13 @@
             this.set_conmenu_del = new System.Windows.Forms.ToolStripMenuItem();
             this.set_images = new System.Windows.Forms.ImageList(this.components);
             this.set_menu = new System.Windows.Forms.ToolStrip();
-<<<<<<< HEAD
             this.downloadConfig = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.typeWork = new System.Windows.Forms.ToolStripComboBox();
-<<<<<<< HEAD
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.checkHardwareIcon = new System.Windows.Forms.ToolStripButton();
-=======
-=======
-            this.donloadConfig = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.openConfigDialog = new System.Windows.Forms.OpenFileDialog();
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_setting = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgw_hist_plc_config = new System.Windows.Forms.DataGridView();
@@ -113,7 +104,6 @@
             this.text_tag_wait = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tag_descr = new System.Windows.Forms.DataGridView();
-<<<<<<< HEAD
             this.typechannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modulnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.channelnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -121,23 +111,6 @@
             this.signalstype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabConfigPLC_S7 = new System.Windows.Forms.TabControl();
             this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
-<<<<<<< HEAD
-=======
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.checkHardwareIcon = new System.Windows.Forms.ToolStripButton();
-=======
-            this.tabConfigPLC_S7 = new System.Windows.Forms.TabControl();
-            this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.typeWork = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.typechannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modulnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.channelnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupsignal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.signalstype = new System.Windows.Forms.DataGridViewTextBoxColumn();
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -195,7 +168,6 @@
             this.set_menu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.set_menu.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.set_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-<<<<<<< HEAD
             this.downloadConfig,
             this.toolStripSeparator3,
             this.toolStripLabel1,
@@ -219,44 +191,12 @@
             this.downloadConfig.Size = new System.Drawing.Size(32, 32);
             this.downloadConfig.Text = "Загрузить конфигурацию";
             this.downloadConfig.ToolTipText = "Загрузить конфигурацию в контроллер";
-<<<<<<< HEAD
             this.downloadConfig.Click += new System.EventHandler(this.LoadHardwareConfig);
-=======
-            this.downloadConfig.Click += new System.EventHandler(this.AddTagClick);
-=======
-            this.donloadConfig,
-            this.toolStripSeparator3,
-            this.toolStripLabel1,
-            this.typeWork});
-            this.set_menu.Location = new System.Drawing.Point(2, 2);
-            this.set_menu.Name = "set_menu";
-            this.set_menu.Size = new System.Drawing.Size(1012, 32);
-            this.set_menu.TabIndex = 0;
-            this.set_menu.Text = "Меню";
-            // 
-            // donloadConfig
-            // 
-            this.donloadConfig.AutoSize = false;
-            this.donloadConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.donloadConfig.Image = ((System.Drawing.Image)(resources.GetObject("donloadConfig.Image")));
-            this.donloadConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.donloadConfig.Name = "donloadConfig";
-            this.donloadConfig.Size = new System.Drawing.Size(32, 32);
-            this.donloadConfig.Text = "Загрузить конфигурацию";
-            this.donloadConfig.ToolTipText = "Загрузить конфигурацию в контроллер";
-            this.donloadConfig.Click += new System.EventHandler(this.AddTagClick);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-<<<<<<< HEAD
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 35);
-=======
-<<<<<<< HEAD
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             // 
             // toolStripLabel1
             // 
@@ -273,13 +213,6 @@
             this.typeWork.Name = "typeWork";
             this.typeWork.Size = new System.Drawing.Size(220, 35);
             this.typeWork.SelectedIndexChanged += new System.EventHandler(this.TypeWorkSelectedIndexChanged);
-=======
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 32);
-            // 
-            // openConfigDialog
-            // 
-            this.openConfigDialog.Filter = "Hardware Config files  * .cfg|*.cfg";
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
             // 
             // toolStripSeparator1
             // 
@@ -316,15 +249,7 @@
             this.set_setting.Location = new System.Drawing.Point(4, 33);
             this.set_setting.Margin = new System.Windows.Forms.Padding(2);
             this.set_setting.Name = "set_setting";
-<<<<<<< HEAD
             this.set_setting.Size = new System.Drawing.Size(1016, 731);
-=======
-<<<<<<< HEAD
-            this.set_setting.Size = new System.Drawing.Size(811, 581);
-=======
-            this.set_setting.Size = new System.Drawing.Size(1016, 699);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_setting.TabIndex = 3;
             this.set_setting.Text = "Настройка";
             this.set_setting.UseVisualStyleBackColor = true;
@@ -363,25 +288,13 @@
             this.dataGridViewComboBoxColumn1,
             this.dataGridViewButtonColumn1});
             this.dgw_hist_plc_config.Dock = System.Windows.Forms.DockStyle.Fill;
-<<<<<<< HEAD
             this.dgw_hist_plc_config.Location = new System.Drawing.Point(2, 32);
-=======
-            this.dgw_hist_plc_config.Location = new System.Drawing.Point(2, 33);
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.dgw_hist_plc_config.Margin = new System.Windows.Forms.Padding(2);
             this.dgw_hist_plc_config.MultiSelect = false;
             this.dgw_hist_plc_config.Name = "dgw_hist_plc_config";
             this.dgw_hist_plc_config.RowHeadersVisible = false;
             this.dgw_hist_plc_config.RowTemplate.Height = 24;
-<<<<<<< HEAD
             this.dgw_hist_plc_config.Size = new System.Drawing.Size(974, 376);
-=======
-<<<<<<< HEAD
-            this.dgw_hist_plc_config.Size = new System.Drawing.Size(779, 301);
-=======
-            this.dgw_hist_plc_config.Size = new System.Drawing.Size(974, 376);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.dgw_hist_plc_config.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn4
@@ -531,27 +444,11 @@
             this.set_mount.Controls.Add(this.set_gb_type_plc);
             this.set_mount.Controls.Add(this.set_gb_channel_mount);
             this.set_mount.Controls.Add(this.set_treeview_mount);
-<<<<<<< HEAD
             this.set_mount.Location = new System.Drawing.Point(4, 33);
             this.set_mount.Margin = new System.Windows.Forms.Padding(2);
             this.set_mount.Name = "set_mount";
             this.set_mount.Padding = new System.Windows.Forms.Padding(2);
             this.set_mount.Size = new System.Drawing.Size(1016, 731);
-=======
-<<<<<<< HEAD
-            this.set_mount.Location = new System.Drawing.Point(4, 29);
-            this.set_mount.Margin = new System.Windows.Forms.Padding(2);
-            this.set_mount.Name = "set_mount";
-            this.set_mount.Padding = new System.Windows.Forms.Padding(2);
-            this.set_mount.Size = new System.Drawing.Size(811, 581);
-=======
-            this.set_mount.Location = new System.Drawing.Point(4, 33);
-            this.set_mount.Margin = new System.Windows.Forms.Padding(2);
-            this.set_mount.Name = "set_mount";
-            this.set_mount.Padding = new System.Windows.Forms.Padding(2);
-            this.set_mount.Size = new System.Drawing.Size(1016, 731);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_mount.TabIndex = 1;
             this.set_mount.Text = "Привязка каналов";
             this.set_mount.UseVisualStyleBackColor = true;
@@ -562,11 +459,7 @@
             this.set_pan_mount_wait.Controls.Add(this.set_text_mount_wait);
             this.set_pan_mount_wait.Controls.Add(this.label1);
             this.set_pan_mount_wait.Location = new System.Drawing.Point(255, 239);
-<<<<<<< HEAD
             this.set_pan_mount_wait.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-=======
-            this.set_pan_mount_wait.Margin = new System.Windows.Forms.Padding(4);
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_pan_mount_wait.Name = "set_pan_mount_wait";
             this.set_pan_mount_wait.Size = new System.Drawing.Size(492, 159);
             this.set_pan_mount_wait.TabIndex = 1;
@@ -575,11 +468,7 @@
             // set_text_mount_wait
             // 
             this.set_text_mount_wait.Location = new System.Drawing.Point(0, 64);
-<<<<<<< HEAD
             this.set_text_mount_wait.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-=======
-            this.set_text_mount_wait.Margin = new System.Windows.Forms.Padding(4);
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_text_mount_wait.Multiline = true;
             this.set_text_mount_wait.Name = "set_text_mount_wait";
             this.set_text_mount_wait.ReadOnly = true;
@@ -605,15 +494,7 @@
             this.set_gb_type_module.Controls.Add(this.set_l_channel_count);
             this.set_gb_type_module.Controls.Add(this.set_ddl_type_modul);
             this.set_gb_type_module.Controls.Add(this.set_l_type_modul);
-<<<<<<< HEAD
             this.set_gb_type_module.Location = new System.Drawing.Point(299, 40);
-=======
-<<<<<<< HEAD
-            this.set_gb_type_module.Location = new System.Drawing.Point(239, 32);
-=======
-            this.set_gb_type_module.Location = new System.Drawing.Point(299, 40);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_gb_type_module.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_type_module.Name = "set_gb_type_module";
             this.set_gb_type_module.Padding = new System.Windows.Forms.Padding(2);
@@ -625,15 +506,7 @@
             // 
             // set_b_modul_param_ok
             // 
-<<<<<<< HEAD
             this.set_b_modul_param_ok.Location = new System.Drawing.Point(518, 86);
-=======
-<<<<<<< HEAD
-            this.set_b_modul_param_ok.Location = new System.Drawing.Point(414, 69);
-=======
-            this.set_b_modul_param_ok.Location = new System.Drawing.Point(517, 86);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_b_modul_param_ok.Margin = new System.Windows.Forms.Padding(2);
             this.set_b_modul_param_ok.Name = "set_b_modul_param_ok";
             this.set_b_modul_param_ok.Size = new System.Drawing.Size(140, 40);
@@ -694,15 +567,7 @@
             // 
             // set_b_channel_mount_ok
             // 
-<<<<<<< HEAD
             this.set_b_channel_mount_ok.Location = new System.Drawing.Point(816, 662);
-=======
-<<<<<<< HEAD
-            this.set_b_channel_mount_ok.Location = new System.Drawing.Point(653, 530);
-=======
-            this.set_b_channel_mount_ok.Location = new System.Drawing.Point(816, 663);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_b_channel_mount_ok.Margin = new System.Windows.Forms.Padding(2);
             this.set_b_channel_mount_ok.Name = "set_b_channel_mount_ok";
             this.set_b_channel_mount_ok.Size = new System.Drawing.Size(140, 40);
@@ -720,15 +585,7 @@
             this.set_gb_type_plc.Controls.Add(this.set_l_number_plc);
             this.set_gb_type_plc.Controls.Add(this.set_inp_name_plc);
             this.set_gb_type_plc.Controls.Add(this.set_l_name_plc);
-<<<<<<< HEAD
             this.set_gb_type_plc.Location = new System.Drawing.Point(299, 41);
-=======
-<<<<<<< HEAD
-            this.set_gb_type_plc.Location = new System.Drawing.Point(239, 33);
-=======
-            this.set_gb_type_plc.Location = new System.Drawing.Point(299, 41);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_gb_type_plc.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_type_plc.Name = "set_gb_type_plc";
             this.set_gb_type_plc.Padding = new System.Windows.Forms.Padding(2);
@@ -802,43 +659,6 @@
             this.set_l_name_plc.TabIndex = 0;
             this.set_l_name_plc.Text = "Имя PLC";
             // 
-<<<<<<< HEAD
-            // set_gb_channel_mount
-            // 
-            this.set_gb_channel_mount.Controls.Add(this.set_dgv_channel_mount);
-            this.set_gb_channel_mount.Location = new System.Drawing.Point(299, 190);
-            this.set_gb_channel_mount.Margin = new System.Windows.Forms.Padding(2);
-            this.set_gb_channel_mount.Name = "set_gb_channel_mount";
-            this.set_gb_channel_mount.Padding = new System.Windows.Forms.Padding(2);
-<<<<<<< HEAD
-            this.set_gb_channel_mount.Size = new System.Drawing.Size(711, 442);
-=======
-            this.set_gb_channel_mount.Size = new System.Drawing.Size(569, 354);
-=======
-            // set_treeview_mount
-            // 
-            this.set_treeview_mount.ImageIndex = 0;
-            this.set_treeview_mount.ImageList = this.set_images;
-            this.set_treeview_mount.Location = new System.Drawing.Point(2, 36);
-            this.set_treeview_mount.Margin = new System.Windows.Forms.Padding(2);
-            this.set_treeview_mount.Name = "set_treeview_mount";
-            treeNode1.ContextMenuStrip = this.set_conmenu;
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "modul1";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "Модуль AI";
-            treeNode2.ContextMenuStrip = this.set_conmenu;
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "PLC";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "PLC №";
-            this.set_treeview_mount.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.set_treeview_mount.SelectedImageIndex = 0;
-            this.set_treeview_mount.Size = new System.Drawing.Size(293, 672);
-            this.set_treeview_mount.TabIndex = 0;
-            this.set_treeview_mount.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.SetTreeviewMountNodeMouseClick);
-            // 
             // set_gb_channel_mount
             // 
             this.set_gb_channel_mount.Controls.Add(this.set_dgv_channel_mount);
@@ -847,8 +667,6 @@
             this.set_gb_channel_mount.Name = "set_gb_channel_mount";
             this.set_gb_channel_mount.Padding = new System.Windows.Forms.Padding(2);
             this.set_gb_channel_mount.Size = new System.Drawing.Size(711, 442);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_gb_channel_mount.TabIndex = 2;
             this.set_gb_channel_mount.TabStop = false;
             this.set_gb_channel_mount.Text = "Привязка каналов";
@@ -884,15 +702,7 @@
             this.set_dgv_channel_mount.Name = "set_dgv_channel_mount";
             this.set_dgv_channel_mount.RowHeadersVisible = false;
             this.set_dgv_channel_mount.RowTemplate.Height = 24;
-<<<<<<< HEAD
             this.set_dgv_channel_mount.Size = new System.Drawing.Size(708, 415);
-=======
-<<<<<<< HEAD
-            this.set_dgv_channel_mount.Size = new System.Drawing.Size(566, 332);
-=======
-            this.set_dgv_channel_mount.Size = new System.Drawing.Size(707, 415);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.set_dgv_channel_mount.TabIndex = 0;
             this.set_dgv_channel_mount.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SetDgvChannelMountCellContentClick);
             this.set_dgv_channel_mount.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.SetDgvChannelMountEditingControlShowing);
@@ -977,15 +787,7 @@
             this.tags.Location = new System.Drawing.Point(4, 33);
             this.tags.Margin = new System.Windows.Forms.Padding(2);
             this.tags.Name = "tags";
-<<<<<<< HEAD
             this.tags.Size = new System.Drawing.Size(1016, 731);
-=======
-<<<<<<< HEAD
-            this.tags.Size = new System.Drawing.Size(811, 581);
-=======
-            this.tags.Size = new System.Drawing.Size(1016, 731);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.tags.TabIndex = 2;
             this.tags.Text = "Переменные";
             this.tags.UseVisualStyleBackColor = true;
@@ -996,11 +798,7 @@
             this.pan_tag_wait.Controls.Add(this.text_tag_wait);
             this.pan_tag_wait.Controls.Add(this.label3);
             this.pan_tag_wait.Location = new System.Drawing.Point(268, 220);
-<<<<<<< HEAD
             this.pan_tag_wait.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-=======
-            this.pan_tag_wait.Margin = new System.Windows.Forms.Padding(4);
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.pan_tag_wait.Name = "pan_tag_wait";
             this.pan_tag_wait.Size = new System.Drawing.Size(492, 159);
             this.pan_tag_wait.TabIndex = 5;
@@ -1009,11 +807,7 @@
             // text_tag_wait
             // 
             this.text_tag_wait.Location = new System.Drawing.Point(0, 64);
-<<<<<<< HEAD
             this.text_tag_wait.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-=======
-            this.text_tag_wait.Margin = new System.Windows.Forms.Padding(4);
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.text_tag_wait.Multiline = true;
             this.text_tag_wait.Name = "text_tag_wait";
             this.text_tag_wait.ReadOnly = true;
@@ -1062,12 +856,7 @@
             this.tag_descr.RowHeadersVisible = false;
             this.tag_descr.RowTemplate.Height = 25;
             this.tag_descr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-<<<<<<< HEAD
             this.tag_descr.Size = new System.Drawing.Size(1016, 731);
-=======
-<<<<<<< HEAD
-            this.tag_descr.Size = new System.Drawing.Size(811, 581);
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.tag_descr.TabIndex = 4;
             // 
             // typechannel
@@ -1120,11 +909,6 @@
             this.signalstype.ReadOnly = true;
             this.signalstype.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-=======
-            this.tag_descr.Size = new System.Drawing.Size(1016, 731);
-            this.tag_descr.TabIndex = 4;
-            // 
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
             // tabConfigPLC_S7
             // 
             this.tabConfigPLC_S7.Controls.Add(this.tags);
@@ -1136,15 +920,7 @@
             this.tabConfigPLC_S7.Margin = new System.Windows.Forms.Padding(2);
             this.tabConfigPLC_S7.Name = "tabConfigPLC_S7";
             this.tabConfigPLC_S7.SelectedIndex = 0;
-<<<<<<< HEAD
             this.tabConfigPLC_S7.Size = new System.Drawing.Size(1024, 768);
-=======
-<<<<<<< HEAD
-            this.tabConfigPLC_S7.Size = new System.Drawing.Size(819, 614);
-=======
-            this.tabConfigPLC_S7.Size = new System.Drawing.Size(1024, 768);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.tabConfigPLC_S7.TabIndex = 0;
             this.tabConfigPLC_S7.SelectedIndexChanged += new System.EventHandler(this.TabConfigPlcS7SelectedIndexChanged);
             // 
@@ -1152,119 +928,14 @@
             // 
             this.folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-<<<<<<< HEAD
             // ConfigPLC_S7
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-=======
-<<<<<<< HEAD
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(118, 25);
-            this.toolStripLabel2.Text = "Соотвествие  с ПЛК:";
-            // 
-            // checkHardwareIcon
-            // 
-            this.checkHardwareIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.checkHardwareIcon.Image = ((System.Drawing.Image)(resources.GetObject("checkHardwareIcon.Image")));
-            this.checkHardwareIcon.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.checkHardwareIcon.Name = "checkHardwareIcon";
-            this.checkHardwareIcon.Size = new System.Drawing.Size(36, 25);
-            this.checkHardwareIcon.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // ConfigPLC_S7
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-=======
-            // typeWork
-            // 
-            this.typeWork.Items.AddRange(new object[] {
-            "Кофигурационной базой",
-            "Контроллером"});
-            this.typeWork.MergeIndex = 1;
-            this.typeWork.Name = "typeWork";
-            this.typeWork.Size = new System.Drawing.Size(220, 32);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(71, 29);
-            this.toolStripLabel1.Text = "Работа с:";
-            // 
-            // typechannel
-            // 
-            this.typechannel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.typechannel.DefaultCellStyle = dataGridViewCellStyle7;
-            this.typechannel.FillWeight = 80F;
-            this.typechannel.HeaderText = "Тип канала";
-            this.typechannel.Name = "typechannel";
-            this.typechannel.ReadOnly = true;
-            // 
-            // modulnumber
-            // 
-            this.modulnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.modulnumber.DefaultCellStyle = dataGridViewCellStyle8;
-            this.modulnumber.FillWeight = 90F;
-            this.modulnumber.HeaderText = "Номер модуля";
-            this.modulnumber.Name = "modulnumber";
-            this.modulnumber.ReadOnly = true;
-            this.modulnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // channelnumber
-            // 
-            this.channelnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.channelnumber.DefaultCellStyle = dataGridViewCellStyle9;
-            this.channelnumber.FillWeight = 90F;
-            this.channelnumber.HeaderText = "Номер канала";
-            this.channelnumber.Name = "channelnumber";
-            this.channelnumber.ReadOnly = true;
-            this.channelnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // groupsignal
-            // 
-            this.groupsignal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.groupsignal.FillWeight = 250F;
-            this.groupsignal.HeaderText = "Группа сигналов";
-            this.groupsignal.Name = "groupsignal";
-            this.groupsignal.ReadOnly = true;
-            this.groupsignal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // signalstype
-            // 
-            this.signalstype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.signalstype.FillWeight = 180F;
-            this.signalstype.HeaderText = "Сигнал";
-            this.signalstype.Name = "signalstype";
-            this.signalstype.ReadOnly = true;
-            this.signalstype.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // ConfigPLC_S7
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tabConfigPLC_S7);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ConfigPLC_S7";
-<<<<<<< HEAD
             this.Size = new System.Drawing.Size(1024, 768);
-=======
-<<<<<<< HEAD
-            this.Size = new System.Drawing.Size(819, 614);
-=======
-            this.Size = new System.Drawing.Size(1024, 768);
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
             this.Load += new System.EventHandler(this.ConfigPlcS7Load);
             this.set_conmenu.ResumeLayout(false);
             this.set_menu.ResumeLayout(false);
@@ -1299,14 +970,8 @@
         private System.Windows.Forms.ContextMenuStrip set_conmenu;
         private System.Windows.Forms.ToolStripMenuItem set_conmenu_add;
         private System.Windows.Forms.ToolStripMenuItem set_conmenu_del;
-<<<<<<< HEAD
         private System.Windows.Forms.ToolStripButton downloadConfig;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-=======
-        private System.Windows.Forms.ToolStripButton donloadConfig;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.OpenFileDialog openConfigDialog;
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
         private System.Windows.Forms.TabPage set_setting;
         private System.Windows.Forms.TabPage set_mount;
         private System.Windows.Forms.Panel set_pan_mount_wait;
@@ -1369,11 +1034,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn channelnumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupsignal;
         private System.Windows.Forms.DataGridViewTextBoxColumn signalstype;
-<<<<<<< HEAD
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripButton checkHardwareIcon;
-=======
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
     }
 }

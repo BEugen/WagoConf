@@ -346,7 +346,6 @@ namespace Config_PLC_SIEMENS
             ChangeEnableButtons(tabConfigPLC_S7.SelectedIndex);
         }
 
-<<<<<<< HEAD
         private void CheckHardwareConfigError()
         {
             RtpConfigDataContext data = new RtpConfigDataContext();
@@ -365,8 +364,6 @@ namespace Config_PLC_SIEMENS
  
         }
 
-=======
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
         private void LoadAllModuleChannel()
         {
             RtpConfigDataContext data = new RtpConfigDataContext();
@@ -388,28 +385,16 @@ namespace Config_PLC_SIEMENS
         /// <param name="tabSelectIndex">Индекс вкладки</param>
         private void ChangeEnableButtons(int tabSelectIndex)
         {
-<<<<<<< HEAD
             downloadConfig.Enabled = false;
-=======
-            donloadConfig.Enabled = false;
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
 
             switch (tabSelectIndex)
             {
                 case 0: case 1:
-<<<<<<< HEAD
                     downloadConfig.Enabled =
                      true;
                     break;
                 case 3:
                     downloadConfig.Enabled =
-=======
-                    donloadConfig.Enabled =
-                     true;
-                    break;
-                case 3:
-                    donloadConfig.Enabled =
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
                     true;
                     break;
                 default:
@@ -676,180 +661,6 @@ namespace Config_PLC_SIEMENS
             }
         }
 
-<<<<<<< HEAD
-=======
-        void InternalCommand(int Command, object value, int[] callBack)
-        {
-            //InternalCommandStackParam internalParam = new InternalCommandStackParam();
-            //switch(Command)
-            //{
-            //    case 0: //unmount tag for channel
-            //        #region UnmountTagForChannel
-            //        Channel chUnmount = (Channel)value;
-            //        if (chUnmount.tagMount.id == -1)
-            //        {
-            //            WaitMount(false);
-            //            if (!configClass.SaveChannel(chUnmount))
-            //            {
-            //                MessageBox.Show("Ошибка сохранения параметров канала", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-            //            _internalCmd = -1;
-            //        }
-            //        else
-            //        {
-            //            WaitMount(true);
-            //            set_text_mount_wait.Text += "Команда PLC: 0; Адрес: " + chUnmount.tagMount.id + "; P1: -1;\n" +
-            //                " P2: -1; P3: 0; P4: 0; P5: 0; P6: 0.\n Ожидаем ответ PLC " + _parametrsConfig.TimeOut + " секунд\n";
-            //          //  CommandForPlc(0, chUnmount.tagMount.id, 1, -1, -1, 0, 0, 0.0, 0.0);
-            //            chUnmount.tagMount.id = -1;
-            //            _internalCmd = Command;
-            //            _valueForCommandStore = (object)chUnmount;
-            //        }
-            //        #endregion
-            //    break;
-            //    case 1: //mount tag for channel
-            //        #region MountTagForChannel
-            //    Channel chMount = (Channel)value;
-            //    if (chMount.tagMount.id != -1)
-            //    {
-            //        WaitMount(false);
-            //        if (!configClass.SaveChannel(chMount))
-            //        {
-            //            MessageBox.Show("Ошибка сохранения параметров канала", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        }
-            //        _internalCmd = -1;
-            //    }
-            //    else
-            //    {
-            //        if (chMount.tagMount.namePLC == "")
-            //            return;
-            //        WaitMount(true);
-            //        chMount.tagMount = configClass.GetTag(chMount.tagMount.namePLC);
-            //        chMount.tagMount.type = SetTypeAiAoChannel(chMount.typeChannel, chMount.tagMount.type);
-            //        set_text_mount_wait.Text += "Команда PLC: 1; Адрес: " + chMount.tagMount.id.ToString() + "; P1: " +chMount.address + ";\n P2: "
-            //               + chMount.tagMount.type + "; P3: 0; P4: 0; P5: 0; P6: 0.\n Ожидаем ответ PLC " + _parametrsConfig.TimeOut + " секунд";
-            //        _internalCmd = Command;
-            //        _valueForCommandStore = chMount;
-            //      //  CommandForPlc(0, chMount.tagMount.id, 1, chMount.address, chMount.tagMount.type, 0, 0, 0.0, 0.0);
-            //    }
-            //        #endregion
-            //    break;
-            //    case 2://chnge modul type & count channel
-            //        #region Change and Count Channel
-            //        // CallBack[]
-            //        // 0 - смена типа
-            //        // 1 - количество каналов актуальное
-            //        // 2 - индекс канала смененого типа
-            //        // 3 - индекс канала на удаление
-            //    Modul m = (Modul)value;
-            //    if (callBack.Length > 3 && callBack[3] >= 0 && callBack[3] < m.ChannelMount.Count()) //удаление канала
-            //    {
-            //        if (!configClass.RemoveChannel(m.id, m.ChannelMount[callBack[3]].id))
-            //        {
-            //            MessageBox.Show("Ошибка удаления канала", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            return;
-            //        }
-            //        m.ChannelMount.Remove(m.ChannelMount[callBack[3]]);
-            //        LoadChannelMount(m.id);
-            //    }
-            //    if (callBack[0] == 1 && callBack[2] < callBack[1]) //смена типа канала
-            //    {                   
-            //        internalParam.Command = Command;
-            //        internalParam.Value = m;
-            //        internalParam.CallBack = callBack;                  
-            //        Channel channel = m.ChannelMount[callBack[2]]; 
-            //        internalParam.CallBack[2]++;
-            //        intrenalCommandStack.Push(internalParam);
-            //        channel.tagMount.id = -1;
-            //        channel.typeChannel = m.typeModul;
-            //        InternalCommand(1, channel, new[] { 0 });
-            //    }
-            //    if (callBack[0] == 1 && callBack[2] == callBack[1]) //смена типа канала
-            //    {
-            //        if (!configClass.SaveModul(m))
-            //        {
-            //            MessageBox.Show("Ошибка сохранения параметров модуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            return;
-            //        }
-            //    }
-            //    if (callBack[1] < m.ChannelMount.Count()) // отвязка канала и подготовка его у удалению
-            //    {
-            //        internalParam.Command = Command;
-            //        internalParam.Value = m;
-            //        internalParam.CallBack = callBack;
-            //        internalParam.CallBack[3] = internalParam.CallBack[1];
-            //        intrenalCommandStack.Push(internalParam);
-            //        if(m.ChannelMount[callBack[1]].tagMount.id != -1)
-            //           InternalCommand(0, m.ChannelMount[callBack[1]], new[] { 0 });
-            //    }
-            //       #endregion
-            //    break;
-            //    case 3:// delete modul
-            //        #region DeleteModule
-            //    Modul mDelete = (Modul)value;
-            //    if (callBack.Length > 0 && callBack[0] == 1)
-            //    {
-            //        if (!configClass.RemoveModul(mDelete.id))
-            //        {
-            //            MessageBox.Show("Ошибка удаления модуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            return;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        internalParam.Command = Command;
-            //        internalParam.Value = mDelete;
-            //        internalParam.CallBack = new[] { 1 };
-            //        intrenalCommandStack.Push(internalParam);
-            //        InternalCommand(0, mDelete, new[] { 0, 0, -1, -1 });
-            //    }
-            //        #endregion
-            //    break;
-            //    case 4: //apply all config channel
-            //        #region ApplyAll 
-            //    if (callBack[0] < set_dgv_channel_mount.Rows.Count)
-            //    {
-            //        if (set_dgv_channel_mount.Rows[callBack[0]].Cells[1].Value.ToString() == "")
-            //        {
-            //            MessageBox.Show("Не указан адрес \nМодуль №" +
-            //            (Convert.ToInt32(set_treeview_mount.SelectedNode.Tag) +1).ToString() +
-            //            " Канал №" + (callBack[0] + 1).ToString()
-            //        , "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            return;
-            //        }
-            //        internalParam.Command = Command;
-            //        internalParam.Value = null;
-            //        internalParam.CallBack = new[] { 1 };
-            //        intrenalCommandStack.Push(internalParam);
-            //        InternalCommand(0, null, new[] { callBack[0] + 1});
-            //        if (set_dgv_channel_mount.Rows[callBack[0]].Cells[2].Value == null)
-            //            set_dgv_channel_mount.Rows[callBack[0]].Cells[2].Value = "";
-            //        if (set_dgv_channel_mount.Rows[callBack[0]].Cells[2].Value.ToString() == "")
-            //        {
-
-            //            Channel ch = configClass.GetChannel(Convert.ToInt32(set_dgv_channel_mount.Rows[callBack[0]].Cells[5].Value), Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
-            //            InternalCommand(0, ch, new[] {0});
-            //        }
-            //        else
-            //        {
-            //            Channel ch = configClass.GetChannel(Convert.ToInt32(set_dgv_channel_mount.Rows[callBack[0]].Cells[5].Value), Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
-            //            InternalCommand(1, ch, new[] { 0 });
-            //        }
-            //    }
-            //        #endregion               
-            //    break;
-             
-                
-            //    default:
-            //    break;
-            //}
-            //if (_internalCmd == -1 && intrenalCommandStack.Count > 0)
-            //{
-            //    InternalCommandStackParam internalCommandStackParam = intrenalCommandStack.Pop();
-            //    InternalCommand(internalCommandStackParam.Command, internalCommandStackParam.Value, internalCommandStackParam.CallBack);
-            //}
-        }
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
 
         void AcceptForPlc()
         {
@@ -874,7 +685,6 @@ namespace Config_PLC_SIEMENS
         {
             
             if (commandToPlc.Count > 0)
-<<<<<<< HEAD
             {
                 CommandForPlc();
             }
@@ -892,36 +702,16 @@ namespace Config_PLC_SIEMENS
                 SetLoadChannelMount();
                 return;
             }
-=======
-                CommandForPlc();
-        }
-
-        private void SetConmenuDelClick(object sender, EventArgs e)
-        {
-            if(MessageBox.Show("Удалить модуль?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                return;
-            RtpConfigDataContext data = new RtpConfigDataContext();
-            int result = data.DeleteModule(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
-            if (result >= 0)
-            {
-                SetLoadChannelMount();
-                return;
-            }
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
             MessageBox.Show("Ошибка удаления модуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void SetBChannelMountOkClick(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             foreach (DataGridViewRow tableRows in set_dgv_channel_mount.Rows)
             {
                 DataGridViewCellEventArgs arg = new DataGridViewCellEventArgs(4, tableRows.Index);
                 SetDgvChannelMountCellContentClick(tableRows, arg);
             }
-=======
-            InternalCommand(4, null, new[] {0});
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
         }
 
         private void SetBChangePlcClick(object sender, EventArgs e)
@@ -942,7 +732,7 @@ namespace Config_PLC_SIEMENS
 
         private void LoadHardwareConfig(object sender, EventArgs e)
         {
-<<<<<<< .mine            int[] paramset1 = new int[6];
+            int[] paramset1 = new int[6];
             int[] paramset2 = new int[6];
             var commandOne = new CommandToPlc();
             RtpConfigDataContext data = new RtpConfigDataContext();
@@ -966,28 +756,7 @@ namespace Config_PLC_SIEMENS
                             paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
                                                                      ? 0
                                                                      : mount[i].offsetChannel.Value;
-=======<<<<<<< HEAD
-        //    switch (tabConfigPLC_S7.SelectedIndex)
-        //    {
-        //        case 0:
-        //        case 1:
-        //            AddEditTag addEditTag = new AddEditTag {Edit = false};
-        //            if (addEditTag.ShowDialog(this) == DialogResult.OK)
-        //            {
-        //                ATag atag = new ATag(-1);
-        //                atag.rawMIN = addEditTag.RAWmin;
-        //                atag.rawMAX = addEditTag.RAWmax;
-        //                atag.EU_MAX = addEditTag.EUmax;
-        //                atag.EU_MIN = addEditTag.EUmin;
-        //                atag.namePLC = addEditTag.NamePLC;
-        //                atag.nameSCADA = addEditTag.NameScada;
-        //                atag.description = addEditTag.Description;
-        //                configClass.SaveTag(atag);
-        //            }
-        //            break;
-        //        default:
-        //            break;
->>>>>>> .theirs
+
                             paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
                                                                  ? -1
                                                                  : mount[i].offsetModul.Value;
@@ -1016,31 +785,6 @@ namespace Config_PLC_SIEMENS
                 }
             }
             CommandForPlc();
-=======
-            switch (tabConfigPLC_S7.SelectedIndex)
-            {
-                case 0:
-                case 1:
-                    AddEditTag addEditTag = new AddEditTag {Edit = false};
-                    if (addEditTag.ShowDialog(this) == DialogResult.OK)
-                    {
-                        ATag atag = new ATag(-1);
-                        atag.rawMIN = addEditTag.RAWmin;
-                        atag.rawMAX = addEditTag.RAWmax;
-                        atag.EU_MAX = addEditTag.EUmax;
-                        atag.EU_MIN = addEditTag.EUmin;
-                        atag.namePLC = addEditTag.NamePLC;
-                        atag.nameSCADA = addEditTag.NameScada;
-                        atag.description = addEditTag.Description;
-                        configClass.SaveTag(atag);
-                       // LoadATags(tabConfigPLC_S7.SelectedIndex);
-                    }
-                    break;
-                default:
-                    break;
-
-            }    
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
         }
 
 

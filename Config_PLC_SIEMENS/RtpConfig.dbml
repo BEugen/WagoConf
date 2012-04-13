@@ -118,7 +118,6 @@
       <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </ElementType>
   </Function>
-<<<<<<< HEAD
   <Function Name="dbo.SetErrorDownloadToPlc" Method="SetErrorDownloadToPlc">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <Parameter Name="flag" Type="System.Int32" DbType="Int" />
@@ -130,7 +129,6 @@
       <Column Name="changehardware" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-<<<<<<< HEAD
   <Function Name="dbo.GetMountForSignalsGroup" Method="GetMountForSignalsGroup">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
@@ -146,8 +144,4 @@
       <Column Name="offsetModul" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-=======
-=======
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
 </Database>

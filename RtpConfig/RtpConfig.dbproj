@@ -204,21 +204,15 @@
     <Build Include="GetAllModuleChannel.proc.sql">
       <SubType>Code</SubType>
     </Build>
-<<<<<<< HEAD
     <Build Include="Scripts\SetErrorDownloadToPlc.proc.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Scripts\GetErrorDownloadToPlc.proc.sql">
       <SubType>Code</SubType>
     </Build>
-<<<<<<< HEAD
     <Build Include="Scripts\GetMountForSignalsGroup.proc.sql">
       <SubType>Code</SubType>
     </Build>
-=======
-=======
->>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
->>>>>>> ebde55e28b5e52f8f1e0796d7b99131dffc5189f
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Scripts\Post-Deployment\AddChannelType.sql">
