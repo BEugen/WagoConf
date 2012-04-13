@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WKZP85824;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString" Provider="System.Data.SqlClient" />
   <Function Name="dbo.GetModule" Method="GetModule">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetModuleResult">
@@ -118,6 +118,7 @@
       <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </ElementType>
   </Function>
+<<<<<<< HEAD
   <Function Name="dbo.SetErrorDownloadToPlc" Method="SetErrorDownloadToPlc">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <Parameter Name="flag" Type="System.Int32" DbType="Int" />
@@ -129,4 +130,6 @@
       <Column Name="changehardware" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
+=======
+>>>>>>> a0a36b5c3212f2e3f54a316800c6979999daa5ac
 </Database>
