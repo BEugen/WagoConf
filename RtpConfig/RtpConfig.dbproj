@@ -213,6 +213,27 @@
     <Build Include="Scripts\GetMountForSignalsGroup.proc.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="GroupSequence.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="ShiberGroup.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="SingleSequence.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="ShiberSetup.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="CommonSetup.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="GetGroupShiberSetup.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="GetGroupForGroupLoad.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Scripts\Post-Deployment\AddChannelType.sql">
@@ -233,5 +254,14 @@
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql">
       <SubType>NotInBuild</SubType>
     </PostDeploy>
+    <NotInBuild Include="Scripts\Post-Deployment\AddShiberGroupConfig.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Post-Deployment\AddShiberSetup.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Post-Deployment\AddShiberGroupSequence.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
   </ItemGroup>
 </Project>

@@ -144,4 +144,32 @@
       <Column Name="offsetModul" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetGroupForGroupLoad" Method="GetGroupForGroupLoad">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetGroupForGroupLoadResult">
+      <Column Name="groupnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetGroupShiberSetup" Method="GetGroupShiberSetup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetGroupShiberSetupResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sequencenumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="groupnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="timeBetwenGroupLoad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="shiberdecription1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="timeOpen1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeClose1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenShiber1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reopenCountMax1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="shiberdecription2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="timeOpen2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeClose2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenShiber2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reopenCountMax2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenCycle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="shibernumber1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="shibernumber2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>
