@@ -992,75 +992,46 @@ namespace Config_PLC_SIEMENS
                 int rnumber = groupSetup.Rows.Add();
                 groupSetup.Rows[rnumber].Cells[0].Value = getGroupShiberSetupResult.id;
                 groupSetup.Rows[rnumber].Cells[1].Value = getGroupShiberSetupResult.sequencenumber;
-                ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[2]).Items.Clear();
+                var groupBox = ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[2]);
+                groupBox.Items.Clear();
                 foreach (var group in groups)
                 {
-                    ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[2]).Items.Add(group.groupnumber + " группа");
+                   groupBox.Items.Add(CutGroupName(group.groupnumber));
                 }
-                groupSetup.Rows[rnumber].Cells[2].Value = getGroupShiberSetupResult.groupnumber + " группа";
+                groupSetup.Rows[rnumber].Cells[2].Value = CutGroupName(getGroupShiberSetupResult.groupnumber);
                 if (getGroupShiberSetupResult.timeBetwenGroupLoad != null)
                     groupSetup.Rows[rnumber].Cells[3].Value =
-                        (((double)getGroupShiberSetupResult.timeBetwenGroupLoad)/100).ToString("0.0");
-                ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[4]).Items.Clear();
-                ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[9]).Items.Clear();
+                        (((double) getGroupShiberSetupResult.timeBetwenGroupLoad)/100).ToString("0.0");
+                ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Clear();
+                ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[9]).Items.Clear();
                 foreach (var shiber in shibers)
                 {
-                    ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[4]).Items.Add(shiber.signalgroupdescription.Substring(0, 4) + ". " +
-                       shiber.signalgroupdescription.Substring(shiber.signalgroupdescription.Length - 5, 5));
-                    ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[9]).Items.Add(shiber.signalgroupdescription.Substring(0, 4) + ". " +
-                      shiber.signalgroupdescription.Substring(shiber.signalgroupdescription.Length - 5, 5));
+                    ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Add(
+                        CutShiberName(shiber.signalgroupdescription));
+                    ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[9]).Items.Add(
+                        CutShiberName(shiber.signalgroupdescription));
                 }
-                groupSetup.Rows[rnumber].Cells[4].Value =
-                    getGroupShiberSetupResult.shiberdecription1.Substring(0, 4) + ". " +
-                    getGroupShiberSetupResult.shiberdecription1.Substring(
-                        getGroupShiberSetupResult.shiberdecription1.Length - 5, 5);
-                var timedoze = getGroupShiberSetupResult.timeClose1 + getGroupShiberSetupResult.timeOpen1;
-                var timeopen = getGroupShiberSetupResult.timeOpen1;
-                var timeclose = getGroupShiberSetupResult.timeClose1;
+                groupSetup.Rows[rnumber].Cells[4].Value = CutShiberName( getGroupShiberSetupResult.shiberdecription1);
+                double timedoze = 0;
+                double timeopen = 0;
+                double timeclose = 0;
                 string timekoeff = "";
-                if (timedoze != null)
-                {
-                    groupSetup.Rows[rnumber].Cells[5].Value =
-                        ((double) timedoze/100).ToString(
-                            "0.0");
-                    if (timeopen != null && timedoze.Value != 0)
-                    {
-                        timekoeff = ((double) timeopen.Value/timedoze.Value).ToString("0.0") + " / ";
-                        groupSetup.Rows[rnumber].Cells[7].Value = ((double) timeopen.Value/100).ToString("0.0");
-                    }
-                    if (timeclose != null && timedoze.Value != 0)
-                    {
-                        timekoeff += ((double) timeclose.Value/timedoze.Value).ToString("0.0");
-                        groupSetup.Rows[rnumber].Cells[8].Value = ((double)timeclose.Value / 100).ToString("0.0");
-                    }
-                    groupSetup.Rows[rnumber].Cells[6].Value = timekoeff;
-                }
+                timekoeff = CalcKoeffOpenClose(getGroupShiberSetupResult.timeOpen1, getGroupShiberSetupResult.timeClose1,
+                                               ref timeopen, ref timeclose, ref timedoze);
 
-                groupSetup.Rows[rnumber].Cells[9].Value =
-                    getGroupShiberSetupResult.shiberdecription2.Substring(0, 4) + ". " +
-                    getGroupShiberSetupResult.shiberdecription2.Substring(
-                        getGroupShiberSetupResult.shiberdecription2.Length - 5, 5);
-                timedoze = getGroupShiberSetupResult.timeClose2 + getGroupShiberSetupResult.timeOpen2;
-                timeopen = getGroupShiberSetupResult.timeOpen2;
-                timeclose = getGroupShiberSetupResult.timeClose2;
-                timekoeff = "";
-                if (timedoze != null)
-                {
-                    groupSetup.Rows[rnumber].Cells[10].Value =
-                        ((double)timedoze / 100).ToString(
-                            "0.0");
-                    if (timeopen != null && timedoze.Value != 0)
-                    {
-                        timekoeff = ((double)timeopen.Value / timedoze.Value).ToString("0.0") + " / ";
-                        groupSetup.Rows[rnumber].Cells[12].Value = ((double)timeopen.Value / 100).ToString("0.0");
-                    }
-                    if (timeclose != null && timedoze.Value != 0)
-                    {
-                        timekoeff += ((double)timeclose.Value / timedoze.Value).ToString("0.0");
-                        groupSetup.Rows[rnumber].Cells[13].Value = ((double)timeclose.Value / 100).ToString("0.0");
-                    }
-                    groupSetup.Rows[rnumber].Cells[11].Value = timekoeff;
-                }
+                groupSetup.Rows[rnumber].Cells[5].Value = timedoze.ToString("0.0");
+                groupSetup.Rows[rnumber].Cells[7].Value = timeopen.ToString("0.0");
+                groupSetup.Rows[rnumber].Cells[8].Value = timeclose.ToString("0.0");
+                groupSetup.Rows[rnumber].Cells[6].Value = timekoeff;
+
+                groupSetup.Rows[rnumber].Cells[9].Value = CutShiberName(getGroupShiberSetupResult.shiberdecription2);
+                timekoeff = CalcKoeffOpenClose(getGroupShiberSetupResult.timeOpen2, getGroupShiberSetupResult.timeClose2,
+                                               ref timeopen, ref timeclose, ref timedoze);
+                groupSetup.Rows[rnumber].Cells[10].Value = timedoze.ToString("0.0");
+                groupSetup.Rows[rnumber].Cells[12].Value = timeopen.ToString("0.0");
+                groupSetup.Rows[rnumber].Cells[13].Value = timeclose.ToString("0.0");
+
+                groupSetup.Rows[rnumber].Cells[11].Value = timekoeff;
                 groupSetup.Rows[rnumber].Cells[14].Value = "Применить";
                 groupSetup.Rows[rnumber].Cells[15].Value = getGroupShiberSetupResult.groupnumber;
                 groupSetup.Rows[rnumber].Cells[16].Value = getGroupShiberSetupResult.shibernumber1;
@@ -1074,7 +1045,7 @@ namespace Config_PLC_SIEMENS
             if (cb != null)
             {
                 // first remove event handler to keep from attaching multiple:
-                cb.SelectedIndexChanged += GroupSelectedIndexChanged;
+                cb.SelectedIndexChanged -= GroupSelectedIndexChanged;
 
                 // now attach the event handler
                 cb.SelectedIndexChanged += GroupSelectedIndexChanged;
@@ -1083,18 +1054,83 @@ namespace Config_PLC_SIEMENS
 
         void GroupSelectedIndexChanged(object sender, EventArgs e)
         {
+            double timedoze = 0;
+            double timeopen = 0;
+            double timeclose = 0;
+            string timekoeff = "";
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            if (sender == null)
+                return;
             DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl)sender;
             int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2)//group change
             {
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value = selecedIndex + 1;
-               
+                var shibers = data.GetShibersConfigByGroupNumber(_rtpid, selecedIndex + 1).ToList();
+                if (shibers.Count > 0)
+                {
+                    var shiberOneTwo = shibers.First(); 
+                    
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Value = CutShiberName(shiberOneTwo.shiberdecription1);
+
+                    timekoeff = CalcKoeffOpenClose(shiberOneTwo.timeOpen1, shiberOneTwo.timeClose1,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value = timedoze.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[7].Value = timeopen.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[8].Value = timeclose.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value = timekoeff;
+
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Value = CutShiberName(shiberOneTwo.shiberdecription2);
+                    timekoeff = CalcKoeffOpenClose(shiberOneTwo.timeOpen2, shiberOneTwo.timeClose2,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[10].Value = timedoze.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[12].Value = timeopen.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[13].Value = timeclose.ToString("0.0");
+
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[11].Value = timekoeff;
+                }
+              }  
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 4)//shiber 1 change
             {
+
+                if ((selecedIndex+1) ==
+                    (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value)
+                {
+                  //  MessageBox.Show("В одной группе не могут быть 2 одинаковых шибера", "Ошибка",
+                  //         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Style.BackColor = Color.FromArgb(244, 144, 131);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Style.BackColor = Color.FromArgb(244, 144, 131);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].ErrorText =
+                        "В одной группе не могут быть 2 одинаковых шибера";
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].ErrorText =
+                        "В одной группе не могут быть 2 одинаковых шибера";
+                    groupSetup.Update();
+                    return;
+                }
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Style.BackColor = System.Drawing.Color.Gainsboro;
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Style.BackColor = System.Drawing.Color.Gainsboro;
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].ErrorText = "";
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].ErrorText = "";
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value = selecedIndex + 1;
-                
+                var shibersSetup = data.GetCurrentShiberConfigByShiberNumber(_rtpid, selecedIndex + 1).ToList();
+                if (shibersSetup.Count > 0)
+                {
+                    var shiberSetup = shibersSetup.First();
+                    timekoeff = CalcKoeffOpenClose(shiberSetup.timeOpen, shiberSetup.timeClose,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
+                        timedoze.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[7].Value =
+                        timeopen.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[8].Value =
+                        timeclose.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value = timekoeff;
+                }
+
             }
-            }
+           
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 9)//shiber 2 change
             {
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value = selecedIndex + 1;
@@ -1104,7 +1140,43 @@ namespace Config_PLC_SIEMENS
         private void GroupSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
         
         {
+groupSetup.Rows[e.RowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 172);
+        }
 
+
+        private string CalcKoeffOpenClose(int? timeOpen, int? timeClose, ref double timeOpenDoub, ref double timeCloseDoub   , ref double timeAll)
+        {
+            timeCloseDoub = 0;
+            timeOpenDoub = 0;
+            timeAll = 0;
+            string result = "";
+            if (timeOpen != null)
+            {
+                timeOpenDoub = (double)timeOpen.Value/100;
+            }
+            if (timeClose != null)
+            {
+                timeCloseDoub = (double)timeClose.Value / 100;
+            }
+            timeAll = timeOpenDoub + timeCloseDoub;
+            if (timeAll != 0)
+                result = (timeOpenDoub/timeAll).ToString("0.0") + " / " + (timeCloseDoub/timeAll).ToString("0.0");
+
+            return result;
+        }
+
+        private string CutShiberName(string name)
+        {
+           return  name.Substring(0, 4) + ". "  + name.Substring(name.Length - 5, 5);
+        }
+        private string CutGroupName(int number)
+        {
+            return number + " группа";
+        }
+
+        private void GroupSetupCellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            
         }
     }
 }

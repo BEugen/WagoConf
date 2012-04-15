@@ -187,6 +187,20 @@ namespace Config_PLC_SIEMENS
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
 			return ((ISingleResult<GetGroupShiberSetupResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetShibersConfigByGroupNumber")]
+		public ISingleResult<GetShibersConfigByGroupNumberResult> GetShibersConfigByGroupNumber([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> groupnumber)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, groupnumber);
+			return ((ISingleResult<GetShibersConfigByGroupNumberResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetCurrentShiberConfigByShiberNumber")]
+		public ISingleResult<GetCurrentShiberConfigByShiberNumberResult> GetCurrentShiberConfigByShiberNumber([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> shibernumber)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, shibernumber);
+			return ((ISingleResult<GetCurrentShiberConfigByShiberNumberResult>)(result.ReturnValue));
+		}
 	}
 	
 	public partial class GetModuleResult
@@ -1566,6 +1580,400 @@ namespace Config_PLC_SIEMENS
 				if ((this._shibernumber2 != value))
 				{
 					this._shibernumber2 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetShibersConfigByGroupNumberResult
+	{
+		
+		private int _id;
+		
+		private int _sequencenumber;
+		
+		private int _groupnumber;
+		
+		private System.Nullable<int> _timeBetwenGroupLoad;
+		
+		private string _shiberdecription1;
+		
+		private System.Nullable<int> _timeOpen1;
+		
+		private System.Nullable<int> _timeClose1;
+		
+		private System.Nullable<int> _timeBetwenShiber1;
+		
+		private System.Nullable<int> _reopenCountMax1;
+		
+		private string _shiberdecription2;
+		
+		private System.Nullable<int> _timeOpen2;
+		
+		private System.Nullable<int> _timeClose2;
+		
+		private System.Nullable<int> _timeBetwenShiber2;
+		
+		private System.Nullable<int> _reopenCountMax2;
+		
+		private System.Nullable<int> _timeBetwenCycle;
+		
+		private System.Nullable<int> _shibernumber1;
+		
+		private System.Nullable<int> _shibernumber2;
+		
+		public GetShibersConfigByGroupNumberResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sequencenumber", DbType="Int NOT NULL")]
+		public int sequencenumber
+		{
+			get
+			{
+				return this._sequencenumber;
+			}
+			set
+			{
+				if ((this._sequencenumber != value))
+				{
+					this._sequencenumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_groupnumber", DbType="Int NOT NULL")]
+		public int groupnumber
+		{
+			get
+			{
+				return this._groupnumber;
+			}
+			set
+			{
+				if ((this._groupnumber != value))
+				{
+					this._groupnumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenGroupLoad", DbType="Int")]
+		public System.Nullable<int> timeBetwenGroupLoad
+		{
+			get
+			{
+				return this._timeBetwenGroupLoad;
+			}
+			set
+			{
+				if ((this._timeBetwenGroupLoad != value))
+				{
+					this._timeBetwenGroupLoad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shiberdecription1", DbType="NVarChar(50)")]
+		public string shiberdecription1
+		{
+			get
+			{
+				return this._shiberdecription1;
+			}
+			set
+			{
+				if ((this._shiberdecription1 != value))
+				{
+					this._shiberdecription1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeOpen1", DbType="Int")]
+		public System.Nullable<int> timeOpen1
+		{
+			get
+			{
+				return this._timeOpen1;
+			}
+			set
+			{
+				if ((this._timeOpen1 != value))
+				{
+					this._timeOpen1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeClose1", DbType="Int")]
+		public System.Nullable<int> timeClose1
+		{
+			get
+			{
+				return this._timeClose1;
+			}
+			set
+			{
+				if ((this._timeClose1 != value))
+				{
+					this._timeClose1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenShiber1", DbType="Int")]
+		public System.Nullable<int> timeBetwenShiber1
+		{
+			get
+			{
+				return this._timeBetwenShiber1;
+			}
+			set
+			{
+				if ((this._timeBetwenShiber1 != value))
+				{
+					this._timeBetwenShiber1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reopenCountMax1", DbType="Int")]
+		public System.Nullable<int> reopenCountMax1
+		{
+			get
+			{
+				return this._reopenCountMax1;
+			}
+			set
+			{
+				if ((this._reopenCountMax1 != value))
+				{
+					this._reopenCountMax1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shiberdecription2", DbType="NVarChar(50)")]
+		public string shiberdecription2
+		{
+			get
+			{
+				return this._shiberdecription2;
+			}
+			set
+			{
+				if ((this._shiberdecription2 != value))
+				{
+					this._shiberdecription2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeOpen2", DbType="Int")]
+		public System.Nullable<int> timeOpen2
+		{
+			get
+			{
+				return this._timeOpen2;
+			}
+			set
+			{
+				if ((this._timeOpen2 != value))
+				{
+					this._timeOpen2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeClose2", DbType="Int")]
+		public System.Nullable<int> timeClose2
+		{
+			get
+			{
+				return this._timeClose2;
+			}
+			set
+			{
+				if ((this._timeClose2 != value))
+				{
+					this._timeClose2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenShiber2", DbType="Int")]
+		public System.Nullable<int> timeBetwenShiber2
+		{
+			get
+			{
+				return this._timeBetwenShiber2;
+			}
+			set
+			{
+				if ((this._timeBetwenShiber2 != value))
+				{
+					this._timeBetwenShiber2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reopenCountMax2", DbType="Int")]
+		public System.Nullable<int> reopenCountMax2
+		{
+			get
+			{
+				return this._reopenCountMax2;
+			}
+			set
+			{
+				if ((this._reopenCountMax2 != value))
+				{
+					this._reopenCountMax2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenCycle", DbType="Int")]
+		public System.Nullable<int> timeBetwenCycle
+		{
+			get
+			{
+				return this._timeBetwenCycle;
+			}
+			set
+			{
+				if ((this._timeBetwenCycle != value))
+				{
+					this._timeBetwenCycle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shibernumber1", DbType="Int")]
+		public System.Nullable<int> shibernumber1
+		{
+			get
+			{
+				return this._shibernumber1;
+			}
+			set
+			{
+				if ((this._shibernumber1 != value))
+				{
+					this._shibernumber1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shibernumber2", DbType="Int")]
+		public System.Nullable<int> shibernumber2
+		{
+			get
+			{
+				return this._shibernumber2;
+			}
+			set
+			{
+				if ((this._shibernumber2 != value))
+				{
+					this._shibernumber2 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetCurrentShiberConfigByShiberNumberResult
+	{
+		
+		private int _timeOpen;
+		
+		private int _timeClose;
+		
+		private int _timeBetwenShiber;
+		
+		private int _reopenCountMax;
+		
+		public GetCurrentShiberConfigByShiberNumberResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeOpen", DbType="Int NOT NULL")]
+		public int timeOpen
+		{
+			get
+			{
+				return this._timeOpen;
+			}
+			set
+			{
+				if ((this._timeOpen != value))
+				{
+					this._timeOpen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeClose", DbType="Int NOT NULL")]
+		public int timeClose
+		{
+			get
+			{
+				return this._timeClose;
+			}
+			set
+			{
+				if ((this._timeClose != value))
+				{
+					this._timeClose = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenShiber", DbType="Int NOT NULL")]
+		public int timeBetwenShiber
+		{
+			get
+			{
+				return this._timeBetwenShiber;
+			}
+			set
+			{
+				if ((this._timeBetwenShiber != value))
+				{
+					this._timeBetwenShiber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reopenCountMax", DbType="Int NOT NULL")]
+		public int reopenCountMax
+		{
+			get
+			{
+				return this._reopenCountMax;
+			}
+			set
+			{
+				if ((this._reopenCountMax != value))
+				{
+					this._reopenCountMax = value;
 				}
 			}
 		}

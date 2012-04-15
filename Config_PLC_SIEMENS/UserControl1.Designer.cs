@@ -994,9 +994,9 @@
             this.groupSetup.RowTemplate.DividerHeight = 1;
             this.groupSetup.RowTemplate.Height = 30;
             this.groupSetup.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.groupSetup.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.groupSetup.Size = new System.Drawing.Size(1016, 416);
             this.groupSetup.TabIndex = 1;
+            this.groupSetup.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GroupSetupCellBeginEdit);
             this.groupSetup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupSetupCellEndEdit);
             this.groupSetup.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.GroupSetupEditingControlShowing);
             // 

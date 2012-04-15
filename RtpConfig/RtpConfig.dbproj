@@ -234,6 +234,12 @@
     <Build Include="GetGroupForGroupLoad.proc.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="GetShibersConfigByGroupNumber.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="GetCurrentShiberConfigByShiberNumber.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Scripts\Post-Deployment\AddChannelType.sql">
