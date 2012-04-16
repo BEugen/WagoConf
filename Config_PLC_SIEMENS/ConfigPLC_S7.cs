@@ -361,6 +361,9 @@ namespace Config_PLC_SIEMENS
 
         private void LoadAllModuleChannel()
         {
+           try
+           {
+          
             RtpConfigDataContext data = new RtpConfigDataContext();
             var modulchannel = data.GetAllModuleChannel(_rtpid).ToList();
             tag_descr.Rows.Clear();
@@ -372,7 +375,13 @@ namespace Config_PLC_SIEMENS
                 tag_descr.Rows[rnumber].Cells[2].Value = getAllModuleChannelResult.channelnumber;
                 tag_descr.Rows[rnumber].Cells[3].Value = getAllModuleChannelResult.signalgroupdescription;
                 tag_descr.Rows[rnumber].Cells[4].Value = getAllModuleChannelResult.signaldescription;
-            }
+            } 
+           }
+           catch (System.Exception ex)
+           {
+               MessageBox.Show("Ошибка загрузки данных (" + ex.Message + ")", "Ошибка", MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+           }
         }
         /// <summary>
         /// Изменяет доступность кнопок меню
@@ -399,6 +408,10 @@ namespace Config_PLC_SIEMENS
        
         private void SetLoadChannelMount()
         {
+            try
+            {
+
+           
             set_treeview_mount.Nodes[0].Nodes.Clear();
             if (configClass != null)
             {
@@ -418,7 +431,14 @@ namespace Config_PLC_SIEMENS
             set_treeview_mount.SelectedNode = set_treeview_mount.Nodes[0];
             TreeNodeMouseClickEventArgs e = new TreeNodeMouseClickEventArgs(set_treeview_mount.SelectedNode, MouseButtons.Left, 0, 0, 0);
             SetTreeviewMountNodeMouseClick(set_treeview_mount, e);
-            PlcInfLoad();
+            PlcInfLoad(); 
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка загрузки данных (" + ex.Message + ")", "Ошибка", MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+            }
         }    
 
         private void SetBModulParamOkClick(object sender, EventArgs e)
@@ -981,7 +1001,7 @@ namespace Config_PLC_SIEMENS
 
         private void LoadGroupConfig()
         {
-            groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 9);
+            groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
             groupSetup.Rows.Clear();
             RtpConfigDataContext data = new RtpConfigDataContext();
             var groupShibers = data.GetGroupShiberSetup(_rtpid).ToList();

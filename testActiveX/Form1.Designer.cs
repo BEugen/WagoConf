@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.p6 = new System.Windows.Forms.TextBox();
             this.accept = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmd = new System.Windows.Forms.TextBox();
             this.configPLC_S71 = new Config_PLC_SIEMENS.ConfigPLC_S7();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,14 +71,24 @@
             this.groupBox1.Controls.Add(this.address);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmd);
-            this.groupBox1.Location = new System.Drawing.Point(788, 32);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(1039, 32);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(183, 610);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры команды";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(41, 291);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(104, 43);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Лог";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label8
             // 
@@ -93,7 +103,7 @@
             // p6
             // 
             this.p6.Location = new System.Drawing.Point(86, 197);
-            this.p6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p6.Margin = new System.Windows.Forms.Padding(2);
             this.p6.Name = "p6";
             this.p6.Size = new System.Drawing.Size(76, 20);
             this.p6.TabIndex = 15;
@@ -101,7 +111,7 @@
             // accept
             // 
             this.accept.Location = new System.Drawing.Point(41, 222);
-            this.accept.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.accept.Margin = new System.Windows.Forms.Padding(2);
             this.accept.Name = "accept";
             this.accept.Size = new System.Drawing.Size(104, 29);
             this.accept.TabIndex = 14;
@@ -122,7 +132,7 @@
             // p5
             // 
             this.p5.Location = new System.Drawing.Point(86, 175);
-            this.p5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p5.Margin = new System.Windows.Forms.Padding(2);
             this.p5.Name = "p5";
             this.p5.Size = new System.Drawing.Size(76, 20);
             this.p5.TabIndex = 12;
@@ -140,7 +150,7 @@
             // p4
             // 
             this.p4.Location = new System.Drawing.Point(86, 152);
-            this.p4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p4.Margin = new System.Windows.Forms.Padding(2);
             this.p4.Name = "p4";
             this.p4.Size = new System.Drawing.Size(76, 20);
             this.p4.TabIndex = 10;
@@ -158,7 +168,7 @@
             // p3
             // 
             this.p3.Location = new System.Drawing.Point(86, 129);
-            this.p3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p3.Margin = new System.Windows.Forms.Padding(2);
             this.p3.Name = "p3";
             this.p3.Size = new System.Drawing.Size(76, 20);
             this.p3.TabIndex = 8;
@@ -176,7 +186,7 @@
             // p2
             // 
             this.p2.Location = new System.Drawing.Point(86, 106);
-            this.p2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p2.Margin = new System.Windows.Forms.Padding(2);
             this.p2.Name = "p2";
             this.p2.Size = new System.Drawing.Size(76, 20);
             this.p2.TabIndex = 6;
@@ -194,7 +204,7 @@
             // p1
             // 
             this.p1.Location = new System.Drawing.Point(86, 84);
-            this.p1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p1.Margin = new System.Windows.Forms.Padding(2);
             this.p1.Name = "p1";
             this.p1.Size = new System.Drawing.Size(76, 20);
             this.p1.TabIndex = 4;
@@ -212,7 +222,7 @@
             // address
             // 
             this.address.Location = new System.Drawing.Point(86, 61);
-            this.address.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.address.Margin = new System.Windows.Forms.Padding(2);
             this.address.Name = "address";
             this.address.Size = new System.Drawing.Size(76, 20);
             this.address.TabIndex = 2;
@@ -230,7 +240,7 @@
             // cmd
             // 
             this.cmd.Location = new System.Drawing.Point(86, 38);
-            this.cmd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmd.Margin = new System.Windows.Forms.Padding(2);
             this.cmd.Name = "cmd";
             this.cmd.Size = new System.Drawing.Size(76, 20);
             this.cmd.TabIndex = 0;
@@ -240,7 +250,7 @@
             this.configPLC_S71.Accept = 0;
             this.configPLC_S71.Command = 0;
             this.configPLC_S71.Location = new System.Drawing.Point(9, 9);
-            this.configPLC_S71.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.configPLC_S71.Margin = new System.Windows.Forms.Padding(2);
             this.configPLC_S71.Name = "configPLC_S71";
             this.configPLC_S71.P1 = 0;
             this.configPLC_S71.P2 = 0;
@@ -248,28 +258,18 @@
             this.configPLC_S71.P4 = 0;
             this.configPLC_S71.P5 = 0;
             this.configPLC_S71.P6 = 0;
-            this.configPLC_S71.Size = new System.Drawing.Size(774, 633);
+            this.configPLC_S71.Size = new System.Drawing.Size(1024, 633);
             this.configPLC_S71.TabIndex = 0;
             this.configPLC_S71.Load += new System.EventHandler(this.configPLC_S71_Load);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(41, 291);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 43);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Лог";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(980, 691);
+            this.ClientSize = new System.Drawing.Size(1233, 691);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.configPLC_S71);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);

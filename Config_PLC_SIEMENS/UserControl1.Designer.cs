@@ -115,6 +115,16 @@
             this.tabConfiпWago = new System.Windows.Forms.TabControl();
             this.group_setup = new System.Windows.Forms.TabPage();
             this.groupSetup = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.single_setup = new System.Windows.Forms.TabPage();
+            this.shiber_setup = new System.Windows.Forms.TabPage();
+            this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.groupsetup_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_groupnumber = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -133,16 +143,6 @@
             this.group_selectgroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_selectshibernumber1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_selectshibernumber2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.single_setup = new System.Windows.Forms.TabPage();
-            this.shiber_setup = new System.Windows.Forms.TabPage();
-            this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -171,13 +171,13 @@
             this.set_conmenu_add,
             this.set_conmenu_del});
             this.set_conmenu.Name = "set_conmenu";
-            this.set_conmenu.Size = new System.Drawing.Size(201, 52);
+            this.set_conmenu.Size = new System.Drawing.Size(171, 48);
             // 
             // set_conmenu_add
             // 
             this.set_conmenu_add.Image = ((System.Drawing.Image)(resources.GetObject("set_conmenu_add.Image")));
             this.set_conmenu_add.Name = "set_conmenu_add";
-            this.set_conmenu_add.Size = new System.Drawing.Size(200, 24);
+            this.set_conmenu_add.Size = new System.Drawing.Size(170, 22);
             this.set_conmenu_add.Text = "Добавить модуль";
             this.set_conmenu_add.Click += new System.EventHandler(this.SetConmenuAddClick);
             // 
@@ -185,7 +185,7 @@
             // 
             this.set_conmenu_del.Image = ((System.Drawing.Image)(resources.GetObject("set_conmenu_del.Image")));
             this.set_conmenu_del.Name = "set_conmenu_del";
-            this.set_conmenu_del.Size = new System.Drawing.Size(200, 24);
+            this.set_conmenu_del.Size = new System.Drawing.Size(170, 22);
             this.set_conmenu_del.Text = "Удалить модуль";
             this.set_conmenu_del.Click += new System.EventHandler(this.SetConmenuDelClick);
             // 
@@ -213,7 +213,7 @@
             this.checkHardwareIcon});
             this.set_menu.Location = new System.Drawing.Point(2, 2);
             this.set_menu.Name = "set_menu";
-            this.set_menu.Size = new System.Drawing.Size(1012, 39);
+            this.set_menu.Size = new System.Drawing.Size(1012, 31);
             this.set_menu.TabIndex = 0;
             this.set_menu.Text = "Меню";
             // 
@@ -232,12 +232,12 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(71, 36);
+            this.toolStripLabel1.Size = new System.Drawing.Size(57, 28);
             this.toolStripLabel1.Text = "Работа с:";
             // 
             // typeWork
@@ -247,18 +247,18 @@
             "Контроллером"});
             this.typeWork.MergeIndex = 1;
             this.typeWork.Name = "typeWork";
-            this.typeWork.Size = new System.Drawing.Size(220, 28);
+            this.typeWork.Size = new System.Drawing.Size(177, 23);
             this.typeWork.SelectedIndexChanged += new System.EventHandler(this.TypeWorkSelectedIndexChanged);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(148, 36);
+            this.toolStripLabel2.Size = new System.Drawing.Size(118, 28);
             this.toolStripLabel2.Text = "Соотвествие  с ПЛК:";
             // 
             // checkHardwareIcon
@@ -267,7 +267,7 @@
             this.checkHardwareIcon.Image = ((System.Drawing.Image)(resources.GetObject("checkHardwareIcon.Image")));
             this.checkHardwareIcon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.checkHardwareIcon.Name = "checkHardwareIcon";
-            this.checkHardwareIcon.Size = new System.Drawing.Size(36, 36);
+            this.checkHardwareIcon.Size = new System.Drawing.Size(36, 28);
             this.checkHardwareIcon.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // set_setting
@@ -277,10 +277,10 @@
             this.set_setting.Controls.Add(this.l_static);
             this.set_setting.Controls.Add(this.l_dinamic);
             this.set_setting.Controls.Add(this.l_version);
-            this.set_setting.Location = new System.Drawing.Point(4, 31);
+            this.set_setting.Location = new System.Drawing.Point(4, 25);
             this.set_setting.Margin = new System.Windows.Forms.Padding(2);
             this.set_setting.Name = "set_setting";
-            this.set_setting.Size = new System.Drawing.Size(1016, 733);
+            this.set_setting.Size = new System.Drawing.Size(1016, 585);
             this.set_setting.TabIndex = 3;
             this.set_setting.Text = "Настройка";
             this.set_setting.UseVisualStyleBackColor = true;
@@ -289,11 +289,11 @@
             // 
             this.groupBox1.Controls.Add(this.dgw_hist_plc_config);
             this.groupBox1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(18, 276);
+            this.groupBox1.Location = new System.Drawing.Point(14, 221);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 10, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(978, 411);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 8, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(782, 329);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Конфигурация PLC";
@@ -319,13 +319,13 @@
             this.dataGridViewComboBoxColumn1,
             this.dataGridViewButtonColumn1});
             this.dgw_hist_plc_config.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgw_hist_plc_config.Location = new System.Drawing.Point(2, 32);
+            this.dgw_hist_plc_config.Location = new System.Drawing.Point(2, 27);
             this.dgw_hist_plc_config.Margin = new System.Windows.Forms.Padding(2);
             this.dgw_hist_plc_config.MultiSelect = false;
             this.dgw_hist_plc_config.Name = "dgw_hist_plc_config";
             this.dgw_hist_plc_config.RowHeadersVisible = false;
             this.dgw_hist_plc_config.RowTemplate.Height = 24;
-            this.dgw_hist_plc_config.Size = new System.Drawing.Size(974, 376);
+            this.dgw_hist_plc_config.Size = new System.Drawing.Size(778, 300);
             this.dgw_hist_plc_config.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn4
@@ -371,10 +371,10 @@
             // 
             this.l_data_static.AutoSize = true;
             this.l_data_static.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.l_data_static.Location = new System.Drawing.Point(29, 56);
+            this.l_data_static.Location = new System.Drawing.Point(23, 45);
             this.l_data_static.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.l_data_static.Name = "l_data_static";
-            this.l_data_static.Size = new System.Drawing.Size(280, 24);
+            this.l_data_static.Size = new System.Drawing.Size(222, 20);
             this.l_data_static.TabIndex = 10;
             this.l_data_static.Text = "Дата статической конфигурации:";
             // 
@@ -382,10 +382,10 @@
             // 
             this.l_static.AutoSize = true;
             this.l_static.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.l_static.Location = new System.Drawing.Point(29, 122);
+            this.l_static.Location = new System.Drawing.Point(23, 98);
             this.l_static.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.l_static.Name = "l_static";
-            this.l_static.Size = new System.Drawing.Size(239, 24);
+            this.l_static.Size = new System.Drawing.Size(192, 20);
             this.l_static.TabIndex = 2;
             this.l_static.Text = "Кол-во изменений (статика):";
             // 
@@ -393,10 +393,10 @@
             // 
             this.l_dinamic.AutoSize = true;
             this.l_dinamic.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.l_dinamic.Location = new System.Drawing.Point(29, 89);
+            this.l_dinamic.Location = new System.Drawing.Point(23, 71);
             this.l_dinamic.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.l_dinamic.Name = "l_dinamic";
-            this.l_dinamic.Size = new System.Drawing.Size(256, 24);
+            this.l_dinamic.Size = new System.Drawing.Size(207, 20);
             this.l_dinamic.TabIndex = 1;
             this.l_dinamic.Text = "Кол-во изменений (динамика):";
             // 
@@ -404,10 +404,10 @@
             // 
             this.l_version.AutoSize = true;
             this.l_version.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.l_version.Location = new System.Drawing.Point(29, 28);
+            this.l_version.Location = new System.Drawing.Point(23, 22);
             this.l_version.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.l_version.Name = "l_version";
-            this.l_version.Size = new System.Drawing.Size(176, 24);
+            this.l_version.Size = new System.Drawing.Size(141, 20);
             this.l_version.TabIndex = 0;
             this.l_version.Text = "Версия компонента:";
             // 
@@ -420,11 +420,11 @@
             this.set_mount.Controls.Add(this.set_gb_type_plc);
             this.set_mount.Controls.Add(this.set_gb_channel_mount);
             this.set_mount.Controls.Add(this.set_treeview_mount);
-            this.set_mount.Location = new System.Drawing.Point(4, 31);
+            this.set_mount.Location = new System.Drawing.Point(4, 25);
             this.set_mount.Margin = new System.Windows.Forms.Padding(2);
             this.set_mount.Name = "set_mount";
             this.set_mount.Padding = new System.Windows.Forms.Padding(2);
-            this.set_mount.Size = new System.Drawing.Size(1016, 733);
+            this.set_mount.Size = new System.Drawing.Size(1016, 585);
             this.set_mount.TabIndex = 1;
             this.set_mount.Text = "Привязка каналов";
             this.set_mount.UseVisualStyleBackColor = true;
@@ -434,21 +434,19 @@
             this.set_pan_mount_wait.BackColor = System.Drawing.Color.Gainsboro;
             this.set_pan_mount_wait.Controls.Add(this.set_text_mount_wait);
             this.set_pan_mount_wait.Controls.Add(this.label1);
-            this.set_pan_mount_wait.Location = new System.Drawing.Point(255, 239);
-            this.set_pan_mount_wait.Margin = new System.Windows.Forms.Padding(4);
+            this.set_pan_mount_wait.Location = new System.Drawing.Point(204, 191);
             this.set_pan_mount_wait.Name = "set_pan_mount_wait";
-            this.set_pan_mount_wait.Size = new System.Drawing.Size(492, 159);
+            this.set_pan_mount_wait.Size = new System.Drawing.Size(394, 127);
             this.set_pan_mount_wait.TabIndex = 1;
             this.set_pan_mount_wait.Visible = false;
             // 
             // set_text_mount_wait
             // 
-            this.set_text_mount_wait.Location = new System.Drawing.Point(0, 64);
-            this.set_text_mount_wait.Margin = new System.Windows.Forms.Padding(4);
+            this.set_text_mount_wait.Location = new System.Drawing.Point(0, 51);
             this.set_text_mount_wait.Multiline = true;
             this.set_text_mount_wait.Name = "set_text_mount_wait";
             this.set_text_mount_wait.ReadOnly = true;
-            this.set_text_mount_wait.Size = new System.Drawing.Size(492, 94);
+            this.set_text_mount_wait.Size = new System.Drawing.Size(394, 76);
             this.set_text_mount_wait.TabIndex = 1;
             this.set_text_mount_wait.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -456,10 +454,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(104, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(83, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(249, 48);
+            this.label1.Size = new System.Drawing.Size(196, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "Пожалуйста подождите идет \r\n       выполнение команды...";
             // 
@@ -470,11 +467,11 @@
             this.set_gb_type_module.Controls.Add(this.set_l_channel_count);
             this.set_gb_type_module.Controls.Add(this.set_ddl_type_modul);
             this.set_gb_type_module.Controls.Add(this.set_l_type_modul);
-            this.set_gb_type_module.Location = new System.Drawing.Point(299, 40);
+            this.set_gb_type_module.Location = new System.Drawing.Point(239, 32);
             this.set_gb_type_module.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_type_module.Name = "set_gb_type_module";
             this.set_gb_type_module.Padding = new System.Windows.Forms.Padding(2);
-            this.set_gb_type_module.Size = new System.Drawing.Size(711, 146);
+            this.set_gb_type_module.Size = new System.Drawing.Size(569, 117);
             this.set_gb_type_module.TabIndex = 7;
             this.set_gb_type_module.TabStop = false;
             this.set_gb_type_module.Text = "Тип модуля";
@@ -482,10 +479,10 @@
             // 
             // set_b_modul_param_ok
             // 
-            this.set_b_modul_param_ok.Location = new System.Drawing.Point(518, 86);
+            this.set_b_modul_param_ok.Location = new System.Drawing.Point(414, 69);
             this.set_b_modul_param_ok.Margin = new System.Windows.Forms.Padding(2);
             this.set_b_modul_param_ok.Name = "set_b_modul_param_ok";
-            this.set_b_modul_param_ok.Size = new System.Drawing.Size(140, 40);
+            this.set_b_modul_param_ok.Size = new System.Drawing.Size(112, 32);
             this.set_b_modul_param_ok.TabIndex = 5;
             this.set_b_modul_param_ok.Text = "Применить";
             this.set_b_modul_param_ok.UseVisualStyleBackColor = true;
@@ -493,10 +490,10 @@
             // 
             // set_nd_channel_count
             // 
-            this.set_nd_channel_count.Location = new System.Drawing.Point(261, 80);
+            this.set_nd_channel_count.Location = new System.Drawing.Point(209, 64);
             this.set_nd_channel_count.Margin = new System.Windows.Forms.Padding(2);
             this.set_nd_channel_count.Name = "set_nd_channel_count";
-            this.set_nd_channel_count.Size = new System.Drawing.Size(128, 27);
+            this.set_nd_channel_count.Size = new System.Drawing.Size(102, 23);
             this.set_nd_channel_count.TabIndex = 3;
             this.set_nd_channel_count.Value = new decimal(new int[] {
             4,
@@ -508,10 +505,10 @@
             // set_l_channel_count
             // 
             this.set_l_channel_count.AutoSize = true;
-            this.set_l_channel_count.Location = new System.Drawing.Point(48, 85);
+            this.set_l_channel_count.Location = new System.Drawing.Point(38, 68);
             this.set_l_channel_count.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.set_l_channel_count.Name = "set_l_channel_count";
-            this.set_l_channel_count.Size = new System.Drawing.Size(141, 22);
+            this.set_l_channel_count.Size = new System.Drawing.Size(115, 17);
             this.set_l_channel_count.TabIndex = 2;
             this.set_l_channel_count.Text = "Количество каналов";
             // 
@@ -524,29 +521,29 @@
             "Модуль аналогового ввода (AI)",
             "Модуль дискретного вывода (DO)",
             "Модуль дискретного ввода (DI)"});
-            this.set_ddl_type_modul.Location = new System.Drawing.Point(261, 28);
+            this.set_ddl_type_modul.Location = new System.Drawing.Point(209, 22);
             this.set_ddl_type_modul.Margin = new System.Windows.Forms.Padding(2);
             this.set_ddl_type_modul.Name = "set_ddl_type_modul";
-            this.set_ddl_type_modul.Size = new System.Drawing.Size(444, 30);
+            this.set_ddl_type_modul.Size = new System.Drawing.Size(356, 24);
             this.set_ddl_type_modul.TabIndex = 1;
             this.set_ddl_type_modul.SelectedIndexChanged += new System.EventHandler(this.SetDdlTypeModulSelectedIndexChanged);
             // 
             // set_l_type_modul
             // 
             this.set_l_type_modul.AutoSize = true;
-            this.set_l_type_modul.Location = new System.Drawing.Point(48, 30);
+            this.set_l_type_modul.Location = new System.Drawing.Point(38, 24);
             this.set_l_type_modul.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.set_l_type_modul.Name = "set_l_type_modul";
-            this.set_l_type_modul.Size = new System.Drawing.Size(88, 22);
+            this.set_l_type_modul.Size = new System.Drawing.Size(70, 17);
             this.set_l_type_modul.TabIndex = 0;
             this.set_l_type_modul.Text = "Тип модуля";
             // 
             // set_b_channel_mount_ok
             // 
-            this.set_b_channel_mount_ok.Location = new System.Drawing.Point(816, 662);
+            this.set_b_channel_mount_ok.Location = new System.Drawing.Point(653, 530);
             this.set_b_channel_mount_ok.Margin = new System.Windows.Forms.Padding(2);
             this.set_b_channel_mount_ok.Name = "set_b_channel_mount_ok";
-            this.set_b_channel_mount_ok.Size = new System.Drawing.Size(140, 40);
+            this.set_b_channel_mount_ok.Size = new System.Drawing.Size(112, 32);
             this.set_b_channel_mount_ok.TabIndex = 3;
             this.set_b_channel_mount_ok.Text = "Применить";
             this.set_b_channel_mount_ok.UseVisualStyleBackColor = true;
@@ -561,21 +558,21 @@
             this.set_gb_type_plc.Controls.Add(this.set_l_number_plc);
             this.set_gb_type_plc.Controls.Add(this.set_inp_name_plc);
             this.set_gb_type_plc.Controls.Add(this.set_l_name_plc);
-            this.set_gb_type_plc.Location = new System.Drawing.Point(299, 41);
+            this.set_gb_type_plc.Location = new System.Drawing.Point(239, 33);
             this.set_gb_type_plc.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_type_plc.Name = "set_gb_type_plc";
             this.set_gb_type_plc.Padding = new System.Windows.Forms.Padding(2);
-            this.set_gb_type_plc.Size = new System.Drawing.Size(711, 146);
+            this.set_gb_type_plc.Size = new System.Drawing.Size(569, 117);
             this.set_gb_type_plc.TabIndex = 1;
             this.set_gb_type_plc.TabStop = false;
             this.set_gb_type_plc.Text = "Параметры PLC";
             // 
             // set_b_change_plc
             // 
-            this.set_b_change_plc.Location = new System.Drawing.Point(564, 91);
+            this.set_b_change_plc.Location = new System.Drawing.Point(451, 73);
             this.set_b_change_plc.Margin = new System.Windows.Forms.Padding(2);
             this.set_b_change_plc.Name = "set_b_change_plc";
-            this.set_b_change_plc.Size = new System.Drawing.Size(141, 34);
+            this.set_b_change_plc.Size = new System.Drawing.Size(113, 27);
             this.set_b_change_plc.TabIndex = 6;
             this.set_b_change_plc.Text = "Изменить";
             this.set_b_change_plc.UseVisualStyleBackColor = true;
@@ -583,66 +580,66 @@
             // 
             // set_inp_type_plc
             // 
-            this.set_inp_type_plc.Location = new System.Drawing.Point(128, 94);
+            this.set_inp_type_plc.Location = new System.Drawing.Point(102, 75);
             this.set_inp_type_plc.Margin = new System.Windows.Forms.Padding(2);
             this.set_inp_type_plc.Name = "set_inp_type_plc";
-            this.set_inp_type_plc.Size = new System.Drawing.Size(152, 27);
+            this.set_inp_type_plc.Size = new System.Drawing.Size(122, 23);
             this.set_inp_type_plc.TabIndex = 5;
             // 
             // set_l_type_plc
             // 
             this.set_l_type_plc.AutoSize = true;
-            this.set_l_type_plc.Location = new System.Drawing.Point(20, 96);
+            this.set_l_type_plc.Location = new System.Drawing.Point(16, 77);
             this.set_l_type_plc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.set_l_type_plc.Name = "set_l_type_plc";
-            this.set_l_type_plc.Size = new System.Drawing.Size(66, 22);
+            this.set_l_type_plc.Size = new System.Drawing.Size(52, 17);
             this.set_l_type_plc.TabIndex = 4;
             this.set_l_type_plc.Text = "Тип PLC";
             // 
             // set_inp_number_plc
             // 
-            this.set_inp_number_plc.Location = new System.Drawing.Point(436, 41);
+            this.set_inp_number_plc.Location = new System.Drawing.Point(349, 33);
             this.set_inp_number_plc.Margin = new System.Windows.Forms.Padding(2);
             this.set_inp_number_plc.Name = "set_inp_number_plc";
-            this.set_inp_number_plc.Size = new System.Drawing.Size(152, 27);
+            this.set_inp_number_plc.Size = new System.Drawing.Size(122, 23);
             this.set_inp_number_plc.TabIndex = 3;
             // 
             // set_l_number_plc
             // 
             this.set_l_number_plc.AutoSize = true;
-            this.set_l_number_plc.Location = new System.Drawing.Point(324, 44);
+            this.set_l_number_plc.Location = new System.Drawing.Point(259, 35);
             this.set_l_number_plc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.set_l_number_plc.Name = "set_l_number_plc";
-            this.set_l_number_plc.Size = new System.Drawing.Size(85, 22);
+            this.set_l_number_plc.Size = new System.Drawing.Size(67, 17);
             this.set_l_number_plc.TabIndex = 2;
             this.set_l_number_plc.Text = "Номер PLC";
             // 
             // set_inp_name_plc
             // 
-            this.set_inp_name_plc.Location = new System.Drawing.Point(128, 41);
+            this.set_inp_name_plc.Location = new System.Drawing.Point(102, 33);
             this.set_inp_name_plc.Margin = new System.Windows.Forms.Padding(2);
             this.set_inp_name_plc.Name = "set_inp_name_plc";
-            this.set_inp_name_plc.Size = new System.Drawing.Size(152, 27);
+            this.set_inp_name_plc.Size = new System.Drawing.Size(122, 23);
             this.set_inp_name_plc.TabIndex = 1;
             // 
             // set_l_name_plc
             // 
             this.set_l_name_plc.AutoSize = true;
-            this.set_l_name_plc.Location = new System.Drawing.Point(20, 44);
+            this.set_l_name_plc.Location = new System.Drawing.Point(16, 35);
             this.set_l_name_plc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.set_l_name_plc.Name = "set_l_name_plc";
-            this.set_l_name_plc.Size = new System.Drawing.Size(69, 22);
+            this.set_l_name_plc.Size = new System.Drawing.Size(55, 17);
             this.set_l_name_plc.TabIndex = 0;
             this.set_l_name_plc.Text = "Имя PLC";
             // 
             // set_gb_channel_mount
             // 
             this.set_gb_channel_mount.Controls.Add(this.set_dgv_channel_mount);
-            this.set_gb_channel_mount.Location = new System.Drawing.Point(299, 190);
+            this.set_gb_channel_mount.Location = new System.Drawing.Point(239, 152);
             this.set_gb_channel_mount.Margin = new System.Windows.Forms.Padding(2);
             this.set_gb_channel_mount.Name = "set_gb_channel_mount";
             this.set_gb_channel_mount.Padding = new System.Windows.Forms.Padding(2);
-            this.set_gb_channel_mount.Size = new System.Drawing.Size(711, 442);
+            this.set_gb_channel_mount.Size = new System.Drawing.Size(569, 354);
             this.set_gb_channel_mount.TabIndex = 2;
             this.set_gb_channel_mount.TabStop = false;
             this.set_gb_channel_mount.Text = "Привязка каналов";
@@ -672,13 +669,13 @@
             this.signalid});
             this.set_dgv_channel_mount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.set_dgv_channel_mount.GridColor = System.Drawing.SystemColors.Control;
-            this.set_dgv_channel_mount.Location = new System.Drawing.Point(2, 22);
+            this.set_dgv_channel_mount.Location = new System.Drawing.Point(2, 18);
             this.set_dgv_channel_mount.Margin = new System.Windows.Forms.Padding(2);
             this.set_dgv_channel_mount.MultiSelect = false;
             this.set_dgv_channel_mount.Name = "set_dgv_channel_mount";
             this.set_dgv_channel_mount.RowHeadersVisible = false;
             this.set_dgv_channel_mount.RowTemplate.Height = 24;
-            this.set_dgv_channel_mount.Size = new System.Drawing.Size(707, 418);
+            this.set_dgv_channel_mount.Size = new System.Drawing.Size(565, 334);
             this.set_dgv_channel_mount.TabIndex = 0;
             this.set_dgv_channel_mount.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SetDgvChannelMountCellContentClick);
             this.set_dgv_channel_mount.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.SetDgvChannelMountEditingControlShowing);
@@ -736,7 +733,7 @@
             // 
             this.set_treeview_mount.ImageIndex = 0;
             this.set_treeview_mount.ImageList = this.set_images;
-            this.set_treeview_mount.Location = new System.Drawing.Point(2, 40);
+            this.set_treeview_mount.Location = new System.Drawing.Point(2, 32);
             this.set_treeview_mount.Margin = new System.Windows.Forms.Padding(2);
             this.set_treeview_mount.Name = "set_treeview_mount";
             treeNode1.ContextMenuStrip = this.set_conmenu;
@@ -752,7 +749,7 @@
             this.set_treeview_mount.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2});
             this.set_treeview_mount.SelectedImageIndex = 0;
-            this.set_treeview_mount.Size = new System.Drawing.Size(293, 668);
+            this.set_treeview_mount.Size = new System.Drawing.Size(235, 535);
             this.set_treeview_mount.TabIndex = 0;
             this.set_treeview_mount.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.SetTreeviewMountNodeMouseClick);
             // 
@@ -760,10 +757,10 @@
             // 
             this.tags.Controls.Add(this.pan_tag_wait);
             this.tags.Controls.Add(this.tag_descr);
-            this.tags.Location = new System.Drawing.Point(4, 31);
+            this.tags.Location = new System.Drawing.Point(4, 25);
             this.tags.Margin = new System.Windows.Forms.Padding(2);
             this.tags.Name = "tags";
-            this.tags.Size = new System.Drawing.Size(1016, 733);
+            this.tags.Size = new System.Drawing.Size(1016, 585);
             this.tags.TabIndex = 2;
             this.tags.Text = "Переменные";
             this.tags.UseVisualStyleBackColor = true;
@@ -773,21 +770,19 @@
             this.pan_tag_wait.BackColor = System.Drawing.Color.Gainsboro;
             this.pan_tag_wait.Controls.Add(this.text_tag_wait);
             this.pan_tag_wait.Controls.Add(this.label3);
-            this.pan_tag_wait.Location = new System.Drawing.Point(268, 220);
-            this.pan_tag_wait.Margin = new System.Windows.Forms.Padding(4);
+            this.pan_tag_wait.Location = new System.Drawing.Point(214, 176);
             this.pan_tag_wait.Name = "pan_tag_wait";
-            this.pan_tag_wait.Size = new System.Drawing.Size(492, 159);
+            this.pan_tag_wait.Size = new System.Drawing.Size(394, 127);
             this.pan_tag_wait.TabIndex = 5;
             this.pan_tag_wait.Visible = false;
             // 
             // text_tag_wait
             // 
-            this.text_tag_wait.Location = new System.Drawing.Point(0, 64);
-            this.text_tag_wait.Margin = new System.Windows.Forms.Padding(4);
+            this.text_tag_wait.Location = new System.Drawing.Point(0, 51);
             this.text_tag_wait.Multiline = true;
             this.text_tag_wait.Name = "text_tag_wait";
             this.text_tag_wait.ReadOnly = true;
-            this.text_tag_wait.Size = new System.Drawing.Size(492, 94);
+            this.text_tag_wait.Size = new System.Drawing.Size(394, 76);
             this.text_tag_wait.TabIndex = 1;
             this.text_tag_wait.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -795,10 +790,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(104, 14);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(83, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(249, 48);
+            this.label3.Size = new System.Drawing.Size(196, 40);
             this.label3.TabIndex = 0;
             this.label3.Text = "Пожалуйста подождите идет \r\n       выполнение команды...";
             // 
@@ -810,7 +804,7 @@
             this.tag_descr.AllowUserToResizeRows = false;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial Narrow", 10F);
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial Narrow", 11F);
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -832,7 +826,7 @@
             this.tag_descr.RowHeadersVisible = false;
             this.tag_descr.RowTemplate.Height = 25;
             this.tag_descr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tag_descr.Size = new System.Drawing.Size(1016, 733);
+            this.tag_descr.Size = new System.Drawing.Size(1016, 585);
             this.tag_descr.TabIndex = 4;
             // 
             // typechannel
@@ -899,7 +893,7 @@
             this.tabConfiпWago.Margin = new System.Windows.Forms.Padding(2);
             this.tabConfiпWago.Name = "tabConfiпWago";
             this.tabConfiпWago.SelectedIndex = 0;
-            this.tabConfiпWago.Size = new System.Drawing.Size(1024, 768);
+            this.tabConfiпWago.Size = new System.Drawing.Size(1024, 614);
             this.tabConfiпWago.TabIndex = 0;
             this.tabConfiпWago.SelectedIndexChanged += new System.EventHandler(this.TabConfigPlcS7SelectedIndexChanged);
             // 
@@ -910,9 +904,10 @@
             this.group_setup.Controls.Add(this.panel2);
             this.group_setup.Controls.Add(this.panel1);
             this.group_setup.Controls.Add(this.toolStrip1);
-            this.group_setup.Location = new System.Drawing.Point(4, 31);
+            this.group_setup.Location = new System.Drawing.Point(4, 25);
+            this.group_setup.Margin = new System.Windows.Forms.Padding(2);
             this.group_setup.Name = "group_setup";
-            this.group_setup.Size = new System.Drawing.Size(1016, 733);
+            this.group_setup.Size = new System.Drawing.Size(1016, 585);
             this.group_setup.TabIndex = 4;
             this.group_setup.Text = "Настройка группового режима";
             // 
@@ -924,11 +919,12 @@
             this.groupSetup.AllowUserToResizeRows = false;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
             this.groupSetup.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.groupSetup.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.groupSetup.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(186)))), ((int)(((byte)(189)))));
             this.groupSetup.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -961,7 +957,7 @@
             this.group_selectshibernumber2});
             dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(164)))));
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial Narrow", 10F);
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.DarkBlue;
             dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -970,7 +966,8 @@
             this.groupSetup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupSetup.EnableHeadersVisualStyles = false;
             this.groupSetup.GridColor = System.Drawing.Color.DimGray;
-            this.groupSetup.Location = new System.Drawing.Point(0, 84);
+            this.groupSetup.Location = new System.Drawing.Point(0, 75);
+            this.groupSetup.Margin = new System.Windows.Forms.Padding(2);
             this.groupSetup.MultiSelect = false;
             this.groupSetup.Name = "groupSetup";
             this.groupSetup.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -987,210 +984,27 @@
             this.groupSetup.RowsDefaultCellStyle = dataGridViewCellStyle17;
             this.groupSetup.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.groupSetup.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Gainsboro;
-            this.groupSetup.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupSetup.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Arial Narrow", 11F);
             this.groupSetup.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.groupSetup.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
             this.groupSetup.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.groupSetup.RowTemplate.DividerHeight = 1;
             this.groupSetup.RowTemplate.Height = 30;
             this.groupSetup.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.groupSetup.Size = new System.Drawing.Size(1016, 416);
+            this.groupSetup.Size = new System.Drawing.Size(1016, 398);
             this.groupSetup.TabIndex = 1;
             this.groupSetup.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GroupSetupCellBeginEdit);
             this.groupSetup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupSetupCellEndEdit);
             this.groupSetup.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.GroupSetupEditingControlShowing);
             // 
-            // groupsetup_id
-            // 
-            this.groupsetup_id.HeaderText = "groupsetup_id";
-            this.groupsetup_id.Name = "groupsetup_id";
-            this.groupsetup_id.ReadOnly = true;
-            this.groupsetup_id.Visible = false;
-            // 
-            // group_seq
-            // 
-            this.group_seq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Silver;
-            this.group_seq.DefaultCellStyle = dataGridViewCellStyle12;
-            this.group_seq.DividerWidth = 1;
-            this.group_seq.HeaderText = "Порядок загрузки";
-            this.group_seq.MinimumWidth = 54;
-            this.group_seq.Name = "group_seq";
-            this.group_seq.ReadOnly = true;
-            this.group_seq.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_seq.Width = 54;
-            // 
-            // group_groupnumber
-            // 
-            this.group_groupnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.group_groupnumber.DisplayStyleForCurrentCellOnly = true;
-            this.group_groupnumber.DividerWidth = 1;
-            this.group_groupnumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.group_groupnumber.HeaderText = "Группа";
-            this.group_groupnumber.MinimumWidth = 69;
-            this.group_groupnumber.Name = "group_groupnumber";
-            this.group_groupnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_groupnumber.Width = 69;
-            // 
-            // group_timebetwengroup
-            // 
-            this.group_timebetwengroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            dataGridViewCellStyle13.Format = "N1";
-            dataGridViewCellStyle13.NullValue = null;
-            this.group_timebetwengroup.DefaultCellStyle = dataGridViewCellStyle13;
-            this.group_timebetwengroup.DividerWidth = 2;
-            this.group_timebetwengroup.HeaderText = "Интервал до след. загрузки";
-            this.group_timebetwengroup.MinimumWidth = 67;
-            this.group_timebetwengroup.Name = "group_timebetwengroup";
-            this.group_timebetwengroup.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timebetwengroup.Width = 67;
-            // 
-            // group_shibernumber1
-            // 
-            this.group_shibernumber1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.group_shibernumber1.DefaultCellStyle = dataGridViewCellStyle14;
-            this.group_shibernumber1.DisplayStyleForCurrentCellOnly = true;
-            this.group_shibernumber1.DividerWidth = 1;
-            this.group_shibernumber1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.group_shibernumber1.HeaderText = "1 шибер в группе";
-            this.group_shibernumber1.MinimumWidth = 90;
-            this.group_shibernumber1.Name = "group_shibernumber1";
-            this.group_shibernumber1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_shibernumber1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.group_shibernumber1.Width = 90;
-            // 
-            // group_timedoze1
-            // 
-            this.group_timedoze1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_timedoze1.DividerWidth = 1;
-            this.group_timedoze1.HeaderText = "Время дозирования";
-            this.group_timedoze1.MinimumWidth = 85;
-            this.group_timedoze1.Name = "group_timedoze1";
-            this.group_timedoze1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timedoze1.Width = 85;
-            // 
-            // group_koeffOC1
-            // 
-            this.group_koeffOC1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_koeffOC1.DividerWidth = 1;
-            this.group_koeffOC1.HeaderText = "Коэф. отк./закр.";
-            this.group_koeffOC1.MinimumWidth = 65;
-            this.group_koeffOC1.Name = "group_koeffOC1";
-            this.group_koeffOC1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_koeffOC1.Width = 65;
-            // 
-            // group_timeOpen1
-            // 
-            this.group_timeOpen1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_timeOpen1.DividerWidth = 1;
-            this.group_timeOpen1.HeaderText = "Время открытия";
-            this.group_timeOpen1.MinimumWidth = 65;
-            this.group_timeOpen1.Name = "group_timeOpen1";
-            this.group_timeOpen1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timeOpen1.Width = 65;
-            // 
-            // group_timeClose1
-            // 
-            this.group_timeClose1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_timeClose1.DividerWidth = 2;
-            this.group_timeClose1.HeaderText = "Время закрытия";
-            this.group_timeClose1.MinimumWidth = 65;
-            this.group_timeClose1.Name = "group_timeClose1";
-            this.group_timeClose1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timeClose1.Width = 65;
-            // 
-            // group_shibernumber2
-            // 
-            this.group_shibernumber2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.group_shibernumber2.DisplayStyleForCurrentCellOnly = true;
-            this.group_shibernumber2.DividerWidth = 1;
-            this.group_shibernumber2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.group_shibernumber2.HeaderText = "2 Шибер в группе";
-            this.group_shibernumber2.MinimumWidth = 90;
-            this.group_shibernumber2.Name = "group_shibernumber2";
-            this.group_shibernumber2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_shibernumber2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.group_shibernumber2.Width = 90;
-            // 
-            // group_timedoze2
-            // 
-            this.group_timedoze2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_timedoze2.DividerWidth = 1;
-            this.group_timedoze2.HeaderText = "Время дозирования";
-            this.group_timedoze2.MinimumWidth = 85;
-            this.group_timedoze2.Name = "group_timedoze2";
-            this.group_timedoze2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timedoze2.Width = 85;
-            // 
-            // group_koeffOC2
-            // 
-            this.group_koeffOC2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_koeffOC2.DividerWidth = 1;
-            this.group_koeffOC2.HeaderText = "Коеф. отк./закр.";
-            this.group_koeffOC2.MinimumWidth = 65;
-            this.group_koeffOC2.Name = "group_koeffOC2";
-            this.group_koeffOC2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_koeffOC2.Width = 65;
-            // 
-            // group_timeOpen2
-            // 
-            this.group_timeOpen2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_timeOpen2.DividerWidth = 1;
-            this.group_timeOpen2.HeaderText = "Время открытия";
-            this.group_timeOpen2.MinimumWidth = 65;
-            this.group_timeOpen2.Name = "group_timeOpen2";
-            this.group_timeOpen2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timeOpen2.Width = 65;
-            // 
-            // group_timeClose2
-            // 
-            this.group_timeClose2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_timeClose2.DividerWidth = 2;
-            this.group_timeClose2.HeaderText = "Время закрытия";
-            this.group_timeClose2.MinimumWidth = 65;
-            this.group_timeClose2.Name = "group_timeClose2";
-            this.group_timeClose2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timeClose2.Width = 65;
-            // 
-            // group_apply
-            // 
-            this.group_apply.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.group_apply.HeaderText = "Применить";
-            this.group_apply.MinimumWidth = 83;
-            this.group_apply.Name = "group_apply";
-            this.group_apply.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_apply.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.group_apply.Width = 83;
-            // 
-            // group_selectgroup
-            // 
-            this.group_selectgroup.HeaderText = "group_selectgroup";
-            this.group_selectgroup.Name = "group_selectgroup";
-            this.group_selectgroup.ReadOnly = true;
-            this.group_selectgroup.Visible = false;
-            // 
-            // group_selectshibernumber1
-            // 
-            this.group_selectshibernumber1.HeaderText = "group_selectshibernumber1";
-            this.group_selectshibernumber1.Name = "group_selectshibernumber1";
-            this.group_selectshibernumber1.ReadOnly = true;
-            this.group_selectshibernumber1.Visible = false;
-            // 
-            // group_selectshibernumber2
-            // 
-            this.group_selectshibernumber2.HeaderText = "group_selectshibernumber2";
-            this.group_selectshibernumber2.Name = "group_selectshibernumber2";
-            this.group_selectshibernumber2.ReadOnly = true;
-            this.group_selectshibernumber2.Visible = false;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(186)))), ((int)(((byte)(189)))));
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 500);
+            this.panel2.Location = new System.Drawing.Point(0, 473);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1016, 233);
+            this.panel2.Size = new System.Drawing.Size(1016, 112);
             this.panel2.TabIndex = 3;
             // 
             // panel1
@@ -1201,8 +1015,9 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 39);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1016, 45);
+            this.panel1.Size = new System.Drawing.Size(1016, 36);
             this.panel1.TabIndex = 2;
             // 
             // label5
@@ -1210,9 +1025,10 @@
             this.label5.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label5.Location = new System.Drawing.Point(561, 0);
+            this.label5.Location = new System.Drawing.Point(571, 0);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(454, 45);
+            this.label5.Size = new System.Drawing.Size(444, 36);
             this.label5.TabIndex = 2;
             this.label5.Text = "Параметры 2 шибера в группе                ";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1222,9 +1038,10 @@
             this.label4.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label4.Location = new System.Drawing.Point(191, 0);
+            this.label4.Location = new System.Drawing.Point(211, 0);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(369, 45);
+            this.label4.Size = new System.Drawing.Size(359, 36);
             this.label4.TabIndex = 1;
             this.label4.Text = "Параметры 1 шибера в группе";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1235,8 +1052,9 @@
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label2.Location = new System.Drawing.Point(1, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(189, 45);
+            this.label2.Size = new System.Drawing.Size(209, 36);
             this.label2.TabIndex = 0;
             this.label2.Text = "Параметры загрузки";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1264,18 +1082,20 @@
             // 
             // single_setup
             // 
-            this.single_setup.Location = new System.Drawing.Point(4, 31);
+            this.single_setup.Location = new System.Drawing.Point(4, 25);
+            this.single_setup.Margin = new System.Windows.Forms.Padding(2);
             this.single_setup.Name = "single_setup";
-            this.single_setup.Size = new System.Drawing.Size(1016, 733);
+            this.single_setup.Size = new System.Drawing.Size(1016, 585);
             this.single_setup.TabIndex = 5;
             this.single_setup.Text = "Настройка одиночного режима";
             this.single_setup.UseVisualStyleBackColor = true;
             // 
             // shiber_setup
             // 
-            this.shiber_setup.Location = new System.Drawing.Point(4, 31);
+            this.shiber_setup.Location = new System.Drawing.Point(4, 25);
+            this.shiber_setup.Margin = new System.Windows.Forms.Padding(2);
             this.shiber_setup.Name = "shiber_setup";
-            this.shiber_setup.Size = new System.Drawing.Size(1016, 733);
+            this.shiber_setup.Size = new System.Drawing.Size(1016, 585);
             this.shiber_setup.TabIndex = 6;
             this.shiber_setup.Text = "Настройка шиберов";
             this.shiber_setup.UseVisualStyleBackColor = true;
@@ -1284,14 +1104,199 @@
             // 
             this.folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
+            // groupsetup_id
+            // 
+            this.groupsetup_id.HeaderText = "groupsetup_id";
+            this.groupsetup_id.Name = "groupsetup_id";
+            this.groupsetup_id.ReadOnly = true;
+            this.groupsetup_id.Visible = false;
+            // 
+            // group_seq
+            // 
+            this.group_seq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Silver;
+            this.group_seq.DefaultCellStyle = dataGridViewCellStyle12;
+            this.group_seq.DividerWidth = 1;
+            this.group_seq.HeaderText = "Порядок загрузки";
+            this.group_seq.MinimumWidth = 65;
+            this.group_seq.Name = "group_seq";
+            this.group_seq.ReadOnly = true;
+            this.group_seq.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_seq.Width = 65;
+            // 
+            // group_groupnumber
+            // 
+            this.group_groupnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.group_groupnumber.DisplayStyleForCurrentCellOnly = true;
+            this.group_groupnumber.DividerWidth = 1;
+            this.group_groupnumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.group_groupnumber.HeaderText = "Группа";
+            this.group_groupnumber.MinimumWidth = 70;
+            this.group_groupnumber.Name = "group_groupnumber";
+            this.group_groupnumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_groupnumber.Width = 70;
+            // 
+            // group_timebetwengroup
+            // 
+            this.group_timebetwengroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            dataGridViewCellStyle13.Format = "N1";
+            dataGridViewCellStyle13.NullValue = null;
+            this.group_timebetwengroup.DefaultCellStyle = dataGridViewCellStyle13;
+            this.group_timebetwengroup.DividerWidth = 2;
+            this.group_timebetwengroup.HeaderText = "Интервал до след. загрузки";
+            this.group_timebetwengroup.MinimumWidth = 75;
+            this.group_timebetwengroup.Name = "group_timebetwengroup";
+            this.group_timebetwengroup.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_timebetwengroup.Width = 75;
+            // 
+            // group_shibernumber1
+            // 
+            this.group_shibernumber1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_shibernumber1.DefaultCellStyle = dataGridViewCellStyle14;
+            this.group_shibernumber1.DisplayStyleForCurrentCellOnly = true;
+            this.group_shibernumber1.DividerWidth = 1;
+            this.group_shibernumber1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.group_shibernumber1.HeaderText = "1 шибер в группе";
+            this.group_shibernumber1.MinimumWidth = 84;
+            this.group_shibernumber1.Name = "group_shibernumber1";
+            this.group_shibernumber1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_shibernumber1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.group_shibernumber1.Width = 84;
+            // 
+            // group_timedoze1
+            // 
+            this.group_timedoze1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timedoze1.DividerWidth = 1;
+            this.group_timedoze1.HeaderText = "Время дозиров.";
+            this.group_timedoze1.MinimumWidth = 68;
+            this.group_timedoze1.Name = "group_timedoze1";
+            this.group_timedoze1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_timedoze1.Width = 68;
+            // 
+            // group_koeffOC1
+            // 
+            this.group_koeffOC1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_koeffOC1.DividerWidth = 1;
+            this.group_koeffOC1.HeaderText = "Коэф. отк./закр.";
+            this.group_koeffOC1.MinimumWidth = 66;
+            this.group_koeffOC1.Name = "group_koeffOC1";
+            this.group_koeffOC1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_koeffOC1.Width = 66;
+            // 
+            // group_timeOpen1
+            // 
+            this.group_timeOpen1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeOpen1.DividerWidth = 1;
+            this.group_timeOpen1.HeaderText = "Время открытия";
+            this.group_timeOpen1.MinimumWidth = 67;
+            this.group_timeOpen1.Name = "group_timeOpen1";
+            this.group_timeOpen1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_timeOpen1.Width = 67;
+            // 
+            // group_timeClose1
+            // 
+            this.group_timeClose1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeClose1.DividerWidth = 2;
+            this.group_timeClose1.HeaderText = "Время закрытия";
+            this.group_timeClose1.MinimumWidth = 67;
+            this.group_timeClose1.Name = "group_timeClose1";
+            this.group_timeClose1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_timeClose1.Width = 67;
+            // 
+            // group_shibernumber2
+            // 
+            this.group_shibernumber2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_shibernumber2.DisplayStyleForCurrentCellOnly = true;
+            this.group_shibernumber2.DividerWidth = 1;
+            this.group_shibernumber2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.group_shibernumber2.HeaderText = "2 шибер в группе";
+            this.group_shibernumber2.MinimumWidth = 84;
+            this.group_shibernumber2.Name = "group_shibernumber2";
+            this.group_shibernumber2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_shibernumber2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.group_shibernumber2.Width = 84;
+            // 
+            // group_timedoze2
+            // 
+            this.group_timedoze2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timedoze2.DividerWidth = 1;
+            this.group_timedoze2.HeaderText = "Время дозиров.";
+            this.group_timedoze2.MinimumWidth = 65;
+            this.group_timedoze2.Name = "group_timedoze2";
+            this.group_timedoze2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_timedoze2.Width = 65;
+            // 
+            // group_koeffOC2
+            // 
+            this.group_koeffOC2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_koeffOC2.DividerWidth = 1;
+            this.group_koeffOC2.HeaderText = "Коеф. отк./закр.";
+            this.group_koeffOC2.MinimumWidth = 66;
+            this.group_koeffOC2.Name = "group_koeffOC2";
+            this.group_koeffOC2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_koeffOC2.Width = 66;
+            // 
+            // group_timeOpen2
+            // 
+            this.group_timeOpen2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeOpen2.DividerWidth = 1;
+            this.group_timeOpen2.HeaderText = "Время открытия";
+            this.group_timeOpen2.MinimumWidth = 67;
+            this.group_timeOpen2.Name = "group_timeOpen2";
+            this.group_timeOpen2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_timeOpen2.Width = 67;
+            // 
+            // group_timeClose2
+            // 
+            this.group_timeClose2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeClose2.DividerWidth = 2;
+            this.group_timeClose2.HeaderText = "Время закрытия";
+            this.group_timeClose2.MinimumWidth = 67;
+            this.group_timeClose2.Name = "group_timeClose2";
+            this.group_timeClose2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_timeClose2.Width = 67;
+            // 
+            // group_apply
+            // 
+            this.group_apply.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_apply.HeaderText = "Применить";
+            this.group_apply.MinimumWidth = 85;
+            this.group_apply.Name = "group_apply";
+            this.group_apply.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.group_apply.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.group_apply.Width = 85;
+            // 
+            // group_selectgroup
+            // 
+            this.group_selectgroup.HeaderText = "group_selectgroup";
+            this.group_selectgroup.Name = "group_selectgroup";
+            this.group_selectgroup.ReadOnly = true;
+            this.group_selectgroup.Visible = false;
+            // 
+            // group_selectshibernumber1
+            // 
+            this.group_selectshibernumber1.HeaderText = "group_selectshibernumber1";
+            this.group_selectshibernumber1.Name = "group_selectshibernumber1";
+            this.group_selectshibernumber1.ReadOnly = true;
+            this.group_selectshibernumber1.Visible = false;
+            // 
+            // group_selectshibernumber2
+            // 
+            this.group_selectshibernumber2.HeaderText = "group_selectshibernumber2";
+            this.group_selectshibernumber2.Name = "group_selectshibernumber2";
+            this.group_selectshibernumber2.ReadOnly = true;
+            this.group_selectshibernumber2.Visible = false;
+            // 
             // ConfigPLC_S7
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tabConfiпWago);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ConfigPLC_S7";
-            this.Size = new System.Drawing.Size(1024, 768);
+            this.Size = new System.Drawing.Size(1024, 614);
             this.Load += new System.EventHandler(this.ConfigPlcS7Load);
             this.set_conmenu.ResumeLayout(false);
             this.set_menu.ResumeLayout(false);
