@@ -70,11 +70,11 @@
     <Compile Include="ActiveXCtrlHelper.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AddEditTag.cs">
+    <Compile Include="ChangeKoeff.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEditTag.Designer.cs">
-      <DependentUpon>AddEditTag.cs</DependentUpon>
+    <Compile Include="ChangeKoeff.Designer.cs">
+      <DependentUpon>ChangeKoeff.cs</DependentUpon>
     </Compile>
     <Compile Include="ConfigPLCStore.cs" />
     <Compile Include="ConfigPLC_S7.cs">
@@ -113,13 +113,13 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AddEditTag.resx">
-      <DependentUpon>AddEditTag.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="RtpConfig.dbml.layout">
       <DependentUpon>RtpConfig.dbml</DependentUpon>
     </None>
     <None Include="app.config" />
+    <EmbeddedResource Include="ChangeKoeff.resx">
+      <DependentUpon>ChangeKoeff.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigPLC_S7.resx">
       <DependentUpon>ConfigPLC_S7.cs</DependentUpon>
     </EmbeddedResource>

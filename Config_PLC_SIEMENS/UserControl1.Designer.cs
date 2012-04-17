@@ -995,6 +995,7 @@
             this.groupSetup.TabIndex = 1;
             this.groupSetup.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GroupSetupCellBeginEdit);
             this.groupSetup.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupSetupCellClick);
+            this.groupSetup.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupSetupCellDoubleClick);
             this.groupSetup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupSetupCellEndEdit);
             this.groupSetup.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.GroupSetupEditingControlShowing);
             // 
@@ -1185,6 +1186,7 @@
             this.group_koeffOC1.HeaderText = "Коэф. отк./закр.";
             this.group_koeffOC1.MinimumWidth = 66;
             this.group_koeffOC1.Name = "group_koeffOC1";
+            this.group_koeffOC1.ReadOnly = true;
             this.group_koeffOC1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.group_koeffOC1.Width = 66;
             // 
@@ -1238,6 +1240,7 @@
             this.group_koeffOC2.HeaderText = "Коеф. отк./закр.";
             this.group_koeffOC2.MinimumWidth = 66;
             this.group_koeffOC2.Name = "group_koeffOC2";
+            this.group_koeffOC2.ReadOnly = true;
             this.group_koeffOC2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.group_koeffOC2.Width = 66;
             // 
@@ -1297,6 +1300,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tabConfiпWago);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ConfigPLC_S7";
             this.Size = new System.Drawing.Size(1024, 614);
