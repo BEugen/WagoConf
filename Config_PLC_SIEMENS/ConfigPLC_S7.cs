@@ -30,7 +30,6 @@ namespace Config_PLC_SIEMENS
             public int CommandNumber;
             public int[] Values;
         }
-
         protected enum CommandName 
         {
             SetupTimeShibers = 1,
@@ -56,11 +55,13 @@ namespace Config_PLC_SIEMENS
 
         delegate void Ui(bool eDwait);
         delegate void Ui1(int tagId);
+
+        private delegate void GridGroupCheck();
         private Queue<CommandToPlc> commandToPlc;
         ConfigPLCStore configClass;
         private StaticConfig _parametrsConfig;
         readonly System.Timers.Timer _tmrElapsedCmd;
-       // System.Timers.Timer tmrAdviseItem;
+        private Dictionary<int, int> checkedRow = new Dictionary<int, int>();
        
         public ConfigPLC_S7()
         {
@@ -1109,45 +1110,67 @@ namespace Config_PLC_SIEMENS
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[13].Value = timeclose.ToString("0.0");
 
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[11].Value = timekoeff;
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value = selecedIndex + 1;
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value = shiberOneTwo.shibernumber1;
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value = shiberOneTwo.shibernumber2;
                 }
-              }  
-            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 4)//shiber 1 change
+              }
+            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 4 && 
+                (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value != (selecedIndex +1))//shiber 1 change
             {
-
-                if ((selecedIndex+1) ==
-                    (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value)
+                if ((selecedIndex + 1) ==
+                    (int) groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value)
                 {
-                  //  MessageBox.Show("В одной группе не могут быть 2 одинаковых шибера", "Ошибка",
-                  //         MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Style.BackColor = Color.FromArgb(244, 144, 131);
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Style.BackColor = Color.FromArgb(244, 144, 131);
+                    //  MessageBox.Show("В одной группе не могут быть 2 одинаковых шибера", "Ошибка",
+                    //         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Style.BackColor =
+                        Color.FromArgb(244, 144, 131);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Style.BackColor =
+                        Color.FromArgb(244, 144, 131);
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].ErrorText =
                         "В одной группе не могут быть 2 одинаковых шибера";
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].ErrorText =
                         "В одной группе не могут быть 2 одинаковых шибера";
                     groupSetup.Update();
-                    return;
                 }
-                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Style.BackColor = System.Drawing.Color.Gainsboro;
-                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Style.BackColor = System.Drawing.Color.Gainsboro;
-                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].ErrorText = "";
-                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].ErrorText = "";
-                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value = selecedIndex + 1;
-                var shibersSetup = data.GetCurrentShiberConfigByShiberNumber(_rtpid, selecedIndex + 1).ToList();
-                if (shibersSetup.Count > 0)
+                else
                 {
-                    var shiberSetup = shibersSetup.First();
-                    timekoeff = CalcKoeffOpenClose(shiberSetup.timeOpen, shiberSetup.timeClose,
-                                                   ref timeopen, ref timeclose, ref timedoze);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].ErrorText = "";
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].ErrorText = "";
+                    
+                    var shibersSetup = data.GetCurrentShiberConfigByShiberNumber(_rtpid, selecedIndex + 1).ToList();
+                    if (shibersSetup.Count > 0)
+                    {
+                        var shiberSetup = shibersSetup.First();
+                        timekoeff = CalcKoeffOpenClose(shiberSetup.timeOpen, shiberSetup.timeClose,
+                                                       ref timeopen, ref timeclose, ref timedoze);
 
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
-                        timedoze.ToString("0.0");
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[7].Value =
-                        timeopen.ToString("0.0");
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[8].Value =
-                        timeclose.ToString("0.0");
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value = timekoeff;
+                        groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
+                            timedoze.ToString("0.0");
+                        groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[7].Value =
+                            timeopen.ToString("0.0");
+                        groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[8].Value =
+                            timeclose.ToString("0.0");
+                        groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value = timekoeff;
+                    }
                 }
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value = selecedIndex + 1;
+                foreach (DataGridViewRow row in groupSetup.Rows)
+                {
+                    if (row.Cells[2].Value != null &&
+                        row.Cells[2].Value.ToString() == groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[2].Value.ToString() &&
+                        row.Index != dataGridViewComboBoxCell.EditingControlRowIndex &&
+                        !checkedRow.ContainsKey(dataGridViewComboBoxCell.EditingControlRowIndex))
+                    {
+                            checkedRow.Add(row.Index, selecedIndex);
+
+                    }
+                } 
+                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit));
 
             }
            
@@ -1155,12 +1178,35 @@ namespace Config_PLC_SIEMENS
             {
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value = selecedIndex + 1;
             }
+           
         }
 
         private void GroupSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
         
         {
-groupSetup.Rows[e.RowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 172);
+                groupSetup.Rows[e.RowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 172);
+           if(e.ColumnIndex == 4)
+           {
+               groupSetup.BeginInvoke(new GridGroupCheck(CheckGroupsSelect));
+           }
+               
+        }
+        private void CheckGroupsSelect()
+        {
+
+            foreach (var i in checkedRow)
+            {
+                groupSetup.CurrentCell = groupSetup.Rows[i.Key].Cells[4];
+                groupSetup.BeginEdit(true);
+                DataGridViewComboBoxEditingControl cb =
+               (DataGridViewComboBoxEditingControl)groupSetup.EditingControl;
+                cb.SelectedIndex = i.Value;               
+            }
+            checkedRow.Clear();            
+        }
+        private void EndEdit()
+        {
+            groupSetup.EndEdit();
         }
 
 
@@ -1197,6 +1243,11 @@ groupSetup.Rows[e.RowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 
         private void GroupSetupCellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             
+        }
+
+        private void GroupSetupCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            checkedRow.Clear();
         }
     }
 }

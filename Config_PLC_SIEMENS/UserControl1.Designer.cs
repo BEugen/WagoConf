@@ -804,7 +804,7 @@
             this.tag_descr.AllowUserToResizeRows = false;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial Narrow", 11F);
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial Narrow", 10F);
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -957,7 +957,7 @@
             this.group_selectshibernumber2});
             dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(164)))));
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial Narrow", 10F);
             dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.DarkBlue;
             dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -991,9 +991,10 @@
             this.groupSetup.RowTemplate.DividerHeight = 1;
             this.groupSetup.RowTemplate.Height = 30;
             this.groupSetup.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.groupSetup.Size = new System.Drawing.Size(1016, 398);
+            this.groupSetup.Size = new System.Drawing.Size(1016, 444);
             this.groupSetup.TabIndex = 1;
             this.groupSetup.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GroupSetupCellBeginEdit);
+            this.groupSetup.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupSetupCellClick);
             this.groupSetup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupSetupCellEndEdit);
             this.groupSetup.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.GroupSetupEditingControlShowing);
             // 
@@ -1001,10 +1002,10 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(186)))), ((int)(((byte)(189)))));
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 473);
+            this.panel2.Location = new System.Drawing.Point(0, 519);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1016, 112);
+            this.panel2.Size = new System.Drawing.Size(1016, 66);
             this.panel2.TabIndex = 3;
             // 
             // panel1
@@ -1113,10 +1114,12 @@
             // 
             // group_seq
             // 
-            this.group_seq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_seq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle12.BackColor = System.Drawing.Color.Silver;
             this.group_seq.DefaultCellStyle = dataGridViewCellStyle12;
             this.group_seq.DividerWidth = 1;
+            this.group_seq.FillWeight = 65F;
             this.group_seq.HeaderText = "Порядок загрузки";
             this.group_seq.MinimumWidth = 65;
             this.group_seq.Name = "group_seq";
@@ -1138,7 +1141,7 @@
             // 
             // group_timebetwengroup
             // 
-            this.group_timebetwengroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timebetwengroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle13.Format = "N1";
             dataGridViewCellStyle13.NullValue = null;
             this.group_timebetwengroup.DefaultCellStyle = dataGridViewCellStyle13;
@@ -1151,7 +1154,7 @@
             // 
             // group_shibernumber1
             // 
-            this.group_shibernumber1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_shibernumber1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.group_shibernumber1.DefaultCellStyle = dataGridViewCellStyle14;
@@ -1159,25 +1162,25 @@
             this.group_shibernumber1.DividerWidth = 1;
             this.group_shibernumber1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.group_shibernumber1.HeaderText = "1 шибер в группе";
-            this.group_shibernumber1.MinimumWidth = 84;
+            this.group_shibernumber1.MinimumWidth = 90;
             this.group_shibernumber1.Name = "group_shibernumber1";
             this.group_shibernumber1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.group_shibernumber1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.group_shibernumber1.Width = 84;
+            this.group_shibernumber1.Width = 90;
             // 
             // group_timedoze1
             // 
-            this.group_timedoze1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timedoze1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_timedoze1.DividerWidth = 1;
             this.group_timedoze1.HeaderText = "Время дозиров.";
-            this.group_timedoze1.MinimumWidth = 68;
+            this.group_timedoze1.MinimumWidth = 70;
             this.group_timedoze1.Name = "group_timedoze1";
             this.group_timedoze1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timedoze1.Width = 68;
+            this.group_timedoze1.Width = 70;
             // 
             // group_koeffOC1
             // 
-            this.group_koeffOC1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_koeffOC1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_koeffOC1.DividerWidth = 1;
             this.group_koeffOC1.HeaderText = "Коэф. отк./закр.";
             this.group_koeffOC1.MinimumWidth = 66;
@@ -1187,7 +1190,7 @@
             // 
             // group_timeOpen1
             // 
-            this.group_timeOpen1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeOpen1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_timeOpen1.DividerWidth = 1;
             this.group_timeOpen1.HeaderText = "Время открытия";
             this.group_timeOpen1.MinimumWidth = 67;
@@ -1197,7 +1200,7 @@
             // 
             // group_timeClose1
             // 
-            this.group_timeClose1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeClose1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_timeClose1.DividerWidth = 2;
             this.group_timeClose1.HeaderText = "Время закрытия";
             this.group_timeClose1.MinimumWidth = 67;
@@ -1207,30 +1210,30 @@
             // 
             // group_shibernumber2
             // 
-            this.group_shibernumber2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_shibernumber2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_shibernumber2.DisplayStyleForCurrentCellOnly = true;
             this.group_shibernumber2.DividerWidth = 1;
             this.group_shibernumber2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.group_shibernumber2.HeaderText = "2 шибер в группе";
-            this.group_shibernumber2.MinimumWidth = 84;
+            this.group_shibernumber2.MinimumWidth = 90;
             this.group_shibernumber2.Name = "group_shibernumber2";
             this.group_shibernumber2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.group_shibernumber2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.group_shibernumber2.Width = 84;
+            this.group_shibernumber2.Width = 90;
             // 
             // group_timedoze2
             // 
-            this.group_timedoze2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timedoze2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_timedoze2.DividerWidth = 1;
             this.group_timedoze2.HeaderText = "Время дозиров.";
-            this.group_timedoze2.MinimumWidth = 65;
+            this.group_timedoze2.MinimumWidth = 70;
             this.group_timedoze2.Name = "group_timedoze2";
             this.group_timedoze2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.group_timedoze2.Width = 65;
+            this.group_timedoze2.Width = 70;
             // 
             // group_koeffOC2
             // 
-            this.group_koeffOC2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_koeffOC2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_koeffOC2.DividerWidth = 1;
             this.group_koeffOC2.HeaderText = "Коеф. отк./закр.";
             this.group_koeffOC2.MinimumWidth = 66;
@@ -1240,7 +1243,7 @@
             // 
             // group_timeOpen2
             // 
-            this.group_timeOpen2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeOpen2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_timeOpen2.DividerWidth = 1;
             this.group_timeOpen2.HeaderText = "Время открытия";
             this.group_timeOpen2.MinimumWidth = 67;
@@ -1250,7 +1253,7 @@
             // 
             // group_timeClose2
             // 
-            this.group_timeClose2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_timeClose2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_timeClose2.DividerWidth = 2;
             this.group_timeClose2.HeaderText = "Время закрытия";
             this.group_timeClose2.MinimumWidth = 67;
@@ -1260,13 +1263,13 @@
             // 
             // group_apply
             // 
-            this.group_apply.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.group_apply.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.group_apply.HeaderText = "Применить";
-            this.group_apply.MinimumWidth = 85;
+            this.group_apply.MinimumWidth = 83;
             this.group_apply.Name = "group_apply";
             this.group_apply.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.group_apply.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.group_apply.Width = 85;
+            this.group_apply.Width = 83;
             // 
             // group_selectgroup
             // 
