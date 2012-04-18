@@ -145,6 +145,7 @@
             this.group_selectshibernumber2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_change1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_change2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.group_timebetwin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -958,7 +959,8 @@
             this.group_selectshibernumber1,
             this.group_selectshibernumber2,
             this.group_change1,
-            this.group_change2});
+            this.group_change2,
+            this.group_timebetwin});
             dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(164)))));
             dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial Narrow", 10F);
@@ -1311,6 +1313,12 @@
             this.group_change2.Name = "group_change2";
             this.group_change2.Visible = false;
             // 
+            // group_timebetwin
+            // 
+            this.group_timebetwin.HeaderText = "group_timebetwin";
+            this.group_timebetwin.Name = "group_timebetwin";
+            this.group_timebetwin.Visible = false;
+            // 
             // ConfigPLC_S7
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1451,5 +1459,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn group_selectshibernumber2;
         private System.Windows.Forms.DataGridViewTextBoxColumn group_change1;
         private System.Windows.Forms.DataGridViewTextBoxColumn group_change2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn group_timebetwin;
     }
 }

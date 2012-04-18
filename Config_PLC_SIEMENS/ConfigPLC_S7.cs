@@ -1061,6 +1061,7 @@ namespace Config_PLC_SIEMENS
                 groupSetup.Rows[rnumber].Cells[17].Value = getGroupShiberSetupResult.shibernumber2;
                 groupSetup.Rows[rnumber].Cells[18].Value = 1;
                 groupSetup.Rows[rnumber].Cells[19].Value = 1;
+                groupSetup.Rows[rnumber].Cells[20].Value = 1;
             }
         }
 
@@ -1088,7 +1089,8 @@ namespace Config_PLC_SIEMENS
                 return;
             DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl)sender;
             int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
-            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2)//group change
+            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2  &&
+                (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value != (selecedIndex + 1))//group change
             {
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value = selecedIndex + 1;
                 var shibers = data.GetShibersConfigByGroupNumber(_rtpid, selecedIndex + 1).ToList();
@@ -1120,6 +1122,8 @@ namespace Config_PLC_SIEMENS
                 }
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[18].Value = "";
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[19].Value = "";
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[20].Value = "";
+                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[] { 0 }); 
               }
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 4 && 
                 (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value != (selecedIndex +1))//shiber 1 change
@@ -1253,7 +1257,16 @@ namespace Config_PLC_SIEMENS
         private void GroupSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
         
         {
+               double time;
                SetColorToChangeRows(e.RowIndex);
+               groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "";
+               if (!Double.TryParse(groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out time) && e.ColumnIndex != 2 && e.ColumnIndex != 4 && e.ColumnIndex != 9)
+               {
+                   groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0.0;
+                   groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Введите правильное значение";
+                   return;
+               }
+               
                 if (e.ColumnIndex == 4 || e.ColumnIndex == 9)
                 {
                     groupSetup.BeginInvoke(new GridGroupCheck(CheckGroupsSelect), new object[] {e.ColumnIndex});
@@ -1262,11 +1275,15 @@ namespace Config_PLC_SIEMENS
             {
                 double timeopen;
                 double timeclose;
+                
+                
                 GetTimeOpneClose(groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(),
                                  groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString(),
                                  out timeopen, out timeclose);
                 groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = (timeopen).ToString("0.0");
                 groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 3].Value = (timeclose).ToString("0.0");
+                groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].ErrorText = "";
+                groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 3].ErrorText = "";
 
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
@@ -1275,6 +1292,11 @@ namespace Config_PLC_SIEMENS
                         row.Cells[5].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                         row.Cells[7].Value = (timeopen).ToString("0.0");
                         row.Cells[8].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[5].ErrorText = "";
+                        row.Cells[7].ErrorText = "";
+                        row.Cells[8].ErrorText = "";
+
                         row.Cells[18].Value = 1;
                         SetColorToChangeRows(row.Index);
 
@@ -1284,6 +1306,11 @@ namespace Config_PLC_SIEMENS
                         row.Cells[10].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                         row.Cells[12].Value = (timeopen).ToString("0.0");
                         row.Cells[13].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[10].ErrorText = "";
+                        row.Cells[12].ErrorText = "";
+                        row.Cells[13].ErrorText = "";
+
                         row.Cells[19].Value = 1;
                         SetColorToChangeRows(row.Index);
                     }
@@ -1327,6 +1354,7 @@ namespace Config_PLC_SIEMENS
                     timeclose = 0;
                 }
                 groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose].Value = (timeopen + timeclose).ToString("0.0");
+                groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose].ErrorText = "";
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
                     if (row.Cells[4].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose - 1].Value.ToString())
@@ -1335,6 +1363,11 @@ namespace Config_PLC_SIEMENS
                         row.Cells[5].Value = (timeopen + timeclose).ToString("0.0");
                         row.Cells[7].Value = (timeopen).ToString("0.0");
                         row.Cells[8].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[5].ErrorText = "";
+                        row.Cells[7].ErrorText = "";
+                        row.Cells[8].ErrorText = "";
+
                         row.Cells[18].Value = 1;
                         SetColorToChangeRows(row.Index);
 
@@ -1344,7 +1377,26 @@ namespace Config_PLC_SIEMENS
                         row.Cells[10].Value = (timeopen + timeclose).ToString("0.0");
                         row.Cells[12].Value = (timeopen).ToString("0.0");
                         row.Cells[13].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[10].ErrorText = "";
+                        row.Cells[12].ErrorText = "";
+                        row.Cells[13].ErrorText = "";
+
                         row.Cells[19].Value = 1;
+                        SetColorToChangeRows(row.Index);
+                    }
+                }
+
+            }
+            if(e.ColumnIndex == 3)
+            {
+                groupSetup.Rows[e.RowIndex].Cells[20].Value = 1;
+                foreach (DataGridViewRow row in groupSetup.Rows)
+                {
+                    if (row.Cells[2].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[2].Value.ToString())
+                    {
+                        row.Cells[3].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                        row.Cells[3].ErrorText = "";
                         SetColorToChangeRows(row.Index);
                     }
                 }
@@ -1410,6 +1462,18 @@ namespace Config_PLC_SIEMENS
         private void GroupSetupCellClick(object sender, DataGridViewCellEventArgs e)
         {
             checkedRow.Clear();
+            if (e.ColumnIndex == 14)
+            {
+                foreach (DataGridViewCell cell in groupSetup.Rows[e.RowIndex].Cells)
+                {
+                    if (cell.ErrorText != "")
+                    {
+                        MessageBox.Show("Неверные параметры (ячейка: " + cell.ColumnIndex + ")", "Ошибка",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
         }
         private void SetColorToChangeRows(int rowIndex)
         {
@@ -1552,6 +1616,12 @@ namespace Config_PLC_SIEMENS
                         groupSetup.Rows[rowIndex].Cells[6].Value = row.Cells[6].Value;
                         groupSetup.Rows[rowIndex].Cells[7].Value = row.Cells[7].Value;
                         groupSetup.Rows[rowIndex].Cells[8].Value = row.Cells[8].Value;
+
+                        groupSetup.Rows[rowIndex].Cells[5].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[6].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[7].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[8].ErrorText = "";
+
                         groupSetup.Rows[rowIndex].Cells[18].Value = "1";
                     }
                     if (row.Index != rowIndex && row.Cells[9].Value == groupSetup.Rows[rowIndex].Cells[9].Value &&
@@ -1561,7 +1631,21 @@ namespace Config_PLC_SIEMENS
                         groupSetup.Rows[rowIndex].Cells[11].Value = row.Cells[11].Value;
                         groupSetup.Rows[rowIndex].Cells[12].Value = row.Cells[12].Value;
                         groupSetup.Rows[rowIndex].Cells[13].Value = row.Cells[13].Value;
+
+                        groupSetup.Rows[rowIndex].Cells[10].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[11].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[12].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[13].ErrorText = "";
+
                         groupSetup.Rows[rowIndex].Cells[19].Value = "1";
+                    }
+                    if (row.Index != rowIndex && row.Cells[2].Value.ToString() == groupSetup.Rows[rowIndex].Cells[2].Value.ToString()
+                        && row.Cells[20].Value.ToString() == "1")
+                    {
+                        groupSetup.Rows[rowIndex].Cells[3].Value = row.Cells[3].Value;
+                        groupSetup.Rows[rowIndex].Cells[3].ErrorText = "";
+
+                        groupSetup.Rows[rowIndex].Cells[20].Value = "1";
                     }
                 }
             }
@@ -1578,6 +1662,12 @@ namespace Config_PLC_SIEMENS
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 2].Value = row.Cells[cell9 ? 11 : 6].Value;
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 3].Value = row.Cells[cell9 ? 12 : 7].Value;
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 4].Value = row.Cells[cell9 ? 13 : 8].Value;
+
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 1].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 2].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 3].ErrorText = "";
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 4].ErrorText = "";
+
                         groupSetup.Rows[rowIndex].Cells[columnIndex == 4? 18 : 19].Value = "1";
                     }
                 }
