@@ -1059,8 +1059,8 @@ namespace Config_PLC_SIEMENS
                 groupSetup.Rows[rnumber].Cells[15].Value = getGroupShiberSetupResult.groupnumber;
                 groupSetup.Rows[rnumber].Cells[16].Value = getGroupShiberSetupResult.shibernumber1;
                 groupSetup.Rows[rnumber].Cells[17].Value = getGroupShiberSetupResult.shibernumber2;
-                groupSetup.Rows[rnumber].Cells[18].Value = getGroupShiberSetupResult.shibernumber1;
-                groupSetup.Rows[rnumber].Cells[19].Value = getGroupShiberSetupResult.shibernumber2;
+                groupSetup.Rows[rnumber].Cells[18].Value = 1;
+                groupSetup.Rows[rnumber].Cells[19].Value = 1;
             }
         }
 
@@ -1545,7 +1545,7 @@ namespace Config_PLC_SIEMENS
             {
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
-                    if(row.Index != rowIndex && row.Cells[4].Value == groupSetup.Rows[rowIndex].Cells[columnIndex].Value &&
+                    if(row.Index != rowIndex && row.Cells[4].Value.ToString() == groupSetup.Rows[rowIndex].Cells[4].Value.ToString() &&
                         row.Cells[18].Value.ToString() == "1")
                     {
                         groupSetup.Rows[rowIndex].Cells[5].Value = row.Cells[5].Value;
@@ -1554,7 +1554,7 @@ namespace Config_PLC_SIEMENS
                         groupSetup.Rows[rowIndex].Cells[8].Value = row.Cells[8].Value;
                         groupSetup.Rows[rowIndex].Cells[18].Value = "1";
                     }
-                    if (row.Index != rowIndex && row.Cells[9].Value == groupSetup.Rows[rowIndex].Cells[columnIndex].Value &&
+                    if (row.Index != rowIndex && row.Cells[9].Value == groupSetup.Rows[rowIndex].Cells[9].Value &&
                         row.Cells[19].Value.ToString() == "1")
                     {
                         groupSetup.Rows[rowIndex].Cells[10].Value = row.Cells[10].Value;
@@ -1562,6 +1562,23 @@ namespace Config_PLC_SIEMENS
                         groupSetup.Rows[rowIndex].Cells[12].Value = row.Cells[12].Value;
                         groupSetup.Rows[rowIndex].Cells[13].Value = row.Cells[13].Value;
                         groupSetup.Rows[rowIndex].Cells[19].Value = "1";
+                    }
+                }
+            }
+            if(columnIndex == 4 || columnIndex == 9)
+            {
+                bool cell9 = false;
+                foreach (DataGridViewRow row in groupSetup.Rows)
+                {
+                    if (row.Index != rowIndex &&
+                       ( (row.Cells[4].Value.ToString() == groupSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString() && row.Cells[18].Value.ToString() == "1") ||
+                         ((cell9 = (row.Cells[9].Value.ToString() == groupSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString())) && row.Cells[19].Value.ToString() == "1")))
+                    {
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 1].Value = row.Cells[cell9? 10 : 5].Value;
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 2].Value = row.Cells[cell9 ? 11 : 6].Value;
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 3].Value = row.Cells[cell9 ? 12 : 7].Value;
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 4].Value = row.Cells[cell9 ? 13 : 8].Value;
+                        groupSetup.Rows[rowIndex].Cells[columnIndex == 4? 18 : 19].Value = "1";
                     }
                 }
             }
