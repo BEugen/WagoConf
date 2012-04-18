@@ -143,6 +143,8 @@
             this.group_selectgroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_selectshibernumber1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_selectshibernumber2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.group_change1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.group_change2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -954,7 +956,9 @@
             this.group_apply,
             this.group_selectgroup,
             this.group_selectshibernumber1,
-            this.group_selectshibernumber2});
+            this.group_selectshibernumber2,
+            this.group_change1,
+            this.group_change2});
             dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(164)))));
             dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial Narrow", 10F);
@@ -1295,6 +1299,18 @@
             this.group_selectshibernumber2.ReadOnly = true;
             this.group_selectshibernumber2.Visible = false;
             // 
+            // group_change1
+            // 
+            this.group_change1.HeaderText = "group_change1";
+            this.group_change1.Name = "group_change1";
+            this.group_change1.Visible = false;
+            // 
+            // group_change2
+            // 
+            this.group_change2.HeaderText = "group_change2";
+            this.group_change2.Name = "group_change2";
+            this.group_change2.Visible = false;
+            // 
             // ConfigPLC_S7
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1433,5 +1449,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn group_selectgroup;
         private System.Windows.Forms.DataGridViewTextBoxColumn group_selectshibernumber1;
         private System.Windows.Forms.DataGridViewTextBoxColumn group_selectshibernumber2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn group_change1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn group_change2;
     }
 }

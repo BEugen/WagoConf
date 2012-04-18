@@ -57,6 +57,8 @@ namespace Config_PLC_SIEMENS
         delegate void Ui1(int tagId);
 
         private delegate void GridGroupCheck(int columnIndex);
+
+        private delegate void CheckShiberSetup(int indexRow, int indexColumn);
         private Queue<CommandToPlc> commandToPlc;
         ConfigPLCStore configClass;
         private StaticConfig _parametrsConfig;
@@ -1057,6 +1059,8 @@ namespace Config_PLC_SIEMENS
                 groupSetup.Rows[rnumber].Cells[15].Value = getGroupShiberSetupResult.groupnumber;
                 groupSetup.Rows[rnumber].Cells[16].Value = getGroupShiberSetupResult.shibernumber1;
                 groupSetup.Rows[rnumber].Cells[17].Value = getGroupShiberSetupResult.shibernumber2;
+                groupSetup.Rows[rnumber].Cells[18].Value = getGroupShiberSetupResult.shibernumber1;
+                groupSetup.Rows[rnumber].Cells[19].Value = getGroupShiberSetupResult.shibernumber2;
             }
         }
 
@@ -1114,6 +1118,8 @@ namespace Config_PLC_SIEMENS
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value = shiberOneTwo.shibernumber1;
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value = shiberOneTwo.shibernumber2;
                 }
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[18].Value = "";
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[19].Value = "";
               }
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 4 && 
                 (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value != (selecedIndex +1))//shiber 1 change
@@ -1159,6 +1165,7 @@ namespace Config_PLC_SIEMENS
                     }
                 }
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value = selecedIndex + 1;
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[18].Value = "";
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
                     if (row.Cells[2].Value != null &&
@@ -1218,6 +1225,7 @@ namespace Config_PLC_SIEMENS
                     }
                 }
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value = selecedIndex + 1;
+                groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[19].Value = "";
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
                     if (row.Cells[2].Value != null &&
@@ -1234,7 +1242,12 @@ namespace Config_PLC_SIEMENS
                 }
                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[]{0}); 
             }
-           
+            groupSetup.BeginInvoke(new CheckShiberSetup(CheckChangeSetup), new object[]
+                                                               {
+                                                                   dataGridViewComboBoxCell.EditingControlRowIndex,
+                                                                   dataGridViewComboBoxCell.EditingControlDataGridView.
+                                                                       CurrentCell.ColumnIndex
+                                                               });
         }
 
         private void GroupSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -1262,6 +1275,7 @@ namespace Config_PLC_SIEMENS
                         row.Cells[5].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                         row.Cells[7].Value = (timeopen).ToString("0.0");
                         row.Cells[8].Value = (timeclose).ToString("0.0");
+                        row.Cells[18].Value = 1;
                         SetColorToChangeRows(row.Index);
 
                     }
@@ -1270,6 +1284,7 @@ namespace Config_PLC_SIEMENS
                         row.Cells[10].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                         row.Cells[12].Value = (timeopen).ToString("0.0");
                         row.Cells[13].Value = (timeclose).ToString("0.0");
+                        row.Cells[19].Value = 1;
                         SetColorToChangeRows(row.Index);
                     }
                 }
@@ -1320,6 +1335,7 @@ namespace Config_PLC_SIEMENS
                         row.Cells[5].Value = (timeopen + timeclose).ToString("0.0");
                         row.Cells[7].Value = (timeopen).ToString("0.0");
                         row.Cells[8].Value = (timeclose).ToString("0.0");
+                        row.Cells[18].Value = 1;
                         SetColorToChangeRows(row.Index);
 
                     }
@@ -1328,6 +1344,7 @@ namespace Config_PLC_SIEMENS
                         row.Cells[10].Value = (timeopen + timeclose).ToString("0.0");
                         row.Cells[12].Value = (timeopen).ToString("0.0");
                         row.Cells[13].Value = (timeclose).ToString("0.0");
+                        row.Cells[19].Value = 1;
                         SetColorToChangeRows(row.Index);
                     }
                 }
@@ -1344,7 +1361,8 @@ namespace Config_PLC_SIEMENS
                 groupSetup.BeginEdit(true);
                 DataGridViewComboBoxEditingControl cb =
                (DataGridViewComboBoxEditingControl)groupSetup.EditingControl;
-                cb.SelectedIndex = i.Value;               
+                cb.SelectedIndex = i.Value; 
+              
             }
             checkedRow.Clear();            
         }
@@ -1502,6 +1520,7 @@ namespace Config_PLC_SIEMENS
 
                             row.Cells[7].Value = (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
                             row.Cells[8].Value = (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                            row.Cells[18].Value = 1;
                             SetColorToChangeRows(row.Index);
 
                         }
@@ -1512,8 +1531,37 @@ namespace Config_PLC_SIEMENS
                                                                            dChangeKoeff.KoeffClose.ToString("0.0");
                             row.Cells[12].Value = (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
                             row.Cells[13].Value = (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                            row.Cells[19].Value = 1;
                             SetColorToChangeRows(row.Index);
                         }
+                    }
+                }
+            }
+        }
+
+        private void CheckChangeSetup(int rowIndex, int columnIndex)
+        {
+            if(columnIndex == 2)
+            {
+                foreach (DataGridViewRow row in groupSetup.Rows)
+                {
+                    if(row.Index != rowIndex && row.Cells[4].Value == groupSetup.Rows[rowIndex].Cells[columnIndex].Value &&
+                        row.Cells[18].Value.ToString() == "1")
+                    {
+                        groupSetup.Rows[rowIndex].Cells[5].Value = row.Cells[5].Value;
+                        groupSetup.Rows[rowIndex].Cells[6].Value = row.Cells[6].Value;
+                        groupSetup.Rows[rowIndex].Cells[7].Value = row.Cells[7].Value;
+                        groupSetup.Rows[rowIndex].Cells[8].Value = row.Cells[8].Value;
+                        groupSetup.Rows[rowIndex].Cells[18].Value = "1";
+                    }
+                    if (row.Index != rowIndex && row.Cells[9].Value == groupSetup.Rows[rowIndex].Cells[columnIndex].Value &&
+                        row.Cells[19].Value.ToString() == "1")
+                    {
+                        groupSetup.Rows[rowIndex].Cells[10].Value = row.Cells[10].Value;
+                        groupSetup.Rows[rowIndex].Cells[11].Value = row.Cells[11].Value;
+                        groupSetup.Rows[rowIndex].Cells[12].Value = row.Cells[12].Value;
+                        groupSetup.Rows[rowIndex].Cells[13].Value = row.Cells[13].Value;
+                        groupSetup.Rows[rowIndex].Cells[19].Value = "1";
                     }
                 }
             }
