@@ -1011,7 +1011,7 @@ namespace Config_PLC_SIEMENS
             foreach (var getGroupShiberSetupResult in groupShibers)
             {
                 int rnumber = groupSetup.Rows.Add();
-                groupSetup.Rows[rnumber].Cells[0].Value = getGroupShiberSetupResult.id;
+                groupSetup.Rows[rnumber].Cells[0].Value = "";
                 groupSetup.Rows[rnumber].Cells[1].Value = getGroupShiberSetupResult.sequencenumber;
                 var groupBox = ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[2]);
                 groupBox.Items.Clear();
@@ -1494,6 +1494,7 @@ namespace Config_PLC_SIEMENS
         }
         private void SetColorToChangeRows(int rowIndex)
         {
+            groupSetup.Rows[rowIndex].Cells[0].Value = 1;
             groupSetup.Rows[rowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 172);
         }
 
@@ -1834,6 +1835,28 @@ namespace Config_PLC_SIEMENS
                        System.Drawing.Color.Gainsboro;
             }
             CommandForPlc();
+        }
+
+        private void ApplyClick(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in groupSetup.Rows)
+            {
+                if (row.Cells[0].Value.ToString() == "1")
+                {
+                    if (CommangChangeGroupConfig(row.Index, false) != 0)
+                        break;
+                    row.Cells[1].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                }
+            }
+            if (typeWorkToGroupSetup.SelectedIndex == 1)
+                CommandForPlc();
+            else
+            {
+                commandToPlc.Clear();
+                RtpConfigDataContext data = new RtpConfigDataContext();
+                data.SetErrorDownloadToPlc(_rtpid, 1);
+            }
         }
 
     }
