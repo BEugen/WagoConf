@@ -32,14 +32,16 @@ namespace Config_PLC_SIEMENS
         }
         protected enum CommandName 
         {
-            SetupTimeShibers = 1,
+            SetupTimeShibers1 = 1,
             SetupReopenShibers = 2,
             MountChannel = 3,
             MountModul = 4,
             MountGenericSignals = 5,
             MountShiberToOneSequency = 6,
             MountShiberToGroupSequency = 7,
-            MountShiberNumberToGroupSequency = 8         
+            MountShiberNumberToGroupSequency = 8,  
+            OnOffBypassShiber = 9,
+            SetupTimeShibers2 = 10
         }  
         int _selectedTab;
 
@@ -58,6 +60,7 @@ namespace Config_PLC_SIEMENS
 
         private delegate void GridGroupCheck(int columnIndex);
 
+        private delegate void WaitMessageArg(string text, bool waitVisible);
         private delegate void CheckShiberSetup(int indexRow, int indexColumn);
         private Queue<CommandToPlc> commandToPlc;
         ConfigPLCStore configClass;
@@ -335,6 +338,7 @@ namespace Config_PLC_SIEMENS
                     CheckHardwareConfigError();
                     break;
                 case 2:
+                    typeWorkToGroupSetup.SelectedIndex = 1;
                     LoadGroupConfig();
                     break;
                 default:
@@ -630,14 +634,16 @@ namespace Config_PLC_SIEMENS
             _tmrElapsedCmd.Start();
             _command = comandAndParam.CommandNumber;
             _params = comandAndParam.Values;
-            set_text_mount_wait.Text = "Команда PLC: " + _command + "; P1: " + _params[0] + 
-                                                                     "; P2: " + _params[1] +
-                                                                     ";\nP3: " + _params[2] +
-                                                                     "; P4: " + _params[3] +
-                                                                     "; P5: " + _params[4] +
-                                                                     "; P6: " + _params[5] + 
-                           "\n Ожидаем ответ PLC " + _parametrsConfig.TimeOut + " секунд";
-            WaitMount(true);
+            text_wait.Text = "Команда PLC: " + _command + "; P1: " + _params[0] +
+                             "; P2: " + _params[1] +
+                             ";\nP3: " + _params[2] +
+                             "; P4: " + _params[3] +
+                             "; P5: " + _params[4] +
+                             "; P6: " + _params[5] +
+                             "\n Ожидаем ответ PLC " + _parametrsConfig.TimeOut +
+                             " секунд";
+           if(!pan_command_wait.Visible)                                               
+                WaitMount(true);
             if (null != CommandEvent)
                 CommandEvent();
         }
@@ -647,47 +653,35 @@ namespace Config_PLC_SIEMENS
             if (enableDisable)
             {
                 
-                tabConfiпWago.Enabled= false;
-
-                set_pan_mount_wait.Top = Height / 2 - set_pan_mount_wait.Height/ 2;
-                set_pan_mount_wait.Left = Width / 2 - set_pan_mount_wait.Width/ 2;
-                set_pan_mount_wait.Visible = true;               
+                tabConfiпWago.Enabled= false;             
                 set_treeview_mount.Enabled = false;
                 set_gb_channel_mount.Enabled = false;
                 set_gb_type_module.Enabled = false;
-
-
                 set_menu.Enabled = false;
-        
-
-
-                pan_tag_wait.Top = Height / 2 - pan_tag_wait.Height / 2;
-                pan_tag_wait.Left = Width / 2 - pan_tag_wait.Width / 2;
-                pan_tag_wait.Visible = true;
+                pan_command_wait.Top = Height / 2 - pan_command_wait.Height / 2;
+                pan_command_wait.Left = Width / 2 - pan_command_wait.Width / 2;
+                pan_command_wait.Visible = true;
 
 
             }
             else
             {
                 tabConfiпWago.Enabled = true;
-                set_pan_mount_wait.Visible = false;
                 set_treeview_mount.Enabled = true;
                 set_gb_channel_mount.Enabled = true;
                 set_gb_type_module.Enabled = true;
                 set_menu.Enabled = true;
-                pan_tag_wait.Visible = false;
-                set_text_mount_wait.Text = "";
+                pan_command_wait.Visible = false;
             }
         }
 
-
         void AcceptForPlc()
         {
-            WaitMount(false);
+           // WaitMount(false);
             switch (_accept) 
             {                
                             
-                case 30: case 40: case 50:
+                case 10: case 20: case 30: case 40: case 50: case  60: case 70: case 80: case 90: case 100:
                     _accept = -1;
                     ExternalCommand();
                     
@@ -702,10 +696,14 @@ namespace Config_PLC_SIEMENS
 
         private void ExternalCommand()
         {
-            
+
             if (commandToPlc.Count > 0)
             {
                 CommandForPlc();
+            }
+            else
+            {
+                WaitMount(false);
             }
             _tmrElapsedCmd.Stop();
         }
@@ -1277,7 +1275,7 @@ namespace Config_PLC_SIEMENS
                 double timeclose;
                 
                 
-                GetTimeOpneClose(groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(),
+                GetTimeOpenClose(groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(),
                                  groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString(),
                                  out timeopen, out timeclose);
                 groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = (timeopen).ToString("0.0");
@@ -1473,6 +1471,25 @@ namespace Config_PLC_SIEMENS
                         return;
                     }
                 }
+                if(CommangChangeGroupConfig(e.RowIndex, false) == 0)
+                {
+                    groupSetup.Rows[e.RowIndex].Cells[1].Style.BackColor =
+                       System.Drawing.Color.Gainsboro;
+                    if (typeWorkToGroupSetup.SelectedIndex == 1)
+                        CommandForPlc();
+                    else
+                    {
+                        commandToPlc.Clear();
+                        RtpConfigDataContext data = new RtpConfigDataContext();
+                        data.SetErrorDownloadToPlc(_rtpid, 1);
+                    }
+                    CommandForPlc();
+                }
+                else
+                {
+                    groupSetup.Rows[e.RowIndex].Cells[1].Style.BackColor =
+                        Color.FromArgb(244, 144, 131);
+                }
             }
         }
         private void SetColorToChangeRows(int rowIndex)
@@ -1480,7 +1497,7 @@ namespace Config_PLC_SIEMENS
             groupSetup.Rows[rowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 172);
         }
 
-        private void GetTimeOpneClose(string timeDoze, string koeff, out double timeOpen, out double timeClose)
+        private void GetTimeOpenClose(string timeDoze, string koeff, out double timeOpen, out double timeClose)
         {
             double timedoze = 0.0;
             timeOpen = 0;
@@ -1672,6 +1689,151 @@ namespace Config_PLC_SIEMENS
                     }
                 }
             }
+        }
+
+        private int CommangChangeGroupConfig(int rowIndex, bool noStore)
+        {
+            int result = 0;
+            try
+            {
+                int timeBetwen;
+                int timeOpen1;
+                int timeClose1;
+                int timeOpen2;
+                int timeClose2;
+                int sequencenumber;
+                int groupnumber;
+                int shibernumber1;
+                int shibernumber2;
+                int[] paramset = new int[6];
+                var commandOne = new CommandToPlc();
+                RtpConfigDataContext data = new RtpConfigDataContext();
+                GetParamToSaveGroupConfig(rowIndex, out timeBetwen, out timeOpen1, out timeClose1, out timeOpen2,
+                                          out timeClose2);
+                sequencenumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[1].Value);
+                groupnumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[15].Value);
+                shibernumber1 = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[16].Value);
+                shibernumber2 = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[17].Value);
+
+                if(!noStore)
+                  data.SaveGroupSequence(_rtpid, sequencenumber, groupnumber); //setup group to sequence
+
+                paramset[0] = sequencenumber;
+                paramset[1] = groupnumber;
+                commandOne.CommandNumber = (int) CommandName.MountShiberToGroupSequency;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
+                
+                if(!noStore)
+                  data.SaveGroupConfig(_rtpid, groupnumber, shibernumber1, shibernumber2, timeBetwen);
+                
+                paramset = new int[6];
+                commandOne = new CommandToPlc();
+                paramset[0] = groupnumber;
+                paramset[1] = shibernumber1;
+                paramset[2] = shibernumber2;
+                paramset[3] = timeBetwen;
+                commandOne.CommandNumber = (int) CommandName.MountShiberNumberToGroupSequency;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
+
+                if(!noStore)
+                   data.SaveShiberConfigForGroup(_rtpid, shibernumber1, timeOpen1, timeClose1, shibernumber2, timeOpen2,
+                                              timeClose2);
+                paramset = new int[6];
+                commandOne = new CommandToPlc();
+                paramset[0] = shibernumber1;
+                paramset[1] = timeOpen1;
+                paramset[2] = timeClose1;
+                commandOne.CommandNumber = (int) CommandName.SetupTimeShibers1;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
+
+                paramset = new int[6];
+                commandOne = new CommandToPlc();
+                paramset[0] = shibernumber2;
+                paramset[1] = timeOpen2;
+                paramset[2] = timeClose2;
+                commandOne.CommandNumber = (int) CommandName.SetupTimeShibers1;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
+                result = 0;
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка сохранения параметров (" + ex.Message + ")", "Ошибка",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                result = -1;
+            }
+
+            return result;
+        }
+
+        private void GetParamToSaveGroupConfig(int rowIndex, out int timeBetwen, out int timeOpen1, out int timeClose1, out int timeOpen2, out int timeClose2)
+        {
+            try
+            {
+                timeBetwen = (int) (Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[3].Value)*100);
+            }
+            catch
+            {
+                timeBetwen = 0;
+            }
+            try
+            {
+                timeOpen1 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[7].Value) * 100);
+            }
+            catch
+            {
+                timeOpen1 = 0;
+            }
+            try
+            {
+                timeClose1 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[8].Value) * 100);
+            }
+            catch
+            {
+                timeClose1 = 0;
+            }
+
+            try
+            {
+                timeOpen2 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[12].Value) * 100);
+            }
+            catch
+            {
+                timeOpen2 = 0;
+            }
+            try
+            {
+                timeClose2 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[13].Value) * 100);
+            }
+            catch
+            {
+                timeClose2 = 0;
+            }
+        }
+
+        private void TypeWorkToGroupSetupSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (typeWorkToGroupSetup.SelectedIndex == 1)
+               downloadGroupConfigAll.Enabled = true;
+            else
+                downloadGroupConfigAll.Enabled = false;
+        }
+
+        private void DownloadGroupConfigAllClick(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in groupSetup.Rows)
+            {
+                if (CommangChangeGroupConfig(row.Index, false) != 0)
+                    break;
+               row.Cells[1].Style.BackColor =
+                       System.Drawing.Color.Gainsboro;
+            }
+            CommandForPlc();
         }
 
     }

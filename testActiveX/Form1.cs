@@ -21,7 +21,7 @@ namespace testActiveX
             tmrElapsedCMD = new System.Timers.Timer(2000);
             tmrElapsedCMD.Elapsed += new System.Timers.ElapsedEventHandler(tmrElapsedCMD_Elapsed);
             configPLC_S71.CommandEvent += new Config_PLC_SIEMENS.ConfigPLC_S7.CommandEventHandler(configPLC_S71_CommandEvent);
-            tmrElapsedCMD.Start();
+            
         }
 
         void configPLC_S71_CommandEvent()
@@ -45,13 +45,14 @@ namespace testActiveX
                 log.AddText = "Command:"+ param[0] + "; P1:" + param[1] + "; P2:" +
                               param[2] + "; P3:" + param[3] + "; P4:" + param[4] +
                               "; P5:" + param[5] + "; P6:" + param[6];
-                if (configPLC_S71.Command != 0)
-                    configPLC_S71.Accept = configPLC_S71.Command * 10;
+                tmrElapsedCMD.Start();
+                
             }
         }
 
         void tmrElapsedCMD_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            
             try
             {
                 UpdateInterface ui = new UpdateInterface(UI);
@@ -68,7 +69,8 @@ namespace testActiveX
 
         private void UI(bool ui, string err)
         {
-            
+            if (configPLC_S71.Command != 0)
+                    configPLC_S71.Accept = configPLC_S71.Command * 10;
 
 
             cmd.Text = configPLC_S71.Command.ToString();

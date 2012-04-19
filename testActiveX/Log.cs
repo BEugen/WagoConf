@@ -11,16 +11,23 @@ namespace testActiveX
 {
     public partial class Log : Form
     {
+        private delegate void LogEventArg(string text);
         public string AddText
         {
             set
             {
-                richTextBox1.AppendText(DateTime.Now.ToString("d.MM.yyyy HH:mm:ss") + " " + value + "\n\r");
+                if (richTextBox1.InvokeRequired)
+                  richTextBox1.BeginInvoke(new LogEventArg(LogsText), new object[] { DateTime.Now.ToString("d.MM.yyyy HH:mm:ss") + " " + value + "\n\r" });
             }
         }
         public Log()
         {
             InitializeComponent();
+        }
+
+        private void LogsText(string text)
+        {
+            richTextBox1.AppendText(text);
         }
     }
 }

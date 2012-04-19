@@ -40,7 +40,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=HM\MSQL;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=WKZP85824;Integrated Security=True;Pooling=False</TargetConnectionString>
     <TargetDatabase>
     </TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -238,6 +238,15 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="GetCurrentShiberConfigByShiberNumber.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="SaveGroupSequence.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="SaveGroupConfig.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="SaveShiberConfigForGroup.proc.sql">
       <SubType>Code</SubType>
     </Build>
   </ItemGroup>
