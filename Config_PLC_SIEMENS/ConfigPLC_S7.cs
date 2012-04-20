@@ -341,6 +341,9 @@ namespace Config_PLC_SIEMENS
                     typeWorkToGroupSetup.SelectedIndex = 1;
                     LoadGroupConfig();
                     break;
+                case 3:
+                    LoadSingleConfig();
+                    break;
                 default:
                     break;
 
@@ -1856,6 +1859,56 @@ namespace Config_PLC_SIEMENS
                 commandToPlc.Clear();
                 RtpConfigDataContext data = new RtpConfigDataContext();
                 data.SetErrorDownloadToPlc(_rtpid, 1);
+            }
+        } 
+
+
+        private void LoadSingleConfig()
+        {
+            singleSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
+            singleSetup.Rows.Clear();
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            var singlesetups = data.GetSingleShiberSetup(_rtpid).ToList();
+            var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
+            int halfcount = singlesetups.Count/2 - 1;
+            int offsetc = 0;
+            int ind = 0;
+            int rnumber = 0;
+            foreach (GetSingleShiberSetupResult getSingleShiberSetupResult in singlesetups)
+            {
+                if (ind > halfcount)
+                {
+                    offsetc = 11;
+                    rnumber = ind - singleSetup.Rows.Count;
+                }
+                else
+                {
+                    rnumber = singleSetup.Rows.Add();
+                }
+                
+                singleSetup.Rows[rnumber].Cells[0 + offsetc].Value = "";
+                singleSetup.Rows[rnumber].Cells[1 + offsetc].Value = getSingleShiberSetupResult.sequencenumber;
+                var shiberb = ((DataGridViewComboBoxCell)singleSetup.Rows[rnumber].Cells[2 + offsetc]);
+                shiberb.Items.Clear();
+                foreach (GetRtpSignalGroupsResult shiber in shibers)
+                {
+                    shiberb.Items.Add(CutShiberName(shiber.signalgroupdescription));
+                }
+                singleSetup.Rows[rnumber].Cells[2 + offsetc].Value = CutShiberName(getSingleShiberSetupResult.signalgroupdescription);
+                double timedoze = 0;
+                double timeopen = 0;
+                double timeclose = 0;
+                string timekoeff = "";
+                timekoeff = CalcKoeffOpenClose(getSingleShiberSetupResult.timeOpen, getSingleShiberSetupResult.timeClose,
+                                               ref timeopen, ref timeclose, ref timedoze);
+                singleSetup.Rows[rnumber].Cells[3 + offsetc].Value = timekoeff;
+                singleSetup.Rows[rnumber].Cells[4 + offsetc].Value = timedoze.ToString("0.0");
+                singleSetup.Rows[rnumber].Cells[5 + offsetc].Value = timeopen.ToString("0.0");
+                singleSetup.Rows[rnumber].Cells[6 + offsetc].Value = timeclose.ToString("0.0");
+                if (getSingleShiberSetupResult.timeBetwenShiber != null)
+                    singleSetup.Rows[rnumber].Cells[7 + offsetc].Value = ((double)getSingleShiberSetupResult.timeBetwenShiber/100).ToString("0.0");
+                singleSetup.Rows[rnumber].Cells[8 + offsetc].Value = "Применить";
+                ind++;
             }
         }
 

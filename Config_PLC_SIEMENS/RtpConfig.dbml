@@ -229,4 +229,15 @@
     <Parameter Name="timeClose2" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GetSingleShiberSetup" Method="GetSingleShiberSetup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetSingleShiberSetupResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sequencenumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="timeOpen" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeClose" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenShiber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

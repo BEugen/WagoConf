@@ -50,6 +50,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             this.set_conmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.set_conmenu_add = new System.Windows.Forms.ToolStripMenuItem();
             this.set_conmenu_del = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,6 +142,8 @@
             this.group_change2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_timebetwin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ret = new System.Windows.Forms.Button();
+            this.apply = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -148,8 +161,34 @@
             this.pan_command_wait = new System.Windows.Forms.Panel();
             this.text_wait = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.apply = new System.Windows.Forms.Button();
-            this.ret = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.singleSetup = new System.Windows.Forms.DataGridView();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.singlesetup_id1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_sequence1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_shiber1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.singlesetup_timeDoze1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_koeffOpenClose1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_timeOpen1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_timeClose1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_timeNext1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_apply1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_id2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_sequence2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_shiber2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.singlesetup_timeDoze2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_koeffOpenClose2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_timeOpen2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_timeClose2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_timeNext2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.singlesetup_apply2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -169,7 +208,11 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.typeWorkGroupSetup.SuspendLayout();
+            this.single_setup.SuspendLayout();
             this.pan_command_wait.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.singleSetup)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // set_conmenu
@@ -1166,6 +1209,27 @@
             this.panel2.Size = new System.Drawing.Size(1016, 110);
             this.panel2.TabIndex = 3;
             // 
+            // ret
+            // 
+            this.ret.Location = new System.Drawing.Point(858, 32);
+            this.ret.Margin = new System.Windows.Forms.Padding(2);
+            this.ret.Name = "ret";
+            this.ret.Size = new System.Drawing.Size(112, 32);
+            this.ret.TabIndex = 5;
+            this.ret.Text = "Вернуться";
+            this.ret.UseVisualStyleBackColor = true;
+            // 
+            // apply
+            // 
+            this.apply.Location = new System.Drawing.Point(692, 32);
+            this.apply.Margin = new System.Windows.Forms.Padding(2);
+            this.apply.Name = "apply";
+            this.apply.Size = new System.Drawing.Size(112, 32);
+            this.apply.TabIndex = 4;
+            this.apply.Text = "Применить";
+            this.apply.UseVisualStyleBackColor = true;
+            this.apply.Click += new System.EventHandler(this.ApplyClick);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DimGray;
@@ -1281,6 +1345,9 @@
             // 
             // single_setup
             // 
+            this.single_setup.Controls.Add(this.panel3);
+            this.single_setup.Controls.Add(this.singleSetup);
+            this.single_setup.Controls.Add(this.toolStrip1);
             this.single_setup.Location = new System.Drawing.Point(4, 25);
             this.single_setup.Margin = new System.Windows.Forms.Padding(2);
             this.single_setup.Name = "single_setup";
@@ -1337,26 +1404,373 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Пожалуйста подождите идет выполнение команды...";
             // 
-            // apply
+            // toolStrip1
             // 
-            this.apply.Location = new System.Drawing.Point(692, 32);
-            this.apply.Margin = new System.Windows.Forms.Padding(2);
-            this.apply.Name = "apply";
-            this.apply.Size = new System.Drawing.Size(112, 32);
-            this.apply.TabIndex = 4;
-            this.apply.Text = "Применить";
-            this.apply.UseVisualStyleBackColor = true;
-            this.apply.Click += new System.EventHandler(this.ApplyClick);
+            this.toolStrip1.BackColor = System.Drawing.Color.Gainsboro;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1016, 39);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
             // 
-            // ret
+            // toolStripButton1
             // 
-            this.ret.Location = new System.Drawing.Point(858, 32);
-            this.ret.Margin = new System.Windows.Forms.Padding(2);
-            this.ret.Name = "ret";
-            this.ret.Size = new System.Drawing.Size(112, 32);
-            this.ret.TabIndex = 5;
-            this.ret.Text = "Вернуться";
-            this.ret.UseVisualStyleBackColor = true;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
+            // singleSetup
+            // 
+            this.singleSetup.AllowUserToAddRows = false;
+            this.singleSetup.AllowUserToDeleteRows = false;
+            this.singleSetup.AllowUserToResizeColumns = false;
+            this.singleSetup.AllowUserToResizeRows = false;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
+            this.singleSetup.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            this.singleSetup.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.singleSetup.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(186)))), ((int)(((byte)(189)))));
+            this.singleSetup.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Arial Narrow", 10F);
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.DarkBlue;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.singleSetup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.singleSetup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.singleSetup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.singlesetup_id1,
+            this.singlesetup_sequence1,
+            this.singlesetup_shiber1,
+            this.singlesetup_timeDoze1,
+            this.singlesetup_koeffOpenClose1,
+            this.singlesetup_timeOpen1,
+            this.singlesetup_timeClose1,
+            this.singlesetup_timeNext1,
+            this.singlesetup_apply1,
+            this.dataGridViewTextBoxColumn15,
+            this.dataGridViewTextBoxColumn17,
+            this.singlesetup_id2,
+            this.singlesetup_sequence2,
+            this.singlesetup_shiber2,
+            this.singlesetup_timeDoze2,
+            this.singlesetup_koeffOpenClose2,
+            this.singlesetup_timeOpen2,
+            this.singlesetup_timeClose2,
+            this.singlesetup_timeNext2,
+            this.singlesetup_apply2,
+            this.dataGridViewTextBoxColumn16,
+            this.dataGridViewTextBoxColumn18});
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(164)))));
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Arial Narrow", 10F);
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.DarkBlue;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.singleSetup.DefaultCellStyle = dataGridViewCellStyle26;
+            this.singleSetup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.singleSetup.EnableHeadersVisualStyles = false;
+            this.singleSetup.GridColor = System.Drawing.Color.DimGray;
+            this.singleSetup.Location = new System.Drawing.Point(0, 39);
+            this.singleSetup.Margin = new System.Windows.Forms.Padding(2);
+            this.singleSetup.MultiSelect = false;
+            this.singleSetup.Name = "singleSetup";
+            this.singleSetup.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Arial Narrow", 10F);
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.singleSetup.RowHeadersDefaultCellStyle = dataGridViewCellStyle27;
+            this.singleSetup.RowHeadersVisible = false;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.Silver;
+            this.singleSetup.RowsDefaultCellStyle = dataGridViewCellStyle28;
+            this.singleSetup.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.singleSetup.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Gainsboro;
+            this.singleSetup.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Arial Narrow", 11F);
+            this.singleSetup.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.singleSetup.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            this.singleSetup.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.singleSetup.RowTemplate.DividerHeight = 1;
+            this.singleSetup.RowTemplate.Height = 30;
+            this.singleSetup.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singleSetup.Size = new System.Drawing.Size(1016, 546);
+            this.singleSetup.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.button1);
+            this.panel3.Controls.Add(this.button2);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 475);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1016, 110);
+            this.panel3.TabIndex = 4;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(858, 32);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 32);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Вернуться";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(692, 32);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(112, 32);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Применить";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // singlesetup_id1
+            // 
+            this.singlesetup_id1.HeaderText = "singlesetup_id1";
+            this.singlesetup_id1.Name = "singlesetup_id1";
+            this.singlesetup_id1.ReadOnly = true;
+            this.singlesetup_id1.Visible = false;
+            // 
+            // singlesetup_sequence1
+            // 
+            this.singlesetup_sequence1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.Silver;
+            this.singlesetup_sequence1.DefaultCellStyle = dataGridViewCellStyle20;
+            this.singlesetup_sequence1.DividerWidth = 1;
+            this.singlesetup_sequence1.FillWeight = 52F;
+            this.singlesetup_sequence1.HeaderText = "Порядок загрузки";
+            this.singlesetup_sequence1.MinimumWidth = 52;
+            this.singlesetup_sequence1.Name = "singlesetup_sequence1";
+            this.singlesetup_sequence1.ReadOnly = true;
+            this.singlesetup_sequence1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_sequence1.Width = 52;
+            // 
+            // singlesetup_shiber1
+            // 
+            this.singlesetup_shiber1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.singlesetup_shiber1.DefaultCellStyle = dataGridViewCellStyle21;
+            this.singlesetup_shiber1.DisplayStyleForCurrentCellOnly = true;
+            this.singlesetup_shiber1.DividerWidth = 1;
+            this.singlesetup_shiber1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.singlesetup_shiber1.HeaderText = "Шибер";
+            this.singlesetup_shiber1.MinimumWidth = 78;
+            this.singlesetup_shiber1.Name = "singlesetup_shiber1";
+            this.singlesetup_shiber1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_shiber1.Width = 78;
+            // 
+            // singlesetup_timeDoze1
+            // 
+            this.singlesetup_timeDoze1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_timeDoze1.DividerWidth = 1;
+            this.singlesetup_timeDoze1.HeaderText = "Время дозиров.";
+            this.singlesetup_timeDoze1.MinimumWidth = 55;
+            this.singlesetup_timeDoze1.Name = "singlesetup_timeDoze1";
+            this.singlesetup_timeDoze1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeDoze1.Width = 55;
+            // 
+            // singlesetup_koeffOpenClose1
+            // 
+            this.singlesetup_koeffOpenClose1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_koeffOpenClose1.DividerWidth = 1;
+            this.singlesetup_koeffOpenClose1.HeaderText = "Коэф. отк./закр.";
+            this.singlesetup_koeffOpenClose1.MinimumWidth = 67;
+            this.singlesetup_koeffOpenClose1.Name = "singlesetup_koeffOpenClose1";
+            this.singlesetup_koeffOpenClose1.ReadOnly = true;
+            this.singlesetup_koeffOpenClose1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_koeffOpenClose1.Width = 67;
+            // 
+            // singlesetup_timeOpen1
+            // 
+            this.singlesetup_timeOpen1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_timeOpen1.DividerWidth = 1;
+            this.singlesetup_timeOpen1.HeaderText = "Время открытия";
+            this.singlesetup_timeOpen1.MinimumWidth = 58;
+            this.singlesetup_timeOpen1.Name = "singlesetup_timeOpen1";
+            this.singlesetup_timeOpen1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeOpen1.Width = 58;
+            // 
+            // singlesetup_timeClose1
+            // 
+            this.singlesetup_timeClose1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_timeClose1.DividerWidth = 1;
+            this.singlesetup_timeClose1.HeaderText = "Время закрытия";
+            this.singlesetup_timeClose1.MinimumWidth = 58;
+            this.singlesetup_timeClose1.Name = "singlesetup_timeClose1";
+            this.singlesetup_timeClose1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeClose1.Width = 58;
+            // 
+            // singlesetup_timeNext1
+            // 
+            this.singlesetup_timeNext1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle22.Format = "N1";
+            dataGridViewCellStyle22.NullValue = null;
+            this.singlesetup_timeNext1.DefaultCellStyle = dataGridViewCellStyle22;
+            this.singlesetup_timeNext1.DividerWidth = 1;
+            this.singlesetup_timeNext1.HeaderText = "Интервал до след. загрузки";
+            this.singlesetup_timeNext1.MinimumWidth = 65;
+            this.singlesetup_timeNext1.Name = "singlesetup_timeNext1";
+            this.singlesetup_timeNext1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeNext1.Width = 65;
+            // 
+            // singlesetup_apply1
+            // 
+            this.singlesetup_apply1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_apply1.DividerWidth = 2;
+            this.singlesetup_apply1.HeaderText = "Применить";
+            this.singlesetup_apply1.MinimumWidth = 74;
+            this.singlesetup_apply1.Name = "singlesetup_apply1";
+            this.singlesetup_apply1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_apply1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.singlesetup_apply1.Width = 74;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.HeaderText = "group_selectshibernumber1";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
+            this.dataGridViewTextBoxColumn15.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn17
+            // 
+            this.dataGridViewTextBoxColumn17.HeaderText = "group_change1";
+            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            this.dataGridViewTextBoxColumn17.Visible = false;
+            // 
+            // singlesetup_id2
+            // 
+            this.singlesetup_id2.HeaderText = "singlesetup_id2";
+            this.singlesetup_id2.Name = "singlesetup_id2";
+            this.singlesetup_id2.Visible = false;
+            // 
+            // singlesetup_sequence2
+            // 
+            this.singlesetup_sequence2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.Silver;
+            this.singlesetup_sequence2.DefaultCellStyle = dataGridViewCellStyle23;
+            this.singlesetup_sequence2.DividerWidth = 1;
+            this.singlesetup_sequence2.FillWeight = 52F;
+            this.singlesetup_sequence2.HeaderText = "Порядок загрузки";
+            this.singlesetup_sequence2.MinimumWidth = 52;
+            this.singlesetup_sequence2.Name = "singlesetup_sequence2";
+            this.singlesetup_sequence2.ReadOnly = true;
+            this.singlesetup_sequence2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_sequence2.Width = 52;
+            // 
+            // singlesetup_shiber2
+            // 
+            this.singlesetup_shiber2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.singlesetup_shiber2.DefaultCellStyle = dataGridViewCellStyle24;
+            this.singlesetup_shiber2.DisplayStyleForCurrentCellOnly = true;
+            this.singlesetup_shiber2.DividerWidth = 1;
+            this.singlesetup_shiber2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.singlesetup_shiber2.HeaderText = "Шибер";
+            this.singlesetup_shiber2.MinimumWidth = 78;
+            this.singlesetup_shiber2.Name = "singlesetup_shiber2";
+            this.singlesetup_shiber2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_shiber2.Width = 78;
+            // 
+            // singlesetup_timeDoze2
+            // 
+            this.singlesetup_timeDoze2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_timeDoze2.DividerWidth = 1;
+            this.singlesetup_timeDoze2.HeaderText = "Время дозиров.";
+            this.singlesetup_timeDoze2.MinimumWidth = 55;
+            this.singlesetup_timeDoze2.Name = "singlesetup_timeDoze2";
+            this.singlesetup_timeDoze2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeDoze2.Width = 55;
+            // 
+            // singlesetup_koeffOpenClose2
+            // 
+            this.singlesetup_koeffOpenClose2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_koeffOpenClose2.DividerWidth = 1;
+            this.singlesetup_koeffOpenClose2.HeaderText = "Коеф. отк./закр.";
+            this.singlesetup_koeffOpenClose2.MinimumWidth = 67;
+            this.singlesetup_koeffOpenClose2.Name = "singlesetup_koeffOpenClose2";
+            this.singlesetup_koeffOpenClose2.ReadOnly = true;
+            this.singlesetup_koeffOpenClose2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_koeffOpenClose2.Width = 67;
+            // 
+            // singlesetup_timeOpen2
+            // 
+            this.singlesetup_timeOpen2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_timeOpen2.DividerWidth = 1;
+            this.singlesetup_timeOpen2.HeaderText = "Время открытия";
+            this.singlesetup_timeOpen2.MinimumWidth = 58;
+            this.singlesetup_timeOpen2.Name = "singlesetup_timeOpen2";
+            this.singlesetup_timeOpen2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeOpen2.Width = 58;
+            // 
+            // singlesetup_timeClose2
+            // 
+            this.singlesetup_timeClose2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_timeClose2.DividerWidth = 1;
+            this.singlesetup_timeClose2.HeaderText = "Время закрытия";
+            this.singlesetup_timeClose2.MinimumWidth = 58;
+            this.singlesetup_timeClose2.Name = "singlesetup_timeClose2";
+            this.singlesetup_timeClose2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeClose2.Width = 58;
+            // 
+            // singlesetup_timeNext2
+            // 
+            this.singlesetup_timeNext2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle25.Format = "N1";
+            dataGridViewCellStyle25.NullValue = null;
+            this.singlesetup_timeNext2.DefaultCellStyle = dataGridViewCellStyle25;
+            this.singlesetup_timeNext2.DividerWidth = 1;
+            this.singlesetup_timeNext2.HeaderText = "Интервал до след. загрузки";
+            this.singlesetup_timeNext2.MinimumWidth = 65;
+            this.singlesetup_timeNext2.Name = "singlesetup_timeNext2";
+            this.singlesetup_timeNext2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_timeNext2.Width = 65;
+            // 
+            // singlesetup_apply2
+            // 
+            this.singlesetup_apply2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.singlesetup_apply2.DividerWidth = 1;
+            this.singlesetup_apply2.HeaderText = "Применить";
+            this.singlesetup_apply2.MinimumWidth = 74;
+            this.singlesetup_apply2.Name = "singlesetup_apply2";
+            this.singlesetup_apply2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.singlesetup_apply2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.singlesetup_apply2.Width = 74;
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.HeaderText = "group_selectshibernumber2";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
+            this.dataGridViewTextBoxColumn16.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.HeaderText = "group_change2";
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.dataGridViewTextBoxColumn18.Visible = false;
             // 
             // ConfigPLC_S7
             // 
@@ -1395,8 +1809,14 @@
             this.panel1.ResumeLayout(false);
             this.typeWorkGroupSetup.ResumeLayout(false);
             this.typeWorkGroupSetup.PerformLayout();
+            this.single_setup.ResumeLayout(false);
+            this.single_setup.PerformLayout();
             this.pan_command_wait.ResumeLayout(false);
             this.pan_command_wait.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.singleSetup)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1504,5 +1924,33 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
         private System.Windows.Forms.Button ret;
         private System.Windows.Forms.Button apply;
+        private System.Windows.Forms.DataGridView singleSetup;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_id1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_sequence1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn singlesetup_shiber1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeDoze1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_koeffOpenClose1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeOpen1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeClose1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeNext1;
+        private System.Windows.Forms.DataGridViewButtonColumn singlesetup_apply1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_id2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_sequence2;
+        private System.Windows.Forms.DataGridViewComboBoxColumn singlesetup_shiber2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeDoze2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_koeffOpenClose2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeOpen2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeClose2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_timeNext2;
+        private System.Windows.Forms.DataGridViewButtonColumn singlesetup_apply2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
     }
 }

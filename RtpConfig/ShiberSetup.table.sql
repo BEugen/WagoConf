@@ -6,6 +6,8 @@
 	reopenCountMax int not null,
 	timeOpen int not null,
 	timeClose int not null,
+	timeAOpen int not null,
+	timeAclose int not null,
 	timeBetwenShiber int not null
 CONSTRAINT [PK_ShiberSetup] PRIMARY KEY CLUSTERED 
 (

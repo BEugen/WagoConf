@@ -10,3 +10,4 @@
 :r .\AddShiberGroupConfig.sql
 :r .\AddShiberSetup.sql
 :r .\AddShiberGroupSequence.sql
+:r .\AddShiberSingleSequence.sql

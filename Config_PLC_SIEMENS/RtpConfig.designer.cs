@@ -222,6 +222,13 @@ namespace Config_PLC_SIEMENS
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, shibernumber1, timeOpen1, timeClose1, shibernumber2, timeOpen2, timeClose2);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSingleShiberSetup")]
+		public ISingleResult<GetSingleShiberSetupResult> GetSingleShiberSetup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
+			return ((ISingleResult<GetSingleShiberSetupResult>)(result.ReturnValue));
+		}
 	}
 	
 	public partial class GetModuleResult
@@ -1995,6 +2002,122 @@ namespace Config_PLC_SIEMENS
 				if ((this._reopenCountMax != value))
 				{
 					this._reopenCountMax = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetSingleShiberSetupResult
+	{
+		
+		private int _id;
+		
+		private int _sequencenumber;
+		
+		private string _signalgroupdescription;
+		
+		private System.Nullable<int> _timeOpen;
+		
+		private System.Nullable<int> _timeClose;
+		
+		private System.Nullable<int> _timeBetwenShiber;
+		
+		public GetSingleShiberSetupResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sequencenumber", DbType="Int NOT NULL")]
+		public int sequencenumber
+		{
+			get
+			{
+				return this._sequencenumber;
+			}
+			set
+			{
+				if ((this._sequencenumber != value))
+				{
+					this._sequencenumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalgroupdescription", DbType="NVarChar(50)")]
+		public string signalgroupdescription
+		{
+			get
+			{
+				return this._signalgroupdescription;
+			}
+			set
+			{
+				if ((this._signalgroupdescription != value))
+				{
+					this._signalgroupdescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeOpen", DbType="Int")]
+		public System.Nullable<int> timeOpen
+		{
+			get
+			{
+				return this._timeOpen;
+			}
+			set
+			{
+				if ((this._timeOpen != value))
+				{
+					this._timeOpen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeClose", DbType="Int")]
+		public System.Nullable<int> timeClose
+		{
+			get
+			{
+				return this._timeClose;
+			}
+			set
+			{
+				if ((this._timeClose != value))
+				{
+					this._timeClose = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenShiber", DbType="Int")]
+		public System.Nullable<int> timeBetwenShiber
+		{
+			get
+			{
+				return this._timeBetwenShiber;
+			}
+			set
+			{
+				if ((this._timeBetwenShiber != value))
+				{
+					this._timeBetwenShiber = value;
 				}
 			}
 		}
