@@ -9,20 +9,20 @@ using System.Security.Permissions;
 
 namespace Config_PLC_SIEMENS
 {
-   
- 
+
+
     [ProgId("ConfigWagoRtp")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComSourceInterfaces(typeof(IScadaInterfaceEvent))]
+    [ComSourceInterfaces(typeof (IScadaInterfaceEvent))]
     [Guid("DDBFAC4B-2024-4A48-B929-97AA484FE19D")]
     public partial class ConfigPLC_S7 : UserControl, IScadaInterface
     {
-       
+
         protected struct InternalCommandStackParam
         {
             public int Command;
             public object Value;
-            public int[] CallBack;           
+            public int[] CallBack;
         }
 
         protected struct CommandToPlc
@@ -30,7 +30,8 @@ namespace Config_PLC_SIEMENS
             public int CommandNumber;
             public int[] Values;
         }
-        protected enum CommandName 
+
+        protected enum CommandName
         {
             SetupTimeShibers1 = 1,
             SetupReopenShibers = 2,
@@ -39,35 +40,39 @@ namespace Config_PLC_SIEMENS
             MountGenericSignals = 5,
             MountShiberToOneSequency = 6,
             MountShiberToGroupSequency = 7,
-            MountShiberNumberToGroupSequency = 8,  
+            MountShiberNumberToGroupSequency = 8,
             OnOffBypassShiber = 9,
             SetupTimeShibers2 = 10
-        }  
-        int _selectedTab;
+        }
+
+        private int _selectedTab;
 
         #region VariableForPropertisSCADA
 
         private int _rtpid = 0;
-        int _command = -1;
-        int _accept = -1;
+        private int _command = -1;
+        private int _accept = -1;
         private int[] _params = {0, 0, 0, 0, 0, 0};
 
-       
+
         #endregion
 
-        delegate void Ui(bool eDwait);
-        delegate void Ui1(int tagId);
+        private delegate void Ui(bool eDwait);
+
+        private delegate void Ui1(int tagId);
 
         private delegate void GridGroupCheck(int columnIndex);
 
         private delegate void WaitMessageArg(string text, bool waitVisible);
+
         private delegate void CheckShiberSetup(int indexRow, int indexColumn);
+
         private Queue<CommandToPlc> commandToPlc;
-        ConfigPLCStore configClass;
+        private ConfigPLCStore configClass;
         private StaticConfig _parametrsConfig;
-        readonly System.Timers.Timer _tmrElapsedCmd;
+        private readonly System.Timers.Timer _tmrElapsedCmd;
         private Dictionary<int, int> checkedRow = new Dictionary<int, int>();
-       
+
         public ConfigPLC_S7()
         {
             InitializeComponent();
@@ -78,8 +83,8 @@ namespace Config_PLC_SIEMENS
             _tmrElapsedCmd = new System.Timers.Timer {Interval = 1000*60 /*_parametrsConfig.TimeOut*/};
             _tmrElapsedCmd.Elapsed += TmrElapsedCmdElapsed;
             commandToPlc = new Queue<CommandToPlc>();
-            _accept = _command =  0;
-            _params = new []{0, 0, 0, 0, 0, 0};
+            _accept = _command = 0;
+            _params = new[] {0, 0, 0, 0, 0, 0};
             // For the Click event that is re-defined.
             //base.Click += new EventHandler(ActiveXCtrl_Click);
 
@@ -90,7 +95,7 @@ namespace Config_PLC_SIEMENS
             ControlAdded += ActiveXCtrlControlAdded;
 
             // Raise custom Load event
-            OnCreateControl(); 
+            OnCreateControl();
 
         }
 
@@ -100,13 +105,13 @@ namespace Config_PLC_SIEMENS
         }
 
 
-        void TmrElapsedCmdElapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void TmrElapsedCmdElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _tmrElapsedCmd.Stop();
             RtpConfigDataContext data = new RtpConfigDataContext();
             data.SetErrorDownloadToPlc(_rtpid, 1);
             Ui ui = WaitMount;
-            set_treeview_mount.BeginInvoke(ui, new object[]{false});
+            set_treeview_mount.BeginInvoke(ui, new object[] {false});
             MessageBox.Show(_accept == 5 ? "Ошибка связи с системой визуализации" : "Ошибка связи с PLC", "Ошибка",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             commandToPlc.Clear();
@@ -116,25 +121,18 @@ namespace Config_PLC_SIEMENS
         }
 
         #region PublicForSCADA
+
         public int Command
         {
-            get
-            {
-                return _command;
-            }
-            set
-            {
-                _command = value;
-            }
+            get { return _command; }
+            set { _command = value; }
         }
+
         public int Accept
         {
-           //[return: MarshalAs(UnmanagedType.SysInt)]
-            get
-            {
-               return _accept;
-            }
-           // [param: MarshalAs(UnmanagedType.SysInt)]
+            //[return: MarshalAs(UnmanagedType.SysInt)]
+            get { return _accept; }
+            // [param: MarshalAs(UnmanagedType.SysInt)]
             set
             {
                 if (value > 1)
@@ -144,88 +142,61 @@ namespace Config_PLC_SIEMENS
                 }
             }
         }
+
         public int P1
         {
-          //  [return: MarshalAs(UnmanagedType.I2)]
-            get
-            {
-                return _params[0];
-            }
-            set
-            {
-                _params[0] = value;
-            }
+            //  [return: MarshalAs(UnmanagedType.I2)]
+            get { return _params[0]; }
+            set { _params[0] = value; }
         }
+
         public int P2
         {
-           // [return: MarshalAs(UnmanagedType.I2)]
-            get
-            {
-                return _params[1];
-            }
-            set
-            {
-                _params[1] = value;
-            }
+            // [return: MarshalAs(UnmanagedType.I2)]
+            get { return _params[1]; }
+            set { _params[1] = value; }
         }
+
         public int P3
         {
-          //  [return: MarshalAs(UnmanagedType.I2)]
-            get
-            {
-                return _params[2];
-            }
-            set
-            {
-                _params[2] = value;
-            }
+            //  [return: MarshalAs(UnmanagedType.I2)]
+            get { return _params[2]; }
+            set { _params[2] = value; }
         }
+
         public int P4
         {
-           // [return: MarshalAs(UnmanagedType.I2)]
-            get
-            {
-                return _params[3];
-            }
-            set
-            {
-                _params[3] = value;
-            }
-            
+            // [return: MarshalAs(UnmanagedType.I2)]
+            get { return _params[3]; }
+            set { _params[3] = value; }
+
         }
+
         public int P5
         {
-           
-            get
-            {
-                return _params[4];
-            }
-            set
-            {
-                _params[4] = value;
-            }
+
+            get { return _params[4]; }
+            set { _params[4] = value; }
         }
+
         public int P6
         {
-            get
-            {
-                return _params[5];
-            }
-            set
-            {
-                _params[5] = value;
-            }
+            get { return _params[5]; }
+            set { _params[5] = value; }
         }
-        
+
         #endregion
 
         #region Event
+
         [ComVisible(false)]
         public delegate void CommandEventHandler();
+
         public event CommandEventHandler CommandEvent = null;
+
         #endregion
 
-       
+
 
         private void SetTreeviewMountNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -245,7 +216,7 @@ namespace Config_PLC_SIEMENS
                 set_gb_type_module.Visible = true;
                 set_gb_channel_mount.Visible = true;
                 set_b_channel_mount_ok.Visible = true;
-                set_treeview_mount.SelectedNode = e.Node;                
+                set_treeview_mount.SelectedNode = e.Node;
                 LoadChannelMount(Convert.ToInt32(e.Node.Tag));
             }
         }
@@ -281,7 +252,7 @@ namespace Config_PLC_SIEMENS
                 if (channel.groupid == null)
                 {
                     set_dgv_channel_mount.Rows[rnumber].Cells[3].ReadOnly = true;
-                    
+
                 }
                 else
                 {
@@ -305,14 +276,14 @@ namespace Config_PLC_SIEMENS
 
         private void PlcInfLoad()
         {
-          
+
             PLC plc = configClass.GetPlc();
-            set_inp_name_plc.Text =plc.namePLC;
+            set_inp_name_plc.Text = plc.namePLC;
             set_inp_type_plc.Text = plc.typePLC;
             set_inp_number_plc.Text = plc.numberPLC.ToString();
             set_treeview_mount.Nodes[0].Text = "PLC №" + set_inp_number_plc.Text;
 
-           
+
         }
 
         private void SetConmenuAddClick(object sender, EventArgs e)
@@ -326,14 +297,14 @@ namespace Config_PLC_SIEMENS
 
         private void TabConfigPlcS7SelectedIndexChanged(object sender, EventArgs e)
         {
-            _selectedTab = tabConfiпWago.SelectedIndex; 
+            _selectedTab = tabConfiпWago.SelectedIndex;
             switch (tabConfiпWago.SelectedIndex)
             {
                 case 0:
                     LoadAllModuleChannel();
                     break;
                 case 1:
-                    typeWork.SelectedIndex = 1;                  
+                    typeWork.SelectedIndex = 1;
                     SetLoadChannelMount();
                     CheckHardwareConfigError();
                     break;
@@ -356,7 +327,7 @@ namespace Config_PLC_SIEMENS
             RtpConfigDataContext data = new RtpConfigDataContext();
             int flag = 1;
             flag = data.GetErrorDownloadToPlc(_rtpid).First().changehardware;
-            if(flag == 1)
+            if (flag == 1)
             {
                 checkHardwareIcon.Image = set_images.Images[3];
                 checkHardwareIcon.ToolTipText = "Конфигурация контроллера не соотвествует базе";
@@ -366,33 +337,34 @@ namespace Config_PLC_SIEMENS
                 checkHardwareIcon.Image = set_images.Images[2];
                 checkHardwareIcon.ToolTipText = "Конфигурация контроллера соответсвует базе";
             }
- 
+
         }
 
         private void LoadAllModuleChannel()
         {
-           try
-           {
-          
-            RtpConfigDataContext data = new RtpConfigDataContext();
-            var modulchannel = data.GetAllModuleChannel(_rtpid).ToList();
-            tag_descr.Rows.Clear();
-            foreach (var getAllModuleChannelResult in modulchannel)
+            try
             {
-                int rnumber = tag_descr.Rows.Add();
-                tag_descr.Rows[rnumber].Cells[0].Value = getAllModuleChannelResult.descript;
-                tag_descr.Rows[rnumber].Cells[1].Value = getAllModuleChannelResult.modulnumber;
-                tag_descr.Rows[rnumber].Cells[2].Value = getAllModuleChannelResult.channelnumber;
-                tag_descr.Rows[rnumber].Cells[3].Value = getAllModuleChannelResult.signalgroupdescription;
-                tag_descr.Rows[rnumber].Cells[4].Value = getAllModuleChannelResult.signaldescription;
-            } 
-           }
-           catch (System.Exception ex)
-           {
-               MessageBox.Show("Ошибка загрузки данных (" + ex.Message + ")", "Ошибка", MessageBoxButtons.OK,
-                               MessageBoxIcon.Error);
-           }
+
+                RtpConfigDataContext data = new RtpConfigDataContext();
+                var modulchannel = data.GetAllModuleChannel(_rtpid).ToList();
+                tag_descr.Rows.Clear();
+                foreach (var getAllModuleChannelResult in modulchannel)
+                {
+                    int rnumber = tag_descr.Rows.Add();
+                    tag_descr.Rows[rnumber].Cells[0].Value = getAllModuleChannelResult.descript;
+                    tag_descr.Rows[rnumber].Cells[1].Value = getAllModuleChannelResult.modulnumber;
+                    tag_descr.Rows[rnumber].Cells[2].Value = getAllModuleChannelResult.channelnumber;
+                    tag_descr.Rows[rnumber].Cells[3].Value = getAllModuleChannelResult.signalgroupdescription;
+                    tag_descr.Rows[rnumber].Cells[4].Value = getAllModuleChannelResult.signaldescription;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Ошибка загрузки данных (" + ex.Message + ")", "Ошибка", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
+
         /// <summary>
         /// Изменяет доступность кнопок меню
         /// </summary>
@@ -403,53 +375,55 @@ namespace Config_PLC_SIEMENS
 
             switch (tabSelectIndex)
             {
-                case 0: case 1:
+                case 0:
+                case 1:
                     downloadConfig.Enabled =
-                     true;
+                        true;
                     break;
                 case 3:
                     downloadConfig.Enabled =
-                    true;
+                        true;
                     break;
                 default:
                     break;
             }
         }
-       
+
         private void SetLoadChannelMount()
         {
             try
             {
 
-           
-            set_treeview_mount.Nodes[0].Nodes.Clear();
-            if (configClass != null)
-            {
-               RtpConfigDataContext data = new RtpConfigDataContext();
-                var moduls = data.GetModule(_rtpid);
-                foreach (var modul in moduls)
+
+                set_treeview_mount.Nodes[0].Nodes.Clear();
+                if (configClass != null)
                 {
-                    TreeNode trNode = new TreeNode();
-                    trNode.ImageIndex = 1;
-                    trNode.SelectedImageIndex = 1;
-                    trNode.Tag = modul.modulnumber;
-                    trNode.ContextMenuStrip = set_treeview_mount.Nodes[0].ContextMenuStrip;
-                    trNode.Text = "Модуль " + modul.descript + " №" + modul.modulnumber;
-                    set_treeview_mount.Nodes[0].Nodes.Add(trNode);
+                    RtpConfigDataContext data = new RtpConfigDataContext();
+                    var moduls = data.GetModule(_rtpid);
+                    foreach (var modul in moduls)
+                    {
+                        TreeNode trNode = new TreeNode();
+                        trNode.ImageIndex = 1;
+                        trNode.SelectedImageIndex = 1;
+                        trNode.Tag = modul.modulnumber;
+                        trNode.ContextMenuStrip = set_treeview_mount.Nodes[0].ContextMenuStrip;
+                        trNode.Text = "Модуль " + modul.descript + " №" + modul.modulnumber;
+                        set_treeview_mount.Nodes[0].Nodes.Add(trNode);
+                    }
                 }
-            }
-            set_treeview_mount.SelectedNode = set_treeview_mount.Nodes[0];
-            TreeNodeMouseClickEventArgs e = new TreeNodeMouseClickEventArgs(set_treeview_mount.SelectedNode, MouseButtons.Left, 0, 0, 0);
-            SetTreeviewMountNodeMouseClick(set_treeview_mount, e);
-            PlcInfLoad(); 
+                set_treeview_mount.SelectedNode = set_treeview_mount.Nodes[0];
+                TreeNodeMouseClickEventArgs e = new TreeNodeMouseClickEventArgs(set_treeview_mount.SelectedNode,
+                                                                                MouseButtons.Left, 0, 0, 0);
+                SetTreeviewMountNodeMouseClick(set_treeview_mount, e);
+                PlcInfLoad();
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show("Ошибка загрузки данных (" + ex.Message + ")", "Ошибка", MessageBoxButtons.OK,
-                               MessageBoxIcon.Error);
+                                MessageBoxIcon.Error);
             }
-        }    
+        }
 
         private void SetBModulParamOkClick(object sender, EventArgs e)
         {
@@ -460,18 +434,19 @@ namespace Config_PLC_SIEMENS
                 MessageBox.Show("Не выбран модуль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (set_nd_channel_count.Tag != null && (int)set_nd_channel_count.Tag == 1)
+            if (set_nd_channel_count.Tag != null && (int) set_nd_channel_count.Tag == 1)
             {
                 result = data.ChangeCountChannel(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
-                                                     (int) set_nd_channel_count.Value);
-                if(result != 0)
+                                                 (int) set_nd_channel_count.Value);
+                if (result != 0)
                 {
-                    MessageBox.Show("Ошибка изменения числа каналов", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка изменения числа каналов", "Ошибка", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                     return;
                 }
                 LoadChannelMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
             }
-            if (set_ddl_type_modul.Tag != null && (int)set_ddl_type_modul.Tag == 1)
+            if (set_ddl_type_modul.Tag != null && (int) set_ddl_type_modul.Tag == 1)
             {
                 result = data.ChangeModulType(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
                                               set_ddl_type_modul.SelectedIndex);
@@ -481,7 +456,7 @@ namespace Config_PLC_SIEMENS
                     return;
                 }
                 SetLoadChannelMount();
-            }    
+            }
         }
 
 
@@ -498,7 +473,8 @@ namespace Config_PLC_SIEMENS
                                     , "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                CheckOldMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag), Convert.ToInt32(set_dgv_channel_mount.Rows[e.RowIndex].Cells[1].Value));
+                CheckOldMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
+                              Convert.ToInt32(set_dgv_channel_mount.Rows[e.RowIndex].Cells[1].Value));
                 NewMount(e.RowIndex);
                 if (typeWork.SelectedIndex == 1)
                     CommandForPlc();
@@ -521,7 +497,8 @@ namespace Config_PLC_SIEMENS
             var mount = data.CheckMountChannel(_rtpid, modulnumber, channelnumber).ToList();
 
             var commandOne = new CommandToPlc();
-            if (mount.Count > 0 && mount.First().commandid !=null && mount.First().commandid.Value == (int)CommandName.MountChannel)
+            if (mount.Count > 0 && mount.First().commandid != null &&
+                mount.First().commandid.Value == (int) CommandName.MountChannel)
             {
                 var shibernumber = mount.First().shibernumber;
                 if (shibernumber != null)
@@ -544,27 +521,27 @@ namespace Config_PLC_SIEMENS
                         }
                         else
                         {
-                           paramset2[mount[i].signaltype + 1] = mount[i].offsetModul == null
-                                                             ? 0
-                                                             : mount[i].offsetModul.Value; 
+                            paramset2[mount[i].signaltype + 1] = mount[i].offsetModul == null
+                                                                     ? 0
+                                                                     : mount[i].offsetModul.Value;
                         }
-                        
+
                     }
                 }
-                commandOne.CommandNumber = (int)CommandName.MountChannel;
+                commandOne.CommandNumber = (int) CommandName.MountChannel;
                 commandOne.Values = paramset1;
                 var commandTwo = new CommandToPlc();
-                commandTwo.CommandNumber = (int)CommandName.MountModul;
+                commandTwo.CommandNumber = (int) CommandName.MountModul;
                 commandTwo.Values = paramset2;
                 commandToPlc.Enqueue(commandTwo);
                 commandToPlc.Enqueue(commandOne);
 
             }
-            if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
+            if (mount.Count > 0 && mount.First().commandid == (int) CommandName.MountGenericSignals)
             {
                 var paramset = mount.First();
                 paramset1[0] = paramset.signaltype;
-                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value -1;
+                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
                 paramset1[2] = paramset.signalcontrain;
                 paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
                 commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
@@ -580,18 +557,28 @@ namespace Config_PLC_SIEMENS
             int[] paramset1 = new int[6];
             int[] paramset2 = new int[6];
 
-            var mount = data.GetChannelCurrentShibers(_rtpid, set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value),
-                                                         set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value),
-                                                      set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value == null ? -1 : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value)).ToList();
+            var mount =
+                data.GetChannelCurrentShibers(_rtpid,
+                                              set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value == null
+                                                  ? -1
+                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value),
+                                              set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value == null
+                                                  ? -1
+                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value),
+                                              set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value == null
+                                                  ? -1
+                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value))
+                    .ToList();
 
             var commandOne = new CommandToPlc();
             var commandid = mount.First().commandid;
-            if (commandid != null && (mount.Count > 0 && commandid.Value == (int)CommandName.MountChannel))
+            if (commandid != null && (mount.Count > 0 && commandid.Value == (int) CommandName.MountChannel))
             {
                 var shibernumber = mount.First().shibernumber;
                 if (shibernumber != null)
-                {paramset1[0] = shibernumber.Value;
-                 paramset2[0] = shibernumber.Value;
+                {
+                    paramset1[0] = shibernumber.Value;
+                    paramset2[0] = shibernumber.Value;
                 }
                 for (int i = 0; i < mount.Count && i < 4; i++)
                 {
@@ -602,27 +589,27 @@ namespace Config_PLC_SIEMENS
                                                                  : mount[i].offsetChannel.Value;
 
                         paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
-                                                             ? -1
-                                                             : mount[i].offsetModul.Value;
+                                                                 ? -1
+                                                                 : mount[i].offsetModul.Value;
                     }
                 }
-                commandOne.CommandNumber = (int)CommandName.MountChannel;
+                commandOne.CommandNumber = (int) CommandName.MountChannel;
                 commandOne.Values = paramset1;
                 var commandTwo = new CommandToPlc();
-                commandTwo.CommandNumber = (int)CommandName.MountModul;
+                commandTwo.CommandNumber = (int) CommandName.MountModul;
                 commandTwo.Values = paramset2;
                 commandToPlc.Enqueue(commandTwo);
                 commandToPlc.Enqueue(commandOne);
 
             }
-            if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
+            if (mount.Count > 0 && mount.First().commandid == (int) CommandName.MountGenericSignals)
             {
                 var paramset = mount.First();
                 paramset1[0] = paramset.signaltype;
-                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value  - 1;
+                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
                 paramset1[2] = paramset.signalcontrain;
                 paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
-                commandOne.CommandNumber = (int)CommandName.MountGenericSignals;
+                commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
                 commandOne.Values = paramset1;
                 commandToPlc.Enqueue(commandOne);
 
@@ -645,7 +632,7 @@ namespace Config_PLC_SIEMENS
                              "; P6: " + _params[5] +
                              "\n Ожидаем ответ PLC " + _parametrsConfig.TimeOut +
                              " секунд";
-           if(!pan_command_wait.Visible)                                               
+            if (!pan_command_wait.Visible)
                 WaitMount(true);
             if (null != CommandEvent)
                 CommandEvent();
@@ -655,14 +642,14 @@ namespace Config_PLC_SIEMENS
         {
             if (enableDisable)
             {
-                
-                tabConfiпWago.Enabled= false;             
+
+                tabConfiпWago.Enabled = false;
                 set_treeview_mount.Enabled = false;
                 set_gb_channel_mount.Enabled = false;
                 set_gb_type_module.Enabled = false;
                 set_menu.Enabled = false;
-                pan_command_wait.Top = Height / 2 - pan_command_wait.Height / 2;
-                pan_command_wait.Left = Width / 2 - pan_command_wait.Width / 2;
+                pan_command_wait.Top = Height/2 - pan_command_wait.Height/2;
+                pan_command_wait.Left = Width/2 - pan_command_wait.Width/2;
                 pan_command_wait.Visible = true;
 
 
@@ -678,23 +665,32 @@ namespace Config_PLC_SIEMENS
             }
         }
 
-        void AcceptForPlc()
+        private void AcceptForPlc()
         {
-           // WaitMount(false);
-            switch (_accept) 
-            {                
-                            
-                case 10: case 20: case 30: case 40: case 50: case  60: case 70: case 80: case 90: case 100:
+            // WaitMount(false);
+            switch (_accept)
+            {
+
+                case 10:
+                case 20:
+                case 30:
+                case 40:
+                case 50:
+                case 60:
+                case 70:
+                case 80:
+                case 90:
+                case 100:
                     _accept = -1;
                     ExternalCommand();
-                    
-                break;
+
+                    break;
                 default:
                     _accept = -1;
-                break;
+                    break;
             }
-            
-           
+
+
         }
 
         private void ExternalCommand()
@@ -713,7 +709,8 @@ namespace Config_PLC_SIEMENS
 
         private void SetConmenuDelClick(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Удалить модуль?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (MessageBox.Show("Удалить модуль?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+                DialogResult.No)
                 return;
             RtpConfigDataContext data = new RtpConfigDataContext();
             int result = data.DeleteModule(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
@@ -762,7 +759,7 @@ namespace Config_PLC_SIEMENS
                 var mount = data.GetMountForSignalsGroup(_rtpid, getRtpSignalGroupsResult.signalattrnumber,
                                                          getRtpSignalGroupsResult.signalgroup).ToList();
                 var commandid = mount.First().commandid;
-                if (commandid != null && (mount.Count > 0 && commandid.Value == (int)CommandName.MountChannel))
+                if (commandid != null && (mount.Count > 0 && commandid.Value == (int) CommandName.MountChannel))
                 {
                     var shibernumber = mount.First().shibernumber;
                     if (shibernumber != null)
@@ -779,27 +776,27 @@ namespace Config_PLC_SIEMENS
                                                                      : mount[i].offsetChannel.Value;
 
                             paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
-                                                                 ? -1
-                                                                 : mount[i].offsetModul.Value;
+                                                                     ? -1
+                                                                     : mount[i].offsetModul.Value;
                         }
                     }
-                    commandOne.CommandNumber = (int)CommandName.MountChannel;
+                    commandOne.CommandNumber = (int) CommandName.MountChannel;
                     commandOne.Values = paramset1;
                     var commandTwo = new CommandToPlc();
-                    commandTwo.CommandNumber = (int)CommandName.MountModul;
+                    commandTwo.CommandNumber = (int) CommandName.MountModul;
                     commandTwo.Values = paramset2;
                     commandToPlc.Enqueue(commandTwo);
                     commandToPlc.Enqueue(commandOne);
 
                 }
-                if (mount.Count > 0 && mount.First().commandid == (int)CommandName.MountGenericSignals)
+                if (mount.Count > 0 && mount.First().commandid == (int) CommandName.MountGenericSignals)
                 {
                     var paramset = mount.First();
                     paramset1[0] = paramset.signaltype;
                     paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
                     paramset1[2] = paramset.signalcontrain;
                     paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
-                    commandOne.CommandNumber = (int)CommandName.MountGenericSignals;
+                    commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
                     commandOne.Values = paramset1;
                     commandToPlc.Enqueue(commandOne);
 
@@ -832,7 +829,7 @@ namespace Config_PLC_SIEMENS
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); // Log the error
-                throw;  // Re-throw the exception
+                throw; // Re-throw the exception
             }
         }
 
@@ -853,7 +850,7 @@ namespace Config_PLC_SIEMENS
 
         #endregion
 
-        void ActiveXCtrlControlAdded(object sender, ControlEventArgs e)
+        private void ActiveXCtrlControlAdded(object sender, ControlEventArgs e)
         {
             // Register tab handler and focus-related event handlers for 
             // the control and its child controls.
@@ -895,8 +892,8 @@ namespace Config_PLC_SIEMENS
                 OnEnter(EventArgs.Empty);
             }
             else if (m.Msg == wmParentnotify && (
-                m.WParam.ToInt32() == wmLbuttondown ||
-                m.WParam.ToInt32() == wmRbuttondown))
+                                                    m.WParam.ToInt32() == wmLbuttondown ||
+                                                    m.WParam.ToInt32() == wmRbuttondown))
             {
                 if (!ContainsFocus)
                 {
@@ -905,7 +902,7 @@ namespace Config_PLC_SIEMENS
                 }
             }
             else if (m.Msg == wmDestroy &&
-                !IsDisposed && !Disposing)
+                     !IsDisposed && !Disposing)
             {
                 // Used to ensure the cleanup of the control
                 Dispose();
@@ -916,13 +913,13 @@ namespace Config_PLC_SIEMENS
 
         // Ensures that tabbing across the container and the .NET controls
         // works as expected
-        void ActiveXCtrlLostFocus(object sender, EventArgs e)
+        private void ActiveXCtrlLostFocus(object sender, EventArgs e)
         {
             ActiveXCtrlHelper.HandleFocus(this);
         }
 
 
-       
+
 
 
         private void SetDgvChannelMountEditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -939,9 +936,9 @@ namespace Config_PLC_SIEMENS
 
         }
 
-        void SbSelectedIndexChanged(object sender, EventArgs e)
+        private void SbSelectedIndexChanged(object sender, EventArgs e)
         {
-            DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl)sender;
+            DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl) sender;
             int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
             RtpConfigDataContext data = new RtpConfigDataContext();
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2)
@@ -954,9 +951,10 @@ namespace Config_PLC_SIEMENS
                     var selectedgroup = signalgroup[selecedIndex];
                     set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
                         selectedgroup.id;
-                    var signalsIdForGroupId = data.GetSignalsIdForGroupId(selectedgroup.signalgroup, set_ddl_type_modul.SelectedIndex);
+                    var signalsIdForGroupId = data.GetSignalsIdForGroupId(selectedgroup.signalgroup,
+                                                                          set_ddl_type_modul.SelectedIndex);
                     ((DataGridViewComboBoxCell)
-                         set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Clear();
+                     set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Clear();
                     foreach (var signal in signalsIdForGroupId)
                     {
                         ((DataGridViewComboBoxCell)
@@ -968,12 +966,12 @@ namespace Config_PLC_SIEMENS
                         false;
                 }
             }
-            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 3 && 
-                set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value  != null)
+            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 3 &&
+                set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value != null)
             {
                 var signalForSelect =
                     data.GetRtpSignals(
-                        (int)set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value,
+                        (int) set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value,
                         set_ddl_type_modul.SelectedIndex).ToList();
                 if (signalForSelect.Count > 0)
                 {
@@ -1020,7 +1018,7 @@ namespace Config_PLC_SIEMENS
                 groupBox.Items.Clear();
                 foreach (var group in groups)
                 {
-                   groupBox.Items.Add(CutGroupName(group.groupnumber));
+                    groupBox.Items.Add(CutGroupName(group.groupnumber));
                 }
                 groupSetup.Rows[rnumber].Cells[2].Value = CutGroupName(getGroupShiberSetupResult.groupnumber);
                 if (getGroupShiberSetupResult.timeBetwenGroupLoad != null)
@@ -1032,10 +1030,10 @@ namespace Config_PLC_SIEMENS
                 {
                     ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Add(
                         CutShiberName(shiber.signalgroupdescription));
-                    ((DataGridViewComboBoxCell)groupSetup.Rows[rnumber].Cells[9]).Items.Add(
+                    ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[9]).Items.Add(
                         CutShiberName(shiber.signalgroupdescription));
                 }
-                groupSetup.Rows[rnumber].Cells[4].Value = CutShiberName( getGroupShiberSetupResult.shiberdecription1);
+                groupSetup.Rows[rnumber].Cells[4].Value = CutShiberName(getGroupShiberSetupResult.shiberdecription1);
                 double timedoze = 0;
                 double timeopen = 0;
                 double timeclose = 0;
@@ -1079,7 +1077,7 @@ namespace Config_PLC_SIEMENS
             }
         }
 
-        void GroupSelectedIndexChanged(object sender, EventArgs e)
+        private void GroupSelectedIndexChanged(object sender, EventArgs e)
         {
             double timedoze = 0;
             double timeopen = 0;
@@ -1088,46 +1086,58 @@ namespace Config_PLC_SIEMENS
             RtpConfigDataContext data = new RtpConfigDataContext();
             if (sender == null)
                 return;
-            DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl)sender;
+            DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl) sender;
             int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
-            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2  &&
-                (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value != (selecedIndex + 1))//group change
+            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2 &&
+                (int) groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value !=
+                (selecedIndex + 1)) //group change
             {
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value = selecedIndex + 1;
                 var shibers = data.GetShibersConfigByGroupNumber(_rtpid, selecedIndex + 1).ToList();
                 if (shibers.Count > 0)
                 {
-                    var shiberOneTwo = shibers.First(); 
-                    
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Value = CutShiberName(shiberOneTwo.shiberdecription1);
+                    var shiberOneTwo = shibers.First();
+
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Value =
+                        CutShiberName(shiberOneTwo.shiberdecription1);
 
                     timekoeff = CalcKoeffOpenClose(shiberOneTwo.timeOpen1, shiberOneTwo.timeClose1,
                                                    ref timeopen, ref timeclose, ref timedoze);
 
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value = timedoze.ToString("0.0");
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[7].Value = timeopen.ToString("0.0");
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[8].Value = timeclose.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
+                        timedoze.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[7].Value =
+                        timeopen.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[8].Value =
+                        timeclose.ToString("0.0");
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value = timekoeff;
 
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Value = CutShiberName(shiberOneTwo.shiberdecription2);
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Value =
+                        CutShiberName(shiberOneTwo.shiberdecription2);
                     timekoeff = CalcKoeffOpenClose(shiberOneTwo.timeOpen2, shiberOneTwo.timeClose2,
                                                    ref timeopen, ref timeclose, ref timedoze);
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[10].Value = timedoze.ToString("0.0");
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[12].Value = timeopen.ToString("0.0");
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[13].Value = timeclose.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[10].Value =
+                        timedoze.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[12].Value =
+                        timeopen.ToString("0.0");
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[13].Value =
+                        timeclose.ToString("0.0");
 
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[11].Value = timekoeff;
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value = selecedIndex + 1;
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value = shiberOneTwo.shibernumber1;
-                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value = shiberOneTwo.shibernumber2;
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value =
+                        shiberOneTwo.shibernumber1;
+                    groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value =
+                        shiberOneTwo.shibernumber2;
                 }
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[18].Value = "";
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[19].Value = "";
                 groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[20].Value = "";
-                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[] { 0 }); 
-              }
-            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 4 && 
-                (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value != (selecedIndex +1))//shiber 1 change
+                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[] {0});
+            }
+            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 4 &&
+                (int) groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value !=
+                (selecedIndex + 1)) //shiber 1 change
             {
                 if ((selecedIndex + 1) ==
                     (int) groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value)
@@ -1152,7 +1162,7 @@ namespace Config_PLC_SIEMENS
                         System.Drawing.Color.Gainsboro;
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].ErrorText = "";
                     groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].ErrorText = "";
-                    
+
                     var shibersSetup = data.GetCurrentShiberConfigByShiberNumber(_rtpid, selecedIndex + 1).ToList();
                     if (shibersSetup.Count > 0)
                     {
@@ -1174,23 +1184,25 @@ namespace Config_PLC_SIEMENS
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
                     if (row.Cells[2].Value != null &&
-                        row.Cells[2].Value.ToString() == groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[2].Value.ToString() &&
+                        row.Cells[2].Value.ToString() ==
+                        groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[2].Value.ToString() &&
                         row.Index != dataGridViewComboBoxCell.EditingControlRowIndex &&
                         !checkedRow.ContainsKey(dataGridViewComboBoxCell.EditingControlRowIndex))
                     {
-                            checkedRow.Add(row.Index, selecedIndex);
+                        checkedRow.Add(row.Index, selecedIndex);
 
                     }
                 }
-                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[] { 0 }); 
+                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[] {0});
 
             }
-           
+
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 9 &&
-                 (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value != (selecedIndex +1))//shiber 2 change
+                (int) groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value !=
+                (selecedIndex + 1)) //shiber 2 change
             {
                 if ((selecedIndex + 1) ==
-                   (int)groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value)
+                    (int) groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value)
                 {
                     //  MessageBox.Show("В одной группе не могут быть 2 одинаковых шибера", "Ошибка",
                     //         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1234,50 +1246,53 @@ namespace Config_PLC_SIEMENS
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
                     if (row.Cells[2].Value != null &&
-                        row.Cells[2].Value.ToString() == groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[2].Value.ToString() &&
+                        row.Cells[2].Value.ToString() ==
+                        groupSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[2].Value.ToString() &&
                         row.Index != dataGridViewComboBoxCell.EditingControlRowIndex &&
                         !checkedRow.ContainsKey(dataGridViewComboBoxCell.EditingControlRowIndex))
                     {
                         if (checkedRow.ContainsKey(row.Index))
                             checkedRow[row.Index] = selecedIndex;
                         else
-                        checkedRow.Add(row.Index, selecedIndex);
+                            checkedRow.Add(row.Index, selecedIndex);
 
                     }
                 }
-               groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[]{0}); 
+                groupSetup.BeginInvoke(new GridGroupCheck(EndEdit), new object[] {0});
             }
             groupSetup.BeginInvoke(new CheckShiberSetup(CheckChangeSetup), new object[]
-                                                               {
-                                                                   dataGridViewComboBoxCell.EditingControlRowIndex,
-                                                                   dataGridViewComboBoxCell.EditingControlDataGridView.
-                                                                       CurrentCell.ColumnIndex
-                                                               });
+                                                                               {
+                                                                                   dataGridViewComboBoxCell.
+                                                                                       EditingControlRowIndex,
+                                                                                   dataGridViewComboBoxCell.
+                                                                                       EditingControlDataGridView.
+                                                                                       CurrentCell.ColumnIndex
+                                                                               });
         }
 
         private void GroupSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
-        
         {
-               double time;
-               SetColorToChangeRows(e.RowIndex);
-               groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "";
-               if (!Double.TryParse(groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out time) && e.ColumnIndex != 2 && e.ColumnIndex != 4 && e.ColumnIndex != 9)
-               {
-                   groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0.0;
-                   groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Введите правильное значение";
-                   return;
-               }
-               
-                if (e.ColumnIndex == 4 || e.ColumnIndex == 9)
-                {
-                    groupSetup.BeginInvoke(new GridGroupCheck(CheckGroupsSelect), new object[] {e.ColumnIndex});
-                }
+            double time;
+            SetColorToChangeRows(e.RowIndex);
+            groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "";
+            if (!Double.TryParse(groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out time) &&
+                e.ColumnIndex != 2 && e.ColumnIndex != 4 && e.ColumnIndex != 9)
+            {
+                groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0.0;
+                groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Введите правильное значение";
+                return;
+            }
+
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 9)
+            {
+                groupSetup.BeginInvoke(new GridGroupCheck(CheckGroupsSelect), new object[] {e.ColumnIndex});
+            }
             if (e.ColumnIndex == 5 || e.ColumnIndex == 10)
             {
                 double timeopen;
                 double timeclose;
-                
-                
+
+
                 GetTimeOpenClose(groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(),
                                  groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString(),
                                  out timeopen, out timeclose);
@@ -1288,7 +1303,8 @@ namespace Config_PLC_SIEMENS
 
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
-                    if (row.Cells[4].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex  -1 ].Value.ToString())
+                    if (row.Cells[4].Value.ToString() ==
+                        groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString())
                     {
                         row.Cells[5].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                         row.Cells[7].Value = (timeopen).ToString("0.0");
@@ -1302,7 +1318,8 @@ namespace Config_PLC_SIEMENS
                         SetColorToChangeRows(row.Index);
 
                     }
-                    if (row.Cells[9].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString())
+                    if (row.Cells[9].Value.ToString() ==
+                        groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString())
                     {
                         row.Cells[10].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                         row.Cells[12].Value = (timeopen).ToString("0.0");
@@ -1317,7 +1334,7 @@ namespace Config_PLC_SIEMENS
                     }
                 }
             }
-            if (e.ColumnIndex == 7 || e.ColumnIndex == 8 || e.ColumnIndex==12 || e.ColumnIndex==13)
+            if (e.ColumnIndex == 7 || e.ColumnIndex == 8 || e.ColumnIndex == 12 || e.ColumnIndex == 13)
             {
                 double timeopen = 0;
                 double timeclose = 0;
@@ -1358,9 +1375,10 @@ namespace Config_PLC_SIEMENS
                 groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose].ErrorText = "";
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
-                    if (row.Cells[4].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose - 1].Value.ToString())
+                    if (row.Cells[4].Value.ToString() ==
+                        groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose - 1].Value.ToString())
                     {
-                        
+
                         row.Cells[5].Value = (timeopen + timeclose).ToString("0.0");
                         row.Cells[7].Value = (timeopen).ToString("0.0");
                         row.Cells[8].Value = (timeclose).ToString("0.0");
@@ -1373,7 +1391,8 @@ namespace Config_PLC_SIEMENS
                         SetColorToChangeRows(row.Index);
 
                     }
-                    if (row.Cells[9].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose - 1].Value.ToString())
+                    if (row.Cells[9].Value.ToString() ==
+                        groupSetup.Rows[e.RowIndex].Cells[indColumnTimeDose - 1].Value.ToString())
                     {
                         row.Cells[10].Value = (timeopen + timeclose).ToString("0.0");
                         row.Cells[12].Value = (timeopen).ToString("0.0");
@@ -1389,7 +1408,7 @@ namespace Config_PLC_SIEMENS
                 }
 
             }
-            if(e.ColumnIndex == 3)
+            if (e.ColumnIndex == 3)
             {
                 groupSetup.Rows[e.RowIndex].Cells[20].Value = 1;
                 foreach (DataGridViewRow row in groupSetup.Rows)
@@ -1405,6 +1424,7 @@ namespace Config_PLC_SIEMENS
             }
 
         }
+
         private void CheckGroupsSelect(int columnIndex)
         {
 
@@ -1413,19 +1433,21 @@ namespace Config_PLC_SIEMENS
                 groupSetup.CurrentCell = groupSetup.Rows[i.Key].Cells[columnIndex];
                 groupSetup.BeginEdit(true);
                 DataGridViewComboBoxEditingControl cb =
-               (DataGridViewComboBoxEditingControl)groupSetup.EditingControl;
-                cb.SelectedIndex = i.Value; 
-              
+                    (DataGridViewComboBoxEditingControl) groupSetup.EditingControl;
+                cb.SelectedIndex = i.Value;
+
             }
-            checkedRow.Clear();            
+            checkedRow.Clear();
         }
+
         private void EndEdit(int stub)
         {
             groupSetup.EndEdit();
         }
 
 
-        private string CalcKoeffOpenClose(int? timeOpen, int? timeClose, ref double timeOpenDoub, ref double timeCloseDoub   , ref double timeAll)
+        private string CalcKoeffOpenClose(int? timeOpen, int? timeClose, ref double timeOpenDoub,
+                                          ref double timeCloseDoub, ref double timeAll)
         {
             timeCloseDoub = 0;
             timeOpenDoub = 0;
@@ -1433,11 +1455,11 @@ namespace Config_PLC_SIEMENS
             string result = "";
             if (timeOpen != null)
             {
-                timeOpenDoub = (double)timeOpen.Value/100;
+                timeOpenDoub = (double) timeOpen.Value/100;
             }
             if (timeClose != null)
             {
-                timeCloseDoub = (double)timeClose.Value / 100;
+                timeCloseDoub = (double) timeClose.Value/100;
             }
             timeAll = timeOpenDoub + timeCloseDoub;
             if (timeAll != 0)
@@ -1448,8 +1470,9 @@ namespace Config_PLC_SIEMENS
 
         private string CutShiberName(string name)
         {
-           return  name.Substring(0, 4) + ". "  + name.Substring(name.Length - 5, 5);
+            return name.Substring(0, 4) + ". " + name.Substring(name.Length - 5, 5);
         }
+
         private string CutGroupName(int number)
         {
             return number + " группа";
@@ -1457,7 +1480,7 @@ namespace Config_PLC_SIEMENS
 
         private void GroupSetupCellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            
+
         }
 
         private void GroupSetupCellClick(object sender, DataGridViewCellEventArgs e)
@@ -1474,10 +1497,10 @@ namespace Config_PLC_SIEMENS
                         return;
                     }
                 }
-                if(CommangChangeGroupConfig(e.RowIndex, false) == 0)
+                if (CommangChangeGroupConfig(e.RowIndex, false) == 0)
                 {
                     groupSetup.Rows[e.RowIndex].Cells[1].Style.BackColor =
-                       System.Drawing.Color.Gainsboro;
+                        System.Drawing.Color.Gainsboro;
                     if (typeWorkToGroupSetup.SelectedIndex == 1)
                         CommandForPlc();
                     else
@@ -1495,6 +1518,7 @@ namespace Config_PLC_SIEMENS
                 }
             }
         }
+
         private void SetColorToChangeRows(int rowIndex)
         {
             groupSetup.Rows[rowIndex].Cells[0].Value = 1;
@@ -1591,31 +1615,39 @@ namespace Config_PLC_SIEMENS
                     groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dChangeKoeff.KoeffOpen.ToString("0.0") +
                                                                              " / " +
                                                                              dChangeKoeff.KoeffClose.ToString("0.0");
-                    groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
-                    groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                    groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value =
+                        (timedoze*dChangeKoeff.KoeffOpen).ToString("0.0");
+                    groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value =
+                        (timedoze*dChangeKoeff.KoeffClose).ToString("0.0");
                     SetColorToChangeRows(e.RowIndex);
                     foreach (DataGridViewRow row in groupSetup.Rows)
                     {
-                        if (row.Cells[4].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 2].Value.ToString()
-                           )
+                        if (row.Cells[4].Value.ToString() ==
+                            groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 2].Value.ToString()
+                            )
                         {
-                            row.Cells[6].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dChangeKoeff.KoeffOpen.ToString("0.0") +
-                                                                              " / " +
-                                                                           dChangeKoeff.KoeffClose.ToString("0.0");
+                            row.Cells[6].Value =
+                                groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value =
+                                dChangeKoeff.KoeffOpen.ToString("0.0") +
+                                " / " +
+                                dChangeKoeff.KoeffClose.ToString("0.0");
 
-                            row.Cells[7].Value = (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
-                            row.Cells[8].Value = (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                            row.Cells[7].Value = (timedoze*dChangeKoeff.KoeffOpen).ToString("0.0");
+                            row.Cells[8].Value = (timedoze*dChangeKoeff.KoeffClose).ToString("0.0");
                             row.Cells[18].Value = 1;
                             SetColorToChangeRows(row.Index);
 
                         }
-                        if (row.Cells[9].Value.ToString() == groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex -2].Value.ToString())
+                        if (row.Cells[9].Value.ToString() ==
+                            groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 2].Value.ToString())
                         {
-                            row.Cells[11].Value = groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dChangeKoeff.KoeffOpen.ToString("0.0") +
-                                                                              " / " +
-                                                                           dChangeKoeff.KoeffClose.ToString("0.0");
-                            row.Cells[12].Value = (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
-                            row.Cells[13].Value = (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                            row.Cells[11].Value =
+                                groupSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value =
+                                dChangeKoeff.KoeffOpen.ToString("0.0") +
+                                " / " +
+                                dChangeKoeff.KoeffClose.ToString("0.0");
+                            row.Cells[12].Value = (timedoze*dChangeKoeff.KoeffOpen).ToString("0.0");
+                            row.Cells[13].Value = (timedoze*dChangeKoeff.KoeffClose).ToString("0.0");
                             row.Cells[19].Value = 1;
                             SetColorToChangeRows(row.Index);
                         }
@@ -1626,11 +1658,12 @@ namespace Config_PLC_SIEMENS
 
         private void CheckChangeSetup(int rowIndex, int columnIndex)
         {
-            if(columnIndex == 2)
+            if (columnIndex == 2)
             {
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
-                    if(row.Index != rowIndex && row.Cells[4].Value.ToString() == groupSetup.Rows[rowIndex].Cells[4].Value.ToString() &&
+                    if (row.Index != rowIndex &&
+                        row.Cells[4].Value.ToString() == groupSetup.Rows[rowIndex].Cells[4].Value.ToString() &&
                         row.Cells[18].Value.ToString() == "1")
                     {
                         groupSetup.Rows[rowIndex].Cells[5].Value = row.Cells[5].Value;
@@ -1660,7 +1693,8 @@ namespace Config_PLC_SIEMENS
 
                         groupSetup.Rows[rowIndex].Cells[19].Value = "1";
                     }
-                    if (row.Index != rowIndex && row.Cells[2].Value.ToString() == groupSetup.Rows[rowIndex].Cells[2].Value.ToString()
+                    if (row.Index != rowIndex &&
+                        row.Cells[2].Value.ToString() == groupSetup.Rows[rowIndex].Cells[2].Value.ToString()
                         && row.Cells[20].Value.ToString() == "1")
                     {
                         groupSetup.Rows[rowIndex].Cells[3].Value = row.Cells[3].Value;
@@ -1670,16 +1704,20 @@ namespace Config_PLC_SIEMENS
                     }
                 }
             }
-            if(columnIndex == 4 || columnIndex == 9)
+            if (columnIndex == 4 || columnIndex == 9)
             {
                 bool cell9 = false;
                 foreach (DataGridViewRow row in groupSetup.Rows)
                 {
                     if (row.Index != rowIndex &&
-                       ( (row.Cells[4].Value.ToString() == groupSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString() && row.Cells[18].Value.ToString() == "1") ||
-                         ((cell9 = (row.Cells[9].Value.ToString() == groupSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString())) && row.Cells[19].Value.ToString() == "1")))
+                        ((row.Cells[4].Value.ToString() == groupSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString() &&
+                          row.Cells[18].Value.ToString() == "1") ||
+                         ((cell9 =
+                           (row.Cells[9].Value.ToString() ==
+                            groupSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString())) &&
+                          row.Cells[19].Value.ToString() == "1")))
                     {
-                        groupSetup.Rows[rowIndex].Cells[columnIndex + 1].Value = row.Cells[cell9? 10 : 5].Value;
+                        groupSetup.Rows[rowIndex].Cells[columnIndex + 1].Value = row.Cells[cell9 ? 10 : 5].Value;
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 2].Value = row.Cells[cell9 ? 11 : 6].Value;
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 3].Value = row.Cells[cell9 ? 12 : 7].Value;
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 4].Value = row.Cells[cell9 ? 13 : 8].Value;
@@ -1689,7 +1727,7 @@ namespace Config_PLC_SIEMENS
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 3].ErrorText = "";
                         groupSetup.Rows[rowIndex].Cells[columnIndex + 4].ErrorText = "";
 
-                        groupSetup.Rows[rowIndex].Cells[columnIndex == 4? 18 : 19].Value = "1";
+                        groupSetup.Rows[rowIndex].Cells[columnIndex == 4 ? 18 : 19].Value = "1";
                     }
                 }
             }
@@ -1719,18 +1757,18 @@ namespace Config_PLC_SIEMENS
                 shibernumber1 = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[16].Value);
                 shibernumber2 = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[17].Value);
 
-                if(!noStore)
-                  data.SaveGroupSequence(_rtpid, sequencenumber, groupnumber); //setup group to sequence
+                if (!noStore)
+                    data.SaveGroupSequence(_rtpid, sequencenumber, groupnumber); //setup group to sequence
 
                 paramset[0] = sequencenumber;
                 paramset[1] = groupnumber;
                 commandOne.CommandNumber = (int) CommandName.MountShiberToGroupSequency;
                 commandOne.Values = paramset;
                 commandToPlc.Enqueue(commandOne);
-                
-                if(!noStore)
-                  data.SaveGroupConfig(_rtpid, groupnumber, shibernumber1, shibernumber2, timeBetwen);
-                
+
+                if (!noStore)
+                    data.SaveGroupConfig(_rtpid, groupnumber, shibernumber1, shibernumber2, timeBetwen);
+
                 paramset = new int[6];
                 commandOne = new CommandToPlc();
                 paramset[0] = groupnumber;
@@ -1741,9 +1779,9 @@ namespace Config_PLC_SIEMENS
                 commandOne.Values = paramset;
                 commandToPlc.Enqueue(commandOne);
 
-                if(!noStore)
-                   data.SaveShiberConfigForGroup(_rtpid, shibernumber1, timeOpen1, timeClose1, shibernumber2, timeOpen2,
-                                              timeClose2);
+                if (!noStore)
+                    data.SaveShiberConfigForGroup(_rtpid, shibernumber1, timeOpen1, timeClose1, shibernumber2, timeOpen2,
+                                                  timeClose2);
                 paramset = new int[6];
                 commandOne = new CommandToPlc();
                 paramset[0] = shibernumber1;
@@ -1768,14 +1806,15 @@ namespace Config_PLC_SIEMENS
             {
 
                 MessageBox.Show("Ошибка сохранения параметров (" + ex.Message + ")", "Ошибка",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 result = -1;
             }
 
             return result;
         }
 
-        private void GetParamToSaveGroupConfig(int rowIndex, out int timeBetwen, out int timeOpen1, out int timeClose1, out int timeOpen2, out int timeClose2)
+        private void GetParamToSaveGroupConfig(int rowIndex, out int timeBetwen, out int timeOpen1, out int timeClose1,
+                                               out int timeOpen2, out int timeClose2)
         {
             try
             {
@@ -1787,7 +1826,7 @@ namespace Config_PLC_SIEMENS
             }
             try
             {
-                timeOpen1 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[7].Value) * 100);
+                timeOpen1 = (int) (Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[7].Value)*100);
             }
             catch
             {
@@ -1795,7 +1834,7 @@ namespace Config_PLC_SIEMENS
             }
             try
             {
-                timeClose1 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[8].Value) * 100);
+                timeClose1 = (int) (Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[8].Value)*100);
             }
             catch
             {
@@ -1804,7 +1843,7 @@ namespace Config_PLC_SIEMENS
 
             try
             {
-                timeOpen2 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[12].Value) * 100);
+                timeOpen2 = (int) (Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[12].Value)*100);
             }
             catch
             {
@@ -1812,7 +1851,7 @@ namespace Config_PLC_SIEMENS
             }
             try
             {
-                timeClose2 = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[13].Value) * 100);
+                timeClose2 = (int) (Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[13].Value)*100);
             }
             catch
             {
@@ -1823,7 +1862,7 @@ namespace Config_PLC_SIEMENS
         private void TypeWorkToGroupSetupSelectedIndexChanged(object sender, EventArgs e)
         {
             if (typeWorkToGroupSetup.SelectedIndex == 1)
-               downloadGroupConfigAll.Enabled = true;
+                downloadGroupConfigAll.Enabled = true;
             else
                 downloadGroupConfigAll.Enabled = false;
         }
@@ -1834,8 +1873,8 @@ namespace Config_PLC_SIEMENS
             {
                 if (CommangChangeGroupConfig(row.Index, false) != 0)
                     break;
-               row.Cells[1].Style.BackColor =
-                       System.Drawing.Color.Gainsboro;
+                row.Cells[1].Style.BackColor =
+                    System.Drawing.Color.Gainsboro;
             }
             CommandForPlc();
         }
@@ -1860,7 +1899,7 @@ namespace Config_PLC_SIEMENS
                 RtpConfigDataContext data = new RtpConfigDataContext();
                 data.SetErrorDownloadToPlc(_rtpid, 1);
             }
-        } 
+        }
 
 
         private void LoadSingleConfig()
@@ -1885,33 +1924,169 @@ namespace Config_PLC_SIEMENS
                 {
                     rnumber = singleSetup.Rows.Add();
                 }
-                
+
                 singleSetup.Rows[rnumber].Cells[0 + offsetc].Value = "";
                 singleSetup.Rows[rnumber].Cells[1 + offsetc].Value = getSingleShiberSetupResult.sequencenumber;
-                var shiberb = ((DataGridViewComboBoxCell)singleSetup.Rows[rnumber].Cells[2 + offsetc]);
+                var shiberb = ((DataGridViewComboBoxCell) singleSetup.Rows[rnumber].Cells[2 + offsetc]);
                 shiberb.Items.Clear();
                 foreach (GetRtpSignalGroupsResult shiber in shibers)
                 {
                     shiberb.Items.Add(CutShiberName(shiber.signalgroupdescription));
                 }
-                singleSetup.Rows[rnumber].Cells[2 + offsetc].Value = CutShiberName(getSingleShiberSetupResult.signalgroupdescription);
+                singleSetup.Rows[rnumber].Cells[2 + offsetc].Value =
+                    CutShiberName(getSingleShiberSetupResult.signalgroupdescription);
                 double timedoze = 0;
                 double timeopen = 0;
                 double timeclose = 0;
                 string timekoeff = "";
                 timekoeff = CalcKoeffOpenClose(getSingleShiberSetupResult.timeOpen, getSingleShiberSetupResult.timeClose,
                                                ref timeopen, ref timeclose, ref timedoze);
-                singleSetup.Rows[rnumber].Cells[3 + offsetc].Value = timekoeff;
-                singleSetup.Rows[rnumber].Cells[4 + offsetc].Value = timedoze.ToString("0.0");
+                singleSetup.Rows[rnumber].Cells[4 + offsetc].Value = timekoeff;
+                singleSetup.Rows[rnumber].Cells[3 + offsetc].Value = timedoze.ToString("0.0");
                 singleSetup.Rows[rnumber].Cells[5 + offsetc].Value = timeopen.ToString("0.0");
                 singleSetup.Rows[rnumber].Cells[6 + offsetc].Value = timeclose.ToString("0.0");
                 if (getSingleShiberSetupResult.timeBetwenShiber != null)
-                    singleSetup.Rows[rnumber].Cells[7 + offsetc].Value = ((double)getSingleShiberSetupResult.timeBetwenShiber/100).ToString("0.0");
+                    singleSetup.Rows[rnumber].Cells[7 + offsetc].Value =
+                        ((double) getSingleShiberSetupResult.timeBetwenShiber/100).ToString("0.0");
                 singleSetup.Rows[rnumber].Cells[8 + offsetc].Value = "Применить";
+                singleSetup.Rows[rnumber].Cells[9 + offsetc].Value =  getSingleShiberSetupResult.shibernumber;
+                singleSetup.Rows[rnumber].Cells[10 + offsetc].Value = 1;
                 ind++;
             }
         }
 
+        private void SingleSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void SingleSetupCellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void SingleSetupEditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox cb = e.Control as ComboBox;
+            if (cb != null)
+            {
+                // first remove event handler to keep from attaching multiple:
+                cb.SelectedIndexChanged -= SingleSelectedIndexChanged;
+
+                // now attach the event handler
+                cb.SelectedIndexChanged += SingleSelectedIndexChanged;
+            }
+        }
+
+        private void SingleSelectedIndexChanged(object sender, EventArgs e)
+        {
+            double timedoze = 0;
+            double timeopen = 0;
+            double timeclose = 0;
+            string timekoeff = "";
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            if (sender == null)
+                return;
+            DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl) sender;
+            int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
+            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2 &&
+                (int) singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Value !=
+                (selecedIndex + 1)) //shiber 1 change
+            {
+
+                var shibersSetup = data.GetCurrentShiberConfigByShiberNumber(_rtpid, selecedIndex + 1).ToList();
+                if (shibersSetup.Count > 0)
+                {
+                    var shiberSetup = shibersSetup.First();
+                    timekoeff = CalcKoeffOpenClose(shiberSetup.timeOpen, shiberSetup.timeClose,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+
+                    singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3].Value =
+                        timedoze.ToString("0.0");
+                    singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
+                        timeopen.ToString("0.0");
+                    singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value =
+                        timeclose.ToString("0.0");
+                    singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[4].Value = timekoeff;
+                }
+                singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[9].Value = selecedIndex + 1;
+                singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[10].Value = "";
+                singleSetup.BeginInvoke(new GridGroupCheck(EndSingleEdit), new object[] { 0 });
+
+            }
+
+            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 13 &&
+                (int) singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[20].Value !=
+                (selecedIndex + 1)) //shiber 2 change
+            {
+
+                var shibersSetup = data.GetCurrentShiberConfigByShiberNumber(_rtpid, selecedIndex + 1).ToList();
+                if (shibersSetup.Count > 0)
+                {
+                    var shiberSetup = shibersSetup.First();
+                    timekoeff = CalcKoeffOpenClose(shiberSetup.timeOpen, shiberSetup.timeClose,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+
+                    singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[14].Value =
+                        timedoze.ToString("0.0");
+                    singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[16].Value =
+                        timeopen.ToString("0.0");
+                    singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[17].Value =
+                        timeclose.ToString("0.0");
+                   singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[15].Value = timekoeff;
+                }
+            }
+            singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[20].Value = selecedIndex + 1;
+            singleSetup.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[21].Value = "";
+            singleSetup.BeginInvoke(new GridGroupCheck(EndSingleEdit), new object[] { 0 });
+            singleSetup.BeginInvoke(new CheckShiberSetup(CheckSingleChangeSetup), new object[]
+                                                                               {
+                                                                                   dataGridViewComboBoxCell.
+                                                                                       EditingControlRowIndex,
+                                                                                   dataGridViewComboBoxCell.
+                                                                                       EditingControlDataGridView.
+                                                                                       CurrentCell.ColumnIndex
+
+                                                                               });
+
+        }
+        private void EndSingleEdit(int stub)
+        {
+            singleSetup.EndEdit();
+        }
+
+        private void CheckSingleChangeSetup(int rowIndex, int columnIndex)
+        {
+           
+            if (columnIndex == 2 || columnIndex == 13)
+            {
+                bool cell13 = false;
+                foreach (DataGridViewRow row in singleSetup.Rows)
+                {
+                    if (
+                        ((row.Cells[2].Value.ToString() == singleSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString() &&
+                          row.Cells[10].Value.ToString() == "1") ||
+                         ((cell13 =
+                           (row.Cells[13].Value.ToString() ==
+                            singleSetup.Rows[rowIndex].Cells[columnIndex].Value.ToString())) &&
+                          row.Cells[21].Value.ToString() == "1")))
+                    {
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 1].Value = row.Cells[cell13 ? 14 : 3].Value;
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 2].Value = row.Cells[cell13 ? 15 : 4].Value;
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 3].Value = row.Cells[cell13 ? 16 : 5].Value;
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 4].Value = row.Cells[cell13 ? 17 : 6].Value;
+
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 1].ErrorText = "";
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 2].ErrorText = "";
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 3].ErrorText = "";
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 4].ErrorText = "";
+
+                        singleSetup.Rows[rowIndex].Cells[columnIndex == 4 ? 10 : 21].Value = "1";
+                    }
+                }
+            }
+        }
+        
     }
 }
- 
+

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WKZP85824;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString2" Provider="System.Data.SqlClient" />
   <Function Name="dbo.GetModule" Method="GetModule">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetModuleResult">
@@ -234,10 +234,12 @@
     <ElementType Name="GetSingleShiberSetupResult">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="sequencenumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="timeOpen" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="timeClose" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="timeBetwenShiber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reopenCountMax" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

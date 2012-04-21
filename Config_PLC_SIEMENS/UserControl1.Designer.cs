@@ -156,17 +156,10 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.single_setup = new System.Windows.Forms.TabPage();
-            this.shiber_setup = new System.Windows.Forms.TabPage();
-            this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.pan_command_wait = new System.Windows.Forms.Panel();
-            this.text_wait = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.singleSetup = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.singleSetup = new System.Windows.Forms.DataGridView();
             this.singlesetup_id1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.singlesetup_sequence1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.singlesetup_shiber1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -189,6 +182,13 @@
             this.singlesetup_apply2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.shiber_setup = new System.Windows.Forms.TabPage();
+            this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.pan_command_wait = new System.Windows.Forms.Panel();
+            this.text_wait = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -209,10 +209,10 @@
             this.panel1.SuspendLayout();
             this.typeWorkGroupSetup.SuspendLayout();
             this.single_setup.SuspendLayout();
-            this.pan_command_wait.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.singleSetup)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.singleSetup)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            this.pan_command_wait.SuspendLayout();
             this.SuspendLayout();
             // 
             // set_conmenu
@@ -298,7 +298,7 @@
             "Контроллером"});
             this.typeWork.MergeIndex = 1;
             this.typeWork.Name = "typeWork";
-            this.typeWork.Size = new System.Drawing.Size(177, 39);
+            this.typeWork.Size = new System.Drawing.Size(177, 24);
             this.typeWork.SelectedIndexChanged += new System.EventHandler(this.TypeWorkSelectedIndexChanged);
             // 
             // toolStripSeparator1
@@ -1356,74 +1356,38 @@
             this.single_setup.Text = "Настройка одиночного режима";
             this.single_setup.UseVisualStyleBackColor = true;
             // 
-            // shiber_setup
+            // panel3
             // 
-            this.shiber_setup.Location = new System.Drawing.Point(4, 25);
-            this.shiber_setup.Margin = new System.Windows.Forms.Padding(2);
-            this.shiber_setup.Name = "shiber_setup";
-            this.shiber_setup.Size = new System.Drawing.Size(1016, 585);
-            this.shiber_setup.TabIndex = 6;
-            this.shiber_setup.Text = "Настройка шиберов";
-            this.shiber_setup.UseVisualStyleBackColor = true;
+            this.panel3.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.button1);
+            this.panel3.Controls.Add(this.button2);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 475);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1016, 110);
+            this.panel3.TabIndex = 4;
             // 
-            // folderDialog
+            // button1
             // 
-            this.folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            this.button1.Location = new System.Drawing.Point(858, 32);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 32);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Вернуться";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // pan_command_wait
+            // button2
             // 
-            this.pan_command_wait.BackColor = System.Drawing.Color.Gainsboro;
-            this.pan_command_wait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pan_command_wait.Controls.Add(this.text_wait);
-            this.pan_command_wait.Controls.Add(this.label3);
-            this.pan_command_wait.Location = new System.Drawing.Point(311, 219);
-            this.pan_command_wait.Name = "pan_command_wait";
-            this.pan_command_wait.Size = new System.Drawing.Size(394, 127);
-            this.pan_command_wait.TabIndex = 6;
-            this.pan_command_wait.Visible = false;
-            // 
-            // text_wait
-            // 
-            this.text_wait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.text_wait.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.text_wait.Location = new System.Drawing.Point(0, 51);
-            this.text_wait.Multiline = true;
-            this.text_wait.Name = "text_wait";
-            this.text_wait.ReadOnly = true;
-            this.text_wait.Size = new System.Drawing.Size(394, 76);
-            this.text_wait.TabIndex = 1;
-            this.text_wait.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(21, 17);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(354, 20);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Пожалуйста подождите идет выполнение команды...";
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.BackColor = System.Drawing.Color.Gainsboro;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1016, 39);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.button2.Location = new System.Drawing.Point(692, 32);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(112, 32);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Применить";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // singleSetup
             // 
@@ -1511,39 +1475,9 @@
             this.singleSetup.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.singleSetup.Size = new System.Drawing.Size(1016, 546);
             this.singleSetup.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.button2);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 475);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1016, 110);
-            this.panel3.TabIndex = 4;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(858, 32);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 32);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Вернуться";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(692, 32);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 32);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Применить";
-            this.button2.UseVisualStyleBackColor = true;
+            this.singleSetup.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SingleSetupCellDoubleClick);
+            this.singleSetup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.SingleSetupCellEndEdit);
+            this.singleSetup.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.SingleSetupEditingControlShowing);
             // 
             // singlesetup_id1
             // 
@@ -1772,6 +1706,75 @@
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             this.dataGridViewTextBoxColumn18.Visible = false;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Gainsboro;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1016, 39);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
+            // shiber_setup
+            // 
+            this.shiber_setup.Location = new System.Drawing.Point(4, 25);
+            this.shiber_setup.Margin = new System.Windows.Forms.Padding(2);
+            this.shiber_setup.Name = "shiber_setup";
+            this.shiber_setup.Size = new System.Drawing.Size(1016, 585);
+            this.shiber_setup.TabIndex = 6;
+            this.shiber_setup.Text = "Настройка шиберов";
+            this.shiber_setup.UseVisualStyleBackColor = true;
+            // 
+            // folderDialog
+            // 
+            this.folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // pan_command_wait
+            // 
+            this.pan_command_wait.BackColor = System.Drawing.Color.Gainsboro;
+            this.pan_command_wait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pan_command_wait.Controls.Add(this.text_wait);
+            this.pan_command_wait.Controls.Add(this.label3);
+            this.pan_command_wait.Location = new System.Drawing.Point(311, 219);
+            this.pan_command_wait.Name = "pan_command_wait";
+            this.pan_command_wait.Size = new System.Drawing.Size(394, 127);
+            this.pan_command_wait.TabIndex = 6;
+            this.pan_command_wait.Visible = false;
+            // 
+            // text_wait
+            // 
+            this.text_wait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.text_wait.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.text_wait.Location = new System.Drawing.Point(0, 51);
+            this.text_wait.Multiline = true;
+            this.text_wait.Name = "text_wait";
+            this.text_wait.ReadOnly = true;
+            this.text_wait.Size = new System.Drawing.Size(394, 76);
+            this.text_wait.TabIndex = 1;
+            this.text_wait.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(21, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(354, 20);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Пожалуйста подождите идет выполнение команды...";
+            // 
             // ConfigPLC_S7
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1811,12 +1814,12 @@
             this.typeWorkGroupSetup.PerformLayout();
             this.single_setup.ResumeLayout(false);
             this.single_setup.PerformLayout();
-            this.pan_command_wait.ResumeLayout(false);
-            this.pan_command_wait.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.singleSetup)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.singleSetup)).EndInit();
-            this.panel3.ResumeLayout(false);
+            this.pan_command_wait.ResumeLayout(false);
+            this.pan_command_wait.PerformLayout();
             this.ResumeLayout(false);
 
         }
