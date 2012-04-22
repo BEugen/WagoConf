@@ -242,4 +242,18 @@
       <Column Name="reopenCountMax" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SaveSingleSequence" Method="SaveSingleSequence">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sequencenumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveShiberConfigForSingle" Method="SaveShiberConfigForSingle">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeOpen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeClose" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeBetwen" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

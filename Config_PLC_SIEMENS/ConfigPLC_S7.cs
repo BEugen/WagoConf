@@ -298,6 +298,8 @@ namespace Config_PLC_SIEMENS
         private void TabConfigPlcS7SelectedIndexChanged(object sender, EventArgs e)
         {
             _selectedTab = tabConfiпWago.SelectedIndex;
+            text_wait.Text = "Идет загрузка данных";
+            WaitMount(true);
             switch (tabConfiпWago.SelectedIndex)
             {
                 case 0:
@@ -319,6 +321,7 @@ namespace Config_PLC_SIEMENS
                     break;
 
             }
+            WaitMount(false);
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
         }
 
@@ -1525,6 +1528,12 @@ namespace Config_PLC_SIEMENS
             groupSetup.Rows[rowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 172);
         }
 
+        private void SetColorToChangeRowsSingleSetup(int rowIndex, int columnIndex)
+        {
+            singleSetup.Rows[rowIndex].Cells[columnIndex < 11? 0 : 11].Value = 1;
+            singleSetup.Rows[rowIndex].Cells[columnIndex < 11? 1 : 12].Style.BackColor = Color.FromArgb(172, 232, 172);
+        }
+
         private void GetTimeOpenClose(string timeDoze, string koeff, out double timeOpen, out double timeClose)
         {
             double timedoze = 0.0;
@@ -1957,12 +1966,234 @@ namespace Config_PLC_SIEMENS
 
         private void SingleSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            double time;
+            SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+            singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "";
+            if (!Double.TryParse(singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out time) &&
+                e.ColumnIndex != 2 && e.ColumnIndex != 13)
+            {
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0.0;
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Введите правильное значение";
+                return;
+            }
 
+            if (e.ColumnIndex == 3 || e.ColumnIndex == 14)
+            {
+                double timeopen;
+                double timeclose;
+
+
+                GetTimeOpenClose(singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(),
+                                 singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString(),
+                                 out timeopen, out timeclose);
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = (timeopen).ToString("0.0");
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 3].Value = (timeclose).ToString("0.0");
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].ErrorText = "";
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 3].ErrorText = "";
+
+                foreach (DataGridViewRow row in singleSetup.Rows)
+                {
+                    if (row.Cells[2].Value.ToString() ==
+                        singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString())
+                    {
+                        row.Cells[3].Value = singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                        row.Cells[5].Value = (timeopen).ToString("0.0");
+                        row.Cells[6].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[3].ErrorText = "";
+                        row.Cells[5].ErrorText = "";
+                        row.Cells[6].ErrorText = "";
+
+                        row.Cells[10].Value = 1;
+                        SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+                    }
+                    if (row.Cells[13].Value.ToString() ==
+                       singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString())
+                    {
+                        row.Cells[14].Value = singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                        row.Cells[16].Value = (timeopen).ToString("0.0");
+                        row.Cells[17].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[14].ErrorText = "";
+                        row.Cells[16].ErrorText = "";
+                        row.Cells[17].ErrorText = "";
+
+                        row.Cells[21].Value = 1;
+                        SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+                    }
+                }
+            }
+            if (e.ColumnIndex == 5 || e.ColumnIndex == 6 || e.ColumnIndex == 16 || e.ColumnIndex == 17)
+            {
+                double timeopen = 0;
+                double timeclose = 0;
+                try
+                {
+                    timeopen = Convert.ToDouble(singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11 ? 5 : 16].Value);
+                }
+                catch
+                {
+
+                    timeopen = 0;
+                }
+                try
+                {
+                    timeclose = Convert.ToDouble(singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11 ? 6 : 17].Value);
+                }
+                catch
+                {
+
+                    timeclose = 0;
+                }
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11 ? 3 : 14].Value = (timeopen + timeclose).ToString("0.0");
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11 ? 3 : 14].ErrorText = "";
+                foreach (DataGridViewRow row in singleSetup.Rows)
+                {
+                    if (row.Cells[2].Value.ToString() ==
+                        singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11 ? 2 : 13].Value.ToString())
+                    {
+
+                        row.Cells[3].Value = (timeopen + timeclose).ToString("0.0");
+                        row.Cells[5].Value = (timeopen).ToString("0.0");
+                        row.Cells[6].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[3].ErrorText = "";
+                        row.Cells[5].ErrorText = "";
+                        row.Cells[6].ErrorText = "";
+
+                        row.Cells[10].Value = 1;
+                        SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+
+                    }
+                    if (row.Cells[13].Value.ToString() ==
+                        singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11 ? 2 : 13].Value.ToString())
+                    {
+                        row.Cells[14].Value = (timeopen + timeclose).ToString("0.0");
+                        row.Cells[16].Value = (timeopen).ToString("0.0");
+                        row.Cells[17].Value = (timeclose).ToString("0.0");
+
+                        row.Cells[14].ErrorText = "";
+                        row.Cells[16].ErrorText = "";
+                        row.Cells[17].ErrorText = "";
+
+                        row.Cells[21].Value = 1;
+                        SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+                    }
+                }
+
+            }
+            if (e.ColumnIndex == 7 || e.ColumnIndex == 18)
+            {
+                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11 ? 10 : 21].Value = 1;
+                foreach (DataGridViewRow row in singleSetup.Rows)
+                {
+
+                    if (row.Cells[2].Value.ToString() ==
+                        singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 5].Value.ToString())
+                    {
+                        row.Cells[7].Value = singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                        row.Cells[10].Value = 1;
+                        SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+                    }
+                    if (row.Cells[13].Value.ToString() ==
+                       singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 5].Value.ToString())
+                    {
+                        row.Cells[18].Value = singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                        row.Cells[21].Value = 1;
+                        SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+                    }
+                }
+
+            }
         }
 
         private void SingleSetupCellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 15)
+            {
+                ChangeKoeff dChangeKoeff = new ChangeKoeff();
+                double timedoze = 0.0;
+                string[] koeffval =
+                   singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace(" ", "").Split(
+                        "/".ToArray());
+                if (koeffval.Length > 1)
+                {
+                    try
+                    {
+                        dChangeKoeff.KoeffOpen = Convert.ToDouble(koeffval[0]);
+                    }
+                    catch
+                    {
 
+                        dChangeKoeff.KoeffOpen = 0;
+                    }
+                    try
+                    {
+                        dChangeKoeff.KoeffClose = Convert.ToDouble(koeffval[1]);
+                    }
+                    catch
+                    {
+                        dChangeKoeff.KoeffClose = 0;
+                    }
+                    try
+                    {
+                        timedoze = Convert.ToDouble(singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value);
+                    }
+                    catch
+                    {
+
+                        timedoze = 0;
+                    }
+                }
+                else
+                {
+                    dChangeKoeff.KoeffClose = 0;
+                    dChangeKoeff.KoeffOpen = 0;
+                }
+                if (dChangeKoeff.ShowDialog() == DialogResult.OK)
+                {
+                    singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dChangeKoeff.KoeffOpen.ToString("0.0") +
+                                                                             " / " +
+                                                                             dChangeKoeff.KoeffClose.ToString("0.0");
+                    singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value =
+                        (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
+                    singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value =
+                        (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                    SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+                    foreach (DataGridViewRow row in singleSetup.Rows)
+                    {
+                        if (row.Cells[2].Value.ToString() ==
+                            singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 2].Value.ToString()
+                            )
+                        {
+                            row.Cells[4].Value =
+                                 singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value =
+                                dChangeKoeff.KoeffOpen.ToString("0.0") +
+                                " / " +
+                                dChangeKoeff.KoeffClose.ToString("0.0");
+
+                            row.Cells[5].Value = (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
+                            row.Cells[6].Value = (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                            row.Cells[10].Value = 1;
+                            SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+
+                        }
+                        if (row.Cells[13].Value.ToString() ==
+                            singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 2].Value.ToString())
+                        {
+                            row.Cells[15].Value =
+                                singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value =
+                                dChangeKoeff.KoeffOpen.ToString("0.0") +
+                                " / " +
+                                dChangeKoeff.KoeffClose.ToString("0.0");
+                            row.Cells[16].Value = (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
+                            row.Cells[17].Value = (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                            row.Cells[21].Value = 1;
+                            SetColorToChangeRowsSingleSetup(e.RowIndex, e.ColumnIndex);
+                        }
+                    }
+                }
+            }
         }
 
         private void SingleSetupEditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -2075,14 +2306,129 @@ namespace Config_PLC_SIEMENS
                         singleSetup.Rows[rowIndex].Cells[columnIndex + 2].Value = row.Cells[cell13 ? 15 : 4].Value;
                         singleSetup.Rows[rowIndex].Cells[columnIndex + 3].Value = row.Cells[cell13 ? 16 : 5].Value;
                         singleSetup.Rows[rowIndex].Cells[columnIndex + 4].Value = row.Cells[cell13 ? 17 : 6].Value;
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 5].Value = row.Cells[cell13 ? 18 : 7].Value;
 
                         singleSetup.Rows[rowIndex].Cells[columnIndex + 1].ErrorText = "";
                         singleSetup.Rows[rowIndex].Cells[columnIndex + 2].ErrorText = "";
                         singleSetup.Rows[rowIndex].Cells[columnIndex + 3].ErrorText = "";
                         singleSetup.Rows[rowIndex].Cells[columnIndex + 4].ErrorText = "";
+                        singleSetup.Rows[rowIndex].Cells[columnIndex + 5].ErrorText = "";
 
                         singleSetup.Rows[rowIndex].Cells[columnIndex == 4 ? 10 : 21].Value = "1";
                     }
+                }
+            }
+        }
+
+        private void ApplySingleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private int CommangChangeSingleConfig(int rowIndex, int colIndex, bool noStore)
+        {
+            int result = 0;
+            try
+            {
+                int timeBetwen;
+                int timeOpen;
+                int timeClose;
+                int sequencenumber;
+                int shibernumber;
+                int[] paramset = new int[6];
+                var commandOne = new CommandToPlc();
+                RtpConfigDataContext data = new RtpConfigDataContext();
+                sequencenumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11? 1 : 12].Value);
+                shibernumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex <11? 9 : 20].Value);
+                timeOpen = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 5 : 16].Value);
+                timeClose = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 6 : 17].Value);
+                timeBetwen = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 7 : 18].Value);
+
+                if (!noStore)
+                    data.SaveSingleSequence(_rtpid, sequencenumber, shibernumber);
+
+                //paramset[0] = sequencenumber;
+                //paramset[1] = groupnumber;
+                //commandOne.CommandNumber = (int)CommandName.MountShiberToGroupSequency;
+                //commandOne.Values = paramset;
+                //commandToPlc.Enqueue(commandOne);
+
+                if (!noStore)
+                    data.SaveShiberConfigForSingle(_rtpid, shibernumber, timeOpen, timeClose, timeBetwen);
+
+                //paramset = new int[6];
+                //commandOne = new CommandToPlc();
+                //paramset[0] = groupnumber;
+                //paramset[1] = shibernumber1;
+                //paramset[2] = shibernumber2;
+                //paramset[3] = timeBetwen;
+                //commandOne.CommandNumber = (int)CommandName.MountShiberNumberToGroupSequency;
+                //commandOne.Values = paramset;
+                //commandToPlc.Enqueue(commandOne);
+
+           
+                //paramset = new int[6];
+                //commandOne = new CommandToPlc();
+                //paramset[0] = shibernumber1;
+                //paramset[1] = timeOpen1;
+                //paramset[2] = timeClose1;
+                //commandOne.CommandNumber = (int)CommandName.SetupTimeShibers1;
+                //commandOne.Values = paramset;
+                //commandToPlc.Enqueue(commandOne);
+
+                //paramset = new int[6];
+                //commandOne = new CommandToPlc();
+                //paramset[0] = shibernumber2;
+                //paramset[1] = timeOpen2;
+                //paramset[2] = timeClose2;
+                //commandOne.CommandNumber = (int)CommandName.SetupTimeShibers1;
+                //commandOne.Values = paramset;
+                //commandToPlc.Enqueue(commandOne);
+                //result = 0;
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка сохранения параметров (" + ex.Message + ")", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                result = -1;
+            }
+
+            return result;
+        }
+
+        private void SingleSetupCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 8 || e.ColumnIndex == 19)
+            {
+                foreach (DataGridViewCell cell in groupSetup.Rows[e.RowIndex].Cells)
+                {
+                    if (cell.ErrorText != "" && cell.ColumnIndex > (e.ColumnIndex - 7) && cell.ColumnIndex < e.ColumnIndex)
+                    {
+                        MessageBox.Show("Неверные параметры (ячейка: " + cell.ColumnIndex + ")", "Ошибка",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                if (CommangChangeSingleConfig(e.RowIndex, e.ColumnIndex, false) == 0)
+                {
+                    singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11? 1 : 12].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                    if (typeWorkToGroupSetup.SelectedIndex == 1)
+                        CommandForPlc();
+                    else
+                    {
+                        commandToPlc.Clear();
+                        RtpConfigDataContext data = new RtpConfigDataContext();
+                        data.SetErrorDownloadToPlc(_rtpid, 1);
+                    }
+                    CommandForPlc();
+                }
+                else
+                {
+                    singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11? 1 : 12].Style.BackColor =
+                        Color.FromArgb(244, 144, 131);
                 }
             }
         }

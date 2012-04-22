@@ -229,6 +229,20 @@ namespace Config_PLC_SIEMENS
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
 			return ((ISingleResult<GetSingleShiberSetupResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SaveSingleSequence")]
+		public int SaveSingleSequence([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> sequencenumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> shibernumber)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, sequencenumber, shibernumber);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SaveShiberConfigForSingle")]
+		public int SaveShiberConfigForSingle([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> shibernumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeOpen, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeClose, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeBetwen)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, shibernumber, timeOpen, timeClose, timeBetwen);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class GetModuleResult

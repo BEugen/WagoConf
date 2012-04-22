@@ -158,7 +158,7 @@
             this.single_setup = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.ApplySingle = new System.Windows.Forms.Button();
             this.singleSetup = new System.Windows.Forms.DataGridView();
             this.singlesetup_id1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.singlesetup_sequence1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1361,17 +1361,17 @@
             this.panel3.BackColor = System.Drawing.Color.Gainsboro;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.button2);
+            this.panel3.Controls.Add(this.ApplySingle);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 475);
+            this.panel3.Location = new System.Drawing.Point(0, 437);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1016, 110);
+            this.panel3.Size = new System.Drawing.Size(1016, 148);
             this.panel3.TabIndex = 4;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(858, 32);
+            this.button1.Location = new System.Drawing.Point(858, 53);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 32);
@@ -1379,15 +1379,16 @@
             this.button1.Text = "Вернуться";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // ApplySingle
             // 
-            this.button2.Location = new System.Drawing.Point(692, 32);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 32);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Применить";
-            this.button2.UseVisualStyleBackColor = true;
+            this.ApplySingle.Location = new System.Drawing.Point(692, 53);
+            this.ApplySingle.Margin = new System.Windows.Forms.Padding(2);
+            this.ApplySingle.Name = "ApplySingle";
+            this.ApplySingle.Size = new System.Drawing.Size(112, 32);
+            this.ApplySingle.TabIndex = 4;
+            this.ApplySingle.Text = "Применить";
+            this.ApplySingle.UseVisualStyleBackColor = true;
+            this.ApplySingle.Click += new System.EventHandler(this.ApplySingleClick);
             // 
             // singleSetup
             // 
@@ -1475,6 +1476,7 @@
             this.singleSetup.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.singleSetup.Size = new System.Drawing.Size(1016, 546);
             this.singleSetup.TabIndex = 2;
+            this.singleSetup.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SingleSetupCellClick);
             this.singleSetup.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SingleSetupCellDoubleClick);
             this.singleSetup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.SingleSetupCellEndEdit);
             this.singleSetup.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.SingleSetupEditingControlShowing);
@@ -1932,7 +1934,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button ApplySingle;
         private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_id1;
         private System.Windows.Forms.DataGridViewTextBoxColumn singlesetup_sequence1;
         private System.Windows.Forms.DataGridViewComboBoxColumn singlesetup_shiber1;

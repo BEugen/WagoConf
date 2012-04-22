@@ -252,6 +252,12 @@
     <Build Include="GetSingleShiberSetup.proc.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="SaveSingleSequence.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="SaveShiberConfigForSingle.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Scripts\Post-Deployment\AddChannelType.sql">
