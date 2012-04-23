@@ -2340,51 +2340,31 @@ namespace Config_PLC_SIEMENS
                 RtpConfigDataContext data = new RtpConfigDataContext();
                 sequencenumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11? 1 : 12].Value);
                 shibernumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex <11? 9 : 20].Value);
-                timeOpen = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 5 : 16].Value);
-                timeClose = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 6 : 17].Value);
-                timeBetwen = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 7 : 18].Value);
+                timeOpen = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 5 : 16].Value)*100);
+                timeClose = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 6 : 17].Value)*100);
+                timeBetwen = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 7 : 18].Value)*100);
 
                 if (!noStore)
                     data.SaveSingleSequence(_rtpid, sequencenumber, shibernumber);
 
-                //paramset[0] = sequencenumber;
-                //paramset[1] = groupnumber;
-                //commandOne.CommandNumber = (int)CommandName.MountShiberToGroupSequency;
-                //commandOne.Values = paramset;
-                //commandToPlc.Enqueue(commandOne);
+                paramset[0] = sequencenumber;
+                paramset[1] = shibernumber;
+                paramset[2] = timeBetwen;
+                commandOne.CommandNumber = (int) CommandName.MountShiberToOneSequency;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
 
                 if (!noStore)
                     data.SaveShiberConfigForSingle(_rtpid, shibernumber, timeOpen, timeClose, timeBetwen);
-
-                //paramset = new int[6];
-                //commandOne = new CommandToPlc();
-                //paramset[0] = groupnumber;
-                //paramset[1] = shibernumber1;
-                //paramset[2] = shibernumber2;
-                //paramset[3] = timeBetwen;
-                //commandOne.CommandNumber = (int)CommandName.MountShiberNumberToGroupSequency;
-                //commandOne.Values = paramset;
-                //commandToPlc.Enqueue(commandOne);
-
            
-                //paramset = new int[6];
-                //commandOne = new CommandToPlc();
-                //paramset[0] = shibernumber1;
-                //paramset[1] = timeOpen1;
-                //paramset[2] = timeClose1;
-                //commandOne.CommandNumber = (int)CommandName.SetupTimeShibers1;
-                //commandOne.Values = paramset;
-                //commandToPlc.Enqueue(commandOne);
-
-                //paramset = new int[6];
-                //commandOne = new CommandToPlc();
-                //paramset[0] = shibernumber2;
-                //paramset[1] = timeOpen2;
-                //paramset[2] = timeClose2;
-                //commandOne.CommandNumber = (int)CommandName.SetupTimeShibers1;
-                //commandOne.Values = paramset;
-                //commandToPlc.Enqueue(commandOne);
-                //result = 0;
+                paramset = new int[6];
+                commandOne = new CommandToPlc();
+                paramset[0] = shibernumber;
+                paramset[1] = timeOpen;
+                paramset[2] = timeClose;
+                commandOne.CommandNumber = (int)CommandName.SetupTimeShibers1;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
 
             }
             catch (Exception ex)
@@ -2402,7 +2382,7 @@ namespace Config_PLC_SIEMENS
         {
             if (e.ColumnIndex == 8 || e.ColumnIndex == 19)
             {
-                foreach (DataGridViewCell cell in groupSetup.Rows[e.RowIndex].Cells)
+                foreach (DataGridViewCell cell in singleSetup.Rows[e.RowIndex].Cells)
                 {
                     if (cell.ErrorText != "" && cell.ColumnIndex > (e.ColumnIndex - 7) && cell.ColumnIndex < e.ColumnIndex)
                     {
