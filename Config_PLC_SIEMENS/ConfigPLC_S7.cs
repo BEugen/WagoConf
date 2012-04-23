@@ -185,6 +185,13 @@ namespace Config_PLC_SIEMENS
             set { _params[5] = value; }
         }
 
+        public int ShiberSelect
+        {
+            set
+            {
+                SelectShiberConfig(value);
+            }
+        }
         #endregion
 
         #region Event
@@ -316,6 +323,9 @@ namespace Config_PLC_SIEMENS
                     break;
                 case 3:
                     LoadSingleConfig();
+                    break;
+                case 4:
+                    LoadShiberSetup();
                     break;
                 default:
                     break;
@@ -2109,6 +2119,7 @@ namespace Config_PLC_SIEMENS
 
         private void SingleSetupCellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.ColumnIndex == 4 || e.ColumnIndex == 15)
             {
                 ChangeKoeff dChangeKoeff = new ChangeKoeff();
@@ -2322,7 +2333,31 @@ namespace Config_PLC_SIEMENS
 
         private void ApplySingleClick(object sender, EventArgs e)
         {
-
+            foreach (DataGridViewRow row in singleSetup.Rows)
+            {
+                if (row.Cells[0].Value.ToString() == "1")
+                {
+                    if (CommangChangeSingleConfig(row.Index, 0, false) != 0)
+                        break;
+                    row.Cells[1].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                }
+                if (row.Cells[11].Value.ToString() == "1")
+                {
+                    if (CommangChangeSingleConfig(row.Index, 11, false) != 0)
+                        break;
+                    row.Cells[12].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                }
+            }
+            if (typeWorkToGroupSetup.SelectedIndex == 1)
+                CommandForPlc();
+            else
+            {
+                commandToPlc.Clear();
+                RtpConfigDataContext data = new RtpConfigDataContext();
+                data.SetErrorDownloadToPlc(_rtpid, 1);
+            }
         }
 
         private int CommangChangeSingleConfig(int rowIndex, int colIndex, bool noStore)
@@ -2412,7 +2447,207 @@ namespace Config_PLC_SIEMENS
                 }
             }
         }
+
+
+        private void LoadShiberSetup()
+        {
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            var shibers = data.GetShiberSetup(_rtpid).ToList();
+            shibersetup_applyAll.Visible = true;
+            shibersetup_back.Visible = true;
+            shiberSetup.Rows.Clear();
+            foreach (GetShiberSetupResult getShiberSetupResult in shibers)
+            {
+                int index = shiberSetup.Rows.Add();
+                shiberSetup.Rows[index].Cells[0].Value = "";
+                shiberSetup.Rows[index].Cells[1].Value = getShiberSetupResult.shibernumber;
+                shiberSetup.Rows[index].Cells[2].Value = CutShiberName(getShiberSetupResult.signalgroupdescription);
+
+                double timedoze = 0;
+                double timeopen = 0;
+                double timeclose = 0;
+                string timekoeff = "";
+                timekoeff = CalcKoeffOpenClose(getShiberSetupResult.timeOpen, getShiberSetupResult.timeClose,
+                                               ref timeopen, ref timeclose, ref timedoze);                
+                shiberSetup.Rows[index].Cells[3].Value = timedoze.ToString("0.0");
+                shiberSetup.Rows[index].Cells[4].Value = timekoeff;
+                shiberSetup.Rows[index].Cells[5].Value = timeopen.ToString("0.0");
+                shiberSetup.Rows[index].Cells[6].Value = timeclose.ToString("0.0");
+                shiberSetup.Rows[index].Cells[7].Value = ((double)getShiberSetupResult.timeBetwenShiber / 100).ToString("0.0");
+                shiberSetup.Rows[index].Cells[8].Value = ((double)getShiberSetupResult.timeAOpen / 100).ToString("0.0");
+                shiberSetup.Rows[index].Cells[9].Value = ((double)getShiberSetupResult.timeAClose / 100).ToString("0.0");
+                shiberSetup.Rows[index].Cells[10].Value = getShiberSetupResult.reopenCountMax;
+                shiberSetup.Rows[index].Cells[11].Value = "Применить";
+                shiberSetup.Rows[index].Cells[12].Value = 1;
+            }
+        }
+
+        private void ShiberSetupCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ShiberSetupCellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (shiberSetup.Rows[e.RowIndex].ReadOnly)
+                return;
+            if (e.ColumnIndex == 4)
+            {
+                ChangeKoeff dChangeKoeff = new ChangeKoeff();
+                double timedoze = 0.0;
+                string[] koeffval =
+                   shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace(" ", "").Split(
+                        "/".ToArray());
+                if (koeffval.Length > 1)
+                {
+                    try
+                    {
+                        dChangeKoeff.KoeffOpen = Convert.ToDouble(koeffval[0]);
+                    }
+                    catch
+                    {
+
+                        dChangeKoeff.KoeffOpen = 0;
+                    }
+                    try
+                    {
+                        dChangeKoeff.KoeffClose = Convert.ToDouble(koeffval[1]);
+                    }
+                    catch
+                    {
+                        dChangeKoeff.KoeffClose = 0;
+                    }
+                    try
+                    {
+                        timedoze = Convert.ToDouble(shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value);
+                    }
+                    catch
+                    {
+
+                        timedoze = 0;
+                    }
+                }
+                else
+                {
+                    dChangeKoeff.KoeffClose = 0;
+                    dChangeKoeff.KoeffOpen = 0;
+                }
+                if (dChangeKoeff.ShowDialog() == DialogResult.OK)
+                {
+                    shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dChangeKoeff.KoeffOpen.ToString("0.0") +
+                                                                             " / " +
+                                                                             dChangeKoeff.KoeffClose.ToString("0.0");
+                    shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value =
+                        (timedoze * dChangeKoeff.KoeffOpen).ToString("0.0");
+                    shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value =
+                        (timedoze * dChangeKoeff.KoeffClose).ToString("0.0");
+                    SetColorToShiberSetup(e.RowIndex);
+
+                }
+            }
+
+        }
+
+        private void ShiberSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            double time;
+            SetColorToShiberSetup(e.RowIndex);
+            shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "";
+            if (!Double.TryParse(shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out time))
+            {
+                shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0.0;
+                shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Введите правильное значение";
+                return;
+            }
+
+            if (e.ColumnIndex == 3)
+            {
+                double timeopen;
+                double timeclose;
+
+
+                GetTimeOpenClose(shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(),
+                                 shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString(),
+                                 out timeopen, out timeclose);
+                shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = (timeopen).ToString("0.0");
+                shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 3].Value = (timeclose).ToString("0.0");
+                shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].ErrorText = "";
+                shiberSetup.Rows[e.RowIndex].Cells[e.ColumnIndex + 3].ErrorText = "";
+
+                
+            }
+            if (e.ColumnIndex == 5 || e.ColumnIndex == 6)
+            {
+                double timeopen = 0;
+                double timeclose = 0;
+                try
+                {
+                    timeopen = Convert.ToDouble(shiberSetup.Rows[e.RowIndex].Cells[5].Value);
+                }
+                catch
+                {
+
+                    timeopen = 0;
+                }
+                try
+                {
+                    timeclose = Convert.ToDouble(shiberSetup.Rows[e.RowIndex].Cells[6].Value);
+                }
+                catch
+                {
+
+                    timeclose = 0;
+                }
+                shiberSetup.Rows[e.RowIndex].Cells[3].Value = (timeopen + timeclose).ToString("0.0");
+                shiberSetup.Rows[e.RowIndex].Cells[3].ErrorText = "";
+               
+            }
+            if (e.ColumnIndex >= 7 && e.ColumnIndex <= 10)
+            {
+                shiberSetup.Rows[e.RowIndex].Cells[12].Value = 1;
+            }
+
+        }
+
+        private void SetColorToShiberSetup(int rowIndex)
+        {
+            shiberSetup.Rows[rowIndex].Cells[0].Value = 1;
+            shiberSetup.Rows[rowIndex].Cells[1].Style.BackColor = Color.FromArgb(172, 232, 172);
+        }
         
+        private int CommangChangeShiberConfig(int rowIndex, bool noStore)
+        {
+            return 0;
+        }
+
+        private void SelectShiberConfig(int shibernumber)
+        {
+            tabConfiпWago.SelectedIndex = 4;
+            foreach (DataGridViewRow row in shiberSetup.Rows)
+            {
+                if ((row.Index + 1) == shibernumber)
+                {
+                   // row.Selected = true;
+                    row.ReadOnly = false;
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(255, 123, 140, 189);
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                    shiberSetup.CurrentCell = row.Cells[1];
+                    continue;
+                }
+                row.ReadOnly = true;
+                row.Cells[11].ReadOnly = true;
+                row.DefaultCellStyle.ForeColor = Color.FromArgb(255, 173, 173, 173);
+                row.DefaultCellStyle.SelectionBackColor = Color.Gainsboro;
+                row.DefaultCellStyle.SelectionForeColor = Color.FromArgb(255, 173, 173, 173);
+            }
+            shibersetup_applyAll.Visible = false;
+            shibersetup_back.Visible = false;
+        }
+
+        private void ShibersetupApplyAllClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

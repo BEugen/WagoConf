@@ -48,11 +48,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmd = new System.Windows.Forms.TextBox();
             this.configPLC_S71 = new Config_PLC_SIEMENS.ConfigPLC_S7();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.p6);
@@ -262,6 +264,16 @@
             this.configPLC_S71.TabIndex = 0;
             this.configPLC_S71.Load += new System.EventHandler(this.configPLC_S71_Load);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(41, 377);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(104, 45);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "ShiberSelect";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -300,6 +312,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox p6;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

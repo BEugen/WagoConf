@@ -22,6 +22,7 @@ namespace Config_PLC_SIEMENS
         int P4 { get; set; }
         int P5 { get; set; }
         int P6 { get; set; }
+        int ShiberSelect { set; }
 
     }
     [Guid("901EE2A0-C47C-43ec-B433-985C020051D5")]

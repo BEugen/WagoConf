@@ -256,4 +256,29 @@
     <Parameter Name="timeBetwen" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GetShiberSetup" Method="GetShiberSetup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetShiberSetupResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="timeOpen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="timeClose" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="timeBetwenShiber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="timeAOpen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="timeAClose" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="reopenCountMax" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SaveShiberSetup" Method="SaveShiberSetup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeOpen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeClose" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeAOpen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeAClose" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeBetwenShiber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="reopenCountMax" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>
