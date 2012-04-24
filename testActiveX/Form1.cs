@@ -19,8 +19,8 @@ namespace testActiveX
         {
             InitializeComponent();
             tmrElapsedCMD = new System.Timers.Timer(2000);
-            tmrElapsedCMD.Elapsed += new System.Timers.ElapsedEventHandler(tmrElapsedCMD_Elapsed);
-            configPLC_S71.CommandEvent += new Config_PLC_SIEMENS.ConfigPLC_S7.CommandEventHandler(configPLC_S71_CommandEvent);
+            tmrElapsedCMD.Elapsed += tmrElapsedCMD_Elapsed;
+            configPLC_S71.CommandEvent += configPLC_S71_CommandEvent;
             
         }
 
@@ -99,6 +99,11 @@ namespace testActiveX
         private void button2_Click(object sender, EventArgs e)
         {
             configPLC_S71.ShiberSelect = 24;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            configPLC_S71.CurrentAccessLevel = 9999;
         }
     }
 }

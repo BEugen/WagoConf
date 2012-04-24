@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Config_PLC_SIEMENS
+namespace RtpWagoConf
 {
     public partial class Set_form_module_add : Form
     {

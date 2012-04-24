@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Config_PLC_SIEMENS")]
-[assembly: AssemblyDescription("ActiveX for SCADA to config analog PLC SIEMENS")]
+[assembly: AssemblyTitle("RtpWagoConf")]
+[assembly: AssemblyDescription("ActiveX for SCADA to config RtpWagoConf")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DocentStudio")]
-[assembly: AssemblyProduct("Config_PLC_SIEMENS")]
+[assembly: AssemblyProduct("RtpWagoConf")]
 [assembly: AssemblyCopyright("Copyright ©  2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

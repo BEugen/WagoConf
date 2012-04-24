@@ -4,6 +4,9 @@
 	rtpdescr nvarchar(50) not null,
 	rtpid int not null,
 	changehardware int,
+	changegroupconfig int,
+	changesingleconfig int,
+	changeshiberconfig int
 CONSTRAINT [PK_RtpName] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

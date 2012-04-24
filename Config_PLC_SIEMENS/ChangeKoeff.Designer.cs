@@ -1,4 +1,4 @@
-﻿namespace Config_PLC_SIEMENS
+﻿namespace RtpWagoConf
 {
     partial class ChangeKoeff
     {
@@ -32,8 +32,8 @@
             this.cancel = new System.Windows.Forms.Button();
             this.set_frm_l_koeff_open = new System.Windows.Forms.Label();
             this.set_frm_l_koeff_close = new System.Windows.Forms.Label();
-            this.inp_koeff_open = new Config_PLC_SIEMENS.CustomControl.DigitTextBox();
-            this.inp_koeff_close = new Config_PLC_SIEMENS.CustomControl.DigitTextBox();
+            this.inp_koeff_open = new RtpWagoConf.CustomControl.DigitTextBox();
+            this.inp_koeff_close = new RtpWagoConf.CustomControl.DigitTextBox();
             this.SuspendLayout();
             // 
             // set_frm_b_ok

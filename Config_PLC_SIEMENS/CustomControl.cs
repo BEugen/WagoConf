@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
-namespace Config_PLC_SIEMENS
+namespace RtpWagoConf
 {
    public class CustomControl
     {

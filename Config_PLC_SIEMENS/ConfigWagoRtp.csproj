@@ -8,8 +8,8 @@
     <ProjectGuid>{8194356C-870B-4ADD-8436-6698C4EB48A6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Config_PLC_SIEMENS</RootNamespace>
-    <AssemblyName>Config_PLC_SIEMENS</AssemblyName>
+    <RootNamespace>RtpWagoConf</RootNamespace>
+    <AssemblyName>RtpWagoConf</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -43,10 +43,6 @@
     <ApplicationManifest>ConfigPLC_S7.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -76,7 +72,6 @@
     <Compile Include="ChangeKoeff.Designer.cs">
       <DependentUpon>ChangeKoeff.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigPLCStore.cs" />
     <Compile Include="ConfigPLC_S7.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -87,7 +82,6 @@
       <DependentUpon>AddModule.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControl.cs" />
-    <Compile Include="ParseHardwareConfig.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,7 +98,6 @@
       <DependentUpon>RtpConfig.dbml</DependentUpon>
     </Compile>
     <Compile Include="SCADAInterface.cs" />
-    <Compile Include="StaticCodeGen.cs" />
     <Compile Include="UserControl1.Designer.cs">
       <DependentUpon>ConfigPLC_S7.cs</DependentUpon>
     </Compile>

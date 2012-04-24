@@ -264,6 +264,9 @@
     <Build Include="Scripts\SaveShiberSetup.proc.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Scripts\SaveTimeBetwenCycle.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Scripts\Post-Deployment\AddChannelType.sql">

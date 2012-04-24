@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
-namespace Config_PLC_SIEMENS
+namespace RtpWagoConf
 {
 
 
@@ -68,18 +68,19 @@ namespace Config_PLC_SIEMENS
         private delegate void CheckShiberSetup(int indexRow, int indexColumn);
 
         private Queue<CommandToPlc> commandToPlc;
-        private ConfigPLCStore configClass;
         private StaticConfig _parametrsConfig;
         private readonly System.Timers.Timer _tmrElapsedCmd;
         private Dictionary<int, int> checkedRow = new Dictionary<int, int>();
+        private bool _shangevaluecycle = false;
+        private int _valuecycle = 0;
+        private int _minAccessLevelToConfigurePlc = 9999;
+        private int _currentAccessLevelToConfigurePlc = 1000;
 
         public ConfigPLC_S7()
         {
             InitializeComponent();
-            configClass = new ConfigPLCStore();
             set_gb_channel_mount.Visible = false;
             set_b_channel_mount_ok.Visible = false;
-            _parametrsConfig = configClass.GetStaticConfigParam();
             _tmrElapsedCmd = new System.Timers.Timer {Interval = 1000*60 /*_parametrsConfig.TimeOut*/};
             _tmrElapsedCmd.Elapsed += TmrElapsedCmdElapsed;
             commandToPlc = new Queue<CommandToPlc>();
@@ -109,7 +110,27 @@ namespace Config_PLC_SIEMENS
         {
             _tmrElapsedCmd.Stop();
             RtpConfigDataContext data = new RtpConfigDataContext();
-            data.SetErrorDownloadToPlc(_rtpid, 1);
+            switch (_command)
+            {
+                case (int)CommandName.MountChannel: 
+                case (int)CommandName.MountModul:
+                case (int)CommandName.MountGenericSignals:
+                    data.SetErrorDownloadToPlc(_rtpid, 1);
+                    break;
+                case (int)CommandName.MountShiberNumberToGroupSequency:
+                case (int)CommandName.MountShiberToGroupSequency:
+                    data.SetErrorDownloadToPlc(_rtpid, 2);
+                    break;
+                case (int)CommandName.MountShiberToOneSequency:
+                    data.SetErrorDownloadToPlc(_rtpid, 3);
+                    break;
+                case (int)CommandName.SetupReopenShibers:
+                case (int)CommandName.SetupTimeShibers1:
+                case (int)CommandName.SetupTimeShibers2:
+                    data.SetErrorDownloadToPlc(_rtpid, 4);
+                    break;
+            }
+            
             Ui ui = WaitMount;
             set_treeview_mount.BeginInvoke(ui, new object[] {false});
             MessageBox.Show(_accept == 5 ? "Ошибка связи с системой визуализации" : "Ошибка связи с PLC", "Ошибка",
@@ -191,6 +212,26 @@ namespace Config_PLC_SIEMENS
             {
                 SelectShiberConfig(value);
             }
+            get { return -1; }
+        }
+
+        public int CurrentAccessLevel
+        {
+            get { return _currentAccessLevelToConfigurePlc; }
+            set
+            {
+                _currentAccessLevelToConfigurePlc = value;
+                CheckAccessToConfigPlc();
+            }
+        }
+        public int MinAccessLevelToConfigPlc
+        {
+            get { return _minAccessLevelToConfigurePlc; }
+            set
+            {
+                _minAccessLevelToConfigurePlc = value;
+                CheckAccessToConfigPlc();
+            }
         }
         #endregion
 
@@ -203,7 +244,24 @@ namespace Config_PLC_SIEMENS
 
         #endregion
 
-
+        private bool CheckAccessToConfigPlc()
+        {
+            if (_currentAccessLevelToConfigurePlc >= _minAccessLevelToConfigurePlc)
+            {
+                set_mount.Enabled = true;
+                tag_descr.Enabled = true;
+                set_setting.Enabled = true;
+                return true;
+            }
+            else
+            {
+               // tags.Hide();
+                set_mount.Enabled = false;
+                tag_descr.Enabled = false;
+                set_setting.Enabled = false;
+                return false;
+            }
+        }
 
         private void SetTreeviewMountNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -284,11 +342,11 @@ namespace Config_PLC_SIEMENS
         private void PlcInfLoad()
         {
 
-            PLC plc = configClass.GetPlc();
-            set_inp_name_plc.Text = plc.namePLC;
-            set_inp_type_plc.Text = plc.typePLC;
-            set_inp_number_plc.Text = plc.numberPLC.ToString();
-            set_treeview_mount.Nodes[0].Text = "PLC №" + set_inp_number_plc.Text;
+            //PLC plc = configClass.GetPlc();
+            //set_inp_name_plc.Text = plc.namePLC;
+            //set_inp_type_plc.Text = plc.typePLC;
+            //set_inp_number_plc.Text = plc.numberPLC.ToString();
+            //set_treeview_mount.Nodes[0].Text = "PLC №" + set_inp_number_plc.Text;
 
 
         }
@@ -315,22 +373,25 @@ namespace Config_PLC_SIEMENS
                 case 1:
                     typeWork.SelectedIndex = 1;
                     SetLoadChannelMount();
-                    CheckHardwareConfigError();
+                    
                     break;
                 case 2:
                     typeWorkToGroupSetup.SelectedIndex = 1;
                     LoadGroupConfig();
                     break;
                 case 3:
+                    typeWorkToSingleSetup.SelectedIndex = 1;
                     LoadSingleConfig();
                     break;
                 case 4:
+                    typeWorkToShiberSetup.SelectedIndex = 1;
                     LoadShiberSetup();
                     break;
                 default:
                     break;
 
             }
+            CheckHardwareConfigError();
             WaitMount(false);
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
         }
@@ -338,9 +399,8 @@ namespace Config_PLC_SIEMENS
         private void CheckHardwareConfigError()
         {
             RtpConfigDataContext data = new RtpConfigDataContext();
-            int flag = 1;
-            flag = data.GetErrorDownloadToPlc(_rtpid).First().changehardware;
-            if (flag == 1)
+            var flag = data.GetErrorDownloadToPlc(_rtpid).First();
+            if (flag.changehardware == 1)
             {
                 checkHardwareIcon.Image = set_images.Images[3];
                 checkHardwareIcon.ToolTipText = "Конфигурация контроллера не соотвествует базе";
@@ -349,6 +409,36 @@ namespace Config_PLC_SIEMENS
             {
                 checkHardwareIcon.Image = set_images.Images[2];
                 checkHardwareIcon.ToolTipText = "Конфигурация контроллера соответсвует базе";
+            }
+            if (flag.changegroupconfig == 1)
+            {
+                checkGroupSetup.Image = set_images.Images[3];
+                checkGroupSetup.ToolTipText = "Настройка группового режима не соотвествует базе";
+            }
+            else
+            {
+                checkGroupSetup.Image = set_images.Images[2];
+                checkGroupSetup.ToolTipText = "Настройка группового режима соответсвует базе";
+            }
+            if (flag.changesingleconfig == 1)
+            {
+                checkSingleSetup.Image = set_images.Images[3];
+                checkSingleSetup.ToolTipText = "Настройка одиночного режима не соотвествует базе";
+            }
+            else
+            {
+                checkSingleSetup.Image = set_images.Images[2];
+                checkSingleSetup.ToolTipText = "Настройка одиночного режима соответсвует базе";
+            }
+            if (flag.changeshiberconfig == 1)
+            {
+                checkShiberSetup.Image = set_images.Images[3];
+                checkShiberSetup.ToolTipText = "Настройка шибера не соотвествует базе";
+            }
+            else
+            {
+                checkShiberSetup.Image = set_images.Images[2];
+                checkShiberSetup.ToolTipText = "Настройка шибера соответсвует базе";
             }
 
         }
@@ -409,8 +499,6 @@ namespace Config_PLC_SIEMENS
 
 
                 set_treeview_mount.Nodes[0].Nodes.Clear();
-                if (configClass != null)
-                {
                     RtpConfigDataContext data = new RtpConfigDataContext();
                     var moduls = data.GetModule(_rtpid);
                     foreach (var modul in moduls)
@@ -423,7 +511,6 @@ namespace Config_PLC_SIEMENS
                         trNode.Text = "Модуль " + modul.descript + " №" + modul.modulnumber;
                         set_treeview_mount.Nodes[0].Nodes.Add(trNode);
                     }
-                }
                 set_treeview_mount.SelectedNode = set_treeview_mount.Nodes[0];
                 TreeNodeMouseClickEventArgs e = new TreeNodeMouseClickEventArgs(set_treeview_mount.SelectedNode,
                                                                                 MouseButtons.Left, 0, 0, 0);
@@ -746,17 +833,17 @@ namespace Config_PLC_SIEMENS
 
         private void SetBChangePlcClick(object sender, EventArgs e)
         {
-            PLC plc = new PLC
-                          {
-                              namePLC = set_inp_name_plc.Text,
-                              typePLC = set_inp_type_plc.Text,
-                              numberPLC = Convert.ToInt32(set_inp_number_plc.Text)
-                          };
-            set_treeview_mount.Nodes[0].Text = "PLC №" + set_inp_number_plc.Text;
-            if (!configClass.SavePlc(plc))
-            {
-                MessageBox.Show("Ошибка сохранения параметров ПЛК", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //PLC plc = new PLC
+            //              {
+            //                  namePLC = set_inp_name_plc.Text,
+            //                  typePLC = set_inp_type_plc.Text,
+            //                  numberPLC = Convert.ToInt32(set_inp_number_plc.Text)
+            //              };
+            //set_treeview_mount.Nodes[0].Text = "PLC №" + set_inp_number_plc.Text;
+            //if (!configClass.SavePlc(plc))
+            //{
+            //    MessageBox.Show("Ошибка сохранения параметров ПЛК", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
 
         }
 
@@ -821,8 +908,19 @@ namespace Config_PLC_SIEMENS
 
         private void ConfigPlcS7Load(object sender, EventArgs e)
         {
-            LoadAllModuleChannel();
+            if (CheckAccessToConfigPlc())
+            {
+                LoadAllModuleChannel();
+                tabConfiпWago.SelectedIndex = 0;
+            }
+            else
+            {
+                LoadGroupConfig();
+                tabConfiпWago.SelectedIndex = 2;
+                
+            }
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
+            CheckHardwareConfigError();
         }
 
 
@@ -1022,6 +1120,9 @@ namespace Config_PLC_SIEMENS
             var groupShibers = data.GetGroupShiberSetup(_rtpid).ToList();
             var groups = data.GetGroupForGroupLoad(_rtpid).ToList();
             var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
+            var timeBetwenCycle = groupShibers.First().timeBetwenCycle;
+            if (timeBetwenCycle != null)
+                inp_timeCycleGroup.Value = timeBetwenCycle.Value/100;
             foreach (var getGroupShiberSetupResult in groupShibers)
             {
                 int rnumber = groupSetup.Rows.Add();
@@ -1520,7 +1621,7 @@ namespace Config_PLC_SIEMENS
                     {
                         commandToPlc.Clear();
                         RtpConfigDataContext data = new RtpConfigDataContext();
-                        data.SetErrorDownloadToPlc(_rtpid, 1);
+                        data.SetErrorDownloadToPlc(_rtpid, 2);
                     }
                     CommandForPlc();
                 }
@@ -1900,6 +2001,7 @@ namespace Config_PLC_SIEMENS
 
         private void ApplyClick(object sender, EventArgs e)
         {
+            RtpConfigDataContext data = new RtpConfigDataContext();
             foreach (DataGridViewRow row in groupSetup.Rows)
             {
                 if (row.Cells[0].Value.ToString() == "1")
@@ -1910,13 +2012,18 @@ namespace Config_PLC_SIEMENS
                         System.Drawing.Color.Gainsboro;
                 }
             }
+            if (_shangevaluecycle)
+            {
+                data.SaveTimeBetwenCycle(_rtpid, _valuecycle);
+                inp_timeCycleGroup.BackColor = Color.Gainsboro;
+            }
+
             if (typeWorkToGroupSetup.SelectedIndex == 1)
                 CommandForPlc();
             else
             {
-                commandToPlc.Clear();
-                RtpConfigDataContext data = new RtpConfigDataContext();
-                data.SetErrorDownloadToPlc(_rtpid, 1);
+                commandToPlc.Clear();            
+                data.SetErrorDownloadToPlc(_rtpid, 2);
             }
         }
 
@@ -1927,6 +2034,9 @@ namespace Config_PLC_SIEMENS
             singleSetup.Rows.Clear();
             RtpConfigDataContext data = new RtpConfigDataContext();
             var singlesetups = data.GetSingleShiberSetup(_rtpid).ToList();
+            var timeBetwenCycle = singlesetups.First().timeBetwenCycle;
+            if (timeBetwenCycle != null)
+                inp_timeCycleSingle.Value = (double)timeBetwenCycle/100;
             var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
             int halfcount = singlesetups.Count/2 - 1;
             int offsetc = 0;
@@ -2333,6 +2443,7 @@ namespace Config_PLC_SIEMENS
 
         private void ApplySingleClick(object sender, EventArgs e)
         {
+            RtpConfigDataContext data = new RtpConfigDataContext();
             foreach (DataGridViewRow row in singleSetup.Rows)
             {
                 if (row.Cells[0].Value.ToString() == "1")
@@ -2350,13 +2461,17 @@ namespace Config_PLC_SIEMENS
                         System.Drawing.Color.Gainsboro;
                 }
             }
+            if (_shangevaluecycle)
+            {
+                data.SaveTimeBetwenCycle(_rtpid, _valuecycle);
+                inp_timeCycleGroup.BackColor = Color.Gainsboro;
+            }
             if (typeWorkToGroupSetup.SelectedIndex == 1)
                 CommandForPlc();
             else
             {
                 commandToPlc.Clear();
-                RtpConfigDataContext data = new RtpConfigDataContext();
-                data.SetErrorDownloadToPlc(_rtpid, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 3);
             }
         }
 
@@ -2373,11 +2488,11 @@ namespace Config_PLC_SIEMENS
                 int[] paramset = new int[6];
                 var commandOne = new CommandToPlc();
                 RtpConfigDataContext data = new RtpConfigDataContext();
-                sequencenumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex < 11? 1 : 12].Value);
-                shibernumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[colIndex <11? 9 : 20].Value);
-                timeOpen = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 5 : 16].Value)*100);
-                timeClose = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 6 : 17].Value)*100);
-                timeBetwen = (int)(Convert.ToDouble(groupSetup.Rows[rowIndex].Cells[colIndex < 11 ? 7 : 18].Value)*100);
+                sequencenumber = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[colIndex < 11? 1 : 12].Value);
+                shibernumber = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[colIndex <11? 9 : 20].Value);
+                timeOpen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[colIndex < 11 ? 5 : 16].Value)*100);
+                timeClose = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[colIndex < 11 ? 6 : 17].Value)*100);
+                timeBetwen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[colIndex < 11 ? 7 : 18].Value)*100);
 
                 if (!noStore)
                     data.SaveSingleSequence(_rtpid, sequencenumber, shibernumber);
@@ -2430,13 +2545,13 @@ namespace Config_PLC_SIEMENS
                 {
                     singleSetup.Rows[e.RowIndex].Cells[e.ColumnIndex < 11? 1 : 12].Style.BackColor =
                         System.Drawing.Color.Gainsboro;
-                    if (typeWorkToGroupSetup.SelectedIndex == 1)
+                    if (typeWorkToSingleSetup.SelectedIndex == 1)
                         CommandForPlc();
                     else
                     {
                         commandToPlc.Clear();
                         RtpConfigDataContext data = new RtpConfigDataContext();
-                        data.SetErrorDownloadToPlc(_rtpid, 1);
+                        data.SetErrorDownloadToPlc(_rtpid, 3);
                     }
                     CommandForPlc();
                 }
@@ -2647,6 +2762,34 @@ namespace Config_PLC_SIEMENS
         private void ShibersetupApplyAllClick(object sender, EventArgs e)
         {
 
+        }
+
+        private void TypeWorkToSingleSetupSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (typeWorkToSingleSetup.SelectedIndex == 1)
+                downloadSingleConfigAll.Enabled = true;
+            else
+                downloadSingleConfigAll.Enabled = false;
+        }
+
+        private void DownloadShiberConfigAllClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TypeWorkToShiberSetupSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (typeWorkToShiberSetup.SelectedIndex == 1)
+                downloadShiberConfigAll.Enabled = true;
+            else
+                downloadShiberConfigAll.Enabled = false;
+        }
+
+        private void InpTimeCycleSingleKeyUp(object sender, KeyEventArgs e)
+        {
+            ((CustomControl.DigitTextBox)sender).BackColor = Color.FromArgb(172, 232, 172);
+            _shangevaluecycle = true;
+            _valuecycle = (int) (((CustomControl.DigitTextBox) sender).Value*100);
         }
     }
 }

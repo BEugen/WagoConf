@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="Config_PLC_SIEMENS.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString2" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="RtpWagoConf.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString" Provider="System.Data.SqlClient" />
   <Function Name="dbo.GetModule" Method="GetModule">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetModuleResult">
@@ -123,12 +123,6 @@
     <Parameter Name="flag" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.GetErrorDownloadToPlc" Method="GetErrorDownloadToPlc">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetErrorDownloadToPlcResult">
-      <Column Name="changehardware" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetMountForSignalsGroup" Method="GetMountForSignalsGroup">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
@@ -229,19 +223,6 @@
     <Parameter Name="timeClose2" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.GetSingleShiberSetup" Method="GetSingleShiberSetup">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetSingleShiberSetupResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="sequencenumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="shibernumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="timeOpen" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="timeClose" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="timeBetwenShiber" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="reopenCountMax" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SaveSingleSequence" Method="SaveSingleSequence">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <Parameter Name="sequencenumber" Type="System.Int32" DbType="Int" />
@@ -279,6 +260,34 @@
     <Parameter Name="timeAClose" Type="System.Int32" DbType="Int" />
     <Parameter Name="timeBetwenShiber" Type="System.Int32" DbType="Int" />
     <Parameter Name="reopenCountMax" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetErrorDownloadToPlc" Method="GetErrorDownloadToPlc">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetErrorDownloadToPlcResult">
+      <Column Name="changehardware" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="changegroupconfig" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="changesingleconfig" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="changeshiberconfig" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetSingleShiberSetup" Method="GetSingleShiberSetup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetSingleShiberSetupResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sequencenumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="signalgroupdescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="timeOpen" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeClose" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenShiber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reopenCountMax" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenCycle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SaveTimeBetwenCycle" Method="SaveTimeBetwenCycle">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeBetwenCycle" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

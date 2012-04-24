@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Config_PLC_SIEMENS
+namespace RtpWagoConf
 {
     public struct PLC
     {

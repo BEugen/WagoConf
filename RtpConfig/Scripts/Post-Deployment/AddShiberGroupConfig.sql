@@ -48,3 +48,6 @@ values (0, 11, 11, 14, 300)
 insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
 timeBetwenGroupLoad)
 values (0, 12, 12, 13, 300)
+
+insert into CommonSetup(rtpid, timeBetwenCycle)
+values (0, 1000);

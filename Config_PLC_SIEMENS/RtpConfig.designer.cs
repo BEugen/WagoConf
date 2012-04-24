@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Config_PLC_SIEMENS
+namespace RtpWagoConf
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -33,7 +33,7 @@ namespace Config_PLC_SIEMENS
     #endregion
 		
 		public RtpConfigDataContext() : 
-				base(global::Config_PLC_SIEMENS.Properties.Settings.Default.RtpConfigConnectionString, mappingSource)
+				base(global::RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -160,13 +160,6 @@ namespace Config_PLC_SIEMENS
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetErrorDownloadToPlc")]
-		public ISingleResult<GetErrorDownloadToPlcResult> GetErrorDownloadToPlc([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
-			return ((ISingleResult<GetErrorDownloadToPlcResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetMountForSignalsGroup")]
 		public ISingleResult<GetMountForSignalsGroupResult> GetMountForSignalsGroup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> shibernumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> signalgroup)
 		{
@@ -223,13 +216,6 @@ namespace Config_PLC_SIEMENS
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSingleShiberSetup")]
-		public ISingleResult<GetSingleShiberSetupResult> GetSingleShiberSetup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
-			return ((ISingleResult<GetSingleShiberSetupResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SaveSingleSequence")]
 		public int SaveSingleSequence([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> sequencenumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> shibernumber)
 		{
@@ -255,6 +241,27 @@ namespace Config_PLC_SIEMENS
 		public int SaveShiberSetup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> shibernumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeOpen, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeClose, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeAOpen, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeAClose, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeBetwenShiber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> reopenCountMax)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, shibernumber, timeOpen, timeClose, timeAOpen, timeAClose, timeBetwenShiber, reopenCountMax);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetErrorDownloadToPlc")]
+		public ISingleResult<GetErrorDownloadToPlcResult> GetErrorDownloadToPlc([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
+			return ((ISingleResult<GetErrorDownloadToPlcResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSingleShiberSetup")]
+		public ISingleResult<GetSingleShiberSetupResult> GetSingleShiberSetup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid);
+			return ((ISingleResult<GetSingleShiberSetupResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SaveTimeBetwenCycle")]
+		public int SaveTimeBetwenCycle([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> rtpid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> timeBetwenCycle)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), rtpid, timeBetwenCycle);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -1118,32 +1125,6 @@ namespace Config_PLC_SIEMENS
 				if ((this._signaldescription != value))
 				{
 					this._signaldescription = value;
-				}
-			}
-		}
-	}
-	
-	public partial class GetErrorDownloadToPlcResult
-	{
-		
-		private int _changehardware;
-		
-		public GetErrorDownloadToPlcResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_changehardware", DbType="Int NOT NULL")]
-		public int changehardware
-		{
-			get
-			{
-				return this._changehardware;
-			}
-			set
-			{
-				if ((this._changehardware != value))
-				{
-					this._changehardware = value;
 				}
 			}
 		}
@@ -2035,158 +2016,6 @@ namespace Config_PLC_SIEMENS
 		}
 	}
 	
-	public partial class GetSingleShiberSetupResult
-	{
-		
-		private int _id;
-		
-		private int _sequencenumber;
-		
-		private int _shibernumber;
-		
-		private string _signalgroupdescription;
-		
-		private System.Nullable<int> _timeOpen;
-		
-		private System.Nullable<int> _timeClose;
-		
-		private System.Nullable<int> _timeBetwenShiber;
-		
-		private System.Nullable<int> _reopenCountMax;
-		
-		public GetSingleShiberSetupResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sequencenumber", DbType="Int NOT NULL")]
-		public int sequencenumber
-		{
-			get
-			{
-				return this._sequencenumber;
-			}
-			set
-			{
-				if ((this._sequencenumber != value))
-				{
-					this._sequencenumber = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shibernumber", DbType="Int NOT NULL")]
-		public int shibernumber
-		{
-			get
-			{
-				return this._shibernumber;
-			}
-			set
-			{
-				if ((this._shibernumber != value))
-				{
-					this._shibernumber = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalgroupdescription", DbType="NVarChar(50)")]
-		public string signalgroupdescription
-		{
-			get
-			{
-				return this._signalgroupdescription;
-			}
-			set
-			{
-				if ((this._signalgroupdescription != value))
-				{
-					this._signalgroupdescription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeOpen", DbType="Int")]
-		public System.Nullable<int> timeOpen
-		{
-			get
-			{
-				return this._timeOpen;
-			}
-			set
-			{
-				if ((this._timeOpen != value))
-				{
-					this._timeOpen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeClose", DbType="Int")]
-		public System.Nullable<int> timeClose
-		{
-			get
-			{
-				return this._timeClose;
-			}
-			set
-			{
-				if ((this._timeClose != value))
-				{
-					this._timeClose = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenShiber", DbType="Int")]
-		public System.Nullable<int> timeBetwenShiber
-		{
-			get
-			{
-				return this._timeBetwenShiber;
-			}
-			set
-			{
-				if ((this._timeBetwenShiber != value))
-				{
-					this._timeBetwenShiber = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reopenCountMax", DbType="Int")]
-		public System.Nullable<int> reopenCountMax
-		{
-			get
-			{
-				return this._reopenCountMax;
-			}
-			set
-			{
-				if ((this._reopenCountMax != value))
-				{
-					this._reopenCountMax = value;
-				}
-			}
-		}
-	}
-	
 	public partial class GetShiberSetupResult
 	{
 		
@@ -2352,6 +2181,256 @@ namespace Config_PLC_SIEMENS
 				if ((this._reopenCountMax != value))
 				{
 					this._reopenCountMax = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetErrorDownloadToPlcResult
+	{
+		
+		private int _changehardware;
+		
+		private int _changegroupconfig;
+		
+		private int _changesingleconfig;
+		
+		private int _changeshiberconfig;
+		
+		public GetErrorDownloadToPlcResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_changehardware", DbType="Int NOT NULL")]
+		public int changehardware
+		{
+			get
+			{
+				return this._changehardware;
+			}
+			set
+			{
+				if ((this._changehardware != value))
+				{
+					this._changehardware = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_changegroupconfig", DbType="Int NOT NULL")]
+		public int changegroupconfig
+		{
+			get
+			{
+				return this._changegroupconfig;
+			}
+			set
+			{
+				if ((this._changegroupconfig != value))
+				{
+					this._changegroupconfig = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_changesingleconfig", DbType="Int NOT NULL")]
+		public int changesingleconfig
+		{
+			get
+			{
+				return this._changesingleconfig;
+			}
+			set
+			{
+				if ((this._changesingleconfig != value))
+				{
+					this._changesingleconfig = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_changeshiberconfig", DbType="Int NOT NULL")]
+		public int changeshiberconfig
+		{
+			get
+			{
+				return this._changeshiberconfig;
+			}
+			set
+			{
+				if ((this._changeshiberconfig != value))
+				{
+					this._changeshiberconfig = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetSingleShiberSetupResult
+	{
+		
+		private int _id;
+		
+		private int _sequencenumber;
+		
+		private int _shibernumber;
+		
+		private string _signalgroupdescription;
+		
+		private System.Nullable<int> _timeOpen;
+		
+		private System.Nullable<int> _timeClose;
+		
+		private System.Nullable<int> _timeBetwenShiber;
+		
+		private System.Nullable<int> _reopenCountMax;
+		
+		private System.Nullable<int> _timeBetwenCycle;
+		
+		public GetSingleShiberSetupResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sequencenumber", DbType="Int NOT NULL")]
+		public int sequencenumber
+		{
+			get
+			{
+				return this._sequencenumber;
+			}
+			set
+			{
+				if ((this._sequencenumber != value))
+				{
+					this._sequencenumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shibernumber", DbType="Int NOT NULL")]
+		public int shibernumber
+		{
+			get
+			{
+				return this._shibernumber;
+			}
+			set
+			{
+				if ((this._shibernumber != value))
+				{
+					this._shibernumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_signalgroupdescription", DbType="NVarChar(50)")]
+		public string signalgroupdescription
+		{
+			get
+			{
+				return this._signalgroupdescription;
+			}
+			set
+			{
+				if ((this._signalgroupdescription != value))
+				{
+					this._signalgroupdescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeOpen", DbType="Int")]
+		public System.Nullable<int> timeOpen
+		{
+			get
+			{
+				return this._timeOpen;
+			}
+			set
+			{
+				if ((this._timeOpen != value))
+				{
+					this._timeOpen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeClose", DbType="Int")]
+		public System.Nullable<int> timeClose
+		{
+			get
+			{
+				return this._timeClose;
+			}
+			set
+			{
+				if ((this._timeClose != value))
+				{
+					this._timeClose = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenShiber", DbType="Int")]
+		public System.Nullable<int> timeBetwenShiber
+		{
+			get
+			{
+				return this._timeBetwenShiber;
+			}
+			set
+			{
+				if ((this._timeBetwenShiber != value))
+				{
+					this._timeBetwenShiber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reopenCountMax", DbType="Int")]
+		public System.Nullable<int> reopenCountMax
+		{
+			get
+			{
+				return this._reopenCountMax;
+			}
+			set
+			{
+				if ((this._reopenCountMax != value))
+				{
+					this._reopenCountMax = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timeBetwenCycle", DbType="Int")]
+		public System.Nullable<int> timeBetwenCycle
+		{
+			get
+			{
+				return this._timeBetwenCycle;
+			}
+			set
+			{
+				if ((this._timeBetwenCycle != value))
+				{
+					this._timeBetwenCycle = value;
 				}
 			}
 		}

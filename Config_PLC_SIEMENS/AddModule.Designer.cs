@@ -1,4 +1,4 @@
-﻿namespace Config_PLC_SIEMENS
+﻿namespace RtpWagoConf
 {
     partial class Set_form_module_add
     {
