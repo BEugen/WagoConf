@@ -1,32 +1,33 @@
 ﻿CREATE PROCEDURE [dbo].[SetErrorDownloadToPlc]
 	@rtpid int = 0, 
-	@flag int
+	@type int,
+	@value int
 AS
- IF @flag = 1
+ IF @type = 1
    BEGIN
 	UPDATE RtpName
-	SET RtpName.changehardware = @flag
+	SET RtpName.changehardware = @value
 	WHERE RtpName.rtpid = @rtpid
    END
 
- IF @flag = 2
+ IF @type = 2
   BEGIN
 	UPDATE RtpName
-	SET RtpName.changegroupconfig = @flag
+	SET RtpName.changegroupconfig = @value
 	WHERE RtpName.rtpid = @rtpid
   END
 
- IF @flag = 3
+ IF @type = 3
  BEGIN
    UPDATE RtpName
-	SET RtpName.changesingleconfig = @flag
+	SET RtpName.changesingleconfig = @value
 	WHERE RtpName.rtpid = @rtpid
  END
 
-  IF @flag = 4
+  IF @type = 4
   BEGIN
    UPDATE RtpName
-	SET RtpName.changeshiberconfig = @flag
+	SET RtpName.changeshiberconfig = @value
 	WHERE RtpName.rtpid = @rtpid
  END
 

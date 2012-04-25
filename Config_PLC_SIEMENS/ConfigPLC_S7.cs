@@ -42,7 +42,8 @@ namespace RtpWagoConf
             MountShiberToGroupSequency = 7,
             MountShiberNumberToGroupSequency = 8,
             OnOffBypassShiber = 9,
-            SetupTimeShibers2 = 10
+            SetupTimeShibers2 = 10,
+            SetupTimeBetwinCycle = 11
         }
 
         private int _selectedTab;
@@ -68,13 +69,14 @@ namespace RtpWagoConf
         private delegate void CheckShiberSetup(int indexRow, int indexColumn);
 
         private Queue<CommandToPlc> commandToPlc;
-        private StaticConfig _parametrsConfig;
         private readonly System.Timers.Timer _tmrElapsedCmd;
         private Dictionary<int, int> checkedRow = new Dictionary<int, int>();
         private bool _shangevaluecycle = false;
         private int _valuecycle = 0;
         private int _minAccessLevelToConfigurePlc = 9999;
-        private int _currentAccessLevelToConfigurePlc = 1000;
+        private int _currentAccessLevelToConfigurePlc = 0;
+        private int _selectgroup = 0;
+        private int _selectsingle = 0;
 
         public ConfigPLC_S7()
         {
@@ -115,19 +117,19 @@ namespace RtpWagoConf
                 case (int)CommandName.MountChannel: 
                 case (int)CommandName.MountModul:
                 case (int)CommandName.MountGenericSignals:
-                    data.SetErrorDownloadToPlc(_rtpid, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 1, 1);
                     break;
                 case (int)CommandName.MountShiberNumberToGroupSequency:
                 case (int)CommandName.MountShiberToGroupSequency:
-                    data.SetErrorDownloadToPlc(_rtpid, 2);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1);
                     break;
                 case (int)CommandName.MountShiberToOneSequency:
-                    data.SetErrorDownloadToPlc(_rtpid, 3);
+                    data.SetErrorDownloadToPlc(_rtpid, 3, 1);
                     break;
                 case (int)CommandName.SetupReopenShibers:
                 case (int)CommandName.SetupTimeShibers1:
                 case (int)CommandName.SetupTimeShibers2:
-                    data.SetErrorDownloadToPlc(_rtpid, 4);
+                    data.SetErrorDownloadToPlc(_rtpid, 4, 1);
                     break;
             }
             
@@ -215,6 +217,31 @@ namespace RtpWagoConf
             get { return -1; }
         }
 
+        public int GroupSetup 
+        { 
+            set 
+            {
+                typeWorkToGroupSetup.SelectedIndex = 1;
+                LoadGroupConfig();
+                tabConfiпWago.SelectedIndex = 2;
+                _selectgroup = 1;
+                _selectsingle = 0;
+            }
+            get { return _selectgroup; }
+        }
+        public int SingleSetup 
+        { 
+            set
+            {
+                typeWorkToSingleSetup.SelectedIndex = 1;
+                LoadSingleConfig();
+                tabConfiпWago.SelectedIndex = 3;
+                _selectgroup = 0;
+                _selectsingle = 1;
+            }
+            get { return _selectsingle; }
+        }
+
         public int CurrentAccessLevel
         {
             get { return _currentAccessLevelToConfigurePlc; }
@@ -246,21 +273,32 @@ namespace RtpWagoConf
 
         private bool CheckAccessToConfigPlc()
         {
+            
+            set_mount.Enabled = false;
+            tag_descr.Enabled = false;
+            set_setting.Enabled = false;
             if (_currentAccessLevelToConfigurePlc >= _minAccessLevelToConfigurePlc)
             {
                 set_mount.Enabled = true;
                 tag_descr.Enabled = true;
                 set_setting.Enabled = true;
+                group_setup.Enabled = true;
+                single_setup.Enabled = true;
+                shiber_setup.Enabled = true;
                 return true;
             }
-            else
+
+            if(_currentAccessLevelToConfigurePlc < 1000)
             {
-               // tags.Hide();
-                set_mount.Enabled = false;
-                tag_descr.Enabled = false;
-                set_setting.Enabled = false;
-                return false;
-            }
+                group_setup.Enabled = false;
+                single_setup.Enabled = false;
+                shiber_setup.Enabled = false;
+               return false;
+            }           
+            group_setup.Enabled = true;
+            single_setup.Enabled = true;
+            shiber_setup.Enabled = true;
+            return false;
         }
 
         private void SetTreeviewMountNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -582,7 +620,7 @@ namespace RtpWagoConf
                 {
                     commandToPlc.Clear();
                     RtpConfigDataContext data = new RtpConfigDataContext();
-                    data.SetErrorDownloadToPlc(_rtpid, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 1, 1);
                 }
             }
             set_dgv_channel_mount.RefreshEdit();
@@ -730,7 +768,7 @@ namespace RtpWagoConf
                              "; P4: " + _params[3] +
                              "; P5: " + _params[4] +
                              "; P6: " + _params[5] +
-                             "\n Ожидаем ответ PLC " + _parametrsConfig.TimeOut +
+                             "\n Ожидаем ответ PLC " + "" +
                              " секунд";
             if (!pan_command_wait.Visible)
                 WaitMount(true);
@@ -902,6 +940,7 @@ namespace RtpWagoConf
 
                 }
             }
+            data.SetErrorDownloadToPlc(_rtpid, 1, 0); //clear error
             CommandForPlc();
         }
 
@@ -1621,7 +1660,7 @@ namespace RtpWagoConf
                     {
                         commandToPlc.Clear();
                         RtpConfigDataContext data = new RtpConfigDataContext();
-                        data.SetErrorDownloadToPlc(_rtpid, 2);
+                        data.SetErrorDownloadToPlc(_rtpid, 2, 1);
                     }
                     CommandForPlc();
                 }
@@ -1989,13 +2028,27 @@ namespace RtpWagoConf
 
         private void DownloadGroupConfigAllClick(object sender, EventArgs e)
         {
+            RtpConfigDataContext data = new RtpConfigDataContext();
             foreach (DataGridViewRow row in groupSetup.Rows)
             {
                 if (CommangChangeGroupConfig(row.Index, false) != 0)
-                    break;
+                {
+                    row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                    commandToPlc.Clear();
+                    return;
+                }
                 row.Cells[1].Style.BackColor =
                     System.Drawing.Color.Gainsboro;
             }
+            if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
+            {
+                inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                commandToPlc.Clear();
+                return;
+            }
+            data.SetErrorDownloadToPlc(_rtpid, 2, 0);
             CommandForPlc();
         }
 
@@ -2007,23 +2060,31 @@ namespace RtpWagoConf
                 if (row.Cells[0].Value.ToString() == "1")
                 {
                     if (CommangChangeGroupConfig(row.Index, false) != 0)
-                        break;
+                    {
+                        row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                        data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                        commandToPlc.Clear();
+                        return;
+                    }
                     row.Cells[1].Style.BackColor =
                         System.Drawing.Color.Gainsboro;
                 }
             }
-            if (_shangevaluecycle)
+            if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
             {
-                data.SaveTimeBetwenCycle(_rtpid, _valuecycle);
-                inp_timeCycleGroup.BackColor = Color.Gainsboro;
+                inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                commandToPlc.Clear();
+                return;
             }
+           
 
-            if (typeWorkToGroupSetup.SelectedIndex == 1)
+            if (typeWorkToGroupSetup.SelectedIndex == 1) 
                 CommandForPlc();
             else
             {
                 commandToPlc.Clear();            
-                data.SetErrorDownloadToPlc(_rtpid, 2);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
             }
         }
 
@@ -2461,17 +2522,19 @@ namespace RtpWagoConf
                         System.Drawing.Color.Gainsboro;
                 }
             }
-            if (_shangevaluecycle)
+            if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
             {
-                data.SaveTimeBetwenCycle(_rtpid, _valuecycle);
-                inp_timeCycleGroup.BackColor = Color.Gainsboro;
+                inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
+                data.SetErrorDownloadToPlc(_rtpid, 3, 1);
+                commandToPlc.Clear();
+                return;
             }
             if (typeWorkToGroupSetup.SelectedIndex == 1)
                 CommandForPlc();
             else
             {
                 commandToPlc.Clear();
-                data.SetErrorDownloadToPlc(_rtpid, 3);
+                data.SetErrorDownloadToPlc(_rtpid, 3, 1);
             }
         }
 
@@ -2551,7 +2614,7 @@ namespace RtpWagoConf
                     {
                         commandToPlc.Clear();
                         RtpConfigDataContext data = new RtpConfigDataContext();
-                        data.SetErrorDownloadToPlc(_rtpid, 3);
+                        data.SetErrorDownloadToPlc(_rtpid, 3, 1);
                     }
                     CommandForPlc();
                 }
@@ -2732,7 +2795,66 @@ namespace RtpWagoConf
         
         private int CommangChangeShiberConfig(int rowIndex, bool noStore)
         {
-            return 0;
+            int result = 0;
+            try
+            {
+                int timeBetwen;
+                int timeOpen;
+                int timeClose;
+                int shibernumber;
+                int timeAOpen;
+                int timeAClose;
+                int maxReopenCount;
+                int[] paramset = new int[6];
+                var commandOne = new CommandToPlc();
+                RtpConfigDataContext data = new RtpConfigDataContext();
+                shibernumber = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[1].Value);
+                timeOpen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[5]) * 100);
+                timeClose = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[6]) * 100);
+                timeBetwen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[7].Value) * 100);
+                timeAOpen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[8].Value) * 100);
+                timeAClose = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[9].Value) * 100);
+                maxReopenCount = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[10].Value);
+
+                if (!noStore)
+                    data.SaveShiberSetup(_rtpid, shibernumber, timeOpen, timeClose, timeAOpen, timeAClose, timeBetwen,
+                                         maxReopenCount);
+
+                paramset[0] = shibernumber;
+                paramset[1] = timeOpen;
+                paramset[2] = timeClose;
+                commandOne.CommandNumber = (int) CommandName.SetupTimeShibers1;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
+
+                paramset = new int[6];
+                commandOne = new CommandToPlc();
+                paramset[0] = shibernumber;
+                paramset[1] = timeAOpen;
+                paramset[2] = timeAClose;
+                paramset[3] = timeBetwen;
+                commandOne.CommandNumber = (int)CommandName.SetupTimeShibers2;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
+
+                paramset = new int[6];
+                commandOne = new CommandToPlc();
+                paramset[0] = shibernumber;
+                paramset[1] = maxReopenCount;
+                commandOne.CommandNumber = (int) CommandName.SetupReopenShibers;
+                commandOne.Values = paramset;
+                commandToPlc.Enqueue(commandOne);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка сохранения параметров (" + ex.Message + ")", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                result = -1;
+            }
+
+            return result;
         }
 
         private void SelectShiberConfig(int shibernumber)
@@ -2761,7 +2883,29 @@ namespace RtpWagoConf
 
         private void ShibersetupApplyAllClick(object sender, EventArgs e)
         {
-
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            foreach (DataGridViewRow row in shiberSetup.Rows)
+            {
+                if (row.Cells[0].Value.ToString() == "1")
+                {
+                    if (CommangChangeShiberConfig(row.Index, false) != 0)
+                    {
+                        row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                        data.SetErrorDownloadToPlc(_rtpid, 4, 1);
+                        commandToPlc.Clear();
+                        return;
+                    }
+                    row.Cells[1].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                }
+            }
+            if (typeWorkToShiberSetup.SelectedIndex == 1)
+                CommandForPlc();
+            else
+            {
+                commandToPlc.Clear();
+                data.SetErrorDownloadToPlc(_rtpid, 4, 1);
+            }
         }
 
         private void TypeWorkToSingleSetupSelectedIndexChanged(object sender, EventArgs e)
@@ -2774,7 +2918,28 @@ namespace RtpWagoConf
 
         private void DownloadShiberConfigAllClick(object sender, EventArgs e)
         {
-
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            foreach (DataGridViewRow row in shiberSetup.Rows)
+            {
+                if (CommangChangeGroupConfig(row.Index, false) != 0)
+                {
+                    row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                    commandToPlc.Clear();
+                    return;
+                }
+                row.Cells[1].Style.BackColor =
+                    System.Drawing.Color.Gainsboro;
+            }
+            if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
+            {
+                inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                commandToPlc.Clear();
+                return;
+            }
+            data.SetErrorDownloadToPlc(_rtpid, 2, 0);
+            CommandForPlc();
         }
 
         private void TypeWorkToShiberSetupSelectedIndexChanged(object sender, EventArgs e)
@@ -2790,6 +2955,52 @@ namespace RtpWagoConf
             ((CustomControl.DigitTextBox)sender).BackColor = Color.FromArgb(172, 232, 172);
             _shangevaluecycle = true;
             _valuecycle = (int) (((CustomControl.DigitTextBox) sender).Value*100);
+        }
+
+        private void DownloadSingleConfigAllClick(object sender, EventArgs e)
+        {
+             RtpConfigDataContext data = new RtpConfigDataContext();
+            foreach (DataGridViewRow row in singleSetup.Rows)
+            {
+                if (CommangChangeShiberConfig(row.Index, false) != 0)
+                {
+                    row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                    data.SetErrorDownloadToPlc(_rtpid, 4, 1);
+                    commandToPlc.Clear();
+                    return;
+                }
+                row.Cells[1].Style.BackColor =
+                    System.Drawing.Color.Gainsboro;
+            }
+            data.SetErrorDownloadToPlc(_rtpid, 4, 0);
+            CommandForPlc();
+        }
+
+        private int AddCommandToTimeBetwincycle(object sender)
+        {
+            try
+            {
+                if (_shangevaluecycle)
+                {
+                    RtpConfigDataContext data = new RtpConfigDataContext();
+                    int[] paramset = new int[6];
+                    var commandOne = new CommandToPlc();
+                    paramset[0] = _valuecycle;
+                    commandOne.CommandNumber = (int)CommandName.SetupTimeBetwinCycle;
+                    commandOne.Values = paramset;
+                    commandToPlc.Enqueue(commandOne);
+                    data.SaveTimeBetwenCycle(_rtpid, _valuecycle);
+                   ((CustomControl.DigitTextBox)sender).BackColor = Color.Gainsboro;
+
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка сохранения параметров (" + ex.Message + ")", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
+            }
         }
     }
 }

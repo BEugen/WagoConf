@@ -23,6 +23,8 @@ namespace RtpWagoConf
         int P5 { get; set; }
         int P6 { get; set; }
         int ShiberSelect { set; get; }
+        int GroupSetup { set; get; }
+        int SingleSetup { set; get; }
         int CurrentAccessLevel { set; get; }
         int MinAccessLevelToConfigPlc { set; get; }
 

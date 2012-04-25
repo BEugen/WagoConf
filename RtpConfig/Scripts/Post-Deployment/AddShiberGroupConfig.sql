@@ -50,4 +50,4 @@ timeBetwenGroupLoad)
 values (0, 12, 12, 13, 300)
 
 insert into CommonSetup(rtpid, timeBetwenCycle)
-values (0, 1000);
+values (0, 36000);

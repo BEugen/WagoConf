@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -49,12 +52,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmd = new System.Windows.Forms.TextBox();
             this.configPLC_S71 = new RtpWagoConf.ConfigPLC_S7();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button5);
+            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
@@ -83,6 +87,36 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры команды";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(41, 546);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(104, 29);
+            this.button5.TabIndex = 21;
+            this.button5.Text = "Single";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(41, 511);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(104, 29);
+            this.button4.TabIndex = 20;
+            this.button4.Text = "Group";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(41, 436);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(104, 54);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "9999";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -263,7 +297,8 @@
             // 
             this.configPLC_S71.Accept = 0;
             this.configPLC_S71.Command = 0;
-            this.configPLC_S71.CurrentAccessLevel = 1000;
+            this.configPLC_S71.CurrentAccessLevel = 999;
+            this.configPLC_S71.GroupSetup = 0;
             this.configPLC_S71.Location = new System.Drawing.Point(9, 9);
             this.configPLC_S71.Margin = new System.Windows.Forms.Padding(2);
             this.configPLC_S71.MinAccessLevelToConfigPlc = 9999;
@@ -275,19 +310,10 @@
             this.configPLC_S71.P5 = 0;
             this.configPLC_S71.P6 = 0;
             this.configPLC_S71.ShiberSelect = -1;
+            this.configPLC_S71.SingleSetup = 1;
             this.configPLC_S71.Size = new System.Drawing.Size(1024, 633);
             this.configPLC_S71.TabIndex = 0;
             this.configPLC_S71.Load += new System.EventHandler(this.configPLC_S71_Load);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(41, 468);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(104, 54);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "9999";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -329,6 +355,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 
