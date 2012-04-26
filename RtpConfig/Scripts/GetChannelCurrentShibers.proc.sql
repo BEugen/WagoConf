@@ -54,7 +54,7 @@ AS
 
 	      select @shiberid= RtpShibers.id
 		  from RtpShibers
-		  where RtpShibers.shibernumber = @shibernumber and RtpShibers.rtpid = @rtpid
+		  where RtpShibers.shibernumber = @shibernumber and RtpShibers.rtpid = @rtpid and RtpShibers.signaltype = @signalid
 
 		    IF  @shiberid IS NOT NULL
 			  BEGIN

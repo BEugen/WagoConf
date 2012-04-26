@@ -11,3 +11,4 @@
 :r .\AddShiberSetup.sql
 :r .\AddShiberGroupSequence.sql
 :r .\AddShiberSingleSequence.sql
+:r .\AddRtpHardwareConfig.sql

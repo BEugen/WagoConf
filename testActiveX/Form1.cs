@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -114,6 +115,39 @@ namespace testActiveX
         private void button5_Click(object sender, EventArgs e)
         {
             configPLC_S71.SingleSetup = 1;
+        }
+
+        private void WriteToLogFile(int[] param)
+        {
+           StreamWriter str = new StreamWriter("protocol.txt", true, Encoding.Default);
+            string str_command = "";
+            switch (param[0])
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+            }
+           str.WriteLine("Комманда: " + str_command);
+           str.Close();
         }
     }
 }

@@ -346,6 +346,7 @@ namespace RtpWagoConf
                 int rnumber = set_dgv_channel_mount.Rows.Add();
                 set_dgv_channel_mount.Rows[rnumber].Cells[0].Value = channel.id;
                 set_dgv_channel_mount.Rows[rnumber].Cells[1].Value = channel.channelnumber;
+                set_dgv_channel_mount.Rows[rnumber].Cells[2].Value = null;
                 ((DataGridViewComboBoxCell) set_dgv_channel_mount.Rows[rnumber].Cells[2]).Items.Clear();
                 foreach (var signalGroup in signalGroups)
                 {
@@ -362,8 +363,9 @@ namespace RtpWagoConf
                     set_dgv_channel_mount.Rows[rnumber].Cells[5].Value = channel.groupid;
                     set_dgv_channel_mount.Rows[rnumber].Cells[6].Value = channel.signalid;
                     set_dgv_channel_mount.Rows[rnumber].Cells[2].Value =
-                        signalGroups[channel.groupid.Value].signalgroupdescription;
+                        signalGroups[channel.groupid.Value-1].signalgroupdescription;
                     var getRtpSignalsResults = data.GetRtpSignals(channel.groupid, channel.channeltype).ToArray();
+                    set_dgv_channel_mount.Rows[rnumber].Cells[3].Value = null;
                     ((DataGridViewComboBoxCell) set_dgv_channel_mount.Rows[rnumber].Cells[3]).Items.Clear();
                     foreach (var signal in getRtpSignalsResults)
                     {
@@ -401,8 +403,8 @@ namespace RtpWagoConf
         private void TabConfigPlcS7SelectedIndexChanged(object sender, EventArgs e)
         {
             _selectedTab = tabConfiпWago.SelectedIndex;
-            text_wait.Text = "Идет загрузка данных";
-            WaitMount(true);
+          //  text_wait.Text = "Идет загрузка данных";
+          //  WaitMount(true);
             switch (tabConfiпWago.SelectedIndex)
             {
                 case 0:
@@ -430,7 +432,7 @@ namespace RtpWagoConf
 
             }
             CheckHardwareConfigError();
-            WaitMount(false);
+          //  WaitMount(false);
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
         }
 
@@ -675,7 +677,7 @@ namespace RtpWagoConf
                 commandToPlc.Enqueue(commandOne);
 
             }
-            if (mount.Count > 0 && mount.First().commandid == (int) CommandName.MountGenericSignals)
+            if (mount.Count > 0 && mount.First().commandid.Value == (int) CommandName.MountGenericSignals)
             {
                 var paramset = mount.First();
                 paramset1[0] = paramset.signaltype;
@@ -709,48 +711,51 @@ namespace RtpWagoConf
                     .ToList();
 
             var commandOne = new CommandToPlc();
-            var commandid = mount.First().commandid;
-            if (commandid != null && (mount.Count > 0 && commandid.Value == (int) CommandName.MountChannel))
+            if (mount.Count > 0)
             {
-                var shibernumber = mount.First().shibernumber;
-                if (shibernumber != null)
+                var commandid = mount.First().commandid;
+                if (commandid != null && commandid.Value == (int) CommandName.MountChannel)
                 {
-                    paramset1[0] = shibernumber.Value;
-                    paramset2[0] = shibernumber.Value;
-                }
-                for (int i = 0; i < mount.Count && i < 4; i++)
-                {
-                    if (mount[i].signaltype < paramset1.Length)
+                    var shibernumber = mount.First().shibernumber;
+                    if (shibernumber != null)
                     {
-                        paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
-                                                                 ? 0
-                                                                 : mount[i].offsetChannel.Value;
-
-                        paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
-                                                                 ? -1
-                                                                 : mount[i].offsetModul.Value;
+                        paramset1[0] = shibernumber.Value;
+                        paramset2[0] = shibernumber.Value;
                     }
+                    for (int i = 0; i < mount.Count && i < 4; i++)
+                    {
+                        if (mount[i].signaltype < paramset1.Length)
+                        {
+                            paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
+                                                                     ? 0
+                                                                     : mount[i].offsetChannel.Value;
+
+                            paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                                                                     ? -1
+                                                                     : mount[i].offsetModul.Value;
+                        }
+                    }
+                    commandOne.CommandNumber = (int) CommandName.MountChannel;
+                    commandOne.Values = paramset1;
+                    var commandTwo = new CommandToPlc();
+                    commandTwo.CommandNumber = (int) CommandName.MountModul;
+                    commandTwo.Values = paramset2;
+                    commandToPlc.Enqueue(commandTwo);
+                    commandToPlc.Enqueue(commandOne);
+
                 }
-                commandOne.CommandNumber = (int) CommandName.MountChannel;
-                commandOne.Values = paramset1;
-                var commandTwo = new CommandToPlc();
-                commandTwo.CommandNumber = (int) CommandName.MountModul;
-                commandTwo.Values = paramset2;
-                commandToPlc.Enqueue(commandTwo);
-                commandToPlc.Enqueue(commandOne);
+                if (mount.First().commandid == (int) CommandName.MountGenericSignals)
+                {
+                    var paramset = mount.First();
+                    paramset1[0] = paramset.signaltype;
+                    paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
+                    paramset1[2] = paramset.signalcontrain;
+                    paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
+                    commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
+                    commandOne.Values = paramset1;
+                    commandToPlc.Enqueue(commandOne);
 
-            }
-            if (mount.Count > 0 && mount.First().commandid == (int) CommandName.MountGenericSignals)
-            {
-                var paramset = mount.First();
-                paramset1[0] = paramset.signaltype;
-                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
-                paramset1[2] = paramset.signalcontrain;
-                paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
-                commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
-                commandOne.Values = paramset1;
-                commandToPlc.Enqueue(commandOne);
-
+                }
             }
         }
 
@@ -896,6 +901,8 @@ namespace RtpWagoConf
             {
                 var mount = data.GetMountForSignalsGroup(_rtpid, getRtpSignalGroupsResult.signalattrnumber,
                                                          getRtpSignalGroupsResult.signalgroup).ToList();
+                paramset1 = new int[6];
+                paramset2 = new int[6];
                 var commandid = mount.First().commandid;
                 if (commandid != null && (mount.Count > 0 && commandid.Value == (int) CommandName.MountChannel))
                 {
@@ -918,6 +925,7 @@ namespace RtpWagoConf
                                                                      : mount[i].offsetModul.Value;
                         }
                     }
+                    commandOne = new CommandToPlc();
                     commandOne.CommandNumber = (int) CommandName.MountChannel;
                     commandOne.Values = paramset1;
                     var commandTwo = new CommandToPlc();
@@ -934,6 +942,7 @@ namespace RtpWagoConf
                     paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
                     paramset1[2] = paramset.signalcontrain;
                     paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
+                    commandOne = new CommandToPlc();
                     commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
                     commandOne.Values = paramset1;
                     commandToPlc.Enqueue(commandOne);
@@ -1077,6 +1086,7 @@ namespace RtpWagoConf
             ComboBox cb = e.Control as ComboBox;
             if (cb != null)
             {
+               // cb.BackColor = Color.WhiteSmoke;
                 // first remove event handler to keep from attaching multiple:
                 cb.SelectedIndexChanged -= SbSelectedIndexChanged;
 
@@ -1103,6 +1113,7 @@ namespace RtpWagoConf
                         selectedgroup.id;
                     var signalsIdForGroupId = data.GetSignalsIdForGroupId(selectedgroup.signalgroup,
                                                                           set_ddl_type_modul.SelectedIndex);
+                    set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3].Value = null;
                     ((DataGridViewComboBoxCell)
                      set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Clear();
                     foreach (var signal in signalsIdForGroupId)
@@ -1177,6 +1188,8 @@ namespace RtpWagoConf
                 if (getGroupShiberSetupResult.timeBetwenGroupLoad != null)
                     groupSetup.Rows[rnumber].Cells[3].Value =
                         (((double) getGroupShiberSetupResult.timeBetwenGroupLoad)/100).ToString("0.0");
+                groupSetup.Rows[rnumber].Cells[4].Value = null;
+                groupSetup.Rows[rnumber].Cells[9].Value = null;
                 ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Clear();
                 ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[9]).Items.Clear();
                 foreach (var shiber in shibers)
