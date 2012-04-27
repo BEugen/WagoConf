@@ -1,16 +1,11 @@
 ﻿-- =============================================
 -- Script Template
 -- =============================================
-insert into RtpName ( 
-	rtpdescr ,
-	rtpid )
-	values(N'РТП3', 0)
 
-go
+INSERT [dbo].[RtpName] ([plcName], [plcNumber], [plcType], [changegroupconfig], [changehardware], [changeshiberconfig], [changesingleconfig], [rtpdescr], [rtpid])
+VALUES(N'RTP3', 1, N'Wago 750-841', 0, 0, 0, 0, N'РТП3', 0)
 
-insert into RtpName ( 
-	rtpdescr ,
-	rtpid )
-	values(N'РТП4', 1)
+INSERT [dbo].[RtpName] ([plcName], [plcNumber], [plcType], [changegroupconfig], [changehardware], [changeshiberconfig], [changesingleconfig], [rtpdescr], [rtpid])
+VALUES(N'RTP4', 2, N'Wago 750-841', 0, 0, 0, 0, N'РТП4', 1)
 
 go

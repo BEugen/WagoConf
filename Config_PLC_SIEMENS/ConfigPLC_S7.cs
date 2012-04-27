@@ -15,7 +15,7 @@ namespace RtpWagoConf
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof (IScadaInterfaceEvent))]
     [Guid("DDBFAC4B-2024-4A48-B929-97AA484FE19D")]
-    public partial class ConfigPLC_S7 : UserControl, IScadaInterface
+    public partial class ConfigPlcWago : UserControl, IScadaInterface
     {
 
         protected struct InternalCommandStackParam
@@ -78,7 +78,7 @@ namespace RtpWagoConf
         private int _selectgroup = 0;
         private int _selectsingle = 0;
 
-        public ConfigPLC_S7()
+        public ConfigPlcWago()
         {
             InitializeComponent();
             set_gb_channel_mount.Visible = false;
@@ -267,7 +267,10 @@ namespace RtpWagoConf
         [ComVisible(false)]
         public delegate void CommandEventHandler();
 
+        public delegate void BackPageEventHandler();
+
         public event CommandEventHandler CommandEvent = null;
+        public event BackPageEventHandler BackPageEvent = null;
 
         #endregion
 
@@ -381,12 +384,12 @@ namespace RtpWagoConf
 
         private void PlcInfLoad()
         {
-
-            //PLC plc = configClass.GetPlc();
-            //set_inp_name_plc.Text = plc.namePLC;
-            //set_inp_type_plc.Text = plc.typePLC;
-            //set_inp_number_plc.Text = plc.numberPLC.ToString();
-            //set_treeview_mount.Nodes[0].Text = "PLC №" + set_inp_number_plc.Text;
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            var info = data.GetPlcInfo(_rtpid).ToList().First();
+            set_inp_name_plc.Text = info.plcName;
+            set_inp_type_plc.Text = info.plcType;
+            set_inp_number_plc.Text = info.plcNumber.ToString();
+            set_treeview_mount.Nodes[0].Text = "ПЛК №" + set_inp_number_plc.Text;
 
 
         }
@@ -403,8 +406,6 @@ namespace RtpWagoConf
         private void TabConfigPlcS7SelectedIndexChanged(object sender, EventArgs e)
         {
             _selectedTab = tabConfiпWago.SelectedIndex;
-          //  text_wait.Text = "Идет загрузка данных";
-          //  WaitMount(true);
             switch (tabConfiпWago.SelectedIndex)
             {
                 case 0:
@@ -427,13 +428,37 @@ namespace RtpWagoConf
                     typeWorkToShiberSetup.SelectedIndex = 1;
                     LoadShiberSetup();
                     break;
+                case 5:
+                    GetInfoConfig();
+                    break;
                 default:
                     break;
 
             }
             CheckHardwareConfigError();
-          //  WaitMount(false);
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
+        }
+
+        private void GetInfoConfig()
+        {
+            try
+            {
+
+
+                RtpConfigDataContext data = new RtpConfigDataContext();
+                var infoConfig = data.GetShangeStore().ToList().First();
+                l_version.Text = "Версия компонента: v1.0alfa";
+                if (infoConfig.datetimestore != null)
+                    l_data_static.Text = "Дата последней конфигурации: " +
+                                         infoConfig.datetimestore.Value.ToString("d.MM.yyyy HH:mm:ss");
+                l_dinamic.Text = "Кол-во изменений: " + infoConfig.countchange;
+            }
+            catch
+            {
+                l_version.Text = "Версия компонента: v1.0alfa";
+                l_data_static.Text = "Дата последней конфигурации: нет";
+                l_dinamic.Text = "Кол-во изменений: 0";
+            }
         }
 
         private void CheckHardwareConfigError()
@@ -773,8 +798,7 @@ namespace RtpWagoConf
                              "; P4: " + _params[3] +
                              "; P5: " + _params[4] +
                              "; P6: " + _params[5] +
-                             "\n Ожидаем ответ PLC " + "" +
-                             " секунд";
+                             "\n Ожидаем ответ PLC ";
             if (!pan_command_wait.Visible)
                 WaitMount(true);
             if (null != CommandEvent)
@@ -876,17 +900,19 @@ namespace RtpWagoConf
 
         private void SetBChangePlcClick(object sender, EventArgs e)
         {
-            //PLC plc = new PLC
-            //              {
-            //                  namePLC = set_inp_name_plc.Text,
-            //                  typePLC = set_inp_type_plc.Text,
-            //                  numberPLC = Convert.ToInt32(set_inp_number_plc.Text)
-            //              };
-            //set_treeview_mount.Nodes[0].Text = "PLC №" + set_inp_number_plc.Text;
-            //if (!configClass.SavePlc(plc))
-            //{
-            //    MessageBox.Show("Ошибка сохранения параметров ПЛК", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            try
+            {
+
+           
+            RtpConfigDataContext data = new RtpConfigDataContext();
+            data.SavePlcInfo(_rtpid, set_inp_name_plc.Text, set_inp_type_plc.Text,
+                             Convert.ToInt32(set_inp_number_plc.Text)); 
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка сохранения информации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
@@ -3022,6 +3048,12 @@ namespace RtpWagoConf
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return -1;
             }
+        }
+
+        private void RetClick(object sender, EventArgs e)
+        {
+            if (BackPageEvent != null)
+                BackPageEvent();
         }
     }
 }

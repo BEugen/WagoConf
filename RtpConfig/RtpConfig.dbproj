@@ -40,7 +40,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=WKZP85824;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=HM\MSQL;Integrated Security=True;Pooling=False</TargetConnectionString>
     <TargetDatabase>
     </TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -265,6 +265,21 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Scripts\SaveTimeBetwenCycle.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="GetPlcInfo.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="SavePlcInfo.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="ShangeStore.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="UpdateShangeStore.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="GetShangeStore.proc.sql">
       <SubType>Code</SubType>
     </Build>
   </ItemGroup>

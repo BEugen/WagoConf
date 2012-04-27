@@ -589,6 +589,15 @@
           <property Id="7519bb6e-156c-40eb-9beb-f8d053e18216" name="changehardware" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="7a548c3d-5435-4552-8549-4180489b07b6" />
           </property>
+          <property Id="796fb80b-67c7-4895-86b9-e557fc1571ea" name="changegroupconfig" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c9c4cb79-3bc6-4e6f-84f1-f5b3988d2a4d" />
+          </property>
+          <property Id="6af0c4ec-9d39-4cde-94d9-31034fb58c4b" name="changesingleconfig" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f86b370d-6e26-4498-b219-9a8059ae1ad2" />
+          </property>
+          <property Id="027a0992-ddf1-4941-ae89-3835e2d37754" name="changeshiberconfig" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="31d837b7-44b8-4ebb-aee3-81ee339e47b2" />
+          </property>
         </ownedAttributesInternal>
       </class>
     </logicalClassDesignerModelHasTypes>

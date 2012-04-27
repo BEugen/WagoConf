@@ -6,7 +6,10 @@
 	changehardware int,
 	changegroupconfig int,
 	changesingleconfig int,
-	changeshiberconfig int
+	changeshiberconfig int,
+	plcName nvarchar(20),
+	plcType nvarchar(20),
+	plcNumber int
 CONSTRAINT [PK_RtpName] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

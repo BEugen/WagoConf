@@ -51,7 +51,7 @@
             this.address = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmd = new System.Windows.Forms.TextBox();
-            this.configPLC_S71 = new RtpWagoConf.ConfigPLC_S7();
+            this.configPLC_S71 = new RtpWagoConf.ConfigPlcWago();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -333,7 +333,7 @@
 
         #endregion
 
-        private RtpWagoConf.ConfigPLC_S7 configPLC_S71;
+        private RtpWagoConf.ConfigPlcWago configPLC_S71;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button accept;
         private System.Windows.Forms.Label label7;

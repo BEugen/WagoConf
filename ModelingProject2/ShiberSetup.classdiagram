@@ -311,6 +311,22 @@
         </ownedAttributesInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="65bae0b4-45ef-4d8d-ae7d-456afa4be8f9" name="ShangeStore" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b7e8085a-3746-4ee0-9282-f7c757b8c658" />
+        <ownedAttributesInternal>
+          <property Id="c8654dc2-053e-4207-b203-8ba355be107c" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b88678d1-c30b-4948-ba7f-0839ec6540cf" />
+          </property>
+          <property Id="5e663b33-8f00-40a9-a3b6-90d87bcc54cf" name="countchange" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2578eed9-1256-46e4-89ed-f9b513506c28" />
+          </property>
+          <property Id="bf5e7f99-c064-4d11-b599-089c16f9dd89" name="datetimechange" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="669f9d50-0f85-47af-b84f-936a6e2ea48a" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
   </packagedElements>
   <package Id="32547287-cd92-4f07-aa35-0b7e834fa934" name="ModelingProject2">
     <elementDefinition Id="da90372f-aae7-4687-abee-04aaa87191cf" />
