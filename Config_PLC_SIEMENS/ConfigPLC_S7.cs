@@ -2821,13 +2821,13 @@ namespace RtpWagoConf
                 int[] paramset = new int[6];
                 var commandOne = new CommandToPlc();
                 RtpConfigDataContext data = new RtpConfigDataContext();
-                shibernumber = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[1].Value);
-                timeOpen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[5]) * 100);
-                timeClose = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[6]) * 100);
-                timeBetwen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[7].Value) * 100);
-                timeAOpen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[8].Value) * 100);
-                timeAClose = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[9].Value) * 100);
-                maxReopenCount = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[10].Value);
+                shibernumber = Convert.ToInt32(shiberSetup.Rows[rowIndex].Cells[1].Value);
+                timeOpen = (int)(Convert.ToDouble(shiberSetup.Rows[rowIndex].Cells[5].Value) * 100);
+                timeClose = (int)(Convert.ToDouble(shiberSetup.Rows[rowIndex].Cells[6].Value) * 100);
+                timeBetwen = (int)(Convert.ToDouble(shiberSetup.Rows[rowIndex].Cells[7].Value) * 100);
+                timeAOpen = (int)(Convert.ToDouble(shiberSetup.Rows[rowIndex].Cells[8].Value) * 100);
+                timeAClose = (int)(Convert.ToDouble(shiberSetup.Rows[rowIndex].Cells[9].Value) * 100);
+                maxReopenCount = Convert.ToInt32(shiberSetup.Rows[rowIndex].Cells[10].Value);
 
                 if (!noStore)
                     data.SaveShiberSetup(_rtpid, shibernumber, timeOpen, timeClose, timeAOpen, timeAClose, timeBetwen,
@@ -2934,7 +2934,7 @@ namespace RtpWagoConf
             RtpConfigDataContext data = new RtpConfigDataContext();
             foreach (DataGridViewRow row in shiberSetup.Rows)
             {
-                if (CommangChangeGroupConfig(row.Index, false) != 0)
+                if (CommangChangeShiberConfig(row.Index, false) != 0)
                 {
                     row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
                     data.SetErrorDownloadToPlc(_rtpid, 2, 1);
@@ -2975,15 +2975,23 @@ namespace RtpWagoConf
              RtpConfigDataContext data = new RtpConfigDataContext();
             foreach (DataGridViewRow row in singleSetup.Rows)
             {
-                if (CommangChangeShiberConfig(row.Index, false) != 0)
-                {
-                    row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
-                    data.SetErrorDownloadToPlc(_rtpid, 4, 1);
-                    commandToPlc.Clear();
-                    return;
-                }
-                row.Cells[1].Style.BackColor =
-                    System.Drawing.Color.Gainsboro;
+                    if (CommangChangeSingleConfig(row.Index, 0, false) != 0)
+                        break;
+                    row.Cells[1].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+
+                    if (CommangChangeSingleConfig(row.Index, 11, false) != 0)
+                        break;
+                    row.Cells[12].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+
+            }
+            if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
+            {
+                inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
+                data.SetErrorDownloadToPlc(_rtpid, 3, 1);
+                commandToPlc.Clear();
+                return;
             }
             data.SetErrorDownloadToPlc(_rtpid, 4, 0);
             CommandForPlc();

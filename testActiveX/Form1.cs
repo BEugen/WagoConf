@@ -43,6 +43,8 @@ namespace testActiveX
                 param[5] = configPLC_S71.P5;
                 param[6] = configPLC_S71.P6;
 
+                WriteToLogFile(param);
+
                 log.AddText = "Command:"+ param[0] + "; P1:" + param[1] + "; P2:" +
                               param[2] + "; P3:" + param[3] + "; P4:" + param[4] +
                               "; P5:" + param[5] + "; P6:" + param[6];
@@ -124,29 +126,100 @@ namespace testActiveX
             switch (param[0])
             {
                 case 1:
-                    break;
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения времени открытия и закрытия\n";
+                    str_command += "Номер шибера: " + param[1] + "\n";
+                    str_command += "Время открытия: " + param[2] + "\n";
+                    str_command += "Время закрытия: " + param[3] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
+                   break;
                 case 2:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения настроек переоткрытия\n";
+                    str_command += "Номер шибера: " + param[1] + "\n";
+                    str_command += "Количество аереоткрытий: " + param[2] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 3:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения настроек модулей\n";
+                    str_command += "Номер шибера: " + param[1] + "\n";
+                    str_command += "Номер канала закрытия шибера: " + param[2] + "\n";
+                    str_command += "Номер каналя ручной/автомат: " + param[3] + "\n";
+                    str_command += "Номер канала открытия: " + param[4] + "\n";
+                    str_command += "Номер канала закрытия: " + param[5] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 4:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения смещения адресов модулей\n";
+                    str_command += "Номер шибера: " + param[1] + "\n";
+                    str_command += "Смещение байта закрытия шибера: " + param[2] + "\n";
+                    str_command += "Смещение байта ручной/автомат: " + param[3] + "\n";
+                    str_command += "Смещение байта открытия: " + param[4] + "\n";
+                    str_command += "Смещение байта закрытия: " + param[5] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 5:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения настроек общих каналов\n";
+                    str_command += "Номер шибера: " + param[1] + "\n";
+                    str_command += "Номер канала: " + param[2] + "\n";
+                    str_command += "Тип канала: " + param[3] + "\n";
+                    str_command += "Смещение байта " + param[4] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 6:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения настроек шибера для одиночного режима\n";
+                    str_command += "Номер последовательности: " + param[1] + "\n";
+                    str_command += "Номер шибера: " + param[2] + "\n";
+                    str_command += "Время между шиберами: " + param[3] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 7:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения настроек группового режима\n";
+                    str_command += "Номер последовательности: " + param[1] + "\n";
+                    str_command += "Номер группы: " + param[2] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 8:
-                    break;
-                case 9:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения настроек группы для группового режима\n";
+                    str_command += "Номер группы: " + param[1] + "\n";
+                    str_command += "Номер шибера 1: " + param[2] + "\n";
+                    str_command += "Номер шибера 2: " + param[3] + "\n";
+                    str_command += "Время до следующей загрузки: " + param[4] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 10:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения настроек времни 2ч. для шиберов\n";
+                    str_command += "Номер шибера: " + param[1] + "\n";
+                    str_command += "Время открытия для устранения аварии: " + param[2] + "\n";
+                    str_command += "Время закрытия для устранения аварии: " + param[3] + "\n";
+                    str_command += "Время до следующей загрузки: " + param[4] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
                 case 11:
+                    str_command = DateTime.Now.ToString("d.MM.yyyy") + "=============================================\n";
+                    str_command += "Команда сохранения времени между циклом\n";
+                    str_command += "Время между циклом: " + param[1] + "\n";
+                    str_command +=
+                        "==================================================================================\n";
                     break;
             }
-           str.WriteLine("Комманда: " + str_command);
+           str.WriteLine(str_command);
            str.Close();
         }
     }
