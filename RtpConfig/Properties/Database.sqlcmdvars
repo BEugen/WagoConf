@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SqlCommandVariables xmlns="urn:Microsoft.VisualStudio.Data.Schema.Package.SqlCmdVars">
   <Version>1.0</Version>
-  <Properties />
+  <Properties>
+    <Property>
+      <PropertyName>RtpConfig</PropertyName>
+      <PropertyValue>RtpConfig</PropertyValue>
+    </Property>
+    <Property>
+      <PropertyName>RtpConfigRemote</PropertyName>
+      <PropertyValue>RtpConfigRemote</PropertyValue>
+    </Property>
+  </Properties>
 </SqlCommandVariables>

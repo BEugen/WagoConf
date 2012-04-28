@@ -46,8 +46,6 @@ namespace RtpWagoConf
             SetupTimeBetwinCycle = 11
         }
 
-        private int _selectedTab;
-
         #region VariableForPropertisSCADA
 
         private int _rtpid = 0;
@@ -77,6 +75,7 @@ namespace RtpWagoConf
         private int _currentAccessLevelToConfigurePlc = 0;
         private int _selectgroup = 0;
         private int _selectsingle = 0;
+        private string _connection = "";
 
         public ConfigPlcWago()
         {
@@ -111,25 +110,25 @@ namespace RtpWagoConf
         private void TmrElapsedCmdElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _tmrElapsedCmd.Stop();
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             switch (_command)
             {
                 case (int)CommandName.MountChannel: 
                 case (int)CommandName.MountModul:
                 case (int)CommandName.MountGenericSignals:
-                    data.SetErrorDownloadToPlc(_rtpid, 1, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 1, 1, 1);
                     break;
                 case (int)CommandName.MountShiberNumberToGroupSequency:
                 case (int)CommandName.MountShiberToGroupSequency:
-                    data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                     break;
                 case (int)CommandName.MountShiberToOneSequency:
-                    data.SetErrorDownloadToPlc(_rtpid, 3, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
                     break;
                 case (int)CommandName.SetupReopenShibers:
                 case (int)CommandName.SetupTimeShibers1:
                 case (int)CommandName.SetupTimeShibers2:
-                    data.SetErrorDownloadToPlc(_rtpid, 4, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 4, 1, 1);
                     break;
             }
             
@@ -260,6 +259,13 @@ namespace RtpWagoConf
                 CheckAccessToConfigPlc();
             }
         }
+
+        public int RtpId
+        {
+            get { return _rtpid; }
+            set { _rtpid = value; }
+        }
+
         #endregion
 
         #region Event
@@ -330,7 +336,7 @@ namespace RtpWagoConf
         private void LoadChannelMount(int selectedModul)
         {
 
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var signalGroups = data.GetRtpSignalGroups().ToArray();
             var channels = data.GetChannel(_rtpid, selectedModul).ToList();
             set_ddl_type_modul.Items.Clear();
@@ -384,7 +390,7 @@ namespace RtpWagoConf
 
         private void PlcInfLoad()
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            var data = new RtpConfigDataContext(_connection);
             var info = data.GetPlcInfo(_rtpid).ToList().First();
             set_inp_name_plc.Text = info.plcName;
             set_inp_type_plc.Text = info.plcType;
@@ -396,16 +402,16 @@ namespace RtpWagoConf
 
         private void SetConmenuAddClick(object sender, EventArgs e)
         {
-            Set_form_module_add setFormModuleAdd = new Set_form_module_add();
+            var setFormModuleAdd = new Set_form_module_add();
+            setFormModuleAdd.ConnString = _connection;
             if (setFormModuleAdd.ShowDialog() != DialogResult.OK) return;
-            RtpConfigDataContext data = new RtpConfigDataContext();
-            data.AddNewModul(_rtpid, setFormModuleAdd.CountChannel, setFormModuleAdd.ModuleType);
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+            data.AddNewModul(_rtpid, setFormModuleAdd.CountChannel, setFormModuleAdd.ModuleType, 1);
             SetLoadChannelMount();
         }
 
         private void TabConfigPlcS7SelectedIndexChanged(object sender, EventArgs e)
         {
-            _selectedTab = tabConfiпWago.SelectedIndex;
             switch (tabConfiпWago.SelectedIndex)
             {
                 case 0:
@@ -431,9 +437,6 @@ namespace RtpWagoConf
                 case 5:
                     GetInfoConfig();
                     break;
-                default:
-                    break;
-
             }
             CheckHardwareConfigError();
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
@@ -445,7 +448,7 @@ namespace RtpWagoConf
             {
 
 
-                RtpConfigDataContext data = new RtpConfigDataContext();
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 var infoConfig = data.GetShangeStore().ToList().First();
                 l_version.Text = "Версия компонента: v1.0alfa";
                 if (infoConfig.datetimestore != null)
@@ -463,7 +466,7 @@ namespace RtpWagoConf
 
         private void CheckHardwareConfigError()
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var flag = data.GetErrorDownloadToPlc(_rtpid).First();
             if (flag.changehardware == 1)
             {
@@ -513,7 +516,7 @@ namespace RtpWagoConf
             try
             {
 
-                RtpConfigDataContext data = new RtpConfigDataContext();
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 var modulchannel = data.GetAllModuleChannel(_rtpid).ToList();
                 tag_descr.Rows.Clear();
                 foreach (var getAllModuleChannelResult in modulchannel)
@@ -564,7 +567,7 @@ namespace RtpWagoConf
 
 
                 set_treeview_mount.Nodes[0].Nodes.Clear();
-                    RtpConfigDataContext data = new RtpConfigDataContext();
+                    RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                     var moduls = data.GetModule(_rtpid);
                     foreach (var modul in moduls)
                     {
@@ -593,7 +596,7 @@ namespace RtpWagoConf
         private void SetBModulParamOkClick(object sender, EventArgs e)
         {
             int result;
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            var data = new RtpConfigDataContext(_connection);
             if (set_treeview_mount.SelectedNode.Tag == null)
             {
                 MessageBox.Show("Не выбран модуль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -602,7 +605,7 @@ namespace RtpWagoConf
             if (set_nd_channel_count.Tag != null && (int) set_nd_channel_count.Tag == 1)
             {
                 result = data.ChangeCountChannel(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
-                                                 (int) set_nd_channel_count.Value);
+                                                 (int) set_nd_channel_count.Value, 1);
                 if (result != 0)
                 {
                     MessageBox.Show("Ошибка изменения числа каналов", "Ошибка", MessageBoxButtons.OK,
@@ -614,7 +617,7 @@ namespace RtpWagoConf
             if (set_ddl_type_modul.Tag != null && (int) set_ddl_type_modul.Tag == 1)
             {
                 result = data.ChangeModulType(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
-                                              set_ddl_type_modul.SelectedIndex);
+                                              set_ddl_type_modul.SelectedIndex, 1);
                 if (result != 0)
                 {
                     MessageBox.Show("Ошибка изменения типа модуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -646,8 +649,8 @@ namespace RtpWagoConf
                 else
                 {
                     commandToPlc.Clear();
-                    RtpConfigDataContext data = new RtpConfigDataContext();
-                    data.SetErrorDownloadToPlc(_rtpid, 1, 1);
+                    RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                    data.SetErrorDownloadToPlc(_rtpid, 1, 1, 1);
                 }
             }
             set_dgv_channel_mount.RefreshEdit();
@@ -655,7 +658,7 @@ namespace RtpWagoConf
 
         private void CheckOldMount(int modulnumber, int channelnumber)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             int[] paramset1 = new int[6];
             int[] paramset2 = new int[6];
 
@@ -718,7 +721,7 @@ namespace RtpWagoConf
 
         private void NewMount(int rowIndex)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             int[] paramset1 = new int[6];
             int[] paramset2 = new int[6];
 
@@ -732,7 +735,7 @@ namespace RtpWagoConf
                                                   : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value),
                                               set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value == null
                                                   ? -1
-                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value))
+                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value), 1)
                     .ToList();
 
             var commandOne = new CommandToPlc();
@@ -879,8 +882,8 @@ namespace RtpWagoConf
             if (MessageBox.Show("Удалить модуль?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
                 DialogResult.No)
                 return;
-            RtpConfigDataContext data = new RtpConfigDataContext();
-            int result = data.DeleteModule(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+            int result = data.DeleteModule(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag), 1);
             if (result >= 0)
             {
                 SetLoadChannelMount();
@@ -904,11 +907,11 @@ namespace RtpWagoConf
             {
 
            
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             data.SavePlcInfo(_rtpid, set_inp_name_plc.Text, set_inp_type_plc.Text,
-                             Convert.ToInt32(set_inp_number_plc.Text)); 
+                             Convert.ToInt32(set_inp_number_plc.Text), 1); 
             }
-            catch (Exception ex)
+            catch
             {
 
                 MessageBox.Show("Ошибка сохранения информации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -921,7 +924,7 @@ namespace RtpWagoConf
             int[] paramset1 = new int[6];
             int[] paramset2 = new int[6];
             var commandOne = new CommandToPlc();
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var groupssignal = data.GetRtpSignalGroups().ToList();
             foreach (var getRtpSignalGroupsResult in groupssignal)
             {
@@ -975,13 +978,15 @@ namespace RtpWagoConf
 
                 }
             }
-            data.SetErrorDownloadToPlc(_rtpid, 1, 0); //clear error
+            data.SetErrorDownloadToPlc(_rtpid, 1, 0, 1); //clear error
             CommandForPlc();
         }
 
 
-        private void ConfigPlcS7Load(object sender, EventArgs e)
+        private void ConfigPlcWagoLoad(object sender, EventArgs e)
         {
+            if(_connection == "")
+               GetConnectionsting();
             if (CheckAccessToConfigPlc())
             {
                 LoadAllModuleChannel();
@@ -997,6 +1002,59 @@ namespace RtpWagoConf
             CheckHardwareConfigError();
         }
 
+
+        private void GetConnectionsting()
+        {
+            bool localNoConnect = false;
+            bool remoteNoConnect = false;
+            GetShangeStoreResult localInfo = null; 
+            GetShangeStoreResult remoteInfo = null;
+            try
+            {
+                RtpConfigDataContext data = new RtpConfigDataContext(
+                    RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionStringLocal);
+                data.CommandTimeout = 3;
+                localInfo = data.GetShangeStore().ToList().First();
+            }
+            catch
+            {
+                localNoConnect = true;
+            }
+            try
+            {
+                RtpConfigDataContext data = new RtpConfigDataContext(
+                    RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionStringRemote);
+                data.CommandTimeout = 3;
+                remoteInfo = data.GetShangeStore().ToList().First();
+            }
+            catch
+            {
+                remoteNoConnect = true;
+            }
+            if (!localNoConnect && !remoteNoConnect)
+            {
+                if (localInfo.countchange >= remoteInfo.countchange)
+                {
+                    _connection = RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionStringLocal;
+                }
+                else
+                {
+                    _connection = RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionStringRemote;
+                }
+            }
+            if (localNoConnect && !remoteNoConnect)
+            {
+                _connection = RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionStringRemote;
+            }
+            if (!localNoConnect && remoteNoConnect)
+            {
+                _connection = RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionStringLocal;
+            }
+            if (localNoConnect && remoteNoConnect)
+            {
+                _connection = RtpWagoConf.Properties.Settings.Default.RtpConfigConnectionStringLocal;
+            }
+        }
 
         #region ActiveX Control Registration
 
@@ -1126,7 +1184,7 @@ namespace RtpWagoConf
         {
             DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl) sender;
             int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2)
             {
 
@@ -1192,7 +1250,7 @@ namespace RtpWagoConf
         {
             groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
             groupSetup.Rows.Clear();
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var groupShibers = data.GetGroupShiberSetup(_rtpid).ToList();
             var groups = data.GetGroupForGroupLoad(_rtpid).ToList();
             var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
@@ -1275,7 +1333,7 @@ namespace RtpWagoConf
             double timeopen = 0;
             double timeclose = 0;
             string timekoeff = "";
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             if (sender == null)
                 return;
             DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl) sender;
@@ -1698,8 +1756,8 @@ namespace RtpWagoConf
                     else
                     {
                         commandToPlc.Clear();
-                        RtpConfigDataContext data = new RtpConfigDataContext();
-                        data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                        RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                        data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                     }
                     CommandForPlc();
                 }
@@ -1947,7 +2005,7 @@ namespace RtpWagoConf
                 int shibernumber2;
                 int[] paramset = new int[6];
                 var commandOne = new CommandToPlc();
-                RtpConfigDataContext data = new RtpConfigDataContext();
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 GetParamToSaveGroupConfig(rowIndex, out timeBetwen, out timeOpen1, out timeClose1, out timeOpen2,
                                           out timeClose2);
                 sequencenumber = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[1].Value);
@@ -1956,7 +2014,7 @@ namespace RtpWagoConf
                 shibernumber2 = Convert.ToInt32(groupSetup.Rows[rowIndex].Cells[17].Value);
 
                 if (!noStore)
-                    data.SaveGroupSequence(_rtpid, sequencenumber, groupnumber); //setup group to sequence
+                    data.SaveGroupSequence(_rtpid, sequencenumber, groupnumber, 1); //setup group to sequence
 
                 paramset[0] = sequencenumber;
                 paramset[1] = groupnumber;
@@ -1965,7 +2023,7 @@ namespace RtpWagoConf
                 commandToPlc.Enqueue(commandOne);
 
                 if (!noStore)
-                    data.SaveGroupConfig(_rtpid, groupnumber, shibernumber1, shibernumber2, timeBetwen);
+                    data.SaveGroupConfig(_rtpid, groupnumber, shibernumber1, shibernumber2, timeBetwen, 1);
 
                 paramset = new int[6];
                 commandOne = new CommandToPlc();
@@ -1979,7 +2037,7 @@ namespace RtpWagoConf
 
                 if (!noStore)
                     data.SaveShiberConfigForGroup(_rtpid, shibernumber1, timeOpen1, timeClose1, shibernumber2, timeOpen2,
-                                                  timeClose2);
+                                                  timeClose2, 1);
                 paramset = new int[6];
                 commandOne = new CommandToPlc();
                 paramset[0] = shibernumber1;
@@ -2067,13 +2125,13 @@ namespace RtpWagoConf
 
         private void DownloadGroupConfigAllClick(object sender, EventArgs e)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in groupSetup.Rows)
             {
                 if (CommangChangeGroupConfig(row.Index, false) != 0)
                 {
                     row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
-                    data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                     commandToPlc.Clear();
                     return;
                 }
@@ -2083,17 +2141,17 @@ namespace RtpWagoConf
             if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
             {
                 inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                 commandToPlc.Clear();
                 return;
             }
-            data.SetErrorDownloadToPlc(_rtpid, 2, 0);
+            data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
             CommandForPlc();
         }
 
         private void ApplyClick(object sender, EventArgs e)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in groupSetup.Rows)
             {
                 if (row.Cells[0].Value.ToString() == "1")
@@ -2101,7 +2159,7 @@ namespace RtpWagoConf
                     if (CommangChangeGroupConfig(row.Index, false) != 0)
                     {
                         row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
-                        data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                        data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                         commandToPlc.Clear();
                         return;
                     }
@@ -2112,7 +2170,7 @@ namespace RtpWagoConf
             if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
             {
                 inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                 commandToPlc.Clear();
                 return;
             }
@@ -2123,7 +2181,7 @@ namespace RtpWagoConf
             else
             {
                 commandToPlc.Clear();            
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
             }
         }
 
@@ -2132,7 +2190,7 @@ namespace RtpWagoConf
         {
             singleSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
             singleSetup.Rows.Clear();
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var singlesetups = data.GetSingleShiberSetup(_rtpid).ToList();
             var timeBetwenCycle = singlesetups.First().timeBetwenCycle;
             if (timeBetwenCycle != null)
@@ -2436,7 +2494,7 @@ namespace RtpWagoConf
             double timeopen = 0;
             double timeclose = 0;
             string timekoeff = "";
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             if (sender == null)
                 return;
             DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl) sender;
@@ -2543,7 +2601,7 @@ namespace RtpWagoConf
 
         private void ApplySingleClick(object sender, EventArgs e)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in singleSetup.Rows)
             {
                 if (row.Cells[0].Value.ToString() == "1")
@@ -2564,7 +2622,7 @@ namespace RtpWagoConf
             if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
             {
                 inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 3, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
                 commandToPlc.Clear();
                 return;
             }
@@ -2573,7 +2631,7 @@ namespace RtpWagoConf
             else
             {
                 commandToPlc.Clear();
-                data.SetErrorDownloadToPlc(_rtpid, 3, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
             }
         }
 
@@ -2589,7 +2647,7 @@ namespace RtpWagoConf
                 int shibernumber;
                 int[] paramset = new int[6];
                 var commandOne = new CommandToPlc();
-                RtpConfigDataContext data = new RtpConfigDataContext();
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 sequencenumber = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[colIndex < 11? 1 : 12].Value);
                 shibernumber = Convert.ToInt32(singleSetup.Rows[rowIndex].Cells[colIndex <11? 9 : 20].Value);
                 timeOpen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[colIndex < 11 ? 5 : 16].Value)*100);
@@ -2597,7 +2655,7 @@ namespace RtpWagoConf
                 timeBetwen = (int)(Convert.ToDouble(singleSetup.Rows[rowIndex].Cells[colIndex < 11 ? 7 : 18].Value)*100);
 
                 if (!noStore)
-                    data.SaveSingleSequence(_rtpid, sequencenumber, shibernumber);
+                    data.SaveSingleSequence(_rtpid, sequencenumber, shibernumber, 1);
 
                 paramset[0] = sequencenumber;
                 paramset[1] = shibernumber;
@@ -2607,7 +2665,7 @@ namespace RtpWagoConf
                 commandToPlc.Enqueue(commandOne);
 
                 if (!noStore)
-                    data.SaveShiberConfigForSingle(_rtpid, shibernumber, timeOpen, timeClose, timeBetwen);
+                    data.SaveShiberConfigForSingle(_rtpid, shibernumber, timeOpen, timeClose, timeBetwen, 1);
            
                 paramset = new int[6];
                 commandOne = new CommandToPlc();
@@ -2652,8 +2710,8 @@ namespace RtpWagoConf
                     else
                     {
                         commandToPlc.Clear();
-                        RtpConfigDataContext data = new RtpConfigDataContext();
-                        data.SetErrorDownloadToPlc(_rtpid, 3, 1);
+                        RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                        data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
                     }
                     CommandForPlc();
                 }
@@ -2668,7 +2726,7 @@ namespace RtpWagoConf
 
         private void LoadShiberSetup()
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var shibers = data.GetShiberSetup(_rtpid).ToList();
             shibersetup_applyAll.Visible = true;
             shibersetup_back.Visible = true;
@@ -2846,7 +2904,7 @@ namespace RtpWagoConf
                 int maxReopenCount;
                 int[] paramset = new int[6];
                 var commandOne = new CommandToPlc();
-                RtpConfigDataContext data = new RtpConfigDataContext();
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 shibernumber = Convert.ToInt32(shiberSetup.Rows[rowIndex].Cells[1].Value);
                 timeOpen = (int)(Convert.ToDouble(shiberSetup.Rows[rowIndex].Cells[5].Value) * 100);
                 timeClose = (int)(Convert.ToDouble(shiberSetup.Rows[rowIndex].Cells[6].Value) * 100);
@@ -2857,7 +2915,7 @@ namespace RtpWagoConf
 
                 if (!noStore)
                     data.SaveShiberSetup(_rtpid, shibernumber, timeOpen, timeClose, timeAOpen, timeAClose, timeBetwen,
-                                         maxReopenCount);
+                                         maxReopenCount, 1);
 
                 paramset[0] = shibernumber;
                 paramset[1] = timeOpen;
@@ -2922,7 +2980,7 @@ namespace RtpWagoConf
 
         private void ShibersetupApplyAllClick(object sender, EventArgs e)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in shiberSetup.Rows)
             {
                 if (row.Cells[0].Value.ToString() == "1")
@@ -2930,7 +2988,7 @@ namespace RtpWagoConf
                     if (CommangChangeShiberConfig(row.Index, false) != 0)
                     {
                         row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
-                        data.SetErrorDownloadToPlc(_rtpid, 4, 1);
+                        data.SetErrorDownloadToPlc(_rtpid, 4, 1, 1);
                         commandToPlc.Clear();
                         return;
                     }
@@ -2943,7 +3001,7 @@ namespace RtpWagoConf
             else
             {
                 commandToPlc.Clear();
-                data.SetErrorDownloadToPlc(_rtpid, 4, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 4, 1, 1);
             }
         }
 
@@ -2957,13 +3015,13 @@ namespace RtpWagoConf
 
         private void DownloadShiberConfigAllClick(object sender, EventArgs e)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in shiberSetup.Rows)
             {
                 if (CommangChangeShiberConfig(row.Index, false) != 0)
                 {
                     row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
-                    data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                     commandToPlc.Clear();
                     return;
                 }
@@ -2973,11 +3031,11 @@ namespace RtpWagoConf
             if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
             {
                 inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                 commandToPlc.Clear();
                 return;
             }
-            data.SetErrorDownloadToPlc(_rtpid, 2, 0);
+            data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
             CommandForPlc();
         }
 
@@ -2998,7 +3056,7 @@ namespace RtpWagoConf
 
         private void DownloadSingleConfigAllClick(object sender, EventArgs e)
         {
-             RtpConfigDataContext data = new RtpConfigDataContext();
+             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in singleSetup.Rows)
             {
                     if (CommangChangeSingleConfig(row.Index, 0, false) != 0)
@@ -3015,11 +3073,11 @@ namespace RtpWagoConf
             if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
             {
                 inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 3, 1);
+                data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
                 commandToPlc.Clear();
                 return;
             }
-            data.SetErrorDownloadToPlc(_rtpid, 4, 0);
+            data.SetErrorDownloadToPlc(_rtpid, 4, 0, 1);
             CommandForPlc();
         }
 
@@ -3029,14 +3087,14 @@ namespace RtpWagoConf
             {
                 if (_shangevaluecycle)
                 {
-                    RtpConfigDataContext data = new RtpConfigDataContext();
+                    RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                     int[] paramset = new int[6];
                     var commandOne = new CommandToPlc();
                     paramset[0] = _valuecycle;
                     commandOne.CommandNumber = (int)CommandName.SetupTimeBetwinCycle;
                     commandOne.Values = paramset;
                     commandToPlc.Enqueue(commandOne);
-                    data.SaveTimeBetwenCycle(_rtpid, _valuecycle);
+                    data.SaveTimeBetwenCycle(_rtpid, _valuecycle, 1);
                    ((CustomControl.DigitTextBox)sender).BackColor = Color.Gainsboro;
 
                 }

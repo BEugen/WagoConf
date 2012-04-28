@@ -23,25 +23,25 @@ namespace RtpWagoConf.Properties {
             }
         }
         
-   /*    [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=WKZP85824;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=" +
             "False")]
-        public string RtpConfigConnectionString {
+        public string RtpConfigConnectionStringRemote {
             get {
-                return ((string)(this["RtpConfigConnectionString"]));
+                return ((string)(this["RtpConfigConnectionStringRemote"]));
             }
-        }*/
+        }
         
-      [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HM\\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=Fa" +
             "lse")]
-        public string RtpConfigConnectionString {
+        public string RtpConfigConnectionStringLocal {
             get {
-                return ((string)(this["RtpConfigConnectionString"]));
+                return ((string)(this["RtpConfigConnectionStringLocal"]));
             }
         }
     }

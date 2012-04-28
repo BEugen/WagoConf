@@ -1,7 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[ChangeModulType]
 	@rtpid int = 0, 
 	@modulnumber int,
-	@modultype int
+	@modultype int,
+	@replication int = 1
 AS
 	 BEGIN TRANSACTION CHANGEMODUL
 	  DELETE RtpShibers
@@ -29,5 +30,7 @@ AS
 			 COMMIT TRANSACTION CHANGEMODUL
 		END
 
-
+		exec  dbo.UpdateShangeStore
+	   --IF @replication = 1
+	   -- [RemoteDB]..[ChangeModulType] @rtpid, @modulnumber, @modultype, 0
 RETURN 0

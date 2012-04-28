@@ -14,9 +14,9 @@ namespace RtpWagoConf
         public Set_form_module_add()
         {
             InitializeComponent();          
-            GetTypeChannel();
-            if(set_frm_ddl_type_modul.Items.Count > 0)
-                set_frm_ddl_type_modul.SelectedIndex = 0;
+           // GetTypeChannel();
+            
+                
         }
         public int CountChannel
         {
@@ -32,14 +32,21 @@ namespace RtpWagoConf
                 return set_frm_ddl_type_modul.SelectedIndex;
             }
         }
-        private void GetTypeChannel()
+
+        public string ConnString
         {
-            RtpConfigDataContext data = new RtpConfigDataContext();
+            set { GetTypeChannel(value); }
+        }
+        private void GetTypeChannel(string _connection)
+        {
+            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             set_frm_ddl_type_modul.Items.Clear();
             foreach (var types in data.GetModulType())
             {
                 set_frm_ddl_type_modul.Items.Add(types.descript);
             }
+            if(set_frm_ddl_type_modul.Items.Count > 0)
+               set_frm_ddl_type_modul.SelectedIndex = 0;
         }
     }
 }

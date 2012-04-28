@@ -2246,7 +2246,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ConfigPlcWago";
             this.Size = new System.Drawing.Size(1024, 614);
-            this.Load += new System.EventHandler(this.ConfigPlcS7Load);
+            this.Load += new System.EventHandler(this.ConfigPlcWagoLoad);
             this.set_conmenu.ResumeLayout(false);
             this.set_menu.ResumeLayout(false);
             this.set_menu.PerformLayout();

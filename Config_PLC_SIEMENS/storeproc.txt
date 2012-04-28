@@ -1,0 +1,15 @@
+AddNewModul
+ChangeCountChannel
+ChangeModulType
+DeleteModule
+GetChannelCurrentShibers
+SaveGroupConfig
+SaveGroupSequence
+SavePlcInfo
+SaveShiberConfigForGroup
+SaveShiberConfigForSingle
+SaveShiberSetup
+SaveSingleSequence
+SaveTimeBetwenCycle
+SetErrorDownloadToPlc
+SetErrorDownloadToPlc

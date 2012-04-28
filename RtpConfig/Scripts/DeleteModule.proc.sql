@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[DeleteModule]
 	@rtpid int = 0,
-	@modulnumber int
+	@modulnumber int,
+	@replication int = 1
 AS
 	BEGIN TRANSACTION DELMODUL
 	   DELETE RtpShibers
@@ -35,4 +36,8 @@ AS
 		 BEGIN
 			 COMMIT TRANSACTION CDELMODUL
 		END
+
+		exec  dbo.UpdateShangeStore
+	   --IF @replication = 1
+	   -- [RemoteDB]..[DeleteModule] @rtpid, @modulnumber, 0
 RETURN 0

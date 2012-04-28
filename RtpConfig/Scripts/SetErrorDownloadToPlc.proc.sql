@@ -1,7 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[SetErrorDownloadToPlc]
 	@rtpid int = 0, 
 	@type int,
-	@value int
+	@value int,
+	@replication int = 1
 AS
  IF @type = 1
    BEGIN
@@ -31,5 +32,7 @@ AS
 	WHERE RtpName.rtpid = @rtpid
  END
 
-
+ exec  dbo.UpdateShangeStore
+	   --IF @replication = 1
+	   -- [RemoteDB]..[SetErrorDownloadToPlc] @rtpid, @type, @value, 0
 RETURN 0

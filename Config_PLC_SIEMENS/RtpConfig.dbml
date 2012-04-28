@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="RtpWagoConf.Properties.Settings" SettingsPropertyName="RtpConfigConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="RtpWagoConf.Properties.Settings" SettingsPropertyName="RtpConfigConnectionStringLocal" Provider="System.Data.SqlClient" />
   <Function Name="dbo.GetModule" Method="GetModule">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetModuleResult">
@@ -22,12 +22,6 @@
       <Column Name="descript" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.AddNewModul" Method="AddNewModul">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="channelcount" Type="System.Int32" DbType="Int" />
-    <Parameter Name="modultype" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.GetChannel" Method="GetChannel">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
@@ -42,39 +36,11 @@
       <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.ChangeModulType" Method="ChangeModulType">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="modultype" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.ChangeCountChannel" Method="ChangeCountChannel">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="channelcount" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.CheckMountChannel" Method="CheckMountChannel">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
     <Parameter Name="channelnumber" Type="System.Int32" DbType="Int" />
     <ElementType Name="CheckMountChannelResult">
-      <Column Name="signaltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="modulnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="channelnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="commandid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="signalcontrain" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="shibernumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="offsetChannel" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="offsetModul" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetChannelCurrentShibers" Method="GetChannelCurrentShibers">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="chanelid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="groupid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="signalid" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetChannelCurrentShibersResult">
       <Column Name="signaltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="modulnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="channelnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -102,11 +68,6 @@
       <Column Name="signaldescription" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="signalattribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
-  </Function>
-  <Function Name="dbo.DeleteModule" Method="DeleteModule">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.GetAllModuleChannel" Method="GetAllModuleChannel">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
@@ -194,44 +155,6 @@
       <Column Name="reopenCountMax" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SaveGroupConfig" Method="SaveGroupConfig">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="groupnumber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="shibernumber1" Type="System.Int32" DbType="Int" />
-    <Parameter Name="shibernumber2" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeBetwenLoadGroup" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SaveGroupSequence" Method="SaveGroupSequence">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="sequencenumber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="groupnumber" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SaveShiberConfigForGroup" Method="SaveShiberConfigForGroup">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="shibernumber1" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeOpen1" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeClose1" Type="System.Int32" DbType="Int" />
-    <Parameter Name="shibernumber2" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeOpen2" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeClose2" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SaveSingleSequence" Method="SaveSingleSequence">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="sequencenumber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SaveShiberConfigForSingle" Method="SaveShiberConfigForSingle">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeOpen" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeClose" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeBetwen" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.GetShiberSetup" Method="GetShiberSetup">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetShiberSetupResult">
@@ -245,17 +168,6 @@
       <Column Name="timeAClose" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="reopenCountMax" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
-  </Function>
-  <Function Name="dbo.SaveShiberSetup" Method="SaveShiberSetup">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeOpen" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeClose" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeAOpen" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeAClose" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeBetwenShiber" Type="System.Int32" DbType="Int" />
-    <Parameter Name="reopenCountMax" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.GetErrorDownloadToPlc" Method="GetErrorDownloadToPlc">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
@@ -280,17 +192,6 @@
       <Column Name="timeBetwenCycle" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SaveTimeBetwenCycle" Method="SaveTimeBetwenCycle">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timeBetwenCycle" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SetErrorDownloadToPlc" Method="SetErrorDownloadToPlc">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="type" Type="System.Int32" DbType="Int" />
-    <Parameter Name="value" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.GetPlcInfo" Method="GetPlcInfo">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetPlcInfoResult">
@@ -299,17 +200,130 @@
       <Column Name="plcNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SavePlcInfo" Method="SavePlcInfo">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="plcName" Type="System.String" DbType="NVarChar(20)" />
-    <Parameter Name="plcType" Type="System.String" DbType="NVarChar(20)" />
-    <Parameter Name="plcNumber" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.GetShangeStore" Method="GetShangeStore">
     <ElementType Name="GetShangeStoreResult">
       <Column Name="datetimestore" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="countchange" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.AddNewModul" Method="AddNewModul">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="channelcount" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modultype" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ChangeCountChannel" Method="ChangeCountChannel">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="channelcount" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ChangeModulType" Method="ChangeModulType">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modultype" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteModule" Method="DeleteModule">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modulnumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetChannelCurrentShibers" Method="GetChannelCurrentShibers">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="chanelid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="groupid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="signalid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetChannelCurrentShibersResult">
+      <Column Name="signaltype" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="modulnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="channelnumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="commandid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="signalcontrain" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="offsetChannel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="offsetModul" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SaveGroupConfig" Method="SaveGroupConfig">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="groupnumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber2" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeBetwenLoadGroup" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveGroupSequence" Method="SaveGroupSequence">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sequencenumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="groupnumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SavePlcInfo" Method="SavePlcInfo">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="plcName" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="plcType" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="plcNumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveShiberConfigForGroup" Method="SaveShiberConfigForGroup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeOpen1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeClose1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber2" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeOpen2" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeClose2" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveShiberConfigForSingle" Method="SaveShiberConfigForSingle">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeOpen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeClose" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeBetwen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveShiberSetup" Method="SaveShiberSetup">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeOpen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeClose" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeAOpen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeAClose" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeBetwenShiber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="reopenCountMax" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveSingleSequence" Method="SaveSingleSequence">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sequencenumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shibernumber" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SaveTimeBetwenCycle" Method="SaveTimeBetwenCycle">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timeBetwenCycle" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SetErrorDownloadToPlc" Method="SetErrorDownloadToPlc">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="value" Type="System.Int32" DbType="Int" />
+    <Parameter Name="replication" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

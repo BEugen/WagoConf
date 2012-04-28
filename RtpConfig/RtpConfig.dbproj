@@ -318,4 +318,12 @@
       <SubType>NotInBuild</SubType>
     </NotInBuild>
   </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="RtpConfig.dbschema">
+      <HintPath>RtpConfig.dbschema</HintPath>
+      <SuppressMissingDependenciesErrors>True</SuppressMissingDependenciesErrors>
+      <DatabaseVariableName>RtpConfig</DatabaseVariableName>
+      <ServerVariableName>RtpConfigRemote</ServerVariableName>
+    </ArtifactReference>
+  </ItemGroup>
 </Project>

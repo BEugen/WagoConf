@@ -1,7 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[AddNewModul]
 	@rtpid int = 0, 
 	@channelcount int,
-	@modultype int
+	@modultype int,
+	@replication int = 1
 AS
 	declare @modulcount int
 	declare @channelstart int
@@ -36,4 +37,14 @@ AS
 		 COMMIT TRANSACTION InsertModule	
 	   END
 
+
+	   exec  dbo.UpdateShangeStore
+
+	   IF @replication = 1 AND EXISTS (SELECT srv.name FROM sys.servers srv WHERE srv.server_id != 0 AND srv.name Like'$(RtpConfigRemote)')
+	   BEGIN TRY
+	      exec [$(RtpConfigRemote)].[$(RtpConfig)].[dbo].[AddNewModul] @rtpid, @channelcount, @modultype, 0
+	   END TRY
+	   BEGIN CATCH
+	   END CATCH;
+	   
 RETURN 0
