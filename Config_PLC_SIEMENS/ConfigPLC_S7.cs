@@ -76,7 +76,7 @@ namespace RtpWagoConf
         private int _selectgroup = 0;
         private int _selectsingle = 0;
         private string _connection = "";
-
+        private int _rtpAutomode = 1;
         public ConfigPlcWago()
         {
             InitializeComponent();
@@ -87,6 +87,7 @@ namespace RtpWagoConf
             commandToPlc = new Queue<CommandToPlc>();
             _accept = _command = 0;
             _params = new[] {0, 0, 0, 0, 0, 0};
+            
             // For the Click event that is re-defined.
             //base.Click += new EventHandler(ActiveXCtrl_Click);
 
@@ -266,6 +267,12 @@ namespace RtpWagoConf
             set { _rtpid = value; }
         }
 
+        public int RtpAutomode
+        {
+            get { return _rtpAutomode; }
+            set { _rtpAutomode = value; }
+        }
+
         #endregion
 
         #region Event
@@ -335,7 +342,9 @@ namespace RtpWagoConf
 
         private void LoadChannelMount(int selectedModul)
         {
-
+            //text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            //Ui ui = WaitMount;
+            //pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var signalGroups = data.GetRtpSignalGroups().ToArray();
             var channels = data.GetChannel(_rtpid, selectedModul).ToList();
@@ -386,6 +395,7 @@ namespace RtpWagoConf
                 set_dgv_channel_mount.Rows[rnumber].Cells[3].Value = channel.signaldescription;
                 set_dgv_channel_mount.Rows[rnumber].Cells[4].Value = "Применить";
             }
+            //pan_command_wait.BeginInvoke(ui, new object[] { false });
         }
 
         private void PlcInfLoad()
@@ -455,12 +465,15 @@ namespace RtpWagoConf
                     l_data_static.Text = "Дата последней конфигурации: " +
                                          infoConfig.datetimestore.Value.ToString("d.MM.yyyy HH:mm:ss");
                 l_dinamic.Text = "Кол-во изменений: " + infoConfig.countchange;
+                l_connect_info.Text ="Текущее соединение: " + _connection.Substring(_connection.IndexOf("=")+1,
+                                                            _connection.IndexOf(";") - _connection.IndexOf("=")-1);
             }
             catch
             {
                 l_version.Text = "Версия компонента: v1.0alfa";
                 l_data_static.Text = "Дата последней конфигурации: нет";
                 l_dinamic.Text = "Кол-во изменений: 0";
+                l_connect_info.Text = "";
             }
         }
 
@@ -513,9 +526,11 @@ namespace RtpWagoConf
 
         private void LoadAllModuleChannel()
         {
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
             try
             {
-
                 RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 var modulchannel = data.GetAllModuleChannel(_rtpid).ToList();
                 tag_descr.Rows.Clear();
@@ -534,6 +549,7 @@ namespace RtpWagoConf
                 MessageBox.Show("Ошибка загрузки данных (" + ex.Message + ")", "Ошибка", MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
             }
+            pan_command_wait.BeginInvoke(ui, new object[] { false });
         }
 
         /// <summary>
@@ -562,10 +578,11 @@ namespace RtpWagoConf
 
         private void SetLoadChannelMount()
         {
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
             try
             {
-
-
                 set_treeview_mount.Nodes[0].Nodes.Clear();
                     RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                     var moduls = data.GetModule(_rtpid);
@@ -591,11 +608,15 @@ namespace RtpWagoConf
                 MessageBox.Show("Ошибка загрузки данных (" + ex.Message + ")", "Ошибка", MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
             }
+            pan_command_wait.BeginInvoke(ui, new object[] { false });
         }
 
         private void SetBModulParamOkClick(object sender, EventArgs e)
         {
             int result;
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
             var data = new RtpConfigDataContext(_connection);
             if (set_treeview_mount.SelectedNode.Tag == null)
             {
@@ -625,6 +646,7 @@ namespace RtpWagoConf
                 }
                 SetLoadChannelMount();
             }
+            pan_command_wait.BeginInvoke(ui, new object[] { false });
         }
 
 
@@ -641,9 +663,13 @@ namespace RtpWagoConf
                                     , "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                pan_command_wait.BeginInvoke(ui, new object[] { true });
                 CheckOldMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
                               Convert.ToInt32(set_dgv_channel_mount.Rows[e.RowIndex].Cells[1].Value));
                 NewMount(e.RowIndex);
+                pan_command_wait.BeginInvoke(ui, new object[] { false });
                 if (typeWork.SelectedIndex == 1)
                     CommandForPlc();
                 else
@@ -882,8 +908,13 @@ namespace RtpWagoConf
             if (MessageBox.Show("Удалить модуль?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
                 DialogResult.No)
                 return;
+
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             int result = data.DeleteModule(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag), 1);
+            pan_command_wait.BeginInvoke(ui, new object[] { false });
             if (result >= 0)
             {
                 SetLoadChannelMount();
@@ -905,8 +936,7 @@ namespace RtpWagoConf
         {
             try
             {
-
-           
+       
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             data.SavePlcInfo(_rtpid, set_inp_name_plc.Text, set_inp_type_plc.Text,
                              Convert.ToInt32(set_inp_number_plc.Text), 1); 
@@ -986,7 +1016,7 @@ namespace RtpWagoConf
         private void ConfigPlcWagoLoad(object sender, EventArgs e)
         {
             if(_connection == "")
-               GetConnectionsting();
+               GetConnectionstring();
             if (CheckAccessToConfigPlc())
             {
                 LoadAllModuleChannel();
@@ -1003,7 +1033,7 @@ namespace RtpWagoConf
         }
 
 
-        private void GetConnectionsting()
+        private void GetConnectionstring()
         {
             bool localNoConnect = false;
             bool remoteNoConnect = false;
@@ -1250,6 +1280,10 @@ namespace RtpWagoConf
         {
             groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
             groupSetup.Rows.Clear();
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            if(pan_command_wait.InvokeRequired)
+              pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var groupShibers = data.GetGroupShiberSetup(_rtpid).ToList();
             var groups = data.GetGroupForGroupLoad(_rtpid).ToList();
@@ -1312,6 +1346,8 @@ namespace RtpWagoConf
                 groupSetup.Rows[rnumber].Cells[19].Value = 1;
                 groupSetup.Rows[rnumber].Cells[20].Value = 1;
             }
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { false });	
         }
 
         private void GroupSetupEditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -2125,6 +2161,9 @@ namespace RtpWagoConf
 
         private void DownloadGroupConfigAllClick(object sender, EventArgs e)
         {
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in groupSetup.Rows)
             {
@@ -2146,12 +2185,16 @@ namespace RtpWagoConf
                 return;
             }
             data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
+            pan_command_wait.BeginInvoke(ui, new object[] { false });
             CommandForPlc();
         }
 
         private void ApplyClick(object sender, EventArgs e)
         {
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
             foreach (DataGridViewRow row in groupSetup.Rows)
             {
                 if (row.Cells[0].Value.ToString() == "1")
@@ -2174,8 +2217,7 @@ namespace RtpWagoConf
                 commandToPlc.Clear();
                 return;
             }
-           
-
+            pan_command_wait.BeginInvoke(ui, new object[] { false });
             if (typeWorkToGroupSetup.SelectedIndex == 1) 
                 CommandForPlc();
             else
@@ -2190,6 +2232,10 @@ namespace RtpWagoConf
         {
             singleSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
             singleSetup.Rows.Clear();
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            if(pan_command_wait.InvokeRequired)
+              pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var singlesetups = data.GetSingleShiberSetup(_rtpid).ToList();
             var timeBetwenCycle = singlesetups.First().timeBetwenCycle;
@@ -2240,6 +2286,8 @@ namespace RtpWagoConf
                 singleSetup.Rows[rnumber].Cells[10 + offsetc].Value = 1;
                 ind++;
             }
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { false });
         }
 
         private void SingleSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -2602,6 +2650,9 @@ namespace RtpWagoConf
         private void ApplySingleClick(object sender, EventArgs e)
         {
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
             foreach (DataGridViewRow row in singleSetup.Rows)
             {
                 if (row.Cells[0].Value.ToString() == "1")
@@ -2626,6 +2677,7 @@ namespace RtpWagoConf
                 commandToPlc.Clear();
                 return;
             }
+            pan_command_wait.BeginInvoke(ui, new object[] { false });
             if (typeWorkToGroupSetup.SelectedIndex == 1)
                 CommandForPlc();
             else
@@ -2726,6 +2778,10 @@ namespace RtpWagoConf
 
         private void LoadShiberSetup()
         {
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            if(pan_command_wait.InvokeRequired)
+               pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             var shibers = data.GetShiberSetup(_rtpid).ToList();
             shibersetup_applyAll.Visible = true;
@@ -2755,6 +2811,8 @@ namespace RtpWagoConf
                 shiberSetup.Rows[index].Cells[11].Value = "Применить";
                 shiberSetup.Rows[index].Cells[12].Value = 1;
             }
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { false });
         }
 
         private void ShiberSetupCellClick(object sender, DataGridViewCellEventArgs e)
@@ -2980,6 +3038,10 @@ namespace RtpWagoConf
 
         private void ShibersetupApplyAllClick(object sender, EventArgs e)
         {
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in shiberSetup.Rows)
             {
@@ -2996,6 +3058,8 @@ namespace RtpWagoConf
                         System.Drawing.Color.Gainsboro;
                 }
             }
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { false });
             if (typeWorkToShiberSetup.SelectedIndex == 1)
                 CommandForPlc();
             else
@@ -3015,6 +3079,10 @@ namespace RtpWagoConf
 
         private void DownloadShiberConfigAllClick(object sender, EventArgs e)
         {
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { true });
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in shiberSetup.Rows)
             {
@@ -3036,6 +3104,8 @@ namespace RtpWagoConf
                 return;
             }
             data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { false });
             CommandForPlc();
         }
 
@@ -3056,6 +3126,10 @@ namespace RtpWagoConf
 
         private void DownloadSingleConfigAllClick(object sender, EventArgs e)
         {
+            text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { true });
              RtpConfigDataContext data = new RtpConfigDataContext(_connection);
             foreach (DataGridViewRow row in singleSetup.Rows)
             {
@@ -3078,6 +3152,8 @@ namespace RtpWagoConf
                 return;
             }
             data.SetErrorDownloadToPlc(_rtpid, 4, 0, 1);
+            if (pan_command_wait.InvokeRequired)
+                pan_command_wait.BeginInvoke(ui, new object[] { false });
             CommandForPlc();
         }
 

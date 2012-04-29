@@ -9,6 +9,10 @@ AS
 	WHERE GroupSequence.rtpid = @rtpid AND GroupSequence.sequencenumber = @sequencenumber
 
 	exec  dbo.UpdateShangeStore
-	   --IF @replication = 1
-	   -- [RemoteDB]..[SaveGroupSequence] @rtpid,  @sequencenumber, @groupnumber, 0
+	   IF @replication = 1 AND EXISTS (SELECT srv.name FROM sys.servers srv WHERE srv.server_id != 0 AND srv.name Like'$(RtpConfigRemote)')
+	   BEGIN TRY
+	      exec [$(RtpConfigRemote)].[$(RtpConfig)].[dbo].[SaveGroupSequence] @rtpid,  @sequencenumber, @groupnumber, 0
+	   END TRY
+	   BEGIN CATCH
+	   END CATCH;
 RETURN 0

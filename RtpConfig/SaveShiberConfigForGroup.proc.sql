@@ -18,6 +18,10 @@ AS
 
 
 	exec  dbo.UpdateShangeStore
-	   --IF @replication = 1
-	   -- [RemoteDB]..[SaveShiberConfigForGroup] @rtpid,  @shibernumber1, @timeOpen1, @timeClose1, @shibernumber2, @timeOpen2, @timeClose2, 0
+	   IF @replication = 1 AND EXISTS (SELECT srv.name FROM sys.servers srv WHERE srv.server_id != 0 AND srv.name Like'$(RtpConfigRemote)')
+	   BEGIN TRY
+	      exec [$(RtpConfigRemote)].[$(RtpConfig)].[dbo].[SaveShiberConfigForGroup] @rtpid,  @shibernumber1, @timeOpen1, @timeClose1, @shibernumber2, @timeOpen2, @timeClose2, 0
+	   END TRY
+	   BEGIN CATCH
+	   END CATCH;
 RETURN 0

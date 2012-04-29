@@ -96,10 +96,6 @@
       <Project>{8194356C-870B-4ADD-8436-6698C4EB48A6}</Project>
       <Name>ConfigWagoRtp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GenericClasses\GenericClasses.csproj">
-      <Project>{3CF2199A-E959-46E0-9A9C-38B866F6B63C}</Project>
-      <Name>GenericClasses</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

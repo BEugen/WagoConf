@@ -28,6 +28,7 @@ namespace RtpWagoConf
         int CurrentAccessLevel { set; get; }
         int MinAccessLevelToConfigPlc { set; get; }
         int RtpId { set; get; }
+        int RtpAutomode { set; get; }
 
     }
     [Guid("901EE2A0-C47C-43ec-B433-985C020051D5")]

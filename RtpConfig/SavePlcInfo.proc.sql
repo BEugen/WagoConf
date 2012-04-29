@@ -10,6 +10,10 @@ AS
 	WHERE RtpName.rtpid = @rtpid
 
 	exec  dbo.UpdateShangeStore
-	   --IF @replication = 1
-	   -- [RemoteDB]..[SavePlcInfo] @rtpid,  @plcName, @plcType, @plcNumber, 0
+	   IF @replication = 1 AND EXISTS (SELECT srv.name FROM sys.servers srv WHERE srv.server_id != 0 AND srv.name Like'$(RtpConfigRemote)')
+	   BEGIN TRY
+	      exec [$(RtpConfigRemote)].[$(RtpConfig)].[dbo].[SavePlcInfo] @rtpid,  @plcName, @plcType, @plcNumber, 0
+	   END TRY
+	   BEGIN CATCH
+	   END CATCH;
 RETURN 0

@@ -13,3 +13,10 @@ SaveSingleSequence
 SaveTimeBetwenCycle
 SetErrorDownloadToPlc
 SetErrorDownloadToPlc
+
+
+ text_wait.Text = "Идет загрузка с конфигурационной базы...";
+            Ui ui = WaitMount;
+            pan_command_wait.BeginInvoke(ui, new object[] { true });
+			
+  pan_command_wait.BeginInvoke(ui, new object[] { false });			

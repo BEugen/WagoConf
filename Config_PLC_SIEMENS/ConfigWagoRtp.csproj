@@ -145,12 +145,6 @@
     <None Include="ConfigPLC_S7.manifest" />
     <None Include="DocentStudio.pfx" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GenericClasses\GenericClasses.csproj">
-      <Project>{3CF2199A-E959-46E0-9A9C-38B866F6B63C}</Project>
-      <Name>GenericClasses</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
