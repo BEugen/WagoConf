@@ -613,45 +613,58 @@ namespace RtpWagoConf
 
         private void SetBModulParamOkClick(object sender, EventArgs e)
         {
-            int result;
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            pan_command_wait.BeginInvoke(ui, new object[] { true });
-            var data = new RtpConfigDataContext(_connection);
-            if (set_treeview_mount.SelectedNode.Tag == null)
+            try
             {
-                MessageBox.Show("Не выбран модуль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (set_nd_channel_count.Tag != null && (int) set_nd_channel_count.Tag == 1)
-            {
-                result = data.ChangeCountChannel(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
-                                                 (int) set_nd_channel_count.Value, 1);
-                if (result != 0)
+                int result;
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                pan_command_wait.BeginInvoke(ui, new object[] {true});
+                var data = new RtpConfigDataContext(_connection);
+                if (set_treeview_mount.SelectedNode.Tag == null)
                 {
-                    MessageBox.Show("Ошибка изменения числа каналов", "Ошибка", MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
+                    MessageBox.Show("Не выбран модуль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                LoadChannelMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
-            }
-            if (set_ddl_type_modul.Tag != null && (int) set_ddl_type_modul.Tag == 1)
-            {
-                result = data.ChangeModulType(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
-                                              set_ddl_type_modul.SelectedIndex, 1);
-                if (result != 0)
+                if (set_nd_channel_count.Tag != null && (int) set_nd_channel_count.Tag == 1)
                 {
-                    MessageBox.Show("Ошибка изменения типа модуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    result = data.ChangeCountChannel(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
+                                                     (int) set_nd_channel_count.Value, 1);
+                    if (result != 0)
+                    {
+                        MessageBox.Show("Ошибка изменения числа каналов", "Ошибка", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                        return;
+                    }
+                    LoadChannelMount(Convert.ToInt32(set_treeview_mount.SelectedNode.Tag));
                 }
-                SetLoadChannelMount();
+                if (set_ddl_type_modul.Tag != null && (int) set_ddl_type_modul.Tag == 1)
+                {
+                    result = data.ChangeModulType(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag),
+                                                  set_ddl_type_modul.SelectedIndex, 1);
+                    if (result != 0)
+                    {
+                        MessageBox.Show("Ошибка изменения типа модуля", "Ошибка", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                        return;
+                    }
+                    SetLoadChannelMount();
+                }
+                pan_command_wait.BeginInvoke(ui, new object[] {false});
             }
-            pan_command_wait.BeginInvoke(ui, new object[] { false });
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+            }
         }
 
 
         private void SetDgvChannelMountCellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            try
+            {
+
+            
             if (e.ColumnIndex == 4)
             {
                 if (set_dgv_channel_mount.Rows[e.RowIndex].Cells[2].Value != null &&
@@ -680,95 +693,29 @@ namespace RtpWagoConf
                 }
             }
             set_dgv_channel_mount.RefreshEdit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK,
+                                       MessageBoxIcon.Error);
+            }
         }
 
         private void CheckOldMount(int modulnumber, int channelnumber)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            int[] paramset1 = new int[6];
-            int[] paramset2 = new int[6];
-
-            var mount = data.CheckMountChannel(_rtpid, modulnumber, channelnumber).ToList();
-
-            var commandOne = new CommandToPlc();
-            if (mount.Count > 0 && mount.First().commandid != null &&
-                mount.First().commandid.Value == (int) CommandName.MountChannel)
+            try
             {
-                var shibernumber = mount.First().shibernumber;
-                if (shibernumber != null)
-                {
-                    paramset1[0] = shibernumber.Value;
-                    paramset2[0] = shibernumber.Value;
-                }
-                for (int i = 0; i < mount.Count && i < 4; i++)
-                {
-                    if (mount[i].signaltype < paramset1.Length)
-                    {
-                        paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
-                                                                 ? 0
-                                                                 : mount[i].offsetChannel.Value;
 
-                        if (mount[i].channelnumber != null && mount[i].channelnumber.Value == channelnumber &&
-                            mount[i].modulnumber != null && mount[i].modulnumber.Value == modulnumber)
-                        {
-                            paramset2[mount[i].signaltype + 1] = -1;
-                        }
-                        else
-                        {
-                            paramset2[mount[i].signaltype + 1] = mount[i].offsetModul == null
-                                                                     ? 0
-                                                                     : mount[i].offsetModul.Value;
-                        }
 
-                    }
-                }
-                commandOne.CommandNumber = (int) CommandName.MountChannel;
-                commandOne.Values = paramset1;
-                var commandTwo = new CommandToPlc();
-                commandTwo.CommandNumber = (int) CommandName.MountModul;
-                commandTwo.Values = paramset2;
-                commandToPlc.Enqueue(commandTwo);
-                commandToPlc.Enqueue(commandOne);
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                int[] paramset1 = new int[6];
+                int[] paramset2 = new int[6];
 
-            }
-            if (mount.Count > 0 && mount.First().commandid.Value == (int) CommandName.MountGenericSignals)
-            {
-                var paramset = mount.First();
-                paramset1[0] = paramset.signaltype;
-                paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
-                paramset1[2] = paramset.signalcontrain;
-                paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
-                commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
-                commandOne.Values = paramset1;
-                commandToPlc.Enqueue(commandOne);
+                var mount = data.CheckMountChannel(_rtpid, modulnumber, channelnumber).ToList();
 
-            }
-        }
-
-        private void NewMount(int rowIndex)
-        {
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            int[] paramset1 = new int[6];
-            int[] paramset2 = new int[6];
-
-            var mount =
-                data.GetChannelCurrentShibers(_rtpid,
-                                              set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value == null
-                                                  ? -1
-                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value),
-                                              set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value == null
-                                                  ? -1
-                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value),
-                                              set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value == null
-                                                  ? -1
-                                                  : Convert.ToInt32(set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value), 1)
-                    .ToList();
-
-            var commandOne = new CommandToPlc();
-            if (mount.Count > 0)
-            {
-                var commandid = mount.First().commandid;
-                if (commandid != null && commandid.Value == (int) CommandName.MountChannel)
+                var commandOne = new CommandToPlc();
+                if (mount.Count > 0 && mount.First().commandid != null &&
+                    mount.First().commandid.Value == (int) CommandName.MountChannel)
                 {
                     var shibernumber = mount.First().shibernumber;
                     if (shibernumber != null)
@@ -784,9 +731,18 @@ namespace RtpWagoConf
                                                                      ? 0
                                                                      : mount[i].offsetChannel.Value;
 
-                            paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
-                                                                     ? -1
-                                                                     : mount[i].offsetModul.Value;
+                            if (mount[i].channelnumber != null && mount[i].channelnumber.Value == channelnumber &&
+                                mount[i].modulnumber != null && mount[i].modulnumber.Value == modulnumber)
+                            {
+                                paramset2[mount[i].signaltype + 1] = -1;
+                            }
+                            else
+                            {
+                                paramset2[mount[i].signaltype + 1] = mount[i].offsetModul == null
+                                                                         ? 0
+                                                                         : mount[i].offsetModul.Value;
+                            }
+
                         }
                     }
                     commandOne.CommandNumber = (int) CommandName.MountChannel;
@@ -798,7 +754,7 @@ namespace RtpWagoConf
                     commandToPlc.Enqueue(commandOne);
 
                 }
-                if (mount.First().commandid == (int) CommandName.MountGenericSignals)
+                if (mount.Count > 0 && mount.First().commandid.Value == (int) CommandName.MountGenericSignals)
                 {
                     var paramset = mount.First();
                     paramset1[0] = paramset.signaltype;
@@ -810,6 +766,94 @@ namespace RtpWagoConf
                     commandToPlc.Enqueue(commandOne);
 
                 }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK,
+                                      MessageBoxIcon.Error);
+            }
+        }
+
+        private void NewMount(int rowIndex)
+        {
+            try
+            {
+
+
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                int[] paramset1 = new int[6];
+                int[] paramset2 = new int[6];
+
+                var mount =
+                    data.GetChannelCurrentShibers(_rtpid,
+                                                  set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value == null
+                                                      ? -1
+                                                      : Convert.ToInt32(
+                                                          set_dgv_channel_mount.Rows[rowIndex].Cells[0].Value),
+                                                  set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value == null
+                                                      ? -1
+                                                      : Convert.ToInt32(
+                                                          set_dgv_channel_mount.Rows[rowIndex].Cells[5].Value),
+                                                  set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value == null
+                                                      ? -1
+                                                      : Convert.ToInt32(
+                                                          set_dgv_channel_mount.Rows[rowIndex].Cells[6].Value), 1)
+                        .ToList();
+
+                var commandOne = new CommandToPlc();
+                if (mount.Count > 0)
+                {
+                    var commandid = mount.First().commandid;
+                    if (commandid != null && commandid.Value == (int) CommandName.MountChannel)
+                    {
+                        var shibernumber = mount.First().shibernumber;
+                        if (shibernumber != null)
+                        {
+                            paramset1[0] = shibernumber.Value;
+                            paramset2[0] = shibernumber.Value;
+                        }
+                        for (int i = 0; i < mount.Count && i < 4; i++)
+                        {
+                            if (mount[i].signaltype < paramset1.Length)
+                            {
+                                paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
+                                                                         ? 0
+                                                                         : mount[i].offsetChannel.Value;
+
+                                paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                                                                         ? -1
+                                                                         : mount[i].offsetModul.Value;
+                            }
+                        }
+                        commandOne.CommandNumber = (int) CommandName.MountChannel;
+                        commandOne.Values = paramset1;
+                        var commandTwo = new CommandToPlc();
+                        commandTwo.CommandNumber = (int) CommandName.MountModul;
+                        commandTwo.Values = paramset2;
+                        commandToPlc.Enqueue(commandTwo);
+                        commandToPlc.Enqueue(commandOne);
+
+                    }
+                    if (mount.First().commandid == (int) CommandName.MountGenericSignals)
+                    {
+                        var paramset = mount.First();
+                        paramset1[0] = paramset.signaltype;
+                        paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
+                        paramset1[2] = paramset.signalcontrain;
+                        paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
+                        commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
+                        commandOne.Values = paramset1;
+                        commandToPlc.Enqueue(commandOne);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK,
+                                     MessageBoxIcon.Error);
             }
         }
 
@@ -905,22 +949,32 @@ namespace RtpWagoConf
 
         private void SetConmenuDelClick(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Удалить модуль?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
-                DialogResult.No)
-                return;
-
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            pan_command_wait.BeginInvoke(ui, new object[] { true });
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            int result = data.DeleteModule(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag), 1);
-            pan_command_wait.BeginInvoke(ui, new object[] { false });
-            if (result >= 0)
+            try
             {
-                SetLoadChannelMount();
-                return;
+
+
+                if (MessageBox.Show("Удалить модуль?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+                    DialogResult.No)
+                    return;
+
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                int result = data.DeleteModule(_rtpid, Convert.ToInt32(set_treeview_mount.SelectedNode.Tag), 1);
+                pan_command_wait.BeginInvoke(ui, new object[] {false});
+                if (result >= 0)
+                {
+                    SetLoadChannelMount();
+                    return;
+                }
+                MessageBox.Show("Ошибка удаления модуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            MessageBox.Show("Ошибка удаления модуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void SetBChannelMountOkClick(object sender, EventArgs e)
@@ -951,65 +1005,75 @@ namespace RtpWagoConf
 
         private void LoadHardwareConfig(object sender, EventArgs e)
         {
-            int[] paramset1 = new int[6];
-            int[] paramset2 = new int[6];
-            var commandOne = new CommandToPlc();
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            var groupssignal = data.GetRtpSignalGroups().ToList();
-            foreach (var getRtpSignalGroupsResult in groupssignal)
+            try
             {
-                var mount = data.GetMountForSignalsGroup(_rtpid, getRtpSignalGroupsResult.signalattrnumber,
-                                                         getRtpSignalGroupsResult.signalgroup).ToList();
-                paramset1 = new int[6];
-                paramset2 = new int[6];
-                var commandid = mount.First().commandid;
-                if (commandid != null && (mount.Count > 0 && commandid.Value == (int) CommandName.MountChannel))
+
+
+                int[] paramset1 = new int[6];
+                int[] paramset2 = new int[6];
+                var commandOne = new CommandToPlc();
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                var groupssignal = data.GetRtpSignalGroups().ToList();
+                foreach (var getRtpSignalGroupsResult in groupssignal)
                 {
-                    var shibernumber = mount.First().shibernumber;
-                    if (shibernumber != null)
+                    var mount = data.GetMountForSignalsGroup(_rtpid, getRtpSignalGroupsResult.signalattrnumber,
+                                                             getRtpSignalGroupsResult.signalgroup).ToList();
+                    paramset1 = new int[6];
+                    paramset2 = new int[6];
+                    var commandid = mount.First().commandid;
+                    if (commandid != null && (mount.Count > 0 && commandid.Value == (int) CommandName.MountChannel))
                     {
-                        paramset1[0] = shibernumber.Value;
-                        paramset2[0] = shibernumber.Value;
-                    }
-                    for (int i = 0; i < mount.Count && i < 4; i++)
-                    {
-                        if (mount[i].signaltype < paramset1.Length)
+                        var shibernumber = mount.First().shibernumber;
+                        if (shibernumber != null)
                         {
-                            paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
-                                                                     ? 0
-                                                                     : mount[i].offsetChannel.Value;
-
-                            paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
-                                                                     ? -1
-                                                                     : mount[i].offsetModul.Value;
+                            paramset1[0] = shibernumber.Value;
+                            paramset2[0] = shibernumber.Value;
                         }
+                        for (int i = 0; i < mount.Count && i < 4; i++)
+                        {
+                            if (mount[i].signaltype < paramset1.Length)
+                            {
+                                paramset1[mount[i].signaltype + 1] = mount[i].offsetChannel == null
+                                                                         ? 0
+                                                                         : mount[i].offsetChannel.Value;
+
+                                paramset2[mount[i].signaltype + 1] = mount[i].modulnumber == null
+                                                                         ? -1
+                                                                         : mount[i].offsetModul.Value;
+                            }
+                        }
+                        commandOne = new CommandToPlc();
+                        commandOne.CommandNumber = (int) CommandName.MountChannel;
+                        commandOne.Values = paramset1;
+                        var commandTwo = new CommandToPlc();
+                        commandTwo.CommandNumber = (int) CommandName.MountModul;
+                        commandTwo.Values = paramset2;
+                        commandToPlc.Enqueue(commandTwo);
+                        commandToPlc.Enqueue(commandOne);
+
                     }
-                    commandOne = new CommandToPlc();
-                    commandOne.CommandNumber = (int) CommandName.MountChannel;
-                    commandOne.Values = paramset1;
-                    var commandTwo = new CommandToPlc();
-                    commandTwo.CommandNumber = (int) CommandName.MountModul;
-                    commandTwo.Values = paramset2;
-                    commandToPlc.Enqueue(commandTwo);
-                    commandToPlc.Enqueue(commandOne);
+                    if (mount.Count > 0 && mount.First().commandid == (int) CommandName.MountGenericSignals)
+                    {
+                        var paramset = mount.First();
+                        paramset1[0] = paramset.signaltype;
+                        paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
+                        paramset1[2] = paramset.signalcontrain;
+                        paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
+                        commandOne = new CommandToPlc();
+                        commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
+                        commandOne.Values = paramset1;
+                        commandToPlc.Enqueue(commandOne);
 
+                    }
                 }
-                if (mount.Count > 0 && mount.First().commandid == (int) CommandName.MountGenericSignals)
-                {
-                    var paramset = mount.First();
-                    paramset1[0] = paramset.signaltype;
-                    paramset1[1] = paramset.channelnumber == null ? 0 : paramset.channelnumber.Value - 1;
-                    paramset1[2] = paramset.signalcontrain;
-                    paramset1[3] = paramset.modulnumber == null ? 0 : paramset.modulnumber.Value - 1;
-                    commandOne = new CommandToPlc();
-                    commandOne.CommandNumber = (int) CommandName.MountGenericSignals;
-                    commandOne.Values = paramset1;
-                    commandToPlc.Enqueue(commandOne);
-
-                }
+                data.SetErrorDownloadToPlc(_rtpid, 1, 0, 1); //clear error
+                CommandForPlc();
             }
-            data.SetErrorDownloadToPlc(_rtpid, 1, 0, 1); //clear error
-            CommandForPlc();
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -1278,76 +1342,88 @@ namespace RtpWagoConf
 
         private void LoadGroupConfig()
         {
-            groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
-            groupSetup.Rows.Clear();
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            if(pan_command_wait.InvokeRequired)
-              pan_command_wait.BeginInvoke(ui, new object[] { true });
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            var groupShibers = data.GetGroupShiberSetup(_rtpid).ToList();
-            var groups = data.GetGroupForGroupLoad(_rtpid).ToList();
-            var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
-            var timeBetwenCycle = groupShibers.First().timeBetwenCycle;
-            if (timeBetwenCycle != null)
-                inp_timeCycleGroup.Value = timeBetwenCycle.Value/100;
-            foreach (var getGroupShiberSetupResult in groupShibers)
+            try
             {
-                int rnumber = groupSetup.Rows.Add();
-                groupSetup.Rows[rnumber].Cells[0].Value = "";
-                groupSetup.Rows[rnumber].Cells[1].Value = getGroupShiberSetupResult.sequencenumber;
-                var groupBox = ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[2]);
-                groupBox.Items.Clear();
-                foreach (var group in groups)
+
+
+                groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
+                groupSetup.Rows.Clear();
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                var groupShibers = data.GetGroupShiberSetup(_rtpid).ToList();
+                var groups = data.GetGroupForGroupLoad(_rtpid).ToList();
+                var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
+                var timeBetwenCycle = groupShibers.First().timeBetwenCycle;
+                if (timeBetwenCycle != null)
+                    inp_timeCycleGroup.Value = timeBetwenCycle.Value/100;
+                foreach (var getGroupShiberSetupResult in groupShibers)
                 {
-                    groupBox.Items.Add(CutGroupName(group.groupnumber));
+                    int rnumber = groupSetup.Rows.Add();
+                    groupSetup.Rows[rnumber].Cells[0].Value = "";
+                    groupSetup.Rows[rnumber].Cells[1].Value = getGroupShiberSetupResult.sequencenumber;
+                    var groupBox = ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[2]);
+                    groupBox.Items.Clear();
+                    foreach (var group in groups)
+                    {
+                        groupBox.Items.Add(CutGroupName(group.groupnumber));
+                    }
+                    groupSetup.Rows[rnumber].Cells[2].Value = CutGroupName(getGroupShiberSetupResult.groupnumber);
+                    if (getGroupShiberSetupResult.timeBetwenGroupLoad != null)
+                        groupSetup.Rows[rnumber].Cells[3].Value =
+                            (((double) getGroupShiberSetupResult.timeBetwenGroupLoad)/100).ToString("0.0");
+                    groupSetup.Rows[rnumber].Cells[4].Value = null;
+                    groupSetup.Rows[rnumber].Cells[9].Value = null;
+                    ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Clear();
+                    ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[9]).Items.Clear();
+                    foreach (var shiber in shibers)
+                    {
+                        ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Add(
+                            CutShiberName(shiber.signalgroupdescription));
+                        ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[9]).Items.Add(
+                            CutShiberName(shiber.signalgroupdescription));
+                    }
+                    groupSetup.Rows[rnumber].Cells[4].Value = CutShiberName(getGroupShiberSetupResult.shiberdecription1);
+                    double timedoze = 0;
+                    double timeopen = 0;
+                    double timeclose = 0;
+                    string timekoeff = "";
+                    timekoeff = CalcKoeffOpenClose(getGroupShiberSetupResult.timeOpen1,
+                                                   getGroupShiberSetupResult.timeClose1,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+
+                    groupSetup.Rows[rnumber].Cells[5].Value = timedoze.ToString("0.0");
+                    groupSetup.Rows[rnumber].Cells[7].Value = timeopen.ToString("0.0");
+                    groupSetup.Rows[rnumber].Cells[8].Value = timeclose.ToString("0.0");
+                    groupSetup.Rows[rnumber].Cells[6].Value = timekoeff;
+
+                    groupSetup.Rows[rnumber].Cells[9].Value = CutShiberName(getGroupShiberSetupResult.shiberdecription2);
+                    timekoeff = CalcKoeffOpenClose(getGroupShiberSetupResult.timeOpen2,
+                                                   getGroupShiberSetupResult.timeClose2,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+                    groupSetup.Rows[rnumber].Cells[10].Value = timedoze.ToString("0.0");
+                    groupSetup.Rows[rnumber].Cells[12].Value = timeopen.ToString("0.0");
+                    groupSetup.Rows[rnumber].Cells[13].Value = timeclose.ToString("0.0");
+
+                    groupSetup.Rows[rnumber].Cells[11].Value = timekoeff;
+                    groupSetup.Rows[rnumber].Cells[14].Value = "Применить";
+                    groupSetup.Rows[rnumber].Cells[15].Value = getGroupShiberSetupResult.groupnumber;
+                    groupSetup.Rows[rnumber].Cells[16].Value = getGroupShiberSetupResult.shibernumber1;
+                    groupSetup.Rows[rnumber].Cells[17].Value = getGroupShiberSetupResult.shibernumber2;
+                    groupSetup.Rows[rnumber].Cells[18].Value = 1;
+                    groupSetup.Rows[rnumber].Cells[19].Value = 1;
+                    groupSetup.Rows[rnumber].Cells[20].Value = 1;
                 }
-                groupSetup.Rows[rnumber].Cells[2].Value = CutGroupName(getGroupShiberSetupResult.groupnumber);
-                if (getGroupShiberSetupResult.timeBetwenGroupLoad != null)
-                    groupSetup.Rows[rnumber].Cells[3].Value =
-                        (((double) getGroupShiberSetupResult.timeBetwenGroupLoad)/100).ToString("0.0");
-                groupSetup.Rows[rnumber].Cells[4].Value = null;
-                groupSetup.Rows[rnumber].Cells[9].Value = null;
-                ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Clear();
-                ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[9]).Items.Clear();
-                foreach (var shiber in shibers)
-                {
-                    ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[4]).Items.Add(
-                        CutShiberName(shiber.signalgroupdescription));
-                    ((DataGridViewComboBoxCell) groupSetup.Rows[rnumber].Cells[9]).Items.Add(
-                        CutShiberName(shiber.signalgroupdescription));
-                }
-                groupSetup.Rows[rnumber].Cells[4].Value = CutShiberName(getGroupShiberSetupResult.shiberdecription1);
-                double timedoze = 0;
-                double timeopen = 0;
-                double timeclose = 0;
-                string timekoeff = "";
-                timekoeff = CalcKoeffOpenClose(getGroupShiberSetupResult.timeOpen1, getGroupShiberSetupResult.timeClose1,
-                                               ref timeopen, ref timeclose, ref timedoze);
-
-                groupSetup.Rows[rnumber].Cells[5].Value = timedoze.ToString("0.0");
-                groupSetup.Rows[rnumber].Cells[7].Value = timeopen.ToString("0.0");
-                groupSetup.Rows[rnumber].Cells[8].Value = timeclose.ToString("0.0");
-                groupSetup.Rows[rnumber].Cells[6].Value = timekoeff;
-
-                groupSetup.Rows[rnumber].Cells[9].Value = CutShiberName(getGroupShiberSetupResult.shiberdecription2);
-                timekoeff = CalcKoeffOpenClose(getGroupShiberSetupResult.timeOpen2, getGroupShiberSetupResult.timeClose2,
-                                               ref timeopen, ref timeclose, ref timedoze);
-                groupSetup.Rows[rnumber].Cells[10].Value = timedoze.ToString("0.0");
-                groupSetup.Rows[rnumber].Cells[12].Value = timeopen.ToString("0.0");
-                groupSetup.Rows[rnumber].Cells[13].Value = timeclose.ToString("0.0");
-
-                groupSetup.Rows[rnumber].Cells[11].Value = timekoeff;
-                groupSetup.Rows[rnumber].Cells[14].Value = "Применить";
-                groupSetup.Rows[rnumber].Cells[15].Value = getGroupShiberSetupResult.groupnumber;
-                groupSetup.Rows[rnumber].Cells[16].Value = getGroupShiberSetupResult.shibernumber1;
-                groupSetup.Rows[rnumber].Cells[17].Value = getGroupShiberSetupResult.shibernumber2;
-                groupSetup.Rows[rnumber].Cells[18].Value = 1;
-                groupSetup.Rows[rnumber].Cells[19].Value = 1;
-                groupSetup.Rows[rnumber].Cells[20].Value = 1;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {false});
             }
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { false });	
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void GroupSetupEditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -2161,43 +2237,15 @@ namespace RtpWagoConf
 
         private void DownloadGroupConfigAllClick(object sender, EventArgs e)
         {
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            pan_command_wait.BeginInvoke(ui, new object[] { true });
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            foreach (DataGridViewRow row in groupSetup.Rows)
+            try
             {
-                if (CommangChangeGroupConfig(row.Index, false) != 0)
-                {
-                    row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
-                    data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
-                    commandToPlc.Clear();
-                    return;
-                }
-                row.Cells[1].Style.BackColor =
-                    System.Drawing.Color.Gainsboro;
-            }
-            if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
-            {
-                inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
-                commandToPlc.Clear();
-                return;
-            }
-            data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
-            pan_command_wait.BeginInvoke(ui, new object[] { false });
-            CommandForPlc();
-        }
 
-        private void ApplyClick(object sender, EventArgs e)
-        {
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            pan_command_wait.BeginInvoke(ui, new object[] { true });
-            foreach (DataGridViewRow row in groupSetup.Rows)
-            {
-                if (row.Cells[0].Value.ToString() == "1")
+
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                foreach (DataGridViewRow row in groupSetup.Rows)
                 {
                     if (CommangChangeGroupConfig(row.Index, false) != 0)
                     {
@@ -2209,85 +2257,142 @@ namespace RtpWagoConf
                     row.Cells[1].Style.BackColor =
                         System.Drawing.Color.Gainsboro;
                 }
-            }
-            if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
-            {
-                inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
-                commandToPlc.Clear();
-                return;
-            }
-            pan_command_wait.BeginInvoke(ui, new object[] { false });
-            if (typeWorkToGroupSetup.SelectedIndex == 1) 
+                if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
+                {
+                    inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
+                    commandToPlc.Clear();
+                    return;
+                }
+                data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
+                pan_command_wait.BeginInvoke(ui, new object[] {false});
                 CommandForPlc();
-            else
+            }
+            catch (Exception ex)
             {
-                commandToPlc.Clear();            
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ApplyClick(object sender, EventArgs e)
+        {
+            try
+            {
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                pan_command_wait.BeginInvoke(ui, new object[] {true});
+                foreach (DataGridViewRow row in groupSetup.Rows)
+                {
+                    if (row.Cells[0].Value.ToString() == "1")
+                    {
+                        if (CommangChangeGroupConfig(row.Index, false) != 0)
+                        {
+                            row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                            data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
+                            commandToPlc.Clear();
+                            return;
+                        }
+                        row.Cells[1].Style.BackColor =
+                            System.Drawing.Color.Gainsboro;
+                    }
+                }
+                if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
+                {
+                    inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
+                    commandToPlc.Clear();
+                    return;
+                }
+                pan_command_wait.BeginInvoke(ui, new object[] {false});
+                if (typeWorkToGroupSetup.SelectedIndex == 1)
+                    CommandForPlc();
+                else
+                {
+                    commandToPlc.Clear();
+                    data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
         private void LoadSingleConfig()
         {
-            singleSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
-            singleSetup.Rows.Clear();
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            if(pan_command_wait.InvokeRequired)
-              pan_command_wait.BeginInvoke(ui, new object[] { true });
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            var singlesetups = data.GetSingleShiberSetup(_rtpid).ToList();
-            var timeBetwenCycle = singlesetups.First().timeBetwenCycle;
-            if (timeBetwenCycle != null)
-                inp_timeCycleSingle.Value = (double)timeBetwenCycle/100;
-            var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
-            int halfcount = singlesetups.Count/2 - 1;
-            int offsetc = 0;
-            int ind = 0;
-            int rnumber = 0;
-            foreach (GetSingleShiberSetupResult getSingleShiberSetupResult in singlesetups)
+            try
             {
-                if (ind > halfcount)
-                {
-                    offsetc = 11;
-                    rnumber = ind - singleSetup.Rows.Count;
-                }
-                else
-                {
-                    rnumber = singleSetup.Rows.Add();
-                }
 
-                singleSetup.Rows[rnumber].Cells[0 + offsetc].Value = "";
-                singleSetup.Rows[rnumber].Cells[1 + offsetc].Value = getSingleShiberSetupResult.sequencenumber;
-                var shiberb = ((DataGridViewComboBoxCell) singleSetup.Rows[rnumber].Cells[2 + offsetc]);
-                shiberb.Items.Clear();
-                foreach (GetRtpSignalGroupsResult shiber in shibers)
+
+                singleSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
+                singleSetup.Rows.Clear();
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                var singlesetups = data.GetSingleShiberSetup(_rtpid).ToList();
+                var timeBetwenCycle = singlesetups.First().timeBetwenCycle;
+                if (timeBetwenCycle != null)
+                    inp_timeCycleSingle.Value = (double) timeBetwenCycle/100;
+                var shibers = data.GetRtpSignalGroups().Where(ex => (ex.signalgroup == 1)).ToList();
+                int halfcount = singlesetups.Count/2 - 1;
+                int offsetc = 0;
+                int ind = 0;
+                int rnumber = 0;
+                foreach (GetSingleShiberSetupResult getSingleShiberSetupResult in singlesetups)
                 {
-                    shiberb.Items.Add(CutShiberName(shiber.signalgroupdescription));
+                    if (ind > halfcount)
+                    {
+                        offsetc = 11;
+                        rnumber = ind - singleSetup.Rows.Count;
+                    }
+                    else
+                    {
+                        rnumber = singleSetup.Rows.Add();
+                    }
+
+                    singleSetup.Rows[rnumber].Cells[0 + offsetc].Value = "";
+                    singleSetup.Rows[rnumber].Cells[1 + offsetc].Value = getSingleShiberSetupResult.sequencenumber;
+                    var shiberb = ((DataGridViewComboBoxCell) singleSetup.Rows[rnumber].Cells[2 + offsetc]);
+                    shiberb.Items.Clear();
+                    foreach (GetRtpSignalGroupsResult shiber in shibers)
+                    {
+                        shiberb.Items.Add(CutShiberName(shiber.signalgroupdescription));
+                    }
+                    singleSetup.Rows[rnumber].Cells[2 + offsetc].Value =
+                        CutShiberName(getSingleShiberSetupResult.signalgroupdescription);
+                    double timedoze = 0;
+                    double timeopen = 0;
+                    double timeclose = 0;
+                    string timekoeff = "";
+                    timekoeff = CalcKoeffOpenClose(getSingleShiberSetupResult.timeOpen,
+                                                   getSingleShiberSetupResult.timeClose,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+                    singleSetup.Rows[rnumber].Cells[4 + offsetc].Value = timekoeff;
+                    singleSetup.Rows[rnumber].Cells[3 + offsetc].Value = timedoze.ToString("0.0");
+                    singleSetup.Rows[rnumber].Cells[5 + offsetc].Value = timeopen.ToString("0.0");
+                    singleSetup.Rows[rnumber].Cells[6 + offsetc].Value = timeclose.ToString("0.0");
+                    if (getSingleShiberSetupResult.timeBetwenShiber != null)
+                        singleSetup.Rows[rnumber].Cells[7 + offsetc].Value =
+                            ((double) getSingleShiberSetupResult.timeBetwenShiber/100).ToString("0.0");
+                    singleSetup.Rows[rnumber].Cells[8 + offsetc].Value = "Применить";
+                    singleSetup.Rows[rnumber].Cells[9 + offsetc].Value = getSingleShiberSetupResult.shibernumber;
+                    singleSetup.Rows[rnumber].Cells[10 + offsetc].Value = 1;
+                    ind++;
                 }
-                singleSetup.Rows[rnumber].Cells[2 + offsetc].Value =
-                    CutShiberName(getSingleShiberSetupResult.signalgroupdescription);
-                double timedoze = 0;
-                double timeopen = 0;
-                double timeclose = 0;
-                string timekoeff = "";
-                timekoeff = CalcKoeffOpenClose(getSingleShiberSetupResult.timeOpen, getSingleShiberSetupResult.timeClose,
-                                               ref timeopen, ref timeclose, ref timedoze);
-                singleSetup.Rows[rnumber].Cells[4 + offsetc].Value = timekoeff;
-                singleSetup.Rows[rnumber].Cells[3 + offsetc].Value = timedoze.ToString("0.0");
-                singleSetup.Rows[rnumber].Cells[5 + offsetc].Value = timeopen.ToString("0.0");
-                singleSetup.Rows[rnumber].Cells[6 + offsetc].Value = timeclose.ToString("0.0");
-                if (getSingleShiberSetupResult.timeBetwenShiber != null)
-                    singleSetup.Rows[rnumber].Cells[7 + offsetc].Value =
-                        ((double) getSingleShiberSetupResult.timeBetwenShiber/100).ToString("0.0");
-                singleSetup.Rows[rnumber].Cells[8 + offsetc].Value = "Применить";
-                singleSetup.Rows[rnumber].Cells[9 + offsetc].Value =  getSingleShiberSetupResult.shibernumber;
-                singleSetup.Rows[rnumber].Cells[10 + offsetc].Value = 1;
-                ind++;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {false});
             }
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { false });
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void SingleSetupCellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -2649,41 +2754,49 @@ namespace RtpWagoConf
 
         private void ApplySingleClick(object sender, EventArgs e)
         {
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            pan_command_wait.BeginInvoke(ui, new object[] { true });
-            foreach (DataGridViewRow row in singleSetup.Rows)
+            try
             {
-                if (row.Cells[0].Value.ToString() == "1")
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                pan_command_wait.BeginInvoke(ui, new object[] {true});
+                foreach (DataGridViewRow row in singleSetup.Rows)
                 {
-                    if (CommangChangeSingleConfig(row.Index, 0, false) != 0)
-                        break;
-                    row.Cells[1].Style.BackColor =
-                        System.Drawing.Color.Gainsboro;
+                    if (row.Cells[0].Value.ToString() == "1")
+                    {
+                        if (CommangChangeSingleConfig(row.Index, 0, false) != 0)
+                            break;
+                        row.Cells[1].Style.BackColor =
+                            System.Drawing.Color.Gainsboro;
+                    }
+                    if (row.Cells[11].Value.ToString() == "1")
+                    {
+                        if (CommangChangeSingleConfig(row.Index, 11, false) != 0)
+                            break;
+                        row.Cells[12].Style.BackColor =
+                            System.Drawing.Color.Gainsboro;
+                    }
                 }
-                if (row.Cells[11].Value.ToString() == "1")
+                if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
                 {
-                    if (CommangChangeSingleConfig(row.Index, 11, false) != 0)
-                        break;
-                    row.Cells[12].Style.BackColor =
-                        System.Drawing.Color.Gainsboro;
+                    inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
+                    data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
+                    commandToPlc.Clear();
+                    return;
+                }
+                pan_command_wait.BeginInvoke(ui, new object[] {false});
+                if (typeWorkToGroupSetup.SelectedIndex == 1)
+                    CommandForPlc();
+                else
+                {
+                    commandToPlc.Clear();
+                    data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
                 }
             }
-            if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
+            catch (Exception ex)
             {
-                inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
-                commandToPlc.Clear();
-                return;
-            }
-            pan_command_wait.BeginInvoke(ui, new object[] { false });
-            if (typeWorkToGroupSetup.SelectedIndex == 1)
-                CommandForPlc();
-            else
-            {
-                commandToPlc.Clear();
-                data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -2778,41 +2891,52 @@ namespace RtpWagoConf
 
         private void LoadShiberSetup()
         {
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            if(pan_command_wait.InvokeRequired)
-               pan_command_wait.BeginInvoke(ui, new object[] { true });
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            var shibers = data.GetShiberSetup(_rtpid).ToList();
-            shibersetup_applyAll.Visible = true;
-            shibersetup_back.Visible = true;
-            shiberSetup.Rows.Clear();
-            foreach (GetShiberSetupResult getShiberSetupResult in shibers)
+            try
             {
-                int index = shiberSetup.Rows.Add();
-                shiberSetup.Rows[index].Cells[0].Value = "";
-                shiberSetup.Rows[index].Cells[1].Value = getShiberSetupResult.shibernumber;
-                shiberSetup.Rows[index].Cells[2].Value = CutShiberName(getShiberSetupResult.signalgroupdescription);
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                var shibers = data.GetShiberSetup(_rtpid).ToList();
+                shibersetup_applyAll.Visible = true;
+                shibersetup_back.Visible = true;
+                shiberSetup.Rows.Clear();
+                foreach (GetShiberSetupResult getShiberSetupResult in shibers)
+                {
+                    int index = shiberSetup.Rows.Add();
+                    shiberSetup.Rows[index].Cells[0].Value = "";
+                    shiberSetup.Rows[index].Cells[1].Value = getShiberSetupResult.shibernumber;
+                    shiberSetup.Rows[index].Cells[2].Value = CutShiberName(getShiberSetupResult.signalgroupdescription);
 
-                double timedoze = 0;
-                double timeopen = 0;
-                double timeclose = 0;
-                string timekoeff = "";
-                timekoeff = CalcKoeffOpenClose(getShiberSetupResult.timeOpen, getShiberSetupResult.timeClose,
-                                               ref timeopen, ref timeclose, ref timedoze);                
-                shiberSetup.Rows[index].Cells[3].Value = timedoze.ToString("0.0");
-                shiberSetup.Rows[index].Cells[4].Value = timekoeff;
-                shiberSetup.Rows[index].Cells[5].Value = timeopen.ToString("0.0");
-                shiberSetup.Rows[index].Cells[6].Value = timeclose.ToString("0.0");
-                shiberSetup.Rows[index].Cells[7].Value = ((double)getShiberSetupResult.timeBetwenShiber / 100).ToString("0.0");
-                shiberSetup.Rows[index].Cells[8].Value = ((double)getShiberSetupResult.timeAOpen / 100).ToString("0.0");
-                shiberSetup.Rows[index].Cells[9].Value = ((double)getShiberSetupResult.timeAClose / 100).ToString("0.0");
-                shiberSetup.Rows[index].Cells[10].Value = getShiberSetupResult.reopenCountMax;
-                shiberSetup.Rows[index].Cells[11].Value = "Применить";
-                shiberSetup.Rows[index].Cells[12].Value = 1;
+                    double timedoze = 0;
+                    double timeopen = 0;
+                    double timeclose = 0;
+                    string timekoeff = "";
+                    timekoeff = CalcKoeffOpenClose(getShiberSetupResult.timeOpen, getShiberSetupResult.timeClose,
+                                                   ref timeopen, ref timeclose, ref timedoze);
+                    shiberSetup.Rows[index].Cells[3].Value = timedoze.ToString("0.0");
+                    shiberSetup.Rows[index].Cells[4].Value = timekoeff;
+                    shiberSetup.Rows[index].Cells[5].Value = timeopen.ToString("0.0");
+                    shiberSetup.Rows[index].Cells[6].Value = timeclose.ToString("0.0");
+                    shiberSetup.Rows[index].Cells[7].Value =
+                        ((double) getShiberSetupResult.timeBetwenShiber/100).ToString("0.0");
+                    shiberSetup.Rows[index].Cells[8].Value =
+                        ((double) getShiberSetupResult.timeAOpen/100).ToString("0.0");
+                    shiberSetup.Rows[index].Cells[9].Value =
+                        ((double) getShiberSetupResult.timeAClose/100).ToString("0.0");
+                    shiberSetup.Rows[index].Cells[10].Value = getShiberSetupResult.reopenCountMax;
+                    shiberSetup.Rows[index].Cells[11].Value = "Применить";
+                    shiberSetup.Rows[index].Cells[12].Value = 1;
+                }
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {false});
             }
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { false });
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ShiberSetupCellClick(object sender, DataGridViewCellEventArgs e)
@@ -3038,34 +3162,42 @@ namespace RtpWagoConf
 
         private void ShibersetupApplyAllClick(object sender, EventArgs e)
         {
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { true });
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            foreach (DataGridViewRow row in shiberSetup.Rows)
+            try
             {
-                if (row.Cells[0].Value.ToString() == "1")
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                foreach (DataGridViewRow row in shiberSetup.Rows)
                 {
-                    if (CommangChangeShiberConfig(row.Index, false) != 0)
+                    if (row.Cells[0].Value.ToString() == "1")
                     {
-                        row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
-                        data.SetErrorDownloadToPlc(_rtpid, 4, 1, 1);
-                        commandToPlc.Clear();
-                        return;
+                        if (CommangChangeShiberConfig(row.Index, false) != 0)
+                        {
+                            row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                            data.SetErrorDownloadToPlc(_rtpid, 4, 1, 1);
+                            commandToPlc.Clear();
+                            return;
+                        }
+                        row.Cells[1].Style.BackColor =
+                            System.Drawing.Color.Gainsboro;
                     }
-                    row.Cells[1].Style.BackColor =
-                        System.Drawing.Color.Gainsboro;
+                }
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {false});
+                if (typeWorkToShiberSetup.SelectedIndex == 1)
+                    CommandForPlc();
+                else
+                {
+                    commandToPlc.Clear();
+                    data.SetErrorDownloadToPlc(_rtpid, 4, 1, 1);
                 }
             }
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { false });
-            if (typeWorkToShiberSetup.SelectedIndex == 1)
-                CommandForPlc();
-            else
+            catch (Exception ex)
             {
-                commandToPlc.Clear();
-                data.SetErrorDownloadToPlc(_rtpid, 4, 1, 1);
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3079,34 +3211,42 @@ namespace RtpWagoConf
 
         private void DownloadShiberConfigAllClick(object sender, EventArgs e)
         {
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { true });
-            RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            foreach (DataGridViewRow row in shiberSetup.Rows)
+            try
             {
-                if (CommangChangeShiberConfig(row.Index, false) != 0)
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                foreach (DataGridViewRow row in shiberSetup.Rows)
                 {
-                    row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                    if (CommangChangeShiberConfig(row.Index, false) != 0)
+                    {
+                        row.Cells[1].Style.BackColor = Color.FromArgb(244, 144, 131);
+                        data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
+                        commandToPlc.Clear();
+                        return;
+                    }
+                    row.Cells[1].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                }
+                if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
+                {
+                    inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
                     data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                     commandToPlc.Clear();
                     return;
                 }
-                row.Cells[1].Style.BackColor =
-                    System.Drawing.Color.Gainsboro;
+                data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {false});
+                CommandForPlc();
             }
-            if (AddCommandToTimeBetwincycle(inp_timeCycleGroup) != 0)
+            catch (Exception ex)
             {
-                inp_timeCycleGroup.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
-                commandToPlc.Clear();
-                return;
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { false });
-            CommandForPlc();
         }
 
         private void TypeWorkToShiberSetupSelectedIndexChanged(object sender, EventArgs e)
@@ -3126,13 +3266,15 @@ namespace RtpWagoConf
 
         private void DownloadSingleConfigAllClick(object sender, EventArgs e)
         {
-            text_wait.Text = "Идет загрузка с конфигурационной базы...";
-            Ui ui = WaitMount;
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { true });
-             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            foreach (DataGridViewRow row in singleSetup.Rows)
+            try
             {
+                text_wait.Text = "Идет загрузка с конфигурационной базы...";
+                Ui ui = WaitMount;
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {true});
+                RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                foreach (DataGridViewRow row in singleSetup.Rows)
+                {
                     if (CommangChangeSingleConfig(row.Index, 0, false) != 0)
                         break;
                     row.Cells[1].Style.BackColor =
@@ -3143,18 +3285,24 @@ namespace RtpWagoConf
                     row.Cells[12].Style.BackColor =
                         System.Drawing.Color.Gainsboro;
 
+                }
+                if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
+                {
+                    inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
+                    data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
+                    commandToPlc.Clear();
+                    return;
+                }
+                data.SetErrorDownloadToPlc(_rtpid, 4, 0, 1);
+                if (pan_command_wait.InvokeRequired)
+                    pan_command_wait.BeginInvoke(ui, new object[] {false});
+                CommandForPlc();
             }
-            if (AddCommandToTimeBetwincycle(inp_timeCycleSingle) != 0)
+            catch (Exception ex)
             {
-                inp_timeCycleSingle.BackColor = Color.FromArgb(244, 144, 131);
-                data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
-                commandToPlc.Clear();
-                return;
+
+                MessageBox.Show("Ошибка:" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            data.SetErrorDownloadToPlc(_rtpid, 4, 0, 1);
-            if (pan_command_wait.InvokeRequired)
-                pan_command_wait.BeginInvoke(ui, new object[] { false });
-            CommandForPlc();
         }
 
         private int AddCommandToTimeBetwincycle(object sender)
