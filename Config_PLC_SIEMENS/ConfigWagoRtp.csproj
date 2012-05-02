@@ -109,7 +109,9 @@
     <None Include="RtpConfig.dbml.layout">
       <DependentUpon>RtpConfig.dbml</DependentUpon>
     </None>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="ChangeKoeff.resx">
       <DependentUpon>ChangeKoeff.cs</DependentUpon>
     </EmbeddedResource>
