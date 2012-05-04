@@ -37,8 +37,8 @@ namespace RtpWagoConf
     {
         [DispId(1)]
          void CommandEvent();
+
         [DispId(2)]
         void BackPageEvent();
-
     }
 }

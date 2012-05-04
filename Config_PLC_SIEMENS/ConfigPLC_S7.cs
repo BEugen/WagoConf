@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
+using Microsoft.Win32;
 
 namespace RtpWagoConf
 {
@@ -15,7 +17,7 @@ namespace RtpWagoConf
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof (IScadaInterfaceEvent))]
     [Guid("DDBFAC4B-2024-4A48-B929-97AA484FE19D")]
-    public partial class ConfigPlcWago : UserControl, IScadaInterface
+    public partial class ConfigPlcWago : UserControl, IScadaInterface, IDisposable
     {
 
         protected struct InternalCommandStackParam
@@ -94,13 +96,29 @@ namespace RtpWagoConf
             // These functions are used to handle Tab-stops for the ActiveX 
             // control (including its child controls) when the control is 
             // hosted in a container.
-            LostFocus += ActiveXCtrlLostFocus;
+           // LostFocus += ActiveXCtrlLostFocus;
             ControlAdded += ActiveXCtrlControlAdded;
 
             // Raise custom Load event
             OnCreateControl();
 
         }
+
+        public new void Dispose()
+        {
+          //  MethodInfo shutDown = typeof(SystemEvents).GetMethod("Shutdown", BindingFlags.NonPublic | BindingFlags.Static, (Binder)null, new Type[] { }, new ParameterModifier[] { });
+          //  shutDown.Invoke(null, new object[] {});
+          
+            //tag_descr.Dispose();
+            //groupSetup.Dispose();
+            //singleSetup.Dispose();
+            //shiberSetup.Dispose();
+            LostFocus -= ActiveXCtrlLostFocus;
+            ControlAdded -= ActiveXCtrlControlAdded;
+            _tmrElapsedCmd.Elapsed -= TmrElapsedCmdElapsed;
+           // GC.SuppressFinalize(this);
+        }
+
 
         protected override sealed void OnCreateControl()
         {
@@ -280,10 +298,12 @@ namespace RtpWagoConf
         [ComVisible(false)]
         public delegate void CommandEventHandler();
 
+        [ComVisible(false)]
         public delegate void BackPageEventHandler();
 
         public event CommandEventHandler CommandEvent = null;
         public event BackPageEventHandler BackPageEvent = null;
+
 
         #endregion
 
@@ -1213,38 +1233,49 @@ namespace RtpWagoConf
             }
         }
 
+      //  MethodInfo shutDown = typeof(SystemEvents).GetMethod("Shutdown", BindingFlags.NonPublic | BindingFlags.Static, (Binder)null, new Type[] { }, new ParameterModifier[] { });
+
+
+
         [SecurityPermission(SecurityAction.LinkDemand,
             Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void WndProc(ref Message m)
         {
-            const int wmSetfocus = 0x7;
-            const int wmParentnotify = 0x210;
-            const int wmDestroy = 0x2;
-            const int wmLbuttondown = 0x201;
-            const int wmRbuttondown = 0x204;
+            try
+            {
 
-            if (m.Msg == wmSetfocus)
-            {
-                // Raise Enter event
-                OnEnter(EventArgs.Empty);
-            }
-            else if (m.Msg == wmParentnotify && (
-                                                    m.WParam.ToInt32() == wmLbuttondown ||
-                                                    m.WParam.ToInt32() == wmRbuttondown))
-            {
-                if (!ContainsFocus)
+
+                const int wmSetfocus = 0x7;
+                const int wmParentnotify = 0x210;
+                const int wmDestroy = 0x2;
+                const int wmLbuttondown = 0x201;
+                const int wmRbuttondown = 0x204;
+
+                if (m.Msg == wmSetfocus)
                 {
                     // Raise Enter event
                     OnEnter(EventArgs.Empty);
                 }
+                else if (m.Msg == wmParentnotify && (
+                                                        m.WParam.ToInt32() == wmLbuttondown ||
+                                                        m.WParam.ToInt32() == wmRbuttondown))
+                {
+                    if (!ContainsFocus)
+                    {
+                        // Raise Enter event
+                        OnEnter(EventArgs.Empty);
+                    }
+                }
+                else if (m.Msg == wmDestroy &&
+                         !IsDisposed && !Disposing)
+                {
+                    Dispose();
+                }
             }
-            else if (m.Msg == wmDestroy &&
-                     !IsDisposed && !Disposing)
+            catch
             {
-                // Used to ensure the cleanup of the control
-                Dispose();
+                
             }
-
             base.WndProc(ref m);
         }
 

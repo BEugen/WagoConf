@@ -314,8 +314,8 @@ internal class ActiveXCtrlHelper : AxHost
     }
 
     private const int KEY_PRESSED = 0x1000;
-    [DllImport("user32.dll")]
-    static extern short GetKeyState(int nVirtKey);
+   // [DllImport("user32.dll")]
+  //  static extern short GetKeyState(int nVirtKey);
 
     /// <summary>
     /// Get X in the accessor key "Alt + X"
@@ -323,17 +323,17 @@ internal class ActiveXCtrlHelper : AxHost
     /// <returns></returns>
     private static int CheckForAccessorKey()
     {
-        Keyboard keyboard = new Keyboard();
-        if (keyboard.AltKeyDown)
-        {
-            for (int i = (int)Keys.A; i <= (int)Keys.Z; i++)
-            {
-                if ((GetKeyState(i) != 0 && KEY_PRESSED != 0))
-                {
-                    return i;
-                }
-            }
-        }
+        //Keyboard keyboard = new Keyboard();
+        //if (keyboard.AltKeyDown)
+        //{
+        //    for (int i = (int)Keys.A; i <= (int)Keys.Z; i++)
+        //    {
+        //        if ((GetKeyState(i) != 0 && KEY_PRESSED != 0))
+        //        {
+        //            return i;
+        //        }
+        //    }
+        //}
         return -1;
     }
 
