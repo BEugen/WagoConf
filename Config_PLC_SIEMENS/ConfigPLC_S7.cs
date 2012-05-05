@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -1099,8 +1100,22 @@ namespace RtpWagoConf
 
         private void ConfigPlcWagoLoad(object sender, EventArgs e)
         {
-            if(_connection == "")
-               GetConnectionstring();
+            text_wait.Text = "Соединение с конфигурационной базой";
+            WaitMount(true);
+            Task task = new Task(CheckConnectionTask);
+            task.Start(); 
+        }
+
+        private void CheckConnectionTask()
+        {
+            if (_connection == "")
+                GetConnectionstring();
+            tabConfiпWago.BeginInvoke(new Ui(PlcWagoLoadAfterConnectionCheck), new object[] {false});
+
+        }
+
+        private void PlcWagoLoadAfterConnectionCheck(bool hideWait)
+        {
             if (CheckAccessToConfigPlc())
             {
                 LoadAllModuleChannel();
@@ -1110,12 +1125,12 @@ namespace RtpWagoConf
             {
                 LoadGroupConfig();
                 tabConfiпWago.SelectedIndex = 2;
-                
+
             }
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
             CheckHardwareConfigError();
+            WaitMount(hideWait);
         }
-
 
         private void GetConnectionstring()
         {
