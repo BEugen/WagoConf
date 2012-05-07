@@ -79,6 +79,7 @@ namespace RtpWagoConf
         private int _currentAccessLevelToConfigurePlc = 0;
         private int _selectgroup = 0;
         private int _selectsingle = 0;
+        private int _shiberNumberSetup = -1;
         private string _connection = "";
         private int _rtpAutomode = 1;
         public ConfigPlcWago()
@@ -235,18 +236,19 @@ namespace RtpWagoConf
         {
             set
             {
-                SelectShiberConfig(value);
+                _shiberNumberSetup = value;
+               // SelectShiberConfig(value);
             }
-            get { return -1; }
+            get { return _shiberNumberSetup; }
         }
 
         public int GroupSetup 
         { 
             set 
             {
-                typeWorkToGroupSetup.SelectedIndex = 1;
-                LoadGroupConfig();
-                tabConfiпWago.SelectedIndex = 2;
+              //  typeWorkToGroupSetup.SelectedIndex = 1;
+              //  LoadGroupConfig();
+              //  tabConfiпWago.SelectedIndex = 2;
                 _selectgroup = 1;
                 _selectsingle = 0;
             }
@@ -256,9 +258,9 @@ namespace RtpWagoConf
         { 
             set
             {
-                typeWorkToSingleSetup.SelectedIndex = 1;
-                LoadSingleConfig();
-                tabConfiпWago.SelectedIndex = 3;
+              //  typeWorkToSingleSetup.SelectedIndex = 1;
+              //  LoadSingleConfig();
+              //  tabConfiпWago.SelectedIndex = 3;
                 _selectgroup = 0;
                 _selectsingle = 1;
             }
@@ -271,7 +273,7 @@ namespace RtpWagoConf
             set
             {
                 _currentAccessLevelToConfigurePlc = value;
-                CheckAccessToConfigPlc();
+              //  CheckAccessToConfigPlc();
             }
         }
         public int MinAccessLevelToConfigPlc
@@ -280,7 +282,7 @@ namespace RtpWagoConf
             set
             {
                 _minAccessLevelToConfigurePlc = value;
-                CheckAccessToConfigPlc();
+               // CheckAccessToConfigPlc();
             }
         }
 
@@ -1125,8 +1127,29 @@ namespace RtpWagoConf
         {
             if (CheckAccessToConfigPlc())
             {
-                LoadAllModuleChannel();
-                tabConfiпWago.SelectedIndex = 0;
+                if (_selectgroup > 0)
+                {
+                    typeWorkToGroupSetup.SelectedIndex = 1;
+                    LoadGroupConfig();
+                    tabConfiпWago.SelectedIndex = 2;
+                }
+                else if (_selectsingle > 0)
+                {
+                    typeWorkToSingleSetup.SelectedIndex = 1;
+                    LoadSingleConfig();
+                    tabConfiпWago.SelectedIndex = 3;
+                }
+                else if (_shiberNumberSetup != -1)
+                {
+                    SelectShiberConfig(_shiberNumberSetup);
+                    typeWorkToShiberSetup.SelectedIndex = -1;
+                    _shiberNumberSetup = -1;
+                }
+                else
+                {
+                    LoadAllModuleChannel();
+                    tabConfiпWago.SelectedIndex = 0;
+                }
             }
             else
             {
@@ -3223,7 +3246,7 @@ namespace RtpWagoConf
 
         private void SelectShiberConfig(int shibernumber)
         {
-            tabConfiпWago.SelectedIndex = 4;
+            
             foreach (DataGridViewRow row in shiberSetup.Rows)
             {
                 if ((row.Index + 1) == shibernumber)
@@ -3243,6 +3266,7 @@ namespace RtpWagoConf
             }
             shibersetup_applyAll.Visible = false;
             shibersetup_back.Visible = false;
+            tabConfiпWago.SelectedIndex = 4;
         }
 
         private void ShibersetupApplyAllClick(object sender, EventArgs e)
