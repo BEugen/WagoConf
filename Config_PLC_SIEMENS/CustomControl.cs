@@ -13,6 +13,7 @@ namespace RtpWagoConf
         {
             const int ES_NUMBER = 0x2000;
             const int WM_PASTE = 0x0302;
+            const int wmDestroy = 0x2;
             const string NumberTemplate = @"\d+[.,]\d+";
             const string NumberTemplatePoinDigit = @"[\d,.]";
             const string NumberTemplateDelemiter = @"[,.]";
@@ -28,21 +29,32 @@ namespace RtpWagoConf
                     this.Text = value.ToString();
                 }
             }
-            
+
             protected override void WndProc(ref Message m)
             {
-
-                if (m.Msg == WM_PASTE)
+                try
                 {
 
-                    string data = Clipboard.GetDataObject().GetData(DataFormats.Text) as string;
+                    if (m.Msg == WM_PASTE)
+                    {
 
-                    if (!Regex.IsMatch(data, NumberTemplate))
+                        string data = Clipboard.GetDataObject().GetData(DataFormats.Text) as string;
 
-                        return;
+                        if (!Regex.IsMatch(data, NumberTemplate))
+
+                            return;
+
+                    }
+                    else if (m.Msg == wmDestroy &&
+                             !IsDisposed && !Disposing)
+                    {
+                        Dispose();
+                    }
+                }
+                catch
+                {
 
                 }
-
                 base.WndProc(ref m);
             }
             protected override void OnTextChanged(EventArgs e)

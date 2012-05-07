@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -109,15 +110,18 @@ namespace RtpWagoConf
         {
           //  MethodInfo shutDown = typeof(SystemEvents).GetMethod("Shutdown", BindingFlags.NonPublic | BindingFlags.Static, (Binder)null, new Type[] { }, new ParameterModifier[] { });
           //  shutDown.Invoke(null, new object[] {});
-          
-            //tag_descr.Dispose();
-            //groupSetup.Dispose();
-            //singleSetup.Dispose();
-            //shiberSetup.Dispose();
+
+            
             LostFocus -= ActiveXCtrlLostFocus;
             ControlAdded -= ActiveXCtrlControlAdded;
             _tmrElapsedCmd.Elapsed -= TmrElapsedCmdElapsed;
-           // GC.SuppressFinalize(this);
+            singleSetup.Dispose();
+            groupSetup.Dispose();
+            tag_descr.Dispose();
+            shiberSetup.Dispose();
+
+            Thread.Sleep(1000);
+            GC.SuppressFinalize(this);      
         }
 
 
