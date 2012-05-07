@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[GetGroupForGroupLoad]
 	@rtpid int = 0
 AS
-	SELECT GroupSequence.groupnumber
-	From GroupSequence
-	where GroupSequence.rtpid = @rtpid
+	SELECT ShiberGroup.groupnumber
+	From ShiberGroup
+	where ShiberGroup.rtpid = @rtpid
 RETURN 0

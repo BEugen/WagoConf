@@ -688,6 +688,7 @@ namespace RtpWagoConf
             
             if (e.ColumnIndex == 4)
             {
+                commandToPlc.Clear();
                 if (set_dgv_channel_mount.Rows[e.RowIndex].Cells[2].Value != null &&
                     set_dgv_channel_mount.Rows[e.RowIndex].Cells[3].Value == null)
                 {
@@ -1000,6 +1001,7 @@ namespace RtpWagoConf
 
         private void SetBChannelMountOkClick(object sender, EventArgs e)
         {
+            commandToPlc.Clear();
             foreach (DataGridViewRow tableRows in set_dgv_channel_mount.Rows)
             {
                 DataGridViewCellEventArgs arg = new DataGridViewCellEventArgs(4, tableRows.Index);
@@ -1032,6 +1034,7 @@ namespace RtpWagoConf
 
                 int[] paramset1 = new int[6];
                 int[] paramset2 = new int[6];
+                commandToPlc.Clear();
                 var commandOne = new CommandToPlc();
                 RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 var groupssignal = data.GetRtpSignalGroups().ToList();
@@ -1896,6 +1899,7 @@ namespace RtpWagoConf
             checkedRow.Clear();
             if (e.ColumnIndex == 14)
             {
+                commandToPlc.Clear();
                 foreach (DataGridViewCell cell in groupSetup.Rows[e.RowIndex].Cells)
                 {
                     if (cell.ErrorText != "")
@@ -1917,7 +1921,6 @@ namespace RtpWagoConf
                         RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                         data.SetErrorDownloadToPlc(_rtpid, 2, 1, 1);
                     }
-                    CommandForPlc();
                 }
                 else
                 {
@@ -2286,7 +2289,7 @@ namespace RtpWagoConf
             try
             {
 
-
+                commandToPlc.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 pan_command_wait.BeginInvoke(ui, new object[] {true});
@@ -2326,6 +2329,7 @@ namespace RtpWagoConf
             try
             {
                 RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                commandToPlc.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 pan_command_wait.BeginInvoke(ui, new object[] {true});
@@ -2803,6 +2807,7 @@ namespace RtpWagoConf
             try
             {
                 RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                commandToPlc.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 pan_command_wait.BeginInvoke(ui, new object[] {true});
@@ -2903,6 +2908,7 @@ namespace RtpWagoConf
         {
             if (e.ColumnIndex == 8 || e.ColumnIndex == 19)
             {
+                commandToPlc.Clear();
                 foreach (DataGridViewCell cell in singleSetup.Rows[e.RowIndex].Cells)
                 {
                     if (cell.ErrorText != "" && cell.ColumnIndex > (e.ColumnIndex - 7) && cell.ColumnIndex < e.ColumnIndex)
@@ -2924,7 +2930,6 @@ namespace RtpWagoConf
                         RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                         data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
                     }
-                    CommandForPlc();
                 }
                 else
                 {
@@ -2987,7 +2992,37 @@ namespace RtpWagoConf
 
         private void ShiberSetupCellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.ColumnIndex == 11)
+            {
+                commandToPlc.Clear();
+                foreach (DataGridViewCell cell in shiberSetup.Rows[e.RowIndex].Cells)
+                {
+                    if (cell.ErrorText != "")
+                    {
+                        MessageBox.Show("Неверные параметры (ячейка: " + cell.ColumnIndex + ")", "Ошибка",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                if (CommangChangeShiberConfig(e.RowIndex, false) != 0) //?
+                {
+                    shiberSetup.Rows[e.RowIndex].Cells[1].Style.BackColor =
+                        System.Drawing.Color.Gainsboro;
+                    if (typeWorkToShiberSetup.SelectedIndex == 1)
+                        CommandForPlc();
+                    else
+                    {
+                        commandToPlc.Clear();
+                        RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                        data.SetErrorDownloadToPlc(_rtpid, 3, 1, 1);
+                    }
+                }
+                else
+                {
+                    shiberSetup.Rows[e.RowIndex].Cells[1].Style.BackColor =
+                        Color.FromArgb(244, 144, 131);
+                }
+            }
         }
 
         private void ShiberSetupCellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -3210,6 +3245,7 @@ namespace RtpWagoConf
         {
             try
             {
+                commandToPlc.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 if (pan_command_wait.InvokeRequired)
@@ -3259,6 +3295,7 @@ namespace RtpWagoConf
         {
             try
             {
+                commandToPlc.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 if (pan_command_wait.InvokeRequired)
@@ -3314,6 +3351,7 @@ namespace RtpWagoConf
         {
             try
             {
+                commandToPlc.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 if (pan_command_wait.InvokeRequired)
