@@ -77,8 +77,7 @@ namespace RtpWagoConf
         private int _valuecycle = 0;
         private int _minAccessLevelToConfigurePlc = 9999;
         private int _currentAccessLevelToConfigurePlc = 0;
-        private int _selectgroup = 0;
-        private int _selectsingle = 0;
+        private int _selectMode = 0;
         private int _shiberNumberSetup = -1;
         private string _connection = "";
         private int _rtpAutomode = 1;
@@ -242,29 +241,16 @@ namespace RtpWagoConf
             get { return _shiberNumberSetup; }
         }
 
-        public int GroupSetup 
+        public int SelectMode
         { 
             set 
             {
               //  typeWorkToGroupSetup.SelectedIndex = 1;
               //  LoadGroupConfig();
               //  tabConfiпWago.SelectedIndex = 2;
-                _selectgroup = 1;
-                _selectsingle = 0;
+                _selectMode = value;
             }
-            get { return _selectgroup; }
-        }
-        public int SingleSetup 
-        { 
-            set
-            {
-              //  typeWorkToSingleSetup.SelectedIndex = 1;
-              //  LoadSingleConfig();
-              //  tabConfiпWago.SelectedIndex = 3;
-                _selectgroup = 0;
-                _selectsingle = 1;
-            }
-            get { return _selectsingle; }
+            get { return _selectMode; }
         }
 
         public int CurrentAccessLevel
@@ -1127,23 +1113,23 @@ namespace RtpWagoConf
         {
             if (CheckAccessToConfigPlc())
             {
-                if (_selectgroup > 0)
+                if (_selectMode == 1)
                 {
                     typeWorkToGroupSetup.SelectedIndex = 1;
                     LoadGroupConfig();
                     tabConfiпWago.SelectedIndex = 2;
                 }
-                else if (_selectsingle > 0)
+                else if (_selectMode == 2)
                 {
                     typeWorkToSingleSetup.SelectedIndex = 1;
                     LoadSingleConfig();
                     tabConfiпWago.SelectedIndex = 3;
                 }
-                else if (_shiberNumberSetup != -1)
+                else if (_selectMode == 3 && _shiberNumberSetup != -1)
                 {
                     SelectShiberConfig(_shiberNumberSetup);
-                    typeWorkToShiberSetup.SelectedIndex = -1;
-                    _shiberNumberSetup = -1;
+                    //typeWorkToShiberSetup.SelectedIndex = -1;
+                   // _shiberNumberSetup = -1;
                 }
                 else
                 {
@@ -3265,7 +3251,7 @@ namespace RtpWagoConf
                 row.DefaultCellStyle.SelectionForeColor = Color.FromArgb(255, 173, 173, 173);
             }
             shibersetup_applyAll.Visible = false;
-            shibersetup_back.Visible = false;
+            shibersetup_back.Visible = true;
             tabConfiпWago.SelectedIndex = 4;
         }
 

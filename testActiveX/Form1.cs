@@ -111,12 +111,12 @@ namespace testActiveX
 
         private void button4_Click(object sender, EventArgs e)
         {
-            configPLC_S71.GroupSetup = 1;
+            //configPLC_S71.GroupSetup = 1;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            configPLC_S71.SingleSetup = 1;
+            //configPLC_S71.SingleSetup = 1;
         }
 
         private void WriteToLogFile(int[] param)

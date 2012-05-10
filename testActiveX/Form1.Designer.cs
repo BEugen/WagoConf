@@ -298,7 +298,7 @@
             this.configPLC_S71.Accept = 0;
             this.configPLC_S71.Command = 0;
             this.configPLC_S71.CurrentAccessLevel = 999;
-            this.configPLC_S71.GroupSetup = 0;
+           // this.configPLC_S71.GroupSetup = 0;
             this.configPLC_S71.Location = new System.Drawing.Point(9, 9);
             this.configPLC_S71.Margin = new System.Windows.Forms.Padding(2);
             this.configPLC_S71.MinAccessLevelToConfigPlc = 9999;
@@ -310,7 +310,7 @@
             this.configPLC_S71.P5 = 0;
             this.configPLC_S71.P6 = 0;
             this.configPLC_S71.ShiberSelect = -1;
-            this.configPLC_S71.SingleSetup = 1;
+           // this.configPLC_S71.SingleSetup = 1;
             this.configPLC_S71.Size = new System.Drawing.Size(1024, 633);
             this.configPLC_S71.TabIndex = 0;
             this.configPLC_S71.Load += new System.EventHandler(this.configPLC_S71_Load);
