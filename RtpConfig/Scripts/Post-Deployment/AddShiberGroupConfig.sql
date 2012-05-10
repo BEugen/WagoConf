@@ -51,3 +51,55 @@ values (0, 12, 12, 13, 300)
 
 insert into CommonSetup(rtpid, timeBetwenCycle)
 values (0, 36000);
+
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 1, 1, 24, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 2, 2, 23, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 3, 3, 22, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 4, 4, 21, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 5, 5, 20, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 6, 6, 19, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 7, 7, 18, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 8, 8, 17, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 9, 9, 16, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 10, 10, 15, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 11, 11, 14, 300)
+
+insert into ShiberGroup(rtpid, groupnumber, shibernumber1, shibernumber2,
+timeBetwenGroupLoad)
+values (1, 12, 12, 13, 300)
+
+insert into CommonSetup(rtpid, timeBetwenCycle)
+values (1, 36000);

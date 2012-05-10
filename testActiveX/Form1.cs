@@ -22,7 +22,9 @@ namespace testActiveX
             tmrElapsedCMD = new System.Timers.Timer(2000);
             tmrElapsedCMD.Elapsed += tmrElapsedCMD_Elapsed;
             configPLC_S71.CommandEvent += configPLC_S71_CommandEvent;
-            
+            configPLC_S71.RtpId = 1;
+            configPLC_S71.CurrentAccessLevel = 9999;
+
         }
 
         void configPLC_S71_CommandEvent()
@@ -106,7 +108,7 @@ namespace testActiveX
 
         private void button3_Click(object sender, EventArgs e)
         {
-            configPLC_S71.CurrentAccessLevel = 9999;
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
