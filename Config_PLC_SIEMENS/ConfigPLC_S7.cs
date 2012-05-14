@@ -3017,7 +3017,7 @@ namespace RtpWagoConf
                         return;
                     }
                 }
-                if (CommangChangeShiberConfig(e.RowIndex, false) != 0) //?
+                if (CommangChangeShiberConfig(e.RowIndex, false) == 0) //?
                 {
                     shiberSetup.Rows[e.RowIndex].Cells[1].Style.BackColor =
                         System.Drawing.Color.Gainsboro;
