@@ -323,7 +323,11 @@ namespace RtpWagoConf
                 single_setup.Enabled = false;
                 shiber_setup.Enabled = false;
                return false;
-            }           
+            }
+            if (_rtpAutomode > 0)
+            {
+                set_mount.Enabled = false;
+            }
             group_setup.Enabled = true;
             single_setup.Enabled = true;
             shiber_setup.Enabled = true;

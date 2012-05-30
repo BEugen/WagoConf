@@ -24,6 +24,13 @@
       <SubType>Content</SubType>
       <DependentUpon>HardwareConfig.classdiagram</DependentUpon>
     </Content>
+    <Content Include="ProfileConfig.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProfileConfig.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ProfileConfig.classdiagram</DependentUpon>
+    </Content>
     <Content Include="ShiberSetup.classdiagram">
       <SubType>Content</SubType>
     </Content>

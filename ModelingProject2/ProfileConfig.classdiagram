@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="90484c72-e475-450f-a39f-36fa18913182" name="ProfileConfig" linkedPackageId="b155cabb-96cc-4408-be34-7f8df713bbe9" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="600f50b2-eb2d-4f1a-bcef-96cff654c097">
+      <profileInstance Id="fd5b1e49-f03e-4a91-8cae-50aba3e8cc71" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="5ad92aab-272e-4de0-9fdf-6ac7f71b00e1">
+      <profileInstance Id="02fc7c6a-e288-4b87-8c3f-d4e8dccf8137" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="606c0429-93f3-40aa-8ee3-97033bf0acf3" name="PrRtpSignalsGroup" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c1dfe470-d6db-42d5-81fd-22c684d95820" />
+        <targetEnds>
+          <association Id="01468341-940b-4f95-abe2-7d117bc14ffe" isDerived="false" sourceEndRoleName="RtpSignalsGroup" targetEndRoleName="SingleSequence" isLeaf="false" isAbstract="false">
+            <classMoniker Id="45577a0c-c69a-45bc-8733-7bfc5265ef14" LastKnownName="PrSingleSequence" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6f40a46a-5aa0-4c77-ab38-ceceb1fcd227" name="RtpSignalsGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="7a4e3f89-6a20-4d76-8548-7ae53fdf4655" name="Lower" value="signalattrnumber">
+                      <elementDefinition Id="644b4544-7bf1-4226-9bd6-54e5dc47cfcb" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="1186916e-e562-41f6-9405-7fb9c6a034bd" name="Upper" value="signalattrnumber">
+                      <elementDefinition Id="bcb5d9d5-f79a-45ef-a51a-34a053ba8e8e" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="cbfb0903-020c-48e4-a748-a8fce8cdb9b3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="51bb95e9-e438-4bef-9532-ba53cb226957" name="SingleSequence" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="213769b5-49de-49ec-89ec-b47b93d47680" name="Lower" value="shibernumber">
+                      <elementDefinition Id="b6c51da4-aab0-466f-8590-231c479b152d" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="a7f10213-272a-4086-9273-91825a376f2e" name="Upper" value="shibernumber">
+                      <elementDefinition Id="12fda8d3-bf9d-493b-8148-943ede46aa17" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="ba97489b-c146-4e8d-8ee9-a2fa026cc777" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="78be8065-9981-4765-9cda-d676977db0f8" />
+          </association>
+          <association Id="fdd0e1fe-d748-488f-9f02-f5e8b609f85d" isDerived="false" sourceEndRoleName="RtpSignalsGroup" targetEndRoleName="ShiberGroup" isLeaf="false" isAbstract="false">
+            <classMoniker Id="0c89aaf2-c5af-411b-8a74-3aa1ac06a3db" LastKnownName="PrShiberGroup" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c725c765-4592-4713-926f-0eb894429d33" name="RtpSignalsGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="06307847-639d-4d5f-9e4d-606b6fb5bb6e" name="Lower" value="signalattrnumber">
+                      <elementDefinition Id="0b0f3cf3-2f3a-4ac9-8b68-75627b9d836f" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="2ce5d8a0-044f-477b-8c6f-fd5b8507d6aa" name="Upper" value="signalattrnumber">
+                      <elementDefinition Id="3ce0ea52-777f-40d4-b6ea-d767951f7219" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="2460c8ba-7be7-472b-8c72-5f222dff1a75" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4b5f94b8-e661-48c5-850d-f9547c8ef74b" name="ShiberGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="26e79c48-87bf-4c73-8719-551f036e2d4d" name="Lower" value="shibernumber1">
+                      <elementDefinition Id="52f755f1-2b45-4461-91c6-061b95dee15c" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="98424bee-d1b1-491e-b5a1-9341cfb1e599" name="Upper" value="shibernumber1">
+                      <elementDefinition Id="71811997-bc69-49bc-a58d-dbd22f4bf00c" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="8992544b-9a96-4857-ab15-e31e40bd73be" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4c3c0d8d-9b82-4311-8124-08a67541adb3" />
+          </association>
+          <association Id="47f780ba-e04d-490b-a007-82cd71f9309f" isDerived="false" sourceEndRoleName="RtpSignalsGroup" targetEndRoleName="ShiberGroup" isLeaf="false" isAbstract="false">
+            <classMoniker Id="0c89aaf2-c5af-411b-8a74-3aa1ac06a3db" LastKnownName="PrShiberGroup" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7ec8f7b4-556f-4b2e-aa2b-18db19b8a92f" name="RtpSignalsGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="f2af32ad-2b68-458d-bb04-5907c0d5a821" name="Lower" value="signalattrnumber">
+                      <elementDefinition Id="370db4b4-8272-4a82-8432-43d63628dc47" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="a15c3d3a-4106-4260-bfdb-c0c179bf74ec" name="Upper" value="signalattrnumber">
+                      <elementDefinition Id="1fa8c681-f9e7-4881-9c56-4521731f9709" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="45aa24cd-71f2-47c8-85b3-329ea2a0d3bc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="35aa432e-c70d-4f02-aa3a-96f72555de63" name="ShiberGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="72d7df6b-2295-469b-b0e0-641f00f6538b" name="Lower" value="shibernumber2">
+                      <elementDefinition Id="be592ce3-4f74-4883-93b6-f259e1420e67" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="1bcdb1f4-5f97-4003-b6f7-015e62020632" name="Upper" value="shibernumber2">
+                      <elementDefinition Id="94703e2b-820b-44a7-84d7-af853d8e78c9" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="52be50b2-9148-4daf-9412-2adbe58c29ba" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="b5b86b33-3aa6-4b72-aae8-1bb46579fd86" />
+          </association>
+          <association Id="8a268b3f-c6f3-45cb-a9de-6c50740c6fff" isDerived="false" sourceEndRoleName="RtpSignalsGroup" targetEndRoleName="ShiberSetup" isLeaf="false" isAbstract="false">
+            <classMoniker Id="6007d7cd-2c51-4881-a8c0-43ad64076555" LastKnownName="PrShiberSetup" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3def8e7e-e96a-4f2f-addd-3a6f4747ebc2" name="RtpSignalsGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="483b51ff-eb2b-4d55-a71e-d83ab78dcb96" name="Lower" value="signalattrnumber">
+                      <elementDefinition Id="390cad68-ab5a-4f5f-89b6-9d37138b6813" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="5c5cd058-35fd-4914-be40-54eea56396fe" name="Upper" value="signalattrnumber">
+                      <elementDefinition Id="e7fec776-6d6a-413f-a61f-241d7e44793b" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="8d0a56f2-2186-441d-98ea-be92466b5e1c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="10003314-c685-4926-b42b-b90cee60cff7" name="ShiberSetup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="671d919c-e024-4784-a1b8-a0167e409dcd" name="Lower" value="shibernumber">
+                      <elementDefinition Id="098d6762-f869-4a45-8e3d-272f01987ac0" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="a3ff684b-dfa4-4fd5-9b3a-214c7cd416ff" name="Upper" value="shibernumber">
+                      <elementDefinition Id="221b54c1-aa27-46fd-a049-822a1412503b" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="5228ca2a-36a2-49f8-b3b1-a87b67cdca2e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="51f1f410-bdd2-4e8b-a101-502ccbda9f36" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="7ef31eb2-422e-45a2-a05a-ffb2e876fe54" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="dcdc6a95-b329-41b7-9c66-cf6d845fcca7" />
+          </property>
+          <property Id="949519e8-4a5b-4e89-ab28-264fde7c5a0f" name="signalgroupdescription" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="583a7106-29a8-40f7-909a-82fc4618d221" />
+          </property>
+          <property Id="53e3769f-0fa0-47bf-9bcc-10c4b23e0fb1" name="signalattrnumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f0f14778-a873-4c1b-a1d5-26e9e38dd589" />
+          </property>
+          <property Id="25fb3e6e-18ea-49eb-82ef-53d89941efe4" name="signalgroup" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6ae1ae51-4112-469a-8bd5-d20eddf25215" />
+          </property>
+          <property Id="42b9eb10-1ce0-4988-8345-bcc8eebd03b8" name="profileid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="950f9da7-3fcb-411d-b8b3-cfc300531b75" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="91b51795-d404-435d-ad7c-ac418b850bf2" name="PrGroupSequence" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d348c9dd-d31d-4a4d-9592-fccc432eca66" />
+        <targetEnds>
+          <association Id="cdcea5dc-d3d1-4e72-ba28-4b6cbbe1798c" isDerived="false" sourceEndRoleName="GroupSequence" targetEndRoleName="ShiberGroup" isLeaf="false" isAbstract="false">
+            <classMoniker Id="0c89aaf2-c5af-411b-8a74-3aa1ac06a3db" LastKnownName="PrShiberGroup" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="dd9b3778-c4e3-462f-87a1-cf19e3dfaa56" name="GroupSequence" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="b7a31473-699d-4ac2-a700-1bbe5995a50a" name="Lower" value="groupnumber">
+                      <elementDefinition Id="cf0204a8-538e-445d-9f6e-3c7622d31882" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="44793602-d454-450b-b116-3c3320d185d7" name="Upper" value="groupnumber">
+                      <elementDefinition Id="3f7fe006-9713-4c54-aa62-3d06cdbe8b9b" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="959bddc3-6b03-4d84-ba59-35d39d24dab0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="facb8b43-1572-4078-b71d-ffa59a6da6b4" name="ShiberGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="c8beeca9-602e-4974-99a8-1677c3c51513" name="Lower" value="groupnumber">
+                      <elementDefinition Id="341051a4-ab8e-4573-ae7d-5e2c2093ec0a" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="22afbfcb-fa81-43da-9386-16bc2a78e249" name="Upper" value="groupnumber">
+                      <elementDefinition Id="a8db7bdc-5e25-48a2-ad3c-f0e164d66382" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="a50ecd0d-6416-4547-81a0-eb248b2c7e04" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5d7011c5-d4f0-4e13-8a25-9d6d966cf1b1" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="2049a955-c36e-416a-9a8b-135f84ef0bae" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="21e9670e-f207-4331-b34d-a0a54fa95a63" />
+          </property>
+          <property Id="c117de8c-9812-4695-894e-0e6233e96696" name="groupnumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1c4b7153-2ef1-46cf-9af5-94f51dafdd64" />
+          </property>
+          <property Id="4b6aed67-acc6-4261-b869-9629ddff9bc5" name="sequencenumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d65279ee-3dec-474c-8d2b-888d35504e7d" />
+          </property>
+          <property Id="7407e965-0d15-49f0-be25-6155f85f2484" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6e80981f-5e96-4f0d-a6ac-c1003fbc8f54" />
+          </property>
+          <property Id="e946e1c9-20f5-4b80-a44a-6630a3d5d141" name="profileid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="68b67bec-57e1-4127-a5cd-b6a463f18bf4" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0c89aaf2-c5af-411b-8a74-3aa1ac06a3db" name="PrShiberGroup" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="aefd888c-91d4-434b-8715-c4beec13a7fe" />
+        <ownedAttributesInternal>
+          <property Id="0845896c-db4d-4ee8-82f2-0319e90a4316" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e1a6007f-c725-4449-8f1c-ffd91510a677" />
+          </property>
+          <property Id="5743bcae-a756-455d-ac4a-71eac8c7c6d7" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="3a058373-5b55-4273-839b-e03027675c4d" />
+          </property>
+          <property Id="caf4c160-e9cc-4dac-9412-7b953a961591" name="shibernumber1" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c367eb5e-09fe-436e-9f1e-0684fe702b33" />
+          </property>
+          <property Id="64c4117f-2c05-4d7c-a95c-d7fc50c10b32" name="shibernumber2" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2c2d8597-51f1-454d-98e6-7a5facc7fffa" />
+          </property>
+          <property Id="61155590-cf26-48fd-97b2-d5be607d0724" name="timeBetwenGroupLoad" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9994eb21-f24b-435a-a443-6ce1f4953f74" />
+          </property>
+          <property Id="25cac954-75b5-4d91-897d-1892c1977ecd" name="groupnumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="162dc445-807b-4727-bcbb-ec60c9fb92f7" />
+          </property>
+          <property Id="a055cb7b-26dc-4795-bcbc-4cc26d5ad835" name="profileid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="62563905-857a-4a36-8bf9-c34f0ae145eb" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="6007d7cd-2c51-4881-a8c0-43ad64076555" name="PrShiberSetup" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="28ab7d9d-768b-4c30-bdb8-14b877bde56d" />
+        <ownedAttributesInternal>
+          <property Id="7df93690-9ecf-4de4-a699-0408833127bb" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="ed2df7b7-b5d5-4b6f-837a-a51672bd5e8f" />
+          </property>
+          <property Id="2a022e26-8ea6-4eab-b56c-1b40273cce39" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="087627f5-d952-432f-9b14-78df4f23f1de" />
+          </property>
+          <property Id="206969b6-f96a-4ff4-a539-ae2e456b2471" name="shibernumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="05bf363f-fcac-4fba-8783-1b09e0c3ef9d" />
+          </property>
+          <property Id="cd4afd53-bbeb-4e3b-aa3a-517f252f7b48" name="timeOpen" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="409cb157-dd77-41e7-9019-f48438099d31" />
+          </property>
+          <property Id="5c9c9c08-bed8-4b4a-afed-3ef0873ed93b" name="reopenCountMax" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="91d28d0f-bc9c-42d7-9d10-102b2fcf9b0b" />
+          </property>
+          <property Id="45b9c307-9f11-43c5-8ed9-57e3dcda65c9" name="timeClose" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="33b74d3d-396c-4ed3-b0ad-8e8fe5701111" />
+          </property>
+          <property Id="a314ab00-27ba-4ab5-9d83-b51806d1d43a" name="timeBetwenShiber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5df73936-e79a-456e-bfd7-3b5b3a598bb6" />
+          </property>
+          <property Id="fed4c243-3ab1-4084-a684-3819a846c40c" name="profileid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="78dabad2-3d7c-4308-a9a5-41bffc2ba474" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="45577a0c-c69a-45bc-8733-7bfc5265ef14" name="PrSingleSequence" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="8d7c5390-1d43-4dbb-8f87-a60d01e1e495" />
+        <ownedAttributesInternal>
+          <property Id="5d0b20b6-4d53-4f64-92bb-9e67eceb3c6e" name="id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="658d487f-3afa-4f99-9fec-d4f47a14cb22" />
+          </property>
+          <property Id="b1156521-472f-43c9-a1c7-e858fb7b0e30" name="sequencenumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d8a9ed44-8b0c-4826-a4c3-52121911599b" />
+          </property>
+          <property Id="6cb5d2bc-f55d-47cf-b082-59f04a096594" name="shibernumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c067a5aa-a738-4233-80c0-31f59e82660d" />
+          </property>
+          <property Id="51c42d79-1af2-46c6-80e3-4c4f145d713d" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="00885bde-30b7-4c82-8b3a-ad820c363176" />
+          </property>
+          <property Id="763a9c5c-9b7f-4b7f-b026-db7326e7be48" name="profileid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4fa7b235-9bd5-438b-84a7-17635bc04336" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7fe25136-e3d7-4313-b648-829552c62441" name="PrCommonSetup" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="0dbac710-372a-4225-93f0-77592dae1fc9" />
+        <ownedAttributesInternal>
+          <property Id="2a17c4a4-c8d9-422d-a238-77f729d20764" name="rtpid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="33c13335-452b-478c-a30f-0c57d3c2b7a3" />
+          </property>
+          <property Id="2b795f36-8420-4a51-ac36-a6ff09b6639b" name="timeBetwenCycle" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e56ce68a-d8ab-4c8e-9f37-96a72055bd13" />
+          </property>
+          <property Id="74b2b47b-2b9d-4861-8cab-036a506bcbd7" name="profileid" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a3eb94cc-5d09-4fa0-bacd-1359af486a0c" />
+          </property>
+          <property Id="c6444c05-1086-4d1a-835b-1fa8e24c470e" name="nameProfile" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4da1daa7-d01b-434d-9d90-93b781774a55" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="b155cabb-96cc-4408-be34-7f8df713bbe9" name="ModelingProject2">
+    <elementDefinition Id="da90372f-aae7-4687-abee-04aaa87191cf" />
+  </package>
+</logicalClassDesignerModel>
