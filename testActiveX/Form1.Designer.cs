@@ -79,7 +79,7 @@
             this.groupBox1.Controls.Add(this.address);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmd);
-            this.groupBox1.Location = new System.Drawing.Point(1039, 32);
+            this.groupBox1.Location = new System.Drawing.Point(1293, 23);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -298,7 +298,6 @@
             this.configPLC_S71.Accept = 0;
             this.configPLC_S71.Command = 0;
             this.configPLC_S71.CurrentAccessLevel = 999;
-           // this.configPLC_S71.GroupSetup = 0;
             this.configPLC_S71.Location = new System.Drawing.Point(9, 9);
             this.configPLC_S71.Margin = new System.Windows.Forms.Padding(2);
             this.configPLC_S71.MinAccessLevelToConfigPlc = 9999;
@@ -309,9 +308,11 @@
             this.configPLC_S71.P4 = 0;
             this.configPLC_S71.P5 = 0;
             this.configPLC_S71.P6 = 0;
+            this.configPLC_S71.RtpAutomode = 1;
+            this.configPLC_S71.RtpId = 0;
+            this.configPLC_S71.SelectMode = 0;
             this.configPLC_S71.ShiberSelect = -1;
-           // this.configPLC_S71.SingleSetup = 1;
-            this.configPLC_S71.Size = new System.Drawing.Size(1024, 633);
+            this.configPLC_S71.Size = new System.Drawing.Size(1280, 820);
             this.configPLC_S71.TabIndex = 0;
             this.configPLC_S71.Load += new System.EventHandler(this.configPLC_S71_Load);
             // 
@@ -319,7 +320,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1233, 691);
+            this.ClientSize = new System.Drawing.Size(1479, 691);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.configPLC_S71);
             this.Margin = new System.Windows.Forms.Padding(2);

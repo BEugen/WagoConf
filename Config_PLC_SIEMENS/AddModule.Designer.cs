@@ -40,41 +40,46 @@
             // set_frm_l_type_modul
             // 
             this.set_frm_l_type_modul.AutoSize = true;
-            this.set_frm_l_type_modul.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.set_frm_l_type_modul.Location = new System.Drawing.Point(13, 25);
+            this.set_frm_l_type_modul.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.set_frm_l_type_modul.Location = new System.Drawing.Point(10, 20);
+            this.set_frm_l_type_modul.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.set_frm_l_type_modul.Name = "set_frm_l_type_modul";
-            this.set_frm_l_type_modul.Size = new System.Drawing.Size(101, 24);
+            this.set_frm_l_type_modul.Size = new System.Drawing.Size(109, 22);
             this.set_frm_l_type_modul.TabIndex = 0;
             this.set_frm_l_type_modul.Text = "Тип модуля";
             // 
             // set_frm_ddl_type_modul
             // 
             this.set_frm_ddl_type_modul.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set_frm_ddl_type_modul.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.set_frm_ddl_type_modul.FormattingEnabled = true;
             this.set_frm_ddl_type_modul.Items.AddRange(new object[] {
             "Модуль аналоговый ввода (AI)",
             "Модуль аналоговый вывода (AO)"});
-            this.set_frm_ddl_type_modul.Location = new System.Drawing.Point(139, 26);
+            this.set_frm_ddl_type_modul.Location = new System.Drawing.Point(126, 17);
+            this.set_frm_ddl_type_modul.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.set_frm_ddl_type_modul.Name = "set_frm_ddl_type_modul";
-            this.set_frm_ddl_type_modul.Size = new System.Drawing.Size(338, 24);
+            this.set_frm_ddl_type_modul.Size = new System.Drawing.Size(254, 30);
             this.set_frm_ddl_type_modul.TabIndex = 1;
             // 
             // set_frm_l_channel_count
             // 
             this.set_frm_l_channel_count.AutoSize = true;
-            this.set_frm_l_channel_count.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.set_frm_l_channel_count.Location = new System.Drawing.Point(13, 72);
+            this.set_frm_l_channel_count.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.set_frm_l_channel_count.Location = new System.Drawing.Point(10, 58);
+            this.set_frm_l_channel_count.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.set_frm_l_channel_count.Name = "set_frm_l_channel_count";
-            this.set_frm_l_channel_count.Size = new System.Drawing.Size(167, 24);
+            this.set_frm_l_channel_count.Size = new System.Drawing.Size(186, 22);
             this.set_frm_l_channel_count.TabIndex = 2;
             this.set_frm_l_channel_count.Text = "Количество каналов";
             // 
             // set_frm_n_channel_count
             // 
-            this.set_frm_n_channel_count.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.set_frm_n_channel_count.Location = new System.Drawing.Point(304, 70);
+            this.set_frm_n_channel_count.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.set_frm_n_channel_count.Location = new System.Drawing.Point(247, 57);
+            this.set_frm_n_channel_count.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.set_frm_n_channel_count.Name = "set_frm_n_channel_count";
-            this.set_frm_n_channel_count.Size = new System.Drawing.Size(173, 30);
+            this.set_frm_n_channel_count.Size = new System.Drawing.Size(133, 29);
             this.set_frm_n_channel_count.TabIndex = 3;
             this.set_frm_n_channel_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.set_frm_n_channel_count.Value = new decimal(new int[] {
@@ -86,8 +91,9 @@
             // set_frm_b_ok
             // 
             this.set_frm_b_ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.set_frm_b_ok.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.set_frm_b_ok.Location = new System.Drawing.Point(165, 140);
+            this.set_frm_b_ok.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.set_frm_b_ok.Location = new System.Drawing.Point(41, 114);
+            this.set_frm_b_ok.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.set_frm_b_ok.Name = "set_frm_b_ok";
             this.set_frm_b_ok.Size = new System.Drawing.Size(140, 40);
             this.set_frm_b_ok.TabIndex = 4;
@@ -96,8 +102,9 @@
             // set_frm_b_cancel
             // 
             this.set_frm_b_cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.set_frm_b_cancel.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.set_frm_b_cancel.Location = new System.Drawing.Point(337, 140);
+            this.set_frm_b_cancel.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.set_frm_b_cancel.Location = new System.Drawing.Point(220, 114);
+            this.set_frm_b_cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.set_frm_b_cancel.Name = "set_frm_b_cancel";
             this.set_frm_b_cancel.Size = new System.Drawing.Size(140, 40);
             this.set_frm_b_cancel.TabIndex = 5;
@@ -107,10 +114,10 @@
             // Set_form_module_add
             // 
             this.AcceptButton = this.set_frm_b_ok;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.set_frm_b_ok;
-            this.ClientSize = new System.Drawing.Size(496, 196);
+            this.ClientSize = new System.Drawing.Size(405, 172);
             this.Controls.Add(this.set_frm_b_cancel);
             this.Controls.Add(this.set_frm_b_ok);
             this.Controls.Add(this.set_frm_n_channel_count);
@@ -118,6 +125,7 @@
             this.Controls.Add(this.set_frm_ddl_type_modul);
             this.Controls.Add(this.set_frm_l_type_modul);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Set_form_module_add";

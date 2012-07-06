@@ -5,18 +5,18 @@
     <Setting Name="RtpConfigConnectionStringLocal" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=SIMATIC-XP\RTPPLCCONFIG;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=ARM-RTP3\RTPPLCCONFIG;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=SIMATIC-XP\RTPPLCCONFIG;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False</Value>
+      <Value Profile="(Default)">Data Source=ARM-RTP3\RTPPLCCONFIG;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False</Value>
     </Setting>
     <Setting Name="RtpConfigConnectionStringRemote" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=ARM-RTP4\RTPPLCCONFIG;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False</Value>
+      <Value Profile="(Default)">Data Source=ARM-RTP4\RTPPLCCONFIG;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

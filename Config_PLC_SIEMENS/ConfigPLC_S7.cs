@@ -69,6 +69,7 @@ namespace RtpWagoConf
         private delegate void WaitMessageArg(string text, bool waitVisible);
 
         private delegate void CheckShiberSetup(int indexRow, int indexColumn);
+        private delegate void MountSelectedSetup(int indexRow, int indexColumn, int indexItem);
 
         private Queue<CommandToPlc> commandToPlc;
         private readonly System.Timers.Timer _tmrElapsedCmd;
@@ -497,44 +498,59 @@ namespace RtpWagoConf
         private void CheckHardwareConfigError()
         {
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            var flag = data.GetErrorDownloadToPlc(_rtpid).First();
-            if (flag.changehardware == 1)
+            var flags = data.GetErrorDownloadToPlc(_rtpid).ToList();
+            if (flags.Count() > 0)
             {
-                checkHardwareIcon.Image = set_images.Images[3];
-                checkHardwareIcon.ToolTipText = "Конфигурация контроллера не соотвествует базе";
+                var flag = flags.First();
+                if (flag.changehardware == 1)
+                {
+                    checkHardwareIcon.Image = set_images.Images[3];
+                    checkHardwareIcon.ToolTipText = "Конфигурация контроллера не соотвествует базе";
+                }
+                else
+                {
+                    checkHardwareIcon.Image = set_images.Images[2];
+                    checkHardwareIcon.ToolTipText = "Конфигурация контроллера соответсвует базе";
+                }
+                if (flag.changegroupconfig == 1)
+                {
+                    checkGroupSetup.Image = set_images.Images[3];
+                    checkGroupSetup.ToolTipText = "Настройка группового режима не соотвествует базе";
+                }
+                else
+                {
+                    checkGroupSetup.Image = set_images.Images[2];
+                    checkGroupSetup.ToolTipText = "Настройка группового режима соответсвует базе";
+                }
+                if (flag.changesingleconfig == 1)
+                {
+                    checkSingleSetup.Image = set_images.Images[3];
+                    checkSingleSetup.ToolTipText = "Настройка одиночного режима не соотвествует базе";
+                }
+                else
+                {
+                    checkSingleSetup.Image = set_images.Images[2];
+                    checkSingleSetup.ToolTipText = "Настройка одиночного режима соответсвует базе";
+                }
+                if (flag.changeshiberconfig == 1)
+                {
+                    checkShiberSetup.Image = set_images.Images[3];
+                    checkShiberSetup.ToolTipText = "Настройка шибера не соотвествует базе";
+                }
+                else
+                {
+                    checkShiberSetup.Image = set_images.Images[2];
+                    checkShiberSetup.ToolTipText = "Настройка шибера соответсвует базе";
+                }
             }
             else
             {
                 checkHardwareIcon.Image = set_images.Images[2];
                 checkHardwareIcon.ToolTipText = "Конфигурация контроллера соответсвует базе";
-            }
-            if (flag.changegroupconfig == 1)
-            {
-                checkGroupSetup.Image = set_images.Images[3];
-                checkGroupSetup.ToolTipText = "Настройка группового режима не соотвествует базе";
-            }
-            else
-            {
                 checkGroupSetup.Image = set_images.Images[2];
                 checkGroupSetup.ToolTipText = "Настройка группового режима соответсвует базе";
-            }
-            if (flag.changesingleconfig == 1)
-            {
-                checkSingleSetup.Image = set_images.Images[3];
-                checkSingleSetup.ToolTipText = "Настройка одиночного режима не соотвествует базе";
-            }
-            else
-            {
                 checkSingleSetup.Image = set_images.Images[2];
                 checkSingleSetup.ToolTipText = "Настройка одиночного режима соответсвует базе";
-            }
-            if (flag.changeshiberconfig == 1)
-            {
-                checkShiberSetup.Image = set_images.Images[3];
-                checkShiberSetup.ToolTipText = "Настройка шибера не соотвествует базе";
-            }
-            else
-            {
                 checkShiberSetup.Image = set_images.Images[2];
                 checkShiberSetup.ToolTipText = "Настройка шибера соответсвует базе";
             }
@@ -1335,7 +1351,8 @@ namespace RtpWagoConf
                 cb.SelectedIndexChanged -= SbSelectedIndexChanged;
 
                 // now attach the event handler
-                cb.SelectedIndexChanged += SbSelectedIndexChanged;
+                cb.SelectedIndexChanged += SbSelectedIndexChanged; 
+ //               cb.BackColor = Color.Gainsboro;
             }
 
         }
@@ -1344,49 +1361,113 @@ namespace RtpWagoConf
         {
             DataGridViewComboBoxEditingControl dataGridViewComboBoxCell = (DataGridViewComboBoxEditingControl) sender;
             int selecedIndex = dataGridViewComboBoxCell.Items.IndexOf(dataGridViewComboBoxCell.SelectedItem);
+            //RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+            //if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2)
+            //{
+
+
+            //    var signalgroup = data.GetRtpSignalGroups().ToList();
+            //    if (signalgroup.Count > 0)
+            //    {
+            //        var selectedgroup = signalgroup[selecedIndex];
+            //        set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
+            //            selectedgroup.id;
+            //        var signalsIdForGroupId = data.GetSignalsIdForGroupId(selectedgroup.signalgroup,
+            //                                                              set_ddl_type_modul.SelectedIndex);
+            //      //  set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3].Value = "";
+            //        Type t =
+            //            set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3].ValueType;
+            //        ((DataGridViewComboBoxCell)
+            //         set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Clear();
+            //        foreach (var signal in signalsIdForGroupId)
+            //        {
+            //            ((DataGridViewComboBoxCell)
+            //             set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Add
+            //                (
+            //                    signal.signaldescription);
+
+            //        }
+
+            //        ((DataGridViewComboBoxCell)
+            //         set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Style.BackColor
+            //            = Color.Gainsboro;
+            //        set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3].ReadOnly =
+            //            false;
+            //    }
+            //}
+            //if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 3 &&
+            //    set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value != null)
+            //{
+            //    var signalForSelect =
+            //        data.GetRtpSignals(
+            //            (int) set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value,
+            //            set_ddl_type_modul.SelectedIndex).ToList();
+            //    if (signalForSelect.Count > 0)
+            //    {
+            //        var selectedsignals = signalForSelect[selecedIndex];
+
+            //        set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value =
+            //            selectedsignals.id;
+            //    }
+            //}
+                  set_dgv_channel_mount.BeginInvoke(new MountSelectedSetup(EndEditMount), new object[] { dataGridViewComboBoxCell.EditingControlRowIndex, dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex,
+            selecedIndex});
+            
+        }
+
+        private void EndEditMount(int indexRow, int indexColumn, int selectedIndex)
+        {
             RtpConfigDataContext data = new RtpConfigDataContext(_connection);
-            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 2)
+            if (indexColumn == 2)
             {
 
 
                 var signalgroup = data.GetRtpSignalGroups().ToList();
                 if (signalgroup.Count > 0)
                 {
-                    var selectedgroup = signalgroup[selecedIndex];
-                    set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value =
+                    var selectedgroup = signalgroup[selectedIndex];
+                    set_dgv_channel_mount.Rows[indexRow].Cells[5].Value =
                         selectedgroup.id;
                     var signalsIdForGroupId = data.GetSignalsIdForGroupId(selectedgroup.signalgroup,
                                                                           set_ddl_type_modul.SelectedIndex);
-                    set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3].Value = null;
+                      set_dgv_channel_mount.Rows[indexRow].Cells[3].Value = "";
                     ((DataGridViewComboBoxCell)
-                     set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Clear();
+                     set_dgv_channel_mount.Rows[indexRow].Cells[3]).Items.Clear();
                     foreach (var signal in signalsIdForGroupId)
                     {
                         ((DataGridViewComboBoxCell)
-                         set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3]).Items.Add
+                         set_dgv_channel_mount.Rows[indexRow].Cells[3]).Items.Add
                             (
                                 signal.signaldescription);
+
                     }
-                    set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[3].ReadOnly =
+
+                    ((DataGridViewComboBoxCell)
+                     set_dgv_channel_mount.Rows[indexRow].Cells[3]).Style.BackColor
+                        = Color.Gainsboro;
+                    set_dgv_channel_mount.Rows[indexRow].Cells[3].ReadOnly =
                         false;
                 }
             }
-            if (dataGridViewComboBoxCell.EditingControlDataGridView.CurrentCell.ColumnIndex == 3 &&
-                set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value != null)
+            if (indexColumn == 3 &&
+                set_dgv_channel_mount.Rows[indexRow].Cells[5].Value != null)
             {
                 var signalForSelect =
                     data.GetRtpSignals(
-                        (int) set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[5].Value,
+                        (int)set_dgv_channel_mount.Rows[indexRow].Cells[5].Value,
                         set_ddl_type_modul.SelectedIndex).ToList();
                 if (signalForSelect.Count > 0)
                 {
-                    var selectedsignals = signalForSelect[selecedIndex];
+                    var selectedsignals = signalForSelect[selectedIndex];
 
-                    set_dgv_channel_mount.Rows[dataGridViewComboBoxCell.EditingControlRowIndex].Cells[6].Value =
+                    set_dgv_channel_mount.Rows[indexRow].Cells[6].Value =
                         selectedsignals.id;
                 }
             }
+          //  set_dgv_channel_mount.EndEdit();
         }
+
+
 
         private void SetDdlTypeModulSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1412,7 +1493,7 @@ namespace RtpWagoConf
             {
 
 
-                groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
+              //  groupSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial"), 14);
                 groupSetup.Rows.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
@@ -2395,7 +2476,7 @@ namespace RtpWagoConf
             {
 
 
-                singleSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
+              //  singleSetup.ColumnHeadersDefaultCellStyle.Font = new Font(new FontFamily("Arial Narrow"), 10);
                 singleSetup.Rows.Clear();
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
