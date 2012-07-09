@@ -36,6 +36,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -68,8 +70,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.set_conmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.set_conmenu_add = new System.Windows.Forms.ToolStripMenuItem();
             this.set_conmenu_del = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,6 +108,13 @@
             this.set_l_name_plc = new System.Windows.Forms.Label();
             this.set_gb_channel_mount = new System.Windows.Forms.GroupBox();
             this.set_dgv_channel_mount = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.signalgroups = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.signals = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.cok = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.groupid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.signalid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tags = new System.Windows.Forms.TabPage();
             this.tag_descr = new System.Windows.Forms.DataGridView();
             this.typechannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -225,13 +232,6 @@
             this.pan_command_wait = new System.Windows.Forms.Panel();
             this.text_wait = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.signalgroups = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.signals = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.cok = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.groupid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.signalid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.set_conmenu.SuspendLayout();
             this.set_menu.SuspendLayout();
             this.set_setting.SuspendLayout();
@@ -737,6 +737,60 @@
             this.set_dgv_channel_mount.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SetDgvChannelMountCellContentClick);
             this.set_dgv_channel_mount.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.SetDgvChannelMountEditingControlShowing);
             // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // chnumber
+            // 
+            this.chnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.chnumber.DefaultCellStyle = dataGridViewCellStyle2;
+            this.chnumber.HeaderText = "Номер канала";
+            this.chnumber.MinimumWidth = 100;
+            this.chnumber.Name = "chnumber";
+            this.chnumber.ReadOnly = true;
+            // 
+            // signalgroups
+            // 
+            this.signalgroups.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 14F);
+            this.signalgroups.DefaultCellStyle = dataGridViewCellStyle3;
+            this.signalgroups.HeaderText = "Группа сигналов";
+            this.signalgroups.MinimumWidth = 100;
+            this.signalgroups.Name = "signalgroups";
+            // 
+            // signals
+            // 
+            this.signals.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.signals.HeaderText = "Сигнал";
+            this.signals.MinimumWidth = 100;
+            this.signals.Name = "signals";
+            // 
+            // cok
+            // 
+            this.cok.FillWeight = 80F;
+            this.cok.HeaderText = "Применить";
+            this.cok.Name = "cok";
+            this.cok.Width = 110;
+            // 
+            // groupid
+            // 
+            this.groupid.HeaderText = "groupid";
+            this.groupid.Name = "groupid";
+            this.groupid.Visible = false;
+            // 
+            // signalid
+            // 
+            this.signalid.HeaderText = "signalid";
+            this.signalid.Name = "signalid";
+            this.signalid.Visible = false;
+            // 
             // tags
             // 
             this.tags.Controls.Add(this.tag_descr);
@@ -758,7 +812,7 @@
             this.tag_descr.BackgroundColor = System.Drawing.Color.Gainsboro;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 14F);
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 12F);
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1913,7 +1967,7 @@
             this.shiberSetup.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle36.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle36.Font = new System.Drawing.Font("Arial", 14F);
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Arial", 12F);
             dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -2226,60 +2280,6 @@
             this.label3.Size = new System.Drawing.Size(435, 19);
             this.label3.TabIndex = 0;
             this.label3.Text = "Пожалуйста подождите идет выполнение команды...";
-            // 
-            // id
-            // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // chnumber
-            // 
-            this.chnumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.chnumber.DefaultCellStyle = dataGridViewCellStyle2;
-            this.chnumber.HeaderText = "Номер канала";
-            this.chnumber.MinimumWidth = 100;
-            this.chnumber.Name = "chnumber";
-            this.chnumber.ReadOnly = true;
-            // 
-            // signalgroups
-            // 
-            this.signalgroups.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 14F);
-            this.signalgroups.DefaultCellStyle = dataGridViewCellStyle3;
-            this.signalgroups.HeaderText = "Группа сигналов";
-            this.signalgroups.MinimumWidth = 100;
-            this.signalgroups.Name = "signalgroups";
-            // 
-            // signals
-            // 
-            this.signals.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.signals.HeaderText = "Сигнал";
-            this.signals.MinimumWidth = 100;
-            this.signals.Name = "signals";
-            // 
-            // cok
-            // 
-            this.cok.FillWeight = 80F;
-            this.cok.HeaderText = "Применить";
-            this.cok.Name = "cok";
-            this.cok.Width = 110;
-            // 
-            // groupid
-            // 
-            this.groupid.HeaderText = "groupid";
-            this.groupid.Name = "groupid";
-            this.groupid.Visible = false;
-            // 
-            // signalid
-            // 
-            this.signalid.HeaderText = "signalid";
-            this.signalid.Name = "signalid";
-            this.signalid.Visible = false;
             // 
             // ConfigPlcWago
             // 

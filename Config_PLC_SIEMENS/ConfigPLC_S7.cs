@@ -332,7 +332,7 @@ namespace RtpWagoConf
             group_setup.Enabled = true;
             single_setup.Enabled = true;
             shiber_setup.Enabled = true;
-            return false;
+            return true;
         }
 
         private void SetTreeviewMountNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -955,11 +955,15 @@ namespace RtpWagoConf
                 case 80:
                 case 90:
                 case 100:
+                case 110:
                     _accept = -1;
                     ExternalCommand();
 
                     break;
                 default:
+                    _tmrElapsedCmd.Stop();
+                    MessageBox.Show("Неправлильная команда от ПЛК", "Ошибка", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
                     _accept = -1;
                     break;
             }
@@ -1135,13 +1139,13 @@ namespace RtpWagoConf
             {
                 if (_selectMode == 1)
                 {
-                    typeWorkToGroupSetup.SelectedIndex = 1;
+                    
                     LoadGroupConfig();
                     tabConfiпWago.SelectedIndex = 2;
                 }
                 else if (_selectMode == 2)
                 {
-                    typeWorkToSingleSetup.SelectedIndex = 1;
+                    
                     LoadSingleConfig();
                     tabConfiпWago.SelectedIndex = 3;
                 }
@@ -1163,6 +1167,10 @@ namespace RtpWagoConf
                 tabConfiпWago.SelectedIndex = 2;
 
             }
+            typeWorkToGroupSetup.SelectedIndex = 1;
+            typeWorkToSingleSetup.SelectedIndex = 1;
+            typeWork.SelectedIndex = 1;
+            typeWorkToShiberSetup.SelectedIndex = 1;
             ChangeEnableButtons(tabConfiпWago.SelectedIndex);
             CheckHardwareConfigError();
             WaitMount(hideWait);
