@@ -347,7 +347,7 @@
             "Контроллером"});
             this.typeWork.MergeIndex = 1;
             this.typeWork.Name = "typeWork";
-            this.typeWork.Size = new System.Drawing.Size(177, 39);
+            this.typeWork.Size = new System.Drawing.Size(280, 39);
             this.typeWork.SelectedIndexChanged += new System.EventHandler(this.TypeWorkSelectedIndexChanged);
             // 
             // toolStripSeparator1
@@ -812,7 +812,7 @@
             this.tag_descr.BackgroundColor = System.Drawing.Color.Gainsboro;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 12F);
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 14F);
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1398,7 +1398,7 @@
             "Кофигурационной базой",
             "Контроллером"});
             this.typeWorkToGroupSetup.Name = "typeWorkToGroupSetup";
-            this.typeWorkToGroupSetup.Size = new System.Drawing.Size(177, 39);
+            this.typeWorkToGroupSetup.Size = new System.Drawing.Size(280, 39);
             this.typeWorkToGroupSetup.SelectedIndexChanged += new System.EventHandler(this.TypeWorkToGroupSetupSelectedIndexChanged);
             // 
             // toolStripSeparator4
@@ -1874,7 +1874,7 @@
             "Кофигурационной базой",
             "Контроллером"});
             this.typeWorkToSingleSetup.Name = "typeWorkToSingleSetup";
-            this.typeWorkToSingleSetup.Size = new System.Drawing.Size(177, 39);
+            this.typeWorkToSingleSetup.Size = new System.Drawing.Size(280, 39);
             this.typeWorkToSingleSetup.SelectedIndexChanged += new System.EventHandler(this.TypeWorkToSingleSetupSelectedIndexChanged);
             // 
             // toolStripSeparator6
@@ -1967,7 +1967,7 @@
             this.shiberSetup.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle36.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle36.Font = new System.Drawing.Font("Arial", 12F);
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Arial", 14F);
             dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -2220,7 +2220,7 @@
             "Кофигурационной базой",
             "Контроллером"});
             this.typeWorkToShiberSetup.Name = "typeWorkToShiberSetup";
-            this.typeWorkToShiberSetup.Size = new System.Drawing.Size(177, 39);
+            this.typeWorkToShiberSetup.Size = new System.Drawing.Size(280, 39);
             this.typeWorkToShiberSetup.SelectedIndexChanged += new System.EventHandler(this.TypeWorkToShiberSetupSelectedIndexChanged);
             // 
             // toolStripSeparator8

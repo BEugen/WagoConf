@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RtpConfig" Class="RtpConfigDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=HM\MSQL;Initial Catalog=RtpConfig;Integrated Security=True;Pooling=False" SettingsObjectName="RtpWagoConf.Properties.Settings" SettingsPropertyName="RtpConfigConnectionStringLocal" Provider="System.Data.SqlClient" />
   <Function Name="dbo.GetModule" Method="GetModule">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetModuleResult">
@@ -103,29 +102,6 @@
   <Function Name="dbo.GetGroupShiberSetup" Method="GetGroupShiberSetup">
     <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetGroupShiberSetupResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="sequencenumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="groupnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="timeBetwenGroupLoad" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="shiberdecription1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="timeOpen1" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="timeClose1" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="timeBetwenShiber1" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="reopenCountMax1" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="shiberdecription2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="timeOpen2" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="timeClose2" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="timeBetwenShiber2" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="reopenCountMax2" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="timeBetwenCycle" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="shibernumber1" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="shibernumber2" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetShibersConfigByGroupNumber" Method="GetShibersConfigByGroupNumber">
-    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="groupnumber" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetShibersConfigByGroupNumberResult">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="sequencenumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="groupnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -325,5 +301,27 @@
     <Parameter Name="value" Type="System.Int32" DbType="Int" />
     <Parameter Name="replication" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetShibersConfigByGroupNumber" Method="GetShibersConfigByGroupNumber">
+    <Parameter Name="rtpid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="groupnumber" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetShibersConfigByGroupNumberResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="groupnumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="timeBetwenGroupLoad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shiberdecription1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="timeOpen1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeClose1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenShiber1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reopenCountMax1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="shiberdecription2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="timeOpen2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeClose2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenShiber2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reopenCountMax2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timeBetwenCycle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="shibernumber1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shibernumber2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
   </Function>
 </Database>

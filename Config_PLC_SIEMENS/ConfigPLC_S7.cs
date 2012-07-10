@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
-using Microsoft.Win32;
 
 namespace RtpWagoConf
 {
@@ -49,6 +47,14 @@ namespace RtpWagoConf
             SetupTimeShibers2 = 10,
             SetupTimeBetwinCycle = 11
         }
+        protected enum FullLoad
+        {
+            NoFullLoad =0,
+            MountChannelFullLoad =1,
+            GroupConfigFullLoad = 2,
+            SingleConfigFullLoad = 3,
+            ShiberConfigFullLoad = 4
+        }
 
         #region VariableForPropertisSCADA
 
@@ -82,6 +88,7 @@ namespace RtpWagoConf
         private int _shiberNumberSetup = -1;
         private string _connection = "";
         private int _rtpAutomode = 1;
+        private FullLoad _fullLoad = FullLoad.NoFullLoad;
         public ConfigPlcWago()
         {
             InitializeComponent();
@@ -92,14 +99,6 @@ namespace RtpWagoConf
             commandToPlc = new Queue<CommandToPlc>();
             _accept = _command = 0;
             _params = new[] {0, 0, 0, 0, 0, 0};
-            
-            // For the Click event that is re-defined.
-            //base.Click += new EventHandler(ActiveXCtrl_Click);
-
-            // These functions are used to handle Tab-stops for the ActiveX 
-            // control (including its child controls) when the control is 
-            // hosted in a container.
-           // LostFocus += ActiveXCtrlLostFocus;
             ControlAdded += ActiveXCtrlControlAdded;
 
             // Raise custom Load event
@@ -109,9 +108,7 @@ namespace RtpWagoConf
 
         public new void Dispose()
         {
-          //  MethodInfo shutDown = typeof(SystemEvents).GetMethod("Shutdown", BindingFlags.NonPublic | BindingFlags.Static, (Binder)null, new Type[] { }, new ParameterModifier[] { });
-          //  shutDown.Invoke(null, new object[] {});
-
+          
             
             LostFocus -= ActiveXCtrlLostFocus;
             ControlAdded -= ActiveXCtrlControlAdded;
@@ -893,7 +890,7 @@ namespace RtpWagoConf
 
         private void CommandForPlc()
         {
-            if (commandToPlc.Count == 0)
+            if (commandToPlc.Count == 0)       
                 return;
             var comandAndParam = commandToPlc.Dequeue();
             _tmrElapsedCmd.Start();
@@ -901,11 +898,11 @@ namespace RtpWagoConf
             _params = comandAndParam.Values;
             text_wait.Text = "Команда PLC: " + _command + "; P1: " + _params[0] +
                              "; P2: " + _params[1] +
-                             ";\nP3: " + _params[2] +
+                             "; P3: " + _params[2] +
                              "; P4: " + _params[3] +
                              "; P5: " + _params[4] +
                              "; P6: " + _params[5] +
-                             "\n Ожидаем ответ PLC ";
+                             " Ожидаем ответ PLC ";
             if (!pan_command_wait.Visible)
                 WaitMount(true);
             if (null != CommandEvent)
@@ -980,6 +977,34 @@ namespace RtpWagoConf
             }
             else
             {
+                if (_fullLoad != FullLoad.NoFullLoad)
+                {
+                    RtpConfigDataContext data = new RtpConfigDataContext(_connection);
+                    switch (_fullLoad)
+                    {
+                        case FullLoad.MountChannelFullLoad:
+                            data.SetErrorDownloadToPlc(_rtpid, (int)FullLoad.MountChannelFullLoad, 0, 1);
+                            checkHardwareIcon.Image = set_images.Images[2];
+                            checkHardwareIcon.ToolTipText = "Конфигурация контроллера соответсвует базе";
+                            break;
+                        case FullLoad.GroupConfigFullLoad:
+                            data.SetErrorDownloadToPlc(_rtpid, (int)FullLoad.GroupConfigFullLoad, 0, 1);
+                            checkGroupSetup.Image = set_images.Images[2];
+                            checkGroupSetup.ToolTipText = "Настройка группового режима соответсвует базе";
+                            break;
+                        case FullLoad.SingleConfigFullLoad:
+                            data.SetErrorDownloadToPlc(_rtpid, (int)FullLoad.SingleConfigFullLoad, 0, 1);
+                            checkSingleSetup.Image = set_images.Images[2];
+                            checkSingleSetup.ToolTipText = "Настройка одиночного режима соответсвует базе";
+                            break;
+                        case FullLoad.ShiberConfigFullLoad:
+                            data.SetErrorDownloadToPlc(_rtpid, (int)FullLoad.ShiberConfigFullLoad, 0, 1);
+                            checkShiberSetup.Image = set_images.Images[2];
+                            checkShiberSetup.ToolTipText = "Настройка шибера соответсвует базе";
+                            break;
+                    }
+                    _fullLoad = FullLoad.NoFullLoad;
+                }
                 WaitMount(false);
             }
             _tmrElapsedCmd.Stop();
@@ -1051,6 +1076,7 @@ namespace RtpWagoConf
                 int[] paramset1 = new int[6];
                 int[] paramset2 = new int[6];
                 commandToPlc.Clear();
+                _fullLoad = FullLoad.MountChannelFullLoad;
                 var commandOne = new CommandToPlc();
                 RtpConfigDataContext data = new RtpConfigDataContext(_connection);
                 var groupssignal = data.GetRtpSignalGroups().ToList();
@@ -1106,7 +1132,7 @@ namespace RtpWagoConf
 
                     }
                 }
-                data.SetErrorDownloadToPlc(_rtpid, 1, 0, 1); //clear error
+             //   data.SetErrorDownloadToPlc(_rtpid, 1, 0, 1); //clear error
                 CommandForPlc();
             }
             catch (Exception ex)
@@ -1959,7 +1985,7 @@ namespace RtpWagoConf
 
         private void EndEdit(int stub)
         {
-            groupSetup.EndEdit();
+           // groupSetup.EndEdit();
         }
 
 
@@ -2396,6 +2422,7 @@ namespace RtpWagoConf
             {
 
                 commandToPlc.Clear();
+                _fullLoad = FullLoad.GroupConfigFullLoad;
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 pan_command_wait.BeginInvoke(ui, new object[] {true});
@@ -2419,7 +2446,7 @@ namespace RtpWagoConf
                     commandToPlc.Clear();
                     return;
                 }
-                data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
+               // data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
                 pan_command_wait.BeginInvoke(ui, new object[] {false});
                 CommandForPlc();
             }
@@ -2871,7 +2898,7 @@ namespace RtpWagoConf
         }
         private void EndSingleEdit(int stub)
         {
-            singleSetup.EndEdit();
+           // singleSetup.EndEdit();
         }
 
         private void CheckSingleChangeSetup(int rowIndex, int columnIndex)
@@ -3403,6 +3430,7 @@ namespace RtpWagoConf
             try
             {
                 commandToPlc.Clear();
+                _fullLoad = FullLoad.ShiberConfigFullLoad;
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 if (pan_command_wait.InvokeRequired)
@@ -3427,7 +3455,7 @@ namespace RtpWagoConf
                     commandToPlc.Clear();
                     return;
                 }
-                data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
+               // data.SetErrorDownloadToPlc(_rtpid, 2, 0, 1);
                 if (pan_command_wait.InvokeRequired)
                     pan_command_wait.BeginInvoke(ui, new object[] {false});
                 CommandForPlc();
@@ -3459,6 +3487,7 @@ namespace RtpWagoConf
             try
             {
                 commandToPlc.Clear();
+                _fullLoad = FullLoad.SingleConfigFullLoad;
                 text_wait.Text = "Идет загрузка с конфигурационной базы...";
                 Ui ui = WaitMount;
                 if (pan_command_wait.InvokeRequired)
@@ -3484,7 +3513,7 @@ namespace RtpWagoConf
                     commandToPlc.Clear();
                     return;
                 }
-                data.SetErrorDownloadToPlc(_rtpid, 4, 0, 1);
+               // data.SetErrorDownloadToPlc(_rtpid, 4, 0, 1);
                 if (pan_command_wait.InvokeRequired)
                     pan_command_wait.BeginInvoke(ui, new object[] {false});
                 CommandForPlc();

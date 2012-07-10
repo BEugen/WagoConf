@@ -40,7 +40,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=ARM-RTP3\RTPPLCCONFIG;User ID=sa;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=ARM-RTP3\RTPPLCCONFIG;Persist Security Info=True;User ID=sa;Pooling=False</TargetConnectionString>
     <TargetDatabase>RtpConfig</TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <SuppressWarnings>
