@@ -343,7 +343,7 @@
             // 
             this.typeWork.Font = new System.Drawing.Font("Arial", 14F);
             this.typeWork.Items.AddRange(new object[] {
-            "Кофигурационной базой",
+            "Конфигурационной базой",
             "Контроллером"});
             this.typeWork.MergeIndex = 1;
             this.typeWork.Name = "typeWork";
@@ -1395,7 +1395,7 @@
             // 
             this.typeWorkToGroupSetup.Font = new System.Drawing.Font("Arial", 14F);
             this.typeWorkToGroupSetup.Items.AddRange(new object[] {
-            "Кофигурационной базой",
+            "Конфигурационной базой",
             "Контроллером"});
             this.typeWorkToGroupSetup.Name = "typeWorkToGroupSetup";
             this.typeWorkToGroupSetup.Size = new System.Drawing.Size(280, 39);
@@ -1871,7 +1871,7 @@
             // 
             this.typeWorkToSingleSetup.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.typeWorkToSingleSetup.Items.AddRange(new object[] {
-            "Кофигурационной базой",
+            "Конфигурационной базой",
             "Контроллером"});
             this.typeWorkToSingleSetup.Name = "typeWorkToSingleSetup";
             this.typeWorkToSingleSetup.Size = new System.Drawing.Size(280, 39);
@@ -2217,7 +2217,7 @@
             // 
             this.typeWorkToShiberSetup.Font = new System.Drawing.Font("Arial", 14F);
             this.typeWorkToShiberSetup.Items.AddRange(new object[] {
-            "Кофигурационной базой",
+            "Конфигурационной базой",
             "Контроллером"});
             this.typeWorkToShiberSetup.Name = "typeWorkToShiberSetup";
             this.typeWorkToShiberSetup.Size = new System.Drawing.Size(280, 39);
