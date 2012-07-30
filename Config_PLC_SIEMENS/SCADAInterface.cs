@@ -39,5 +39,11 @@ namespace RtpWagoConf
 
         [DispId(2)]
         void BackPageEvent();
+
+        [DispId(3)]
+        void StartLoadEvent();
+
+        [DispId(4)]
+        void EndLoadEvent();
     }
 }

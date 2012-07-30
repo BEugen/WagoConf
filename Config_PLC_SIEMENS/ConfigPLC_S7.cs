@@ -292,8 +292,16 @@ namespace RtpWagoConf
         [ComVisible(false)]
         public delegate void BackPageEventHandler();
 
+        [ComVisible(false)]
+        public delegate void StartLoadEventHandler();
+
+        [ComVisible(false)]
+        public delegate void EndLoadEventHandler();
+
         public event CommandEventHandler CommandEvent = null;
         public event BackPageEventHandler BackPageEvent = null;
+        public event StartLoadEventHandler StartLoadEvent = null;
+        public event EndLoadEventHandler EndLoadEvent = null;
 
 
         #endregion
@@ -890,7 +898,7 @@ namespace RtpWagoConf
 
         private void CommandForPlc()
         {
-            if (commandToPlc.Count == 0)       
+            if (commandToPlc.Count == 0) 
                 return;
             var comandAndParam = commandToPlc.Dequeue();
             _tmrElapsedCmd.Start();
@@ -904,7 +912,11 @@ namespace RtpWagoConf
                              "; P6: " + _params[5] +
                              " Ожидаем ответ PLC ";
             if (!pan_command_wait.Visible)
+            {
+                if (StartLoadEvent != null)
+                    StartLoadEvent();
                 WaitMount(true);
+            }
             if (null != CommandEvent)
                 CommandEvent();
         }
@@ -1006,6 +1018,8 @@ namespace RtpWagoConf
                     _fullLoad = FullLoad.NoFullLoad;
                 }
                 WaitMount(false);
+                if (EndLoadEvent != null)
+                    EndLoadEvent();
             }
             _tmrElapsedCmd.Stop();
         }
